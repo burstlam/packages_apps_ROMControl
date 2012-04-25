@@ -41,6 +41,7 @@
     <string name="ok">OK</string>
 
     <!-- Navigation Bar -->
+    <string name="title_pref_enable_bar">Enable Navigation Bar</string>
     <string name="title_pref_menu_display">Menu location</string>
     <string name="summary_pref_menu_display">Remember to remove your menu buttons if you\'re using the big menu button!</string>
     <string name="navigation_bar">Navigation bar</string>
