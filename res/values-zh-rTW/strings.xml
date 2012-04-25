@@ -3,7 +3,7 @@
     <string name="app_name">固件-進階控制</string>
 
     <!-- Main -->
-    <string name="user_interface">使用者介面</string>
+    <string name="user_interface">使用者界面</string>
     <string name="general_ui">一般介面</string>
     <string name="lockscreen_options">鎖屏</string>
     <string name="power_menu_optons">電源鍵菜單</string>
@@ -11,7 +11,7 @@
     <string name="power_saver">省電功能</string>
     <string name="led_options">LED指示燈</string>
     <string name="statusbar">狀態欄</string>
-    <string name="general">通知欄及其他</string>
+    <string name="general">通知欄及其他常規設定</string>
     <string name="toggles_layout">快捷開關</string>
     <string name="clock">時鐘</string>
     <string name="battery">電池</string>
@@ -101,7 +101,7 @@
 	<string name="enable_volume_options">啟用音效調校項目</string>
 	
 	<string name="rotate_180_title">180°旋轉</string>
-	<string name="rotate_180_summary">容許顯示上下翻轉!</string>
+	<string name="rotate_180_summary">容許顯示180°旋轉!</string>
 
 	<string name="horizontal_recents_task_panel_title">橫向卷動顯示任務管理員</string>
 	<string name="horizontal_recents_task_panel_summary">利用 WebOS橫向卷動方式顯示任務管理員. 使用者介面會在十秒后重啟, 如果失敗,直接按電源鍵菜單選擇重啟即可.</string>
@@ -111,7 +111,7 @@
 
         <string name="disable_bugmailer_title">關閉BUG MAILER</string>
 
-	<string name="lcd_density_title">LCD屏幕解像度</string>
+	<string name="lcd_density_title">LCD屏幕密度</string>
         <string name="lcd_density_summary">更改屏幕顯示比例</string>
 
 	<!-- CRT animations -->
@@ -120,7 +120,7 @@
 	<string name="crt_off_title">CRT 關機動畫</string>
 
 	<!-- LCD Density -->
-	<string name="lcd_density_wizard">LCD解像度精靈</string>
+	<string name="lcd_density_wizard">LCD解像度指南</string>
 	<string name="follow_through_title">跟從指示!</string>
 	<string name="follow_through_summary">確保您按照指示完成每一個步驟才進行下一步。</string>
 	<string name="stock_density_title">1. 使用默認LCD解像度</string>
@@ -172,8 +172,8 @@
     <string name="lockscreen_action_none">空白</string>
     <string name="lockscreen_landscape_title">支援橫屏顯示解屏界面</string>
     <string name="lockscreen_landscape_summary">於鎖屏中啟用橫向界面</string>
-    <string name="lockscreen_quick_unlock_control_title">快速解鎖</string>
-    <string name="lockscreen_quick_unlock_control_summary">密碼或數字解鎖毋須輸入ENTER確認.</string>
+    <string name="lockscreen_quick_unlock_control_title">快速PIN解鎖</string>
+    <string name="lockscreen_quick_unlock_control_summary">密碼或數字PIN解鎖毋須輸入ENTER確認.</string>
     <string name="enable_fast_torch_title">手電筒快捷模式</string>
     <string name="enable_fast_torch_summary">屏幕關閉時, 長按電源鍵能打開LED手電筒.放開電源鍵則會自動關閉</string>
     <string name="lockscreen_wallpaper_title">選擇鎖屏壁紙</string>
@@ -189,11 +189,11 @@
     <string name="lockscreen_calendar_use_colors_title">使用調色</string>
     <string name="lockscreen_calendar_use_colors_summary">鎖屏活動文字內容將以設定顏色顯示</string>
     <string name="lockscreen_calendar_hide_ongoing_title">隱藏正在進行的活動</string>
-    <string name="lockscreen_calendar_hide_ongoing_summary">啟用後,正在進行的活動將不會顯示.</string>
+    <string name="lockscreen_calendar_hide_ongoing_summary">啟用後,已開始的活動將不會顯示.</string>
     <string name="lockscreen_calendar_flip_title">多重顯示</string>
     <string name="lockscreen_calendar_flip_summary">啟用後,小工具會在鎖屏中以捲動方式顯示未來24小時發生的活動.</string>
     <string name="lockscreen_calendar_interval_title">捲動間距</string>
-    <string name="lockscreen_calendar_interval_summary">設定捲動動畫更替時間.</string>
+    <string name="lockscreen_calendar_interval_summary">設定捲動動畫更替時間(秒).</string>
 
     <!-- Power Menu -->
     <string name="title_show_power_saver">顯示省電模式開關</string>
@@ -218,12 +218,12 @@
     <string name="title_pref_powersaving_sync_screen_off_delay">同步間隔時間</string>
     <string name="summary_pref_powersaving_sync_screen_off_delay">設置強制同步間隔時間</string>
    
-    <string name="powersaver_data_cat">數據</string>
-    <string name="powersaver_sync_cat">同步</string>
+    <string name="powersaver_data_cat">移動數據</string>
+    <string name="powersaver_sync_cat">數據同步</string>
 
     <string name="screen_off_wifi_action">WIFI管理</string>
     <string name="sync_data_usage">同步管理</string>
-    <string name="sync_mobile_data_preference">流動數據管理</string>
+    <string name="sync_mobile_data_preference">移動數據管理</string>
 
     <!--  LED -->
     <string name="title_led_on">指示燈亮起間隔</string>
@@ -249,12 +249,12 @@
     <string name="adb_icon_title">啟用USB偵錯模式提示</string>
     <string name="adb_icon_summary">選擇是否於狀態欄顯示圖示</string>
 
-    <string name="statusbar_transparency">狀態欄透明</string>
+    <string name="statusbar_transparency">下拉通知欄透明度</string>
     <string name="statusbar_transparency_summary">開啟此設定可能影响效能及造成耗電.(需要重啟使用者介面)</string>
 
-    <string name="statusbar_layout">通知欄風格</string>
+    <string name="statusbar_layout">下拉通知欄風格</string>
     <string name="statusbar_layout_summary">改變通知欄風格風格 (需要重啟使用者介面)</string>
-    <string name="statusbar_fontsize">狀態欄字體大小</string>
+    <string name="statusbar_fontsize">字體大小</string>
     <string name="statusbar_fontsize_summary">改變字體大小</string>
 
     <!-- Statusbar | Battery -->

@@ -228,7 +228,7 @@
 		<item>只顯示默認圖示</item>
 		<item>只顯示精確數值</item>
 		<item>顯示圖示及精確數值</item>
-		<item>顯示圖示(精確數值置中)</item>
+		<item>顯示圖示及精確數值(置中對齊)</item>
                 <item>顯示環形圖示精確數值</item>
 		<item>隱藏</item>
 	</string-array>
