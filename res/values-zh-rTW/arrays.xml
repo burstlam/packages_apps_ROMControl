@@ -327,6 +327,7 @@
 		<item>36 dp</item>
 		<item>30 dp</item>
 		<item>24 dp</item>
+		<item>0 dp</item>
 	</string-array>
 	
 	<string-array name="navigation_bar_height_entries">
@@ -335,6 +336,7 @@
 		<item>36 dp</item>
 		<item>30 dp</item>
 		<item>24 dp</item>
+		<item>0 dp</item>
 	</string-array>
 
 	<string-array name="navbar_button_entries">

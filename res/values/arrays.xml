@@ -639,6 +639,7 @@
 		<item>36 dp</item>
 		<item>30 dp</item>
 		<item>24 dp</item>
+                <item>0 dp</item>
 	</string-array>
 
 	<string-array name="navigation_bar_width" translatable="false">
@@ -646,6 +647,7 @@
 		<item>36</item>
 		<item>30</item>
 		<item>24</item>
+                <item>0</item>
 	</string-array>
 
 	<string-array name="navigation_bar_height_entries">
@@ -654,6 +656,7 @@
 		<item>36 dp</item>
 		<item>30 dp</item>
 		<item>24 dp</item>
+                <item>0 dp</item>
 	</string-array>
 
 
@@ -663,6 +666,7 @@
 		<item>36</item>
 		<item>30</item>
 		<item>24</item>
+                <item>0</item>
 	</string-array>
 
 	<string-array name="navigation_bar_qty_entries">
