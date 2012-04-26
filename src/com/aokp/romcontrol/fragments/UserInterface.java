@@ -81,7 +81,7 @@ public class UserInterface extends AOKPPreferenceFragment implements
 
         mEnableVolumeOptions = (CheckBoxPreference) findPreference(PREF_ENABLE_VOLUME_OPTIONS);
         mEnableVolumeOptions.setChecked(Settings.System.getInt(getActivity().getContentResolver(),
-                Settings.System.ENABLE_VOLUME_OPTIONS, 0) == 1);
+                Settings.System.ENABLE_VOLUME_OPTIONS, 1) == 1);
 
         mCustomLabel = findPreference(PREF_CUSTOM_CARRIER_LABEL);
         updateCustomLabelTextSummary();
