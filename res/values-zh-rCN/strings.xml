@@ -48,7 +48,7 @@
     <string name="title_pref_menu_display">MENU键设置</string>
     <string name="summary_pref_menu_display">设置MENU键(下方状态栏虚拟键)显示位置,使用旧式 MENU 键时务必选择移除 MENU 键</string>
     <string name="navigation_bar">导航栏</string>
-    <string name="navigation_bar_tint_title">虚拟键着色(即:为反白图案更改着色) </string>
+    <string name="navigation_bar_tint_title">虚拟键着色(反白图案)</string>
     <string name="navigation_bar_glow_tint_title">虚拟键亮色</string>
     <string name="navigation_bar_glow_tint_summary">更改按键发出的亮色.</string>
     
