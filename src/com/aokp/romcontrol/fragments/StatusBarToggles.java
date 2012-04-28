@@ -63,7 +63,7 @@ public class StatusBarToggles extends PreferenceFragment implements OnPreference
         mToggleStyle = (ListPreference) findPreference(PREF_TOGGLES_STYLE);
         mToggleStyle.setOnPreferenceChangeListener(this);
         mToggleStyle.setValue(Integer.toString(Settings.System.getInt(getActivity()
-                .getContentResolver(), Settings.System.STATUSBAR_TOGGLES_STYLE, 3)));
+                .getContentResolver(), Settings.System.STATUSBAR_TOGGLES_STYLE, 2)));
 
         mAlternateButtonLayout = (CheckBoxPreference) findPreference(PREF_ALT_BUTTON_LAYOUT);
         mAlternateButtonLayout.setChecked(Settings.System.getInt(
