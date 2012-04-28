@@ -439,7 +439,7 @@
 	<string name="toast_min_max_error02">CPU频率下限数值不可高于上限</string>
 
 	<!-- list_voltage -->
-	<string name="voltage_control">电压控制</string>
+	<string name="volt_control">电压控制</string>
 	<string name="freq">频率</string>
 	<string name="current">当前 mV</string>
 	<string name="saved">mV 已保存</string>

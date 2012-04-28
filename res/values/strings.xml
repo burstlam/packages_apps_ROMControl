@@ -445,6 +445,7 @@
 	<string name="toast_min_max_error02">Min CPU cannot be higher than max CPU</string>
 
 	<!-- list_voltage -->
+	<string name="volt_control">Voltage Control</string>
 	<string name="freq">Frequency</string>
 	<string name="current">mV current</string>
 	<string name="saved">mV saved</string>
