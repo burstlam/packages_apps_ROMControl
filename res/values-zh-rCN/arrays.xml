@@ -165,8 +165,8 @@
 	<string-array name="long_press_home_entries">
 		<item>系统默认</item>
 		<item>不做任何动作</item>
-		<item>旧ICS风格任务管理员</item>
-		<item>最近任务管理员</item>
+		<item>任务管理员:2.3版本风格</item>
+		<item>任务管理员:ICS风格</item>
 	</string-array>
 
 	<string-array name="long_press_home_values">
@@ -183,11 +183,11 @@
 	</string-array>
 
         <string-array name="pref_lockscreen_options_entries">
-		<item>预设风格</item>
-		<item>Quad风格</item>
-                <item>Octo风格</item>
-                <item>AOSP风格</item>
-                <item>Honeycomb风格</item>
+		<item>ICS预设风格</item>
+		<item>QUAD四鍵风格</item>
+                <item>OCTO多鍵风格</item>
+                <item>AOSP开源风格</item>
+                <item>Honeycomb蜂窝风格</item>
 	</string-array>
 
 	<string-array name="pref_lockscreen_calendar_interval_entries">
@@ -278,7 +278,7 @@
 
 	<string-array name="available_toggles_values">
 		<item>自动旋转</item>
-		<item>蓝芽</item>
+		<item>蓝牙</item>
 		<item>GPS</item>
 		<item>WIFI</item>
 		<item>飞航模式</item>

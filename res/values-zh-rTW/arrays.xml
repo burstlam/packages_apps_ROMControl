@@ -158,8 +158,8 @@
 	<string-array name="long_press_home_entries">
 		<item>系統默認</item>
 		<item>不做任何動作</item>
-		<item>前ICS風格任務管理員</item>
-		<item>最近任務管理員</item>
+		<item>舊版本任務管理員</item>
+		<item>ICS版本任務管理員</item>
 	</string-array>
 
     <string-array name="pref_lockscreen_options_values">
@@ -247,7 +247,7 @@
 
 	<string-array name="available_toggles_values">
 		<item>自動旋轉</item>
-		<item>藍芽</item>
+		<item>藍牙</item>
 		<item>GPS</item>
 		<item>WIFI</item>
 		<item>飛航模式</item>

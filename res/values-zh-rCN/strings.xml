@@ -372,7 +372,7 @@
 	<string name="pt_testing_menu">测试目录</string>
 	<!-- Start up tweaks -->
 	<string name="pt_init_d">开机工具</string>
-	<string name="pt_enable_init_d">使用启动调</string>
+	<string name="pt_enable_init_d">使用启动脚本</string>
 	<string name="pt_zipalign">Zipalign压缩优化</string>
 	<string name="pt_enable_sd_boost">启用SD卡读取加速</string>
 	<string name="pt_sd_boost">预读数值</string>
@@ -415,8 +415,7 @@
 	<string name="ps_dsp_manager">DSP管理员</string>
 	<string name="ps_testing_menu">手机资讯, 电池资讯, 使用统计</string>
 	<!-- Start up tweaks -->
-	<string name="ps_init_d">调校 init.d 开机优化脚本
-	</string>
+	<string name="ps_init_d">init.d 开机优化脚本</string>
 	<string name="ps_enable_init_d">启用/关闭开机优化</string>
 	<string name="ps_zipalign">每次启动手机时对未优化的程序进行 Zipalign 优化</string>
 	<string name="ps_enable_sd_boost">启动/关闭SD卡加速</string>
