@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">ROMControl 進階設定</string>
+    <string name="app_name">ROMControl</string>
 
     <!-- Main -->
     <string name="user_interface">使用者界面</string>
