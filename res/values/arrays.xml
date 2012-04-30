@@ -483,7 +483,7 @@
 		<item>4</item>
 	</string-array>
 
-	<string-array name="available_toggles_entries" translatable="false">
+	<string-array name="available_toggles_entries">
 		<item>ROTATE</item>
 		<item>BT</item>
 		<item>GPS</item>
@@ -496,18 +496,18 @@
 		<item>SWAGGER</item>
 	</string-array>
 
-	<string-array name="available_toggles_values">
-		<item>Auto-rotate</item>
-		<item>BT</item>
-		<item>GPS</item>
-		<item>Wi-Fi</item>
-		<item>Airplane mode</item>
-		<item>Vibrate</item>
-		<item>Silent</item>
-		<item>Torch</item>
-		<item>Sync</item>
-		<item>Swagger</item>
-	</string-array>
+        <string-array name="available_toggles_values">
+                <item>Auto-rotate</item>
+                <item>BT</item>
+                <item>GPS</item>
+                <item>Wi-Fi</item>
+                <item>Airplane mode</item>
+                <item>Vibrate</item>
+                <item>Silent</item>
+                <item>Torch</item>
+                <item>Sync</item>
+                <item>Swagger</item>
+        </string-array>
 
 	<string-array name="lockscreen_choice_entries">
 		<item>Unlock</item>

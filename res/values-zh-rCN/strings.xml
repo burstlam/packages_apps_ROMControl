@@ -65,8 +65,8 @@
     <string name="navbar_qty_title">设置虚拟键数目</string>
     <string name="navbar_qty_summary">选择按键数目</string>
 
-    <string name="navbar_action_title">屏幕直向时点击%1$s动作:&amp; </string>
-    <string name="navbar_longpress_title">屏幕横向时长按%1$s动作:&amp; </string>
+    <string name="navbar_action_title">屏幕直向时点击%1$s动作: </string>
+    <string name="navbar_longpress_title">屏幕横向时长按%1$s动作: </string>
     <string name="navbar_action_home">Home键</string>
     <string name="navbar_action_back">返回键</string>
     <string name="navbar_action_recents">最近打开</string>
@@ -526,6 +526,4 @@
     <string name="weather_47">局部地区性雷暴</string>
     <!-- Forecase unavailable -->
     <string name="weather_3200"></string>
-    
-    
 </resources>
