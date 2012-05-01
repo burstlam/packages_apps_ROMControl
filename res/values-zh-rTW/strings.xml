@@ -450,6 +450,22 @@
 	<string name="apply_values">套用設置</string>
 
         <string name="dpi">DPI</string>
+        <string name="donate_roman">https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=MZD7JLRX6P99Y</string>
+        <string name="donate_whitehawk">https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=8W7F2Y7S7KRM6</string>
+        <string name="donate_zaph">https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=AW4DJFL3UWKS2</string>
+        <string name="donate_protekk">https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=YJTUMSBC2TRHS</string>
+        <string name="donate_khasmek">@null</string>
+        <string name="donate_sethyx">https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=5R4DYJLDYDRAU</string>
+        <string name="devs">開發者</string>
+        <string name="aokp">Android Open Kang Project</string>
+        <string name="aokp_website_title">AOKP 官網</string>
+        <string name="aokp_website_summary">"www.aokp.co - 可至此網址取得最新發佈版本。"</string>
+        <string name="aokp_source_title">AOKP 原始碼</string>
+        <string name="aokp_source_summary">"AOKP 屬完全開放之原始碼。可於 github.com/aokp 取得最新資源。"</string>
+        <string name="aokp_irc_title">參與 IRC</string>
+        <string name="aokp_irc_summary">"\#teamkang @ irc.freenode.net 正體中文化：bulin24 etc."</string>
+        <string name="about_aokp">關於 AOKP</string>
+        <string name="about_aokp_summary">@null</string>
 
     <!--  Kernel Tweaks -->
         <string name="pt_fast_charge_boot">快充模式</string>
@@ -474,13 +490,13 @@
     <string name="weather_2">颶風</string>
     <string name="weather_3">強雷暴</string>
     <string name="weather_4">雷暴</string>
-    <string name="weather_5">雪+凍雨</string>
-    <string name="weather_6">雨+凍雨</string>
+    <string name="weather_5">雪混凍雨</string>
+    <string name="weather_6">雨混霰</string>
     <string name="weather_7">凍雨</string>
     <string name="weather_8">凍毛毛雨</string>
-    <string name="weather_9">凍毛毛雨</string>
+    <string name="weather_9">微雨</string>
     <string name="weather_10">冷雨</string>
-    <string name="weather_11">陣雨</string>
+    <string name="weather_11">凍雨</string>
     <string name="weather_12">陣雨</string>
     <string name="weather_13">雪花</string>
     <string name="weather_14">光陣雪</string>
@@ -491,27 +507,27 @@
     <string name="weather_19">沙塵</string>
     <string name="weather_20">霧</string>
     <string name="weather_21">灰霾</string>
-    <string name="weather_22">Smoky</string>
+    <string name="weather_22">煙霧</string>
     <string name="weather_23">大風</string>
     <string name="weather_24">風</string>
     <string name="weather_25">冷</string>
     <string name="weather_26">密雲</string>
     <!-- mostly cloudy (night) -->
-    <string name="weather_27">大致多雲</string>
+    <string name="weather_27">晚間多雲</string>
     <!-- mostly cloudy (day) -->
-    <string name="weather_28">大致多雲</string>
+    <string name="weather_28">日間多雲</string>
     <!-- partly cloudy (night) -->
     <string name="weather_29">天陰</string>
     <!-- partly cloudy (day) -->
-    <string name="weather_30">天陰</string>
+    <string name="weather_30">天陰間中有陽光</string>
     <!-- clear (night) -->
-    <string name="weather_31">天晴</string>
-    <string name="weather_32">陽光</string>
+    <string name="weather_31">夜空晴朗</string>
+    <string name="weather_32">晴朗</string>
     <!-- fair (night) -->
-    <string name="weather_33">一般</string>
+    <string name="weather_33">夜空薄霧</string>
     <!-- fair (day) -->
-    <string name="weather_34">一般</string>
-    <string name="weather_35">雨+凍雹</string>
+    <string name="weather_34">晴朗有霧</string>
+    <string name="weather_35">雨混凍雹</string>
     <string name="weather_36">炎熱</string>
     <string name="weather_37">局部地區性雷暴</string>
     <string name="weather_38">凌散雷暴</string>
@@ -519,7 +535,7 @@
     <string name="weather_40">凌散降雨</string>
     <string name="weather_41">大雪</string>
     <string name="weather_42">凌散降雪</string>
-    <string name="weather_43">凌散降雪</string>
+    <string name="weather_43">凌散降雪時有風</string>
     <string name="weather_44">大致多雲</string>
     <string name="weather_45">雷暴</string>
     <string name="weather_46">降雪</string>
