@@ -197,6 +197,7 @@
 
     <!-- Power Menu -->
     <string name="title_show_power_saver">顯示省電模式開關</string>
+    <string name="summary_show_power_saver">你必須先啟用省電模式功能。</string>
     <string name="title_show_screenshot">顯示屏幕截圖開關</string>
     <string name="title_show_torch_toggle">顯示手電筒開關</string>  
     <string name="title_show_airplane_toggle">顯示飛航模式開關</string>
@@ -231,6 +232,7 @@
     <string name="title_led_off">指示燈熄滅間隔</string>
     <string name="summary_led_off">@null</string>
     <string name="led_color_title">指示燈顏色</string>
+    <string name="led_color_summary">可改變指示燈顏色，應用程式本身之設定值仍可取代此設定。</string>
     <string name="title_led_screen_on">亮屏時指示燈如常閃動</string>
     <string name="summary_led_screen_on">@null</string>
 
@@ -439,7 +441,7 @@
 	<string name="toast_min_max_error02">CPU頻率下限數值不可高於上限</string>
 
 	<!-- list_voltage -->
-	<string name="volt_control">電壓控制</string>
+	<string name="pt_volt_control">電壓控制</string>
 	<string name="freq">頻率</string>
 	<string name="current">當前 mV</string>
 	<string name="saved">mV 已保存</string>
@@ -496,7 +498,7 @@
     <string name="weather_8">凍毛毛雨</string>
     <string name="weather_9">微雨</string>
     <string name="weather_10">冷雨</string>
-    <string name="weather_11">凍雨</string>
+    <string name="weather_11">雨</string>
     <string name="weather_12">陣雨</string>
     <string name="weather_13">雪花</string>
     <string name="weather_14">光陣雪</string>
@@ -544,3 +546,4 @@
     <string name="weather_3200"></string>
 
 </resources>
+
