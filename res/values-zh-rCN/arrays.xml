@@ -2,71 +2,71 @@
 <resources>
 
 	<string-array name="pref_navigation_menu_entries">
-		<item>右邊</item>
-		<item>左邊</item>
-		<item>左右兩邊</item>
+		<item>右边</item>
+		<item>左边</item>
+		<item>左右两边</item>
                 <item>移除</item>
 	</string-array>
 
 	<string-array name="pref_powersaving_data_screen_off_entries_cdma">
-		<item>不做任何動作</item>
-		<item>關閉LTE</item>
-		<item>關閉數據</item>
+		<item>不做任何动作</item>
+		<item>关闭LTE</item>
+		<item>关闭数据</item>
 	</string-array>
 
 	<string-array name="pref_powersaving_data_screen_off_entries">
-		<item>不做任何動作</item>
-		<item>關閉數據</item>
-		<item>轉用2G模式</item>
+		<item>不做任何动作</item>
+		<item>关闭数据</item>
+		<item>转用2G模式</item>
 	</string-array>
 
 	<string-array name="pref_powersaving_data_screen_off_delay_entries">
-		<item>立即執行</item>
+		<item>立即执行</item>
 		<item>10 秒</item>
 		<item>30 秒</item>
 		<item>45 秒</item>
-		<item>1 分鐘</item>
-		<item>5 分鐘</item>
-		<item>10 分鐘</item>
-		<item>15 分鐘</item>
-		<item>30 分鐘</item>
+		<item>1 分钟</item>
+		<item>5 分钟</item>
+		<item>10 分钟</item>
+		<item>15 分钟</item>
+		<item>30 分钟</item>
 	</string-array>
 
 	<string-array name="pref_powersaving_sync_screen_off_interval_entries">
-		<item>15 分鐘</item>
-		<item>30 分鐘</item>
-		<item>1 小時</item>
-		<item>2 小時</item>
-		<item>3 小時</item>
-		<item>4 小時</item>
-		<item>5 小時</item>
-		<item>6 小時</item>
-		<item>8 小時</item>
-		<item>12 小時</item>
+		<item>15 分钟</item>
+		<item>30 分钟</item>
+		<item>1 小时</item>
+		<item>2 小时</item>
+		<item>3 小时</item>
+		<item>4 小时</item>
+		<item>5 小时</item>
+		<item>6 小时</item>
+		<item>8 小时</item>
+		<item>12 小时</item>
 	</string-array>
 
 	<string-array name="pref_powersaving_sync_screen_off_entries">
-		<item>不做任何動作</item>
-		<item>關閉自動同步</item>
-		<item>按逾時設定關閉自動同步</item>
+		<item>不做任何动作</item>
+		<item>关闭自动同步</item>
+		<item>按逾时设定关闭自动同步</item>
 	</string-array>
 	
 	<string-array name="powersaving_screen_off_wifi_entries">
-		<item>不作任何改變</item>
-		<item>關閉Wi-Fi</item>
-		<item>啟用Wi-Fi</item>
+		<item>不作任何改变</item>
+		<item>关闭Wi-Fi</item>
+		<item>启用Wi-Fi</item>
 	</string-array>
 	
 	<string-array name="powersaving_sync_data_mode_entries">
-		<item>不作任何改變</item>
+		<item>不作任何改变</item>
 		<item>只使用Wi-Fi</item>
-		<item>優先使用Wi-Fi</item>
-		<item>只使用流動數據</item>
+		<item>优先使用Wi-Fi</item>
+		<item>只使用流动数据</item>
 	</string-array>
 	
 	<string-array name="powersaving_sync_data_mobile_mode_entries">
 		<item>只使用2G/1x模式</item>
-		<item>優先使用 3G</item>
+		<item>优先使用 3G</item>
 	</string-array>
 	
 	<string-array name="led_entries">
@@ -89,14 +89,21 @@
 	</string-array>
 
 	<string-array name="pref_navigation_menu_display_entries">
-		<item>ICS系統預設方式顯示</item>
-		<item>永遠顯示,使用隱藏式MENU鍵圖示</item>
-		<item>永遠顯示,正常MENU鍵圖示</item>
-		<item>ICS系統默認,使用隱藏式MENU鍵圖示</item>
+		<item>ICS系统预设方式显示</item>
+		<item>永远显示,使用隐藏式MENU键图示</item>
+		<item>永远显示,正常MENU键图示</item>
+		<item>ICS系统默认,使用隐藏式MENU键图示</item>
+	</string-array>
+
+	<string-array name="pref_navigation_menu_display_values">
+		<item>0</item>
+		<item>1</item>
+		<item>2</item>
+		<item>3</item>
 	</string-array>
 
 	<string-array name="statusbar_transparency_entries">
-		<item>沒有任何透明效果</item>
+		<item>没有任何透明效果</item>
 		<item>25%</item>
 		<item>50%</item>
 		<item>75%</item>
@@ -104,35 +111,35 @@
 	</string-array>
 
 	<string-array name="statusbar_layout_entries">
-		<item>正常樣式</item>
-		<item>反向樣式</item>
-		<item>傳統樣式</item>
+		<item>正常式样</item>
+		<item>反向式样</item>
+		<item>传统式样</item>
 	</string-array>
 
 	<!-- clock stuff -->
 	<string-array name="clock_style_entries">
 		<item>置右</item>
 		<item>置中</item>
-		<item>隱藏</item>
+		<item>隐藏</item>
 	</string-array>
 
 	<string-array name="clock_ampm_entries">
-		<item>隱藏</item>
-		<item>縮小字體</item>
-		<item>系統預定</item>
+		<item>隐藏</item>
+		<item>缩小字体</item>
+		<item>正常字体</item>
 	</string-array>
 
 	<string-array name="clock_weekday_entries">
-		<item>停止顯示</item>
-		<item>縮小顯示</item>
-		<item>正常顯示</item>
+		<item>停止显示</item>
+		<item>缩小显示</item>
+		<item>正常显示</item>
 	</string-array>
 
 	<!-- Toggles -->
 	<string-array name="brightness_location_entries">
-		<item>快捷鍵上方</item>
-		<item>快捷鍵下方</item>
-		<item>不顯示</item>
+		<item>快捷键上方</item>
+		<item>快捷键下方</item>
+		<item>不显示</item>
 	</string-array>
 
 	<!-- animation rotation -->
@@ -150,44 +157,34 @@
 
 	<!-- toggle style -->
 	<string-array name="toggle_style_entries">
-		<item>只顯示圖示</item>
-		<item>只顯示文字</item>
+		<item>只显示图示</item>
+		<item>只显示文字</item>
 	</string-array>
 
 	<!-- long press home -->
 	<string-array name="long_press_home_entries">
-		<item>系統默認</item>
-		<item>不做任何動作</item>
-		<item>舊版本任務管理員</item>
-		<item>ICS版本任務管理員</item>
+		<item>系统默认</item>
+		<item>不做任何动作</item>
+		<item>任务管理员:2.3版本风格</item>
+		<item>任务管理员:ICS风格</item>
 	</string-array>
 
     <string-array name="pref_lockscreen_options_values">
 		<item>2</item>
 		<item>6</item>
-        	<item>8</item>
-        	<item>1</item>
-        	<item>0</item>
+	        <item>8</item>
+	        <item>1</item>
+	        <item>0</item>
 	</string-array>
 
         <string-array name="pref_lockscreen_options_entries">
-		<item>預設風格</item>
-		<item>QUAD風格</item>
-                <item>OCTO風格</item>
-                <item>AOSP風格</item>
-                <item>Honeycomb風格</item>
+		<item>ICS预设风格</item>
+		<item>QUAD四鍵风格</item>
+                <item>OCTO多鍵风格</item>
+                <item>AOSP开源风格</item>
+                <item>Honeycomb蜂窝风格</item>
 	</string-array>
 
-	<string-array name="pref_lockscreen_calendar_interval_values">
-		<item>1000</item>
-		<item>1500</item>
-	        <item>2000</item>
-	        <item>2500</item>
-	        <item>3000</item>
-	        <item>3500</item>
-	        <item>4000</item>
-	</string-array>
-	
 	<string-array name="pref_lockscreen_calendar_interval_entries">
 		<item>1 秒</item>
 		<item>1.5 秒</item>
@@ -205,7 +202,7 @@
                 <item>4 天</item>
                 <item>5 天</item>
                 <item>6 天</item>
-                <item>1 週</item>
+                <item>1 周</item>
         </string-array>
 
 	<string-array name="minfree">
@@ -223,57 +220,86 @@
 		<item>2048,3072,6144,15360,17920,20480</item>
 		<item>2560,3840,6400,12800,12800,25600</item>
 	</string-array>
+
+
+        <string-array name="entries_scrollingcache" translatable="false">
+                <item>@string/pref_scrollingcache_force_enable</item>
+                <item>@string/pref_scrollingcache_default_enable</item>
+                <item>@string/pref_scrollingcache_default_disable</item>
+                <item>@string/pref_scrollingcache_force_disable</item>
+         </string-array>
+
+        <string-array name="values_scrollingcache" translatable="false">
+                <item>0</item>
+                <item>1</item>
+                <item>2</item>
+                <item>3</item>
+        </string-array>
 	
 	<string-array name="battery_icon_entries">
-		<item>只顯示默認圖示</item>
-		<item>只顯示精確數值</item>
-		<item>顯示圖示及精確數值</item>
-		<item>顯示圖示及精確數值(置中對齊)</item>
-                <item>顯示環形圖示精確數值</item>
-		<item>隱藏</item>
+		<item>显示默认图示</item>
+		<item>显示精确数值</item>
+		<item>显示电量图示及精确数值</item>
+		<item>显示电量图示及数值(置中对齐)</item>
+                <item>环形精确电量风格</item>
+		<item>隐藏</item>
 	</string-array>
 
 	<string-array name="battery_bar_entries">
-		<item>隱藏</item>
-		<item>狀態欄</item>
-		<item>導航欄上方</item>
-		<item>導航欄下方</item>
+		<item>隐藏</item>
+		<item>状态栏</item>
+		<item>导航栏上方</item>
+		<item>导航栏下方</item>
 	</string-array>
-
+	
+	<string-array name="battery_bar_values">
+		<item>0</item>
+		<item>1</item>
+		<item>2</item>
+		<item>3</item>
+	</string-array>
+	
 	<string-array name="battery_bar_style_entries">
 		<item>正常</item>
 		<item>置中</item>
 	</string-array>
+	
+	<string-array name="battery_bar_thickness_entries">
+		<item>1 dp</item>
+		<item>2 dp</item>
+		<item>3 dp</item>
+		<item>4 dp</item>
+	</string-array>
 
 	<string-array name="available_toggles_values">
-		<item>自動旋轉</item>
-		<item>藍牙</item>
+		<item>自动旋转</item>
+		<item>蓝牙</item>
 		<item>GPS</item>
 		<item>WIFI</item>
-		<item>飛航模式</item>
-		<item>振動</item>
-		<item>靜音</item>
-		<item>手電筒</item>
+		<item>飞航模式</item>
+		<item>震动</item>
+		<item>静音</item>
+		<item>手电筒</item>
 		<item>同步</item>
 		<item>SWAGGER</item>
-	</string-array>
+	</string-array>	
 	
 	<string-array name="lockscreen_choice_entries">
-		<item>解鎖</item>
+		<item>解锁</item>
 		<item>音效</item>
-		<item>撥號</item>
-		<item>相機</item>
-                <item>短訊</item>   
-		<item>自定義</item>
+		<item>拨号</item>
+		<item>相机</item>
+                <item>短信息</item>  
+		<item>自定义</item>
 		<item>空白</item>
 	</string-array>
 	
 	<string-array name="glow_times_entries">
-		<item>關閉</item>
+		<item>关闭</item>
 		<item>更快</item>
 		<item>快</item>
 		<item>正常</item>
-	</string-array>	
+	</string-array>
 
 	<string-array name="lcd_density_entries">
 		<item>160</item>
@@ -287,38 +313,38 @@
 		<item>300</item>
 		<item>320</item>
 		<item>340</item>
-                <item>自定</item>
+                <item>自定义</item>
 	</string-array>
 	
 	<string-array name="weather_interval_entries">
-		<item>關閉</item>
-		<item>1 分鐘</item>
-		<item>5 分鐘</item>
-		<item>10 分鐘</item>
-		<item>30 分鐘</item>
-		<item>45 分鐘</item>
-		<item>60 分鐘</item>
-		<item>2 小時</item>
-		<item>3 小時</item>
-		<item>4 小時</item>
-		<item>6 小時</item>
-		<item>8 小時</item>
+		<item>关闭</item>
+		<item>1 分钟</item>
+		<item>5 分钟</item>
+		<item>10 分钟</item>
+		<item>30 分钟</item>
+		<item>45 分钟</item>
+		<item>60 分钟</item>
+		<item>2 小时</item>
+		<item>3 小时</item>
+		<item>4 小时</item>
+		<item>6 小时</item>
+		<item>8 小时</item>
 	</string-array>
-
+	
 	<string-array name="signal_style_entries">
-		<item>顯示訊號棒</item>
-		<item>以數值顯示</item>
-		<item>以dBm單位顯示</item>
+		<item>显示讯号棒</item>
+		<item>以数值显示</item>
+		<item>以dBm单位显示</item>
 	</string-array>
 
         <string-array name="wifi_signal_style_entries">
-                <item>使用訊號棒顯示</item>
-                <item>使用數字顯示</item>
+                <item>使用信号棒显示</item>
+                <item>使用数字显示</item>
         </string-array>
 
 	<string-array name="weather_statusbar_location_entries">
-		<item>營運商名字上方</item>
-		<item>天氣欄</item>
+		<item>营运商名字上方</item>
+		<item>天气栏</item>
                 <item>停止使用</item>
 	</string-array>
 		
@@ -327,27 +353,27 @@
 		<item>36 dp</item>
 		<item>30 dp</item>
 		<item>24 dp</item>
-		<item>0 dp</item>
+		<item>0 dp(默认关闭)</item>
 	</string-array>
 	
 	<string-array name="navigation_bar_height_entries">
 		<item>48 dp</item>
 		<item>42 dp</item>
 		<item>36 dp</item>
-		<item>30 dp</item>
+		<item>30 dp(默认)</item>
 		<item>24 dp</item>
 		<item>0 dp</item>
 	</string-array>
 
 	<string-array name="navbar_button_entries">
 		<item>Home</item>
-		<item>返回鍵</item>
-		<item>最近打開軟件</item>
-		<item>搜尋鍵</item>
-		<item>Menu鍵</item>
-		<item>從內存清除當前程序</item>
-		<item>電源鍵</item>
-		<item>自訂軟件</item>
+		<item>返回键</item>
+		<item>最近打开软件</item>
+		<item>寻找键</item>
+		<item>Menu键</item>
+		<item>从内存清除当前程序</item>
+		<item>电源键</item>
+		<item>自定软件</item>
 		<item>空白</item>
 	</string-array>
 
