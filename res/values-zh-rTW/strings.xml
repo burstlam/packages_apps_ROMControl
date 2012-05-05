@@ -479,7 +479,7 @@
         <string name="kernel">內核特殊功能(若使用中的內核支援)</string>
         <string name="color_tuning_title_head">色彩調節倍數</string>
         <string name="color_tuning_summary_head">改變色彩調節倍數</string>
-        <string name="gamma_tuning_title_head">伽瑪色彩調整</string>
+        <string name="gamma_tuning_title_head">色彩調整</string>
         <string name="gamma_tuning_summary_head">調校伽瑪色彩調整</string>
         <string name="color_red_title">紅</string>
         <string name="color_green_title">綠</string>
