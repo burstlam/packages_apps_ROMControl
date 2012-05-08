@@ -45,14 +45,14 @@
     <string name="navigation_bar_width_title">导航栏宽度(横屏显示时)</string>
     <string name="navigation_bar_height_title">导航栏高度(垂直显示时)</string>
 
-    <string name="title_pref_menu_display">MENU键设置</string>
+    <string name="title_pref_menu_display">MENU键设置：虚拟键</string>
     <string name="summary_pref_menu_display">设置MENU键(下方状态栏虚拟键)显示位置,使用旧式 MENU 键时务必选择移除 MENU 键</string>
     <string name="navigation_bar">导航栏</string>
     <string name="navigation_bar_tint_title">虚拟键着色(反白图案)</string>
     <string name="navigation_bar_glow_tint_title">虚拟键亮色</string>
     <string name="navigation_bar_glow_tint_summary">更改按键发出的亮色.</string>
-    
-    <string name="title_pref_navigation_menu_display">MENU键显示设置</string>
+
+    <string name="title_pref_navigation_menu_display">MENU键设置:ICS系统</string>    
     <string name="summary_pref_navigation_menu_display">设置MENU键显示时机及方式</string>
 
     <string name="navbar_order_title">虚拟按键布局</string>
@@ -236,7 +236,7 @@
     <string name="summary_led_screen_on">@null</string>
 
     <!--  Statusbar | General -->
-    <string name="title_settings_behavior">切换状态栏设置图标捷径默认的动作</string>
+    <string name="title_settings_behavior">切换状态栏图标捷径默认的动作</string>
     <string name="summary_settings_behavior">默认值是长按设置图标为切换，点击进入系统设置菜单。反勾时操作默认值互换</string>
     
     <string name="title_auto_hide_toggles">自动隐藏快捷开关</string>
@@ -476,11 +476,11 @@
         <string name="fast_charge_notification_title">快充模式使用中!</string>
         <string name="fast_charge_notification_message">USB端只可作充电用途!</string>
 
-        <string name="kernel">内核特殊功能(若使用中的内核支持)</string>
+        <string name="kernel">内核特殊功能(若使用中的内核支援)</string>
         <string name="color_tuning_title_head">色彩调节倍数</string>
-        <string name="color_tuning_summary_head">改变色彩调节倍数</string>
+        <string name="color_tuning_summary_head">变更红/绿/蓝三色调节倍数，调整萤幕色调</string>
         <string name="gamma_tuning_title_head">色彩调整</string>
-        <string name="gamma_tuning_summary_head">对准伽玛色彩调整</string>
+        <string name="gamma_tuning_summary_head">调校伽玛色彩调整</string>
         <string name="color_red_title">红</string>
         <string name="color_green_title">绿</string>
         <string name="color_blue_title">蓝</string>

@@ -42,7 +42,7 @@
 
     <!-- Navigation Bar -->
     <string name="title_pref_enable_bar">啟用導航欄</string>
-    <string name="title_pref_menu_display">改變MENU鍵設置</string>
+    <string name="title_pref_menu_display">MENU鍵設置：虛擬鍵</string>
     <string name="summary_pref_menu_display">設置MENU鍵(下方狀態欄虛擬鍵)顯示位置</string>
     <string name="navigation_bar">導航欄(虛擬鍵)設置</string>
     <string name="navigation_bar_tint_title">虛擬鍵著色(反白圖案)</string>
@@ -51,7 +51,7 @@
     <string name="navigation_bar_width_title">導航欄寬度(橫屏顯示時)</string>
     <string name="navigation_bar_height_title">導航欄高度(垂直顯示時)</string>
 
-    <string name="title_pref_navigation_menu_display">MENU鍵顯示模式</string>
+    <string name="title_pref_navigation_menu_display">MENU鍵設置:ICS系統</string>
     <string name="summary_pref_navigation_menu_display">設置MENU鍵顯示時機及方式</string>
 
     <string name="navbar_order_title">虛擬鍵樣式</string>
@@ -237,7 +237,7 @@
     <string name="summary_led_screen_on">@null</string>
 
     <!--  Statusbar | General -->
-    <string name="title_settings_behavior">切換狀態欄設置圖標捷徑動作</string>
+    <string name="title_settings_behavior">切換狀態欄圖標捷徑動作</string>
     <string name="summary_settings_behavior">默認值是長按設置圖標為切換，點擊進入系統設置菜單。反勾時操作默認值互換</string>
     
     <string name="title_auto_hide_toggles">自動隱藏快捷開關</string>
@@ -478,7 +478,7 @@
 
         <string name="kernel">內核特殊功能(若使用中的內核支援)</string>
         <string name="color_tuning_title_head">色彩調節倍數</string>
-        <string name="color_tuning_summary_head">改變色彩調節倍數</string>
+        <string name="color_tuning_summary_head">變更紅/綠/藍三色調節倍數，調整螢幕色調</string>
         <string name="gamma_tuning_title_head">色彩調整</string>
         <string name="gamma_tuning_summary_head">調校伽瑪色彩調整</string>
         <string name="color_red_title">紅</string>
