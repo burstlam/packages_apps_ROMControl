@@ -353,5 +353,10 @@
 		<item>空白</item>
 	</string-array>
 
+        <string-array name="recent_app_switcher_entries">
+                <item>ICS默認風格</item>
+                <item>WebOS風格</item>
+                <item>Sense4風格</item>
+        </string-array>
 </resources>
 

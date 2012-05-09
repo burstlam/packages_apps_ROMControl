@@ -103,8 +103,8 @@
 	<string name="rotate_180_title">180°旋轉</string>
 	<string name="rotate_180_summary">容許顯示180°旋轉!</string>
 
-	<string name="horizontal_recents_task_panel_title">橫向卷動顯示任務管理員</string>
-	<string name="horizontal_recents_task_panel_summary">利用 WebOS橫向卷動方式顯示任務管理員. 使用者介面會在十秒后重啟, 如果失敗,直接按電源鍵菜單選擇重啟即可.</string>
+        <string name="recent_app_switcher_title">任務管理員顯示風格</string>
+        <string name="recent_app_switcher_summary">改變任務管理員顯示風格（需要重啟使用者介面）</string>
 
         <string name="disable_bootanimation_title">關閉開機動畫</string>
         <string name="disable_bootanimation_summary">關閉開機動畫, 加快開機速度</string>
