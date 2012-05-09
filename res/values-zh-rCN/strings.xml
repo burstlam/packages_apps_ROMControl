@@ -109,6 +109,10 @@
         <string name="disable_bootanimation_title">关闭开机动画</string>
         <string name="disable_bootanimation_summary">关闭开机动画, 加快开机速度</string>
 
+        <string name="disable_bootaudio_title">关闭开机音效</string>
+        <string name="disable_bootaudio_summary">静音</string>
+        <string name="disable_bootaudio_summary_disabled">如要使用开机音效功能，你需要在以下把音效档加入指定路径如下： \n/system/media/boot_audio.mp3</string>
+
         <string name="disable_bugmailer_title">禁用bug邮件反馈</string>
 
 	<string name="lcd_density_title">LCD屏幕密度</string>
