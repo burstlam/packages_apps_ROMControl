@@ -299,6 +299,7 @@
 		<item>36 bodů</item>
 		<item>30 bodů</item>
 		<item>24 bodů</item>
+		<item>0 bodů</item>
 	</string-array>
 	
 	<string-array name="navigation_bar_height_entries">
@@ -307,6 +308,7 @@
 		<item>36 bodů</item>
 		<item>30 bodů</item>
 		<item>24 bodů</item>
+		<item>0 bodů</item>
 	</string-array>
   
   <string-array name="navigation_bar_qty_entries">
