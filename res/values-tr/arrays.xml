@@ -380,6 +380,9 @@
         <item>UÇAK_MODU</item>
         <item>TİTREŞİM</item>
         <item>SESSİZ</item>
+        <item>veri</item>
+        <item>2G</item>
+        <item>urgan</item>
         <item>FENER</item>
 		<item>SENKRON</item>
     </string-array>
@@ -391,6 +394,9 @@
         <item>Uçak Modu</item>
         <item>Titreşim</item>
         <item>Sessiz</item>
+        <item>veri</item>
+        <item>2G</item>
+        <item>urgan</item>
         <item>Fener</item>
 		<item>Senkron</item>
     </string-array>

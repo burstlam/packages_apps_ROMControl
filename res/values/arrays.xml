@@ -493,6 +493,7 @@
 		<item>SILENT</item>
                 <item>DATA</item>
                 <item>2G</item>
+                <item>TETHER</item>
 		<item>TORCH</item>
 		<item>SYNC</item>
 	</string-array>
@@ -507,6 +508,7 @@
                 <item>Silent</item>
                 <item>Data</item>
                 <item>2G</item>
+                <item>Tether</item>
                 <item>Torch</item>
                 <item>Sync</item>
         </string-array>
