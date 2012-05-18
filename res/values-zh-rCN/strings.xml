@@ -45,8 +45,8 @@
     <string name="navigation_bar_width_title">导航栏宽度(横屏显示时)</string>
     <string name="navigation_bar_height_title">导航栏高度(垂直显示时)</string>
 
-    <string name="title_pref_menu_display">MENU键设置：虚拟键</string>
-    <string name="summary_pref_menu_display">设置MENU键(下方状态栏虚拟键)显示位置,使用旧式 MENU 键时务必选择移除 MENU 键</string>
+    <string name="title_pref_menu_display">菜单键设置：虚拟键</string>
+    <string name="summary_pref_menu_display">设置菜单键(下方状态栏虚拟键)显示位置,使用旧式 MENU 键时务必选择移除 MENU 键</string>
     <string name="navigation_bar">导航栏</string>
     <string name="navigation_bar_tint_title">虚拟键着色(反白图案)</string>
     <string name="navigation_bar_glow_tint_title">虚拟键亮色</string>
@@ -55,7 +55,7 @@
     <string name="title_pref_navigation_menu_display">MENU键设置:ICS系统</string>    
     <string name="summary_pref_navigation_menu_display">设置MENU键显示时机及方式</string>
 
-    <string name="navbar_order_title">虚拟按键布局</string>
+    <string name="navbar_order_title">虚拟按键排序</string>
     <string name="navbar_order_summary">自定虚拟按键排列次序</string>
 
     <string name="enabled_navbar_buttons_title">虚拟键管理</string>
@@ -67,19 +67,19 @@
 
     <string name="navbar_action_title">屏幕直向时点击%1$s动作: </string>
     <string name="navbar_longpress_title">屏幕横向时长按%1$s动作: </string>
-    <string name="navbar_action_home">Home键</string>
+    <string name="navbar_action_home">主屏幕</string>
     <string name="navbar_action_back">返回键</string>
-    <string name="navbar_action_recents">最近打开</string>
-    <string name="navbar_action_search">寻找键</string>
-    <string name="navbar_action_menu">Menu键</string>
-    <string name="navbar_action_kill">中断当前程序</string>
+    <string name="navbar_action_recents">近期任务</string>
+    <string name="navbar_action_search">搜索键</string>
+    <string name="navbar_action_menu">菜单</string>
+    <string name="navbar_action_kill">中断当前进程</string>
     <string name="navbar_action_power">电源键</string>
     <string name="navbar_action_none">空白</string>
 
     <string name="button_transparency_title">虚拟按键透明度</string>
 
-    <string name="long_press_home_title">长按HOME键设置</string>
-    <string name="long_press_home_summary">选择长按 HOME 键的行为（需要重启）</string>
+    <string name="long_press_home_title">长按主屏幕键设置</string>
+    <string name="long_press_home_summary">选择长按主屏幕键的行为（需要重启）</string>
 
     <string name="glow_times_title">按键亮起速度</string>
     <string name="glow_times_summary">调整按键动画速度, 降低速度能改善效能.</string>
@@ -93,18 +93,18 @@
 
 	<string name="custom_carrier_label_title">自定义营运商</string>
         <string name="custom_carrier_label_empty">请输入新的名称</string>
-        <string name="custom_carrier_label_warning">注意!还没有设置自定义营运商,一旦使用此功能后只可通过WIPE功能抹取DATA数据撤消,才能恢复SIM卡默认名称!</string>
+        <string name="custom_carrier_label_warning">注意!还没有设置自定义营运商,一旦使用此功能后只可通过WIPE功能抹取DATA数据撤消,才能还原运营商默认名称!</string>
 
 	<string name="longpress_to_kill_title">长按返回键结束进程</string>
 	<string name="longpress_to_kill_summary">长按返回键将当前程序从内存中完全退出.</string>
 	
-	<string name="rotate_180_title">180°旋转</string>
-	<string name="rotate_180_summary">容许显示上下翻转!</string>
+	<string name="rotate_180_title">允许 180° 旋转</string>
+	<string name="rotate_180_summary">允许设备倒置显示!</string>
 
 	<string name="enable_volume_options">打开音量键选项</string>
 
-        <string name="recent_app_switcher_title">任务管理员显示风格</string>
-        <string name="recent_app_switcher_summary">改变任务管理员显示风格（需要重启使用者介面）</string>
+        <string name="recent_app_switcher_title">近期任务窗口风格</string>
+        <string name="recent_app_switcher_summary">改变近期任务窗口风格（需要重启使用者介面）</string>
 
         <string name="disable_bootanimation_title">关闭开机动画</string>
         <string name="disable_bootanimation_summary">关闭开机动画, 加快开机速度</string>
@@ -129,7 +129,7 @@
 	<string name="follow_through_summary">确保一步一步完成</string>
 	<string name="stock_density_title">1. 改变密度为默认值</string>
 	<string name="stock_density_summary">平板以及旧款电话 160. 大多数电话 240. Galaxy Nexus 使用 320 为默认值.</string>
-	<string name="reboot_title">2. 重启</string>
+	<string name="reboot_title">2. 点我重启</string>
 	<string name="reboot_summary">回到此菜单，完成其余的步骤！</string>
 	<string name="clear_market_data_title">3. 清理市场数据</string>
 	<string name="clear_market_data_cleared">市场数据清除</string>
@@ -142,21 +142,21 @@
     <string name="pref_lockscreen_layout_title">锁屏风格</string>
     <string name="pref_lockscreen_layout_summary">更改风格后要重新设定锁屏捷径项目</string>
 
-    <string name="title_pref_lockscreen_quad_targets">Quad风格</string>	
+    <string name="title_pref_lockscreen_quad_targets">四键风格</string>	
     <string name="summary_pref_lockscreen_quad_targets">锁屏加入通话及短讯息捷径</string>
 
-    <string name="title_pref_lockscreen_octo_targets">Octo风格</string>	
+    <string name="title_pref_lockscreen_octo_targets">八键风格</string>	
     <string name="summary_pref_lockscreen_octo_targets">添加更多的快捷方式到锁屏界面</string>
 
-    <string name="title_pref_lockscreen_menu_unlock">硬体Menu键解锁</string>
-    <string name="summary_pref_lockscreen_menu_unlock">传统MENU键解锁(需要重启)</string>
+    <string name="title_pref_lockscreen_menu_unlock">硬体菜单键解锁</string>
+    <string name="summary_pref_lockscreen_menu_unlock">通过菜单键解锁屏幕(需要重启)</string>
     <string name="title_lockscreen_user_timeout_override">锁屏延迟</string>
     <string name="summary_lockscreen_user_timeout_override">使用系统的超时设置后，用手动方式关闭屏幕。屏幕自行关闭时仍遵从默认延迟值。</string>
-    <string name="show_lock_before_unlock_title">在解锁前显示锁屏</string>
+    <string name="show_lock_before_unlock_title">显示滑动解锁</string>
     <string name="show_lock_before_unlock_summary">在安全解锁前显示标准的锁屏界面</string>
-    <string name="lockscreen_battery_title">显示电量数值</string>
+    <string name="lockscreen_battery_title">锁屏显示电量百分比</string>
     <string name="lockscreen_battery_summary">在锁屏中恒定显示电量数值</string>
-    <string name="lockscreen_weather_title">显示天气讯息</string>
+    <string name="lockscreen_weather_title">锁屏显示天气讯息</string>
     <string name="lockscreen_weather_summary">于锁屏中显示天气讯息. 使用前需要先开启天气服务</string>
     <string name="volume_wake_title">音量键唤醒</string>
     <string name="volume_wake_summary">通过音量键唤醒屏幕</string>
@@ -169,7 +169,7 @@
     <string name="lockscreen_targets">锁屏标签</string>
     <string name="lockscreen_action_unlock">解锁</string>
     <string name="lockscreen_action_sound">切换音效</string>
-    <string name="lockscreen_action_mms">短讯息</string>
+    <string name="lockscreen_action_mms">短信</string>
     <string name="lockscreen_action_camera">相机</string>
     <string name="lockscreen_action_phone">拨号</string>
     <string name="lockscreen_action_none">空白</string>
@@ -195,7 +195,7 @@
     <string name="lockscreen_calendar_hide_ongoing_summary">启用后,已经开始的活动将不会显示.</string>
     <string name="lockscreen_calendar_flip_title">多重事件显示</string>
     <string name="lockscreen_calendar_flip_summary">启用后,小部件会在锁屏中以滚动方式显示未来24小时发生的活动.</string>
-    <string name="lockscreen_calendar_interval_title">滚动间距</string>
+    <string name="lockscreen_calendar_interval_title">动画弹出间隔</string>
     <string name="lockscreen_calendar_interval_summary">设置滚动动画更替时间(秒).</string>
 
     <!-- Power Menu -->
@@ -492,60 +492,53 @@
 
     <!-- Weather Codes -->
     <string name="weather_0">龙卷风</string>
-    <string name="weather_1">热带气旋</string>
+    <string name="weather_1">热带风暴</string>
     <string name="weather_2">飓风</string>
-    <string name="weather_3">强雷暴</string>
-    <string name="weather_4">雷暴</string>
-    <string name="weather_5">雪混冻雨</string>
-    <string name="weather_6">雨混霰</string>
-    <string name="weather_7">冻雨</string>
-    <string name="weather_8">冻毛毛雨</string>
-    <string name="weather_9">微雨</string>
-    <string name="weather_10">冷雨</string>
-    <string name="weather_11">雨</string>
+    <string name="weather_3">强雷雨</string>
+    <string name="weather_4">雷雨</string>
+    <string name="weather_5">雨夹雪</string>
+    <string name="weather_6">雨夹冰</string>
+    <string name="weather_7">雪夹冰</string>
+    <string name="weather_8">小冻雨</string>
+    <string name="weather_9">小雨</string>
+    <string name="weather_10">冻雨</string>
+    <string name="weather_11">阵雨</string>
     <string name="weather_12">阵雨</string>
-    <string name="weather_13">雪花</string>
-    <string name="weather_14">光阵雪</string>
-    <string name="weather_15">吹雪</string>
-    <string name="weather_16">降雪</string>
+    <string name="weather_13">阵雪</string>
+    <string name="weather_14">小雪</string>
+    <string name="weather_15">中雪</string>
+    <string name="weather_16">雪</string>
     <string name="weather_17">冰雹</string>
-    <string name="weather_18">冻雨</string>
+    <string name="weather_18">冰雨</string>
     <string name="weather_19">沙尘</string>
     <string name="weather_20">雾</string>
-    <string name="weather_21">灰霾</string>
-    <string name="weather_22">烟雾</string>
+    <string name="weather_21">霾</string>
+    <string name="weather_22">烟尘</string>
     <string name="weather_23">大风</string>
     <string name="weather_24">风</string>
-    <string name="weather_25">冷</string>
-    <string name="weather_26">密云</string>
-    <!-- mostly cloudy (night) -->
-    <string name="weather_27">晚间多云</string>
-    <!-- mostly cloudy (day) -->
-    <string name="weather_28">日间多云</string>
-    <!-- partly cloudy (night) -->
-    <string name="weather_29">天阴</string>
-    <!-- partly cloudy (day) -->
-    <string name="weather_30">天阴间中有阳光</string>
-    <!-- clear (night) -->
-    <string name="weather_31">夜空晴朗</string>
-    <string name="weather_32">晴朗</string>
-    <!-- fair (night) -->
-    <string name="weather_33">夜空薄雾</string>
-    <!-- fair (day) -->
-    <string name="weather_34">晴朗有雾</string>
-    <string name="weather_35">雨混冻雹</string>
+    <string name="weather_25">寒冷</string>
+    <string name="weather_26">多云</string>
+    <string name="weather_27">大部多云</string>
+    <string name="weather_28">大部多云</string>
+    <string name="weather_29">局部多云</string>
+    <string name="weather_30">局部多云</string>
+    <string name="weather_31">清新</string>
+    <string name="weather_32">明媚</string>
+    <string name="weather_33">晴</string>
+    <string name="weather_34">晴</string>
+    <string name="weather_35">小雨夹雹</string>
     <string name="weather_36">炎热</string>
-    <string name="weather_37">局部地区性雷暴</string>
-    <string name="weather_38">凌散雷暴</string>
-    <string name="weather_39">凌散雷暴</string>
-    <string name="weather_40">凌散降雨</string>
+    <string name="weather_37">地区性雷雨</string>
+    <string name="weather_38">雷阵雨</string>
+    <string name="weather_39">雷阵雨</string>
+    <string name="weather_40">阵雨</string>
     <string name="weather_41">大雪</string>
-    <string name="weather_42">凌散降雪</string>
-    <string name="weather_43">凌散降雪时有风</string>
-    <string name="weather_44">大致多云</string>
-    <string name="weather_45">雷暴</string>
-    <string name="weather_46">降雪</string>
-    <string name="weather_47">局部地区性雷暴</string>
+    <string name="weather_42">零星阵雪</string>
+    <string name="weather_43">零星阵雪</string>
+    <string name="weather_44">局部多云</string>
+    <string name="weather_45">雷阵雨</string>
+    <string name="weather_46">阵雪</string>
+    <string name="weather_47">地区性雷雨</string>
     <!-- Forecase unavailable -->
     <string name="weather_3200"></string>
 </resources>

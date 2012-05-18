@@ -13,12 +13,12 @@
     <string name="statusbar">狀態欄</string>
     <string name="general">通知欄及其他常規設定</string>
     <string name="toggles_layout">快捷開關</string>
-    <string name="clock">時鐘</string>
-    <string name="battery">電池</string>
-    <string name="nav_bar">導航欄</string>
-    <string name="tools">工具</string>
-    <string name="weather">天氣</string>
-    <string name="signal">訊號</string>
+    <string name="clock">時鐘設定</string>
+    <string name="battery">電池設定</string>
+    <string name="nav_bar">導航列設定</string>
+    <string name="tools">超級工具</string>
+    <string name="weather">天氣設定</string>
+    <string name="signal">手機訊號</string>
     
     <string name="header_summary_battery">仿MIUI電量棒, 精確電量顯等</string>
     <string name="header_summary_general_ui">開機動畫, Bug Mailer安全檢查, 屏幕旋轉, 輸入法切換等 </string>
@@ -83,11 +83,11 @@
     <string name="long_press_home_summary">設置長按HOME鍵時預定動作</string>
 
     <string name="glow_times_title">按鍵亮起速度</string>
-    <string name="glow_times_summary">調整按鍵動畫速度, 降低速度能改善效能.</string>
+    <string name="glow_times_summary">按下時，動畫速度愈慢系統效能愈佳。</string>
     
     <!-- UI -->
-    <string name="rotation_animation_delay_title">屏幕旋轉延時值</string>
-    <string name="rotation_animation_delay_summary">設置屏幕畫面改變前最少的穩定時間.默認200毫秒(ms).</string>
+    <string name="rotation_animation_delay_title">翻轉螢幕延遲選項</string>
+    <string name="rotation_animation_delay_summary">設定翻轉前延遲時間，預設為 200 毫秒。</string>
 
 	<string name="ime_switcher_title">顯示輸入法切換圖示</string>
 	<string name="ime_switcher_summary">鍵盤輸入中於狀態欄顯示(需重啟手機!)</string>
@@ -100,8 +100,8 @@
 
 	<string name="enable_volume_options">啟用音效調校項目</string>
 	
-	<string name="rotate_180_title">180°旋轉</string>
-	<string name="rotate_180_summary">容許顯示180°旋轉!</string>
+        <string name="rotate_180_title">180° 翻轉螢幕</string>
+        <string name="rotate_180_summary">啟用螢幕 180° 垂直翻轉功能。</string>
 
         <string name="recent_app_switcher_title">任務管理員顯示風格</string>
         <string name="recent_app_switcher_summary">改變任務管理員顯示風格（需要重啟使用者介面）</string>
@@ -124,29 +124,36 @@
 	<string name="crt_off_title">CRT 關機動畫</string>
 
 	<!-- LCD Density -->
-	<string name="lcd_density_wizard">LCD解像度指南</string>
-	<string name="follow_through_title">跟從指示!</string>
-	<string name="follow_through_summary">確保您按照指示完成每一個步驟才進行下一步。</string>
-	<string name="stock_density_title">1. 使用默認LCD解像度</string>
-	<string name="stock_density_summary">平板舊款手機使用160dp, 一般手機使用240dp. Galaxy Nexus 默認使用320dp.</string>
-	<string name="reboot_title">2. 重啟手機!</string>
-	<string name="reboot_summary">重啟後再打開此目錄繼續下一步!</string>
-	<string name="clear_market_data_title">3. 清除GOOGLE MARKET資料</string>
-	<string name="clear_market_data_cleared">已清除MARKET資料</string>
-	<string name="open_market_title">4. 打開GOOGLE MARKET重新確認</string>
-	<string name="open_market_summary">完成後再返回此目錄.</string>
-	<string name="custom_density_title">5. 隨意改變你喜歡的解像度!</string>
-	<string name="custom_density_summary">如果遇上市場的相容性，請重複以上步驟.</string>
+        <string name="lcd_density_wizard">螢幕解析度設定精靈</string>
+        <string name="follow_through_title">請按以下步驟變更螢幕解析度。</string>
+        <string name="follow_through_summary">請務必按照下列步驟逐步修改。</string>
+        <string name="stock_density_title">一、變更預設解析度</string>
+        <string name="stock_density_summary">平板電腦與舊型號手機訊號使用 160，多數手機訊號使用 240，Galaxy Nexus 預設值為 320。</string>
+        <string name="reboot_title">二、重啟</string>
+        <string name="reboot_summary">重啟後請回至本區，完成後續步驟。</string>
+        <string name="clear_market_data_title">三、清除市場資料</string>
+        <string name="clear_market_data_cleared">市場資料已清除。</string>
+        <string name="open_market_title">四、打開市場點擊「接受」</string>
+        <string name="open_market_summary">完成後按返回鍵回至本區。</string>
+        <string name="custom_density_title">五、更改為你需要之解析度</string>
+        <string name="custom_density_summary">若市場出現相容性問題，請回至本區按完整步驟重來一次。</string>
+        <string name="pref_lockscreen_layout_title">鎖屏介面風格</string>
 
     <!-- Lockscreens -->
     <string name="pref_lockscreen_layout_title">鎖屏風格</string>
-    <string name="pref_lockscreen_layout_summary">更改風格後要重新設定鎖屏捷徑項目</string>
+    <string name="pref_lockscreen_layout_summary">設定後須重新設定應用程式擺設。</string>
 
-    <string name="title_pref_lockscreen_quad_targets">Quad模式</string>	
-    <string name="summary_pref_lockscreen_quad_targets">鎖屏加入電話及短訊息捷徑</string>
+    <string name="title_pref_lockscreen_quad_targets">四鍵鎖屏</string>
+    <string name="summary_pref_lockscreen_quad_targets">在鎖屏介面加入電話及簡訊捷徑。</string>
 
-    <string name="title_pref_lockscreen_octo_targets">Octo模式</string>	
-    <string name="summary_pref_lockscreen_octo_targets">鎖屏加入更多自定義捷徑</string>
+    <string name="title_pref_lockscreen_octo_targets">八鍵鎖屏</string>
+    <string name="summary_pref_lockscreen_octo_targets">在鎖屏介面加入更多快捷功能。</string>
+
+    <string name="title_pref_lockscreen_menu_unlock">選單式解鎖</string>
+    <string name="summary_pref_lockscreen_menu_unlock">顯示傳統圖示解鎖（需重啟）。</string>
+
+    <string name="title_lockscreen_user_timeout_override">延遲鎖屏</string>
+    <string name="summary_lockscreen_user_timeout_override">預設為僅自動關屏時才會延遲時間。勾選則手動關屏時亦然。</string>
 
     <string name="title_pref_lockscreen_menu_unlock">硬體Menu鍵解鎖</string>
     <string name="summary_pref_lockscreen_menu_unlock">傳統MENU鍵解鎖(需要重啟)</string>
@@ -183,21 +190,20 @@
     <string name="lockscreen_wallpaper_title">選擇鎖屏壁紙</string>
     <string name="lockscreen_wallpaper_summary">可以選擇鎖屏的背景</string>
     <string name="lockscreen_text_color_title">鎖屏文字顏色</string>
-    <string name="lockscreen_calendar">鎖屏日曆</string>
-    <string name="lockscreen_calendar_title">啟用</string>
-    <string name="lockscreen_calendar_summary">於鎖屏顯示日曆中的下一個活動.</string>
-    <string name="lockscreen_calendar_sources_title">撰擇日曆來源</string>
-    <string name="lockscreen_calendar_sources_summary">選擇顯示日曆.</string>
-    <string name="lockscreen_calendar_range_title">指定顯示活動時段</string>
-    <string name="lockscreen_calendar_range_summary">設定鎖屏中顯示那些活動時段.</string>
-    <string name="lockscreen_calendar_use_colors_title">使用調色</string>
-    <string name="lockscreen_calendar_use_colors_summary">鎖屏活動文字內容將以設定顏色顯示</string>
-    <string name="lockscreen_calendar_hide_ongoing_title">隱藏正在進行的活動</string>
-    <string name="lockscreen_calendar_hide_ongoing_summary">啟用後,已開始的活動將不會顯示.</string>
-    <string name="lockscreen_calendar_flip_title">多重顯示</string>
-    <string name="lockscreen_calendar_flip_summary">啟用後,小工具會在鎖屏中以捲動方式顯示未來24小時發生的活動.</string>
-    <string name="lockscreen_calendar_interval_title">捲動間距</string>
-    <string name="lockscreen_calendar_interval_summary">設定捲動動畫更替時間(秒).</string>
+    <string name="lockscreen_calendar_title">啟用鎖屏日曆</string>
+    <string name="lockscreen_calendar_summary">於鎖屏中顯示個人日曆活動事項。</string>
+    <string name="lockscreen_calendar_sources_title">選擇日曆</string>
+    <string name="lockscreen_calendar_sources_summary">選擇欲顯示之日曆。</string>
+    <string name="lockscreen_calendar_range_title">區間設定</string>
+    <string name="lockscreen_calendar_range_summary">設定日曆顯示區間。</string>
+    <string name="lockscreen_calendar_use_colors_title">使用彩色字</string>
+    <string name="lockscreen_calendar_use_colors_summary">勾選後將顯示日曆預設之顏色。</string>
+    <string name="lockscreen_calendar_hide_ongoing_title">隱藏已開始事項</string>
+    <string name="lockscreen_calendar_hide_ongoing_summary">勾選後將不顯示已開始之活動事項。</string>
+    <string name="lockscreen_calendar_flip_title">多項顯示</string>
+    <string name="lockscreen_calendar_flip_summary">啟用滾動顯示 24 小時內所有事項。</string>
+    <string name="lockscreen_calendar_interval_title">滾動間隔</string>
+    <string name="lockscreen_calendar_interval_summary">選擇活動事項滾動間隔秒數。</string>
 
     <!-- Power Menu -->
     <string name="title_show_power_saver">顯示省電模式開關</string>
@@ -224,14 +230,14 @@
     <string name="summary_pref_powersaving_sync_screen_off_delay">設置強制同步間隔時間</string>
    
     <string name="powersaver_data_cat">移動數據</string>
-    <string name="powersaver_sync_cat">數據同步</string>
+    <string name="powersaver_sync_cat">資料數據同步</string>
 
     <string name="screen_off_wifi_action">WIFI管理</string>
-    <string name="sync_data_usage">同步管理</string>
-    <string name="sync_mobile_data_preference">移動數據管理</string>
+    <string name="sync_data_usage">自動同步管理</string>
+    <string name="sync_mobile_data_preference">資料同步優先設定</string>
 
     <!--  LED -->
-    <string name="title_led_on">指示燈亮起間隔</string>
+    <string name="title_led_on">設定閃爍燈點亮時之持續時間</string>
     <string name="summary_led_on">@null</string>
     <string name="title_led_off">指示燈熄滅間隔</string>
     <string name="summary_led_off">@null</string>
@@ -298,19 +304,19 @@
     <string name="toggles_display_dialog">選擇需要啟用的開關</string>
     <string name="toggles_display_close">關閉</string>
 
-    <string name="toggles_order_title">開關排序</string>
-    <string name="toggles_order_summary">自定義快捷開關的顯示順序</string>
-    <string name="brightness_location_title">亮度開關位置</string>
-    <string name="reset_toggles_title">重置</string>
-    <string name="reset_toggles_summary">重置開關位置顯示順序</string>
+    <string name="toggles_order_title">快捷開關順序</string>
+    <string name="toggles_order_summary">自訂快捷開關之顯示順序。</string>
+    <string name="brightness_location_title">亮度調節顯示位置</string>
+    <string name="reset_toggles_title">重置快捷開關</string>
+    <string name="reset_toggles_summary">重新設定快捷開關。</string>
 
     <!-- Statusbar | Signal -->
-    <string name="signal_style">訊號值樣式</string>
-    <string name="signal_color_title">訊號顯示顏色</string>	
-    <string name="hide_signal_title">隱藏訊號棒</string>
-    <string name="hide_signal_summary">此選項會把流動數據顯示一併關掉,稍後版本會把此功能分離.</string>
-    <string name="wifi_signal_style">WiFi訊號風格</string>
-    <string name="wifi_signal_color_title">WiFi訊號調色</string>
+    <string name="signal_style">手機訊號風格</string>
+    <string name="signal_color_title">手機訊號顏色</string>
+    <string name="hide_signal_title">隱藏手機訊號圖示</string>
+    <string name="hide_signal_summary">行動網路訊號亦一併隱藏，後續版本將分別設定。</string>
+    <string name="wifi_signal_style">Wi-Fi 訊號風格</string>
+    <string name="wifi_signal_color_title">Wi-Fi 訊號顏色</string>
     
     <!-- Color Picker -->
     <string name="dialog_color_picker">選擇顏色</string>
@@ -550,5 +556,3 @@
     <string name="weather_3200"></string>
 
 </resources>
-
-
