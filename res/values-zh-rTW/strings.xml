@@ -137,7 +137,6 @@
         <string name="open_market_summary">完成後按返回鍵回至本區。</string>
         <string name="custom_density_title">五、更改為你需要之解析度</string>
         <string name="custom_density_summary">若市場出現相容性問題，請回至本區按完整步驟重來一次。</string>
-        <string name="pref_lockscreen_layout_title">鎖屏介面風格</string>
 
     <!-- Lockscreens -->
     <string name="pref_lockscreen_layout_title">鎖屏風格</string>
@@ -149,14 +148,9 @@
     <string name="title_pref_lockscreen_octo_targets">八鍵鎖屏</string>
     <string name="summary_pref_lockscreen_octo_targets">在鎖屏介面加入更多快捷功能。</string>
 
-    <string name="title_pref_lockscreen_menu_unlock">選單式解鎖</string>
-    <string name="summary_pref_lockscreen_menu_unlock">顯示傳統圖示解鎖（需重啟）。</string>
-
-    <string name="title_lockscreen_user_timeout_override">延遲鎖屏</string>
-    <string name="summary_lockscreen_user_timeout_override">預設為僅自動關屏時才會延遲時間。勾選則手動關屏時亦然。</string>
-
     <string name="title_pref_lockscreen_menu_unlock">硬體Menu鍵解鎖</string>
     <string name="summary_pref_lockscreen_menu_unlock">傳統MENU鍵解鎖(需要重啟)</string>
+
     <string name="title_lockscreen_user_timeout_override">無視系統鎖屏逾時設置</string>
     <string name="summary_lockscreen_user_timeout_override">使用系統的超時設置后，用手動方式關閉屏幕。屏幕自行關閉時仍遵從默認延遲值。</string>
     <string name="show_lock_before_unlock_title">解鎖前顯示鎖屏</string>
