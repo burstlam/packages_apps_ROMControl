@@ -172,10 +172,10 @@
 
         <string-array name="pref_lockscreen_options_entries">
 		<item>預設風格</item>
-		<item>QUAD風格</item>
-                <item>OCTO風格</item>
-                <item>AOSP風格</item>
-                <item>Honeycomb風格</item>
+		<item>四鍵風格</item>
+                <item>八鍵風格</item>
+                <item>原生風格</item>
+                <item>蜂巢風格</item>
 	</string-array>
 
 	<string-array name="pref_lockscreen_calendar_interval_values">
@@ -255,7 +255,7 @@
 		<item>靜音</item>
                 <item>數據</item>
                 <item>2G</item>
-		<item>Usb分享</item>
+		<item>Usb綁定</item>
 		<item>電筒</item>
 		<item>同步</item>
 	</string-array>
