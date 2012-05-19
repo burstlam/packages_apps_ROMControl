@@ -491,11 +491,11 @@
 		<item>AIRPLANE_MODE</item>
 		<item>VIBRATE</item>
 		<item>SILENT</item>
+		<item>SYNC</item>
                 <item>DATA</item>
                 <item>2G</item>
                 <item>TETHER</item>
 		<item>TORCH</item>
-		<item>SYNC</item>
 	</string-array>
 
         <string-array name="available_toggles_values">
