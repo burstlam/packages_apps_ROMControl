@@ -87,9 +87,9 @@
     <string name="ime_switcher_title">Eingabemethoden-Wechsler</string>
     <string name="ime_switcher_summary">In der Benachrichtungsleiste während des Tippens anzeigen. (Neustart erforderlich)</string>
 
-    <string name="custom_carrier_label_title">Eigener Anbieter-Text</string>
+<!--	    <string name="custom_carrier_label_title">Eigener Anbieter-Text</string>
     <string name="custom_carrier_label_empty">Bitte neuen Text eingeben</string>
-    <string name="custom_carrier_label_warning">Eigener Anbieter-Text ist zur Zeit nicht gesetzt. Sobald dieser gesetzt wurde, lässt es sich ohne einen "data wipe" nicht mehr rückgangig machen</string>
+    <string name="custom_carrier_label_warning">Eigener Anbieter-Text ist zur Zeit nicht gesetzt. Sobald dieser gesetzt wurde, lässt es sich ohne einen "data wipe" nicht mehr rückgangig machen</string> -->
     <string name="longpress_to_kill_title">Zurück-Taste zum Beenden</string>
     <string name="longpress_to_kill_summary">Das Halten der Zurück-Taste beendet die aktuelle App.</string>
 
@@ -527,4 +527,14 @@
     <string name="weather_47">örtliche Gewitter</string>
     <!-- Forecase unavailable -->
     <string name="weather_3200"></string>
+
+    <!-- Custom Carrier Label -->
+    <string name="ui_status_bar_carrier_label_title">Betreibername</string>
+    <string name="ui_status_bar_carrier_label_summary">Auswahl des angezeigten Betreibernamens</string>
+    <string name="ui_status_bar_carrier_label_use_default">Standard</string>
+    <string name="ui_status_bar_carrier_label_use_spn">Service-Provider-Name (SPN)</string>
+    <string name="ui_status_bar_carrier_label_use_plmn">Netzwerk-Betreiber-Name (PLMN)</string>
+    <string name="ui_status_bar_carrier_label_use_custom">Benutzerdefiniert</string>
+    <string name="ui_status_bar_carrier_label_custom_title">Benutzerdef. Betreiber</string>
+    <string name="ui_status_bar_carrier_label_custom_summary">Als Betreibername angezeigter Text</string>
 </resources>

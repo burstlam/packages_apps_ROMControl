@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.os.SystemProperties;
 import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
+import android.preference.EditTextPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceActivity;
@@ -18,6 +19,8 @@ import android.preference.PreferenceGroup;
 import android.preference.PreferenceScreen;
 import android.provider.Settings;
 import android.text.Spannable;
+import android.text.InputFilter;
+import android.text.InputFilter.LengthFilter;
 import android.widget.EditText;
 
 import com.aokp.romcontrol.AOKPPreferenceFragment;
@@ -34,7 +37,8 @@ public class UserInterface extends AOKPPreferenceFragment implements
     private static final String PREF_CRT_OFF = "crt_off";
     private static final String PREF_IME_SWITCHER = "ime_switcher";
     private static final String PREF_ENABLE_VOLUME_OPTIONS = "enable_volume_options";
-    private static final String PREF_CUSTOM_CARRIER_LABEL = "custom_carrier_label";
+    private static final String PREF_STATUS_BAR_CARRIER_LABEL = "pref_status_bar_carrier_label";
+    private static final String PREF_STATUS_BAR_CARRIER_LABEL_CUSTOM = "pref_status_bar_carrier_label_custom";
     private static final String PREF_LONGPRESS_TO_KILL = "longpress_to_kill";
     private static final String PREF_ROTATION_ANIMATION = "rotation_animation_delay";
     private static final String PREF_180 = "rotate_180";
@@ -47,7 +51,8 @@ public class UserInterface extends AOKPPreferenceFragment implements
     CheckBoxPreference mEnableVolumeOptions;
     CheckBoxPreference mLongPressToKill;
     CheckBoxPreference mAllow180Rotation;
-    Preference mCustomLabel;
+    ListPreference mStatusBarCarrierLabel;
+    EditTextPreference mStatusBarCarrierLabelCustom;
     ListPreference mAnimationRotationDelay;
     ListPreference mHomeLongpress;
     Preference mLcdDensity;
@@ -55,9 +60,6 @@ public class UserInterface extends AOKPPreferenceFragment implements
     CheckBoxPreference mDisableBootAudio;
     CheckBoxPreference mDisableBugMailer;
     ListPreference mRecentAppSwitcher;
-
-    String mCustomLabelText = null;
-    int newDensityValue;
 
     DensityChanger densityFragment;
 
@@ -85,8 +87,41 @@ public class UserInterface extends AOKPPreferenceFragment implements
         mEnableVolumeOptions.setChecked(Settings.System.getInt(getActivity().getContentResolver(),
                 Settings.System.ENABLE_VOLUME_OPTIONS, 1) == 1);
 
-        mCustomLabel = findPreference(PREF_CUSTOM_CARRIER_LABEL);
-        updateCustomLabelTextSummary();
+        mStatusBarCarrierLabel = (ListPreference) prefSet
+                .findPreference(PREF_STATUS_BAR_CARRIER_LABEL);
+        mStatusBarCarrierLabelCustom = (EditTextPreference) prefSet
+                .findPreference(PREF_STATUS_BAR_CARRIER_LABEL_CUSTOM);
+
+        if (mStatusBarCarrierLabelCustom != null) {
+            EditText carrierEditText = mStatusBarCarrierLabelCustom.getEditText();
+
+            if (carrierEditText != null) {
+                InputFilter lengthFilter = new InputFilter.LengthFilter(20);
+                carrierEditText.setFilters(new InputFilter[]{lengthFilter});
+                carrierEditText.setSingleLine(true);
+            }
+        }
+
+        int statusBarCarrierLabel = Settings.System.getInt(getContentResolver(),
+                Settings.System.CARRIER_LABEL_TYPE, 0);
+        String statusBarCarrierLabelCustom = Settings.System.getString(getContentResolver(),
+                Settings.System.CARRIER_LABEL_CUSTOM_STRING);
+
+        if (statusBarCarrierLabelCustom == null) {
+            statusBarCarrierLabelCustom = "CyanogenMod 7";
+            Settings.System.putString(getContentResolver(),
+                    Settings.System.CARRIER_LABEL_CUSTOM_STRING,
+                    statusBarCarrierLabelCustom);
+        }
+
+        mStatusBarCarrierLabel.setValue(String.valueOf(statusBarCarrierLabel));
+        mStatusBarCarrierLabel.setOnPreferenceChangeListener(this);
+
+        mStatusBarCarrierLabelCustom.setText(statusBarCarrierLabelCustom);
+        mStatusBarCarrierLabelCustom.setOnPreferenceChangeListener(this);
+        mStatusBarCarrierLabelCustom.setEnabled(
+                statusBarCarrierLabel == 3);
+        }
 
         mLongPressToKill = (CheckBoxPreference) findPreference(PREF_LONGPRESS_TO_KILL);
         mLongPressToKill.setChecked(Settings.Secure.getInt(getActivity().getContentResolver(),
@@ -161,19 +196,7 @@ public class UserInterface extends AOKPPreferenceFragment implements
         }
     }
 
-    private void updateCustomLabelTextSummary() {
-        mCustomLabelText = Settings.System.getString(getActivity().getContentResolver(),
-                Settings.System.CUSTOM_CARRIER_LABEL);
-        if (mCustomLabelText == null) {
-            mCustomLabel
-                    .setSummary(R.string.custom_carrier_label_warning);
-        } else {
-            mCustomLabel.setSummary(mCustomLabelText);
-        }
-
-    }
-
-    @Override
+        @Override
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen,
             Preference preference) {
         if (preference == mCrtOffAnimation) {
@@ -204,33 +227,20 @@ public class UserInterface extends AOKPPreferenceFragment implements
                     Settings.System.ENABLE_VOLUME_OPTIONS, checked ? 1 : 0);
             return true;
 
-        } else if (preference == mCustomLabel) {
-            AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
+        } else if (preference == mStatusBarCarrierLabel) {
+            int carrierLabelType = Integer.valueOf((String) newValue);
+            mStatusBarCarrierLabelCustom.setEnabled(carrierLabelType == 3);
+            Settings.System.putInt(getContentResolver(), Settings.System.CARRIER_LABEL_TYPE,
+                    carrierLabelType);
+            return true;
 
-            alert.setTitle(R.string.custom_carrier_label_title);
-            alert.setMessage(R.string.custom_carrier_label_empty);
+        } else if (preference == mStatusBarCarrierLabelCustom) {
+            String carrierLabelCustom = String.valueOf(newValue);
+            Settings.System.putString(getContentResolver(),
+                    Settings.System.CARRIER_LABEL_CUSTOM_STRING,
+                    carrierLabelCustom);
+            return true;
 
-            // Set an EditText view to get user input
-            final EditText input = new EditText(getActivity());
-            input.setText(mCustomLabelText != null ? mCustomLabelText : "");
-            alert.setView(input);
-
-            alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int whichButton) {
-                    String value = ((Spannable) input.getText()).toString();
-                    Settings.System.putString(getActivity().getContentResolver(),
-                            Settings.System.CUSTOM_CARRIER_LABEL, value);
-                    updateCustomLabelTextSummary();
-                }
-            });
-
-            alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int whichButton) {
-                    // Canceled.
-                }
-            });
-
-            alert.show();
         } else if (preference == mLongPressToKill) {
 
             boolean checked = ((CheckBoxPreference) preference).isChecked();

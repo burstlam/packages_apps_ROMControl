@@ -61,7 +61,7 @@
 	<string name="ime_switcher_title">Beviteli mód kapcsoló mutatása</string>
 	<string name="ime_switcher_summary">Az állapotsávon, gépelés közben (újraindítás szükséges)</string>
 
-	<string name="custom_carrier_label_title">Személyreszabott szolgáltató felirat</string>
+<!--	<string name="custom_carrier_label_title">Személyreszabott szolgáltató felirat</string> -->
 	<string name="longpress_to_kill_title">Vissza hosszan: kénysz. leáll.</string>
 	<string name="longpress_to_kill_summary">A vissza gomb hosszan lenntartása kényszerített leállítást végez a megnyitott alkalmazáson</string>
 	

@@ -50,7 +50,7 @@
     <string name="rotation_animation_delay_summary">Dönüşün stabil olarak gerçekleşmesi için geçecek olan zamanı belirleyin. Standart 200 ms.</string>
     <string name="ime_switcher_title">IME Değiştiriciyi göster</string>
     <string name="ime_switcher_summary">Durum Çubuğunda(Yeniden başlatmak gerekir)</string>
-    <string name="custom_carrier_label_title">Özel operatör etiketi</string>
+<!--    <string name="custom_carrier_label_title">Özel operatör etiketi</string> -->
     <string name="longpress_to_kill_title">Geri tuşuna uzun basınca sonlandır</string>
     <string name="longpress_to_kill_summary">Geri tuşuna uzun basınca geçerli aktiviteyi sonlandır</string>
     <string name="enable_volume_options">Ses seçeneklerini etkinleştir</string>

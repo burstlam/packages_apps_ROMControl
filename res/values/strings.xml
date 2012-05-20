@@ -92,9 +92,9 @@
 	<string name="ime_switcher_title">Show IME Switcher</string>
 	<string name="ime_switcher_summary">In statusbar, while typing (requires reboot)</string>
 
-	<string name="custom_carrier_label_title">Custom carrier label</string>
+<!--	<string name="custom_carrier_label_title">Custom carrier label</string>
 	<string name="custom_carrier_label_empty">Please enter a new one!</string>
-	<string name="custom_carrier_label_warning">Custom label currently not set. Once you specify a custom one, there is no way back without doing a data wipe</string>
+	<string name="custom_carrier_label_warning">Custom label currently not set. Once you specify a custom one, there is no way back without doing a data wipe</string>-->
 	<string name="longpress_to_kill_title">Hold back to kill</string>
 	<string name="longpress_to_kill_summary">Holding back will kill the current activity</string>
 
@@ -557,5 +557,15 @@
     <string name="weather_47">Isolated Thundershowers</string>
     <!-- Forecase unavailable -->
     <string name="weather_3200"></string>
+
+    <!--Custom Carrier Label -->
+    <string name="ui_status_bar_carrier_label_title">Carrier label type</string>
+    <string name="ui_status_bar_carrier_label_summary">Change what is used as carrier label</string>
+    <string name="ui_status_bar_carrier_label_use_default">Default</string>
+    <string name="ui_status_bar_carrier_label_use_spn">Show SPN</string>
+    <string name="ui_status_bar_carrier_label_use_plmn">Show PLMN</string>
+    <string name="ui_status_bar_carrier_label_use_custom">Custom text</string>
+    <string name="ui_status_bar_carrier_label_custom_title">Custom carrier label</string>
+    <string name="ui_status_bar_carrier_label_custom_summary">Text used instead of the operator provided carrier label</string>
 
 </resources>

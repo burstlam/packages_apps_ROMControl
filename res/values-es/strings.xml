@@ -35,7 +35,7 @@
 	<string name="ime_switcher_title">Ver icono teclado</string>
 	<string name="ime_switcher_summary">En la barra de estado, mientras se escribe (requiere reiniciar sistema)</string>
 
-	<string name="custom_carrier_label_title">Personalizar nombre operadora</string>
+<!--	<string name="custom_carrier_label_title">Personalizar nombre operadora</string> -->
 	<string name="longpress_to_kill_title">Mantener para cerrar</string>
 	<string name="longpress_to_kill_summary">Mantener pulsado la tecla "atrás/volver para cerrar procesos abiertos</string>
 
@@ -120,6 +120,15 @@
 
     <!-- Color Picker -->
     <string name="dialog_color_picker">Color Picker</string>
-    <string name="press_color_to_apply">Presiona color para aplicar</string>   
-    
+    <string name="press_color_to_apply">Presiona color para aplicar</string>
+
+    <!-- Custom Carrier Label -->    
+    <string name="ui_status_bar_carrier_label_title">Tipo etiqueta operador</string>
+    <string name="ui_status_bar_carrier_label_summary">Cambiar la etiqueta del operador</string>
+    <string name="ui_status_bar_carrier_label_use_default">Predeterminado</string>
+    <string name="ui_status_bar_carrier_label_use_spn">Mostrar SPN</string>
+    <string name="ui_status_bar_carrier_label_use_plmn">Mostrar PLMN</string>
+    <string name="ui_status_bar_carrier_label_use_custom">Texto personalizado</string>
+    <string name="ui_status_bar_carrier_label_custom_title">Etiqueta personalizada</string>
+    <string name="ui_status_bar_carrier_label_custom_summary">Cambiar el texto para el nombre del operador</string>
 </resources>

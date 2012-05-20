@@ -61,7 +61,7 @@
     <string name="ime_switcher_title">Afficher le menu de changement du clavier</string>
     <string name="ime_switcher_summary">"Dans la barre d'état, lorsque le clavier est utilisé. Nécessite un redémarrage."</string>
 
-    <string name="custom_carrier_label_title">"Texte d'opérateur personnalisé"</string>
+<!--    <string name="custom_carrier_label_title">"Texte d'opérateur personnalisé"</string> -->
     <string name="longpress_to_kill_title">Longue pression sur la touche Retour</string>
     <string name="longpress_to_kill_summary">"Rester appuyé sur la touche Retour pour quitter l'application (libérer de la RAM)"</string>
 	
@@ -309,5 +309,16 @@
     <string name="error_values">Erreur d\'obtention des valeurs</string>
     <string name="set_boot">Appliquer au démarrage</string>
     <string name="apply_values">Appliquer les valeurs</string>
-    
+
+    <!-- Custom Carrier Label -->    
+    <string name="ui_status_bar_compact_carrier_title">Opérateur abrégé</string>
+    <string name="ui_status_bar_compact_carrier_summary">Utilise le nom abrégé du fournisseur d\'accès mobile</string>
+    <string name="ui_status_bar_carrier_label_title">Nom de l\'opérateur</string>
+    <string name="ui_status_bar_carrier_label_summary">Type d\'information utilisée pour afficher l\'opérateur</string>
+    <string name="ui_status_bar_carrier_label_use_default">Par défaut</string>
+    <string name="ui_status_bar_carrier_label_use_spn">Utiliser SPN</string>
+    <string name="ui_status_bar_carrier_label_use_plmn">Utiliser PLMN</string>
+    <string name="ui_status_bar_carrier_label_use_custom">Texte personnalisé</string>
+    <string name="ui_status_bar_carrier_label_custom_title">Opérateur personnalisé</string>
+    <string name="ui_status_bar_carrier_label_custom_summary">Texte utilisé à la place du nom de l\'opérateur</string>
 </resources>

@@ -44,7 +44,7 @@
 	<string name="ime_switcher_title">Toon IME wissel</string>
 	<string name="ime_switcher_summary">In statusbar, tijdens  het  typen (reboot vereist)</string>
 
-	<string name="custom_carrier_label_title">Aangepast provider label</string>
+<!--	<string name="custom_carrier_label_title">Aangepast provider label</string> -->
 	<string name="longpress_to_kill_title">Hou \'terug\' vast voor afsluiten</string>
 	<string name="longpress_to_kill_summary">Langdrukken op de terug-knop sluit de huidige activitei af.</string>
 

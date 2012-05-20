@@ -87,9 +87,9 @@
 	<string name="ime_switcher_title">Zobrazovat výběr metody vstupu</string>
 	<string name="ime_switcher_summary">Během psaní ve stavové liště (vyžaduje restart)</string>
 
-	<string name="custom_carrier_label_title">Vlastní název operátora</string>
+<!--	<string name="custom_carrier_label_title">Vlastní název operátora</string>
   <string name="custom_carrier_label_empty">Vložit nový název!</string>
-	<string name="custom_carrier_label_warning">Vlastní název není nastaven. Jakmile je definován, nelze to vzít zpátky do provedení plného wipu.</string>
+	<string name="custom_carrier_label_warning">Vlastní název není nastaven. Jakmile je definován, nelze to vzít zpátky do provedení plného wipu.</string> -->
 
 	<string name="longpress_to_kill_title">Podržet zpět pro ukončení</string>
 	<string name="longpress_to_kill_summary">Podržení tlačítka zpět ukončí (killne) aktuální aplikaci</string>

@@ -41,7 +41,7 @@
 	<string name="ime_switcher_title">Show IME Switcher</string>
 	<string name="ime_switcher_summary">Na barra ri statu, mentri a digitazioni (A ta riavviari u telefunu)</string>
 	
-	<string name="custom_carrier_label_title">Cancia nome operatore</string>
+<!--	<string name="custom_carrier_label_title">Cancia nome operatore</string> -->
 	<string name="longpress_to_kill_title">Tieni ngravatu pi ciurriri</string>
 	<string name="longpress_to_kill_summary">Tieni ngravatu u tastu arreri pi ciurriri l\'applicazioni</string>
 	
