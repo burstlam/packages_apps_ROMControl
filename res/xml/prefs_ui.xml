@@ -58,21 +58,9 @@
 			android:key="enable_volume_options"
 			android:title="@string/enable_volume_options" />
 
-<!--		<Preference
+		<Preference
 			android:key="custom_carrier_label"
-			android:title="@string/custom_carrier_label_title" />  -->
-
-        <ListPreference android:key="pref_status_bar_carrier_label"
-                        android:dialogTitle="@string/ui_status_bar_carrier_label_title"
-                        android:title="@string/ui_status_bar_carrier_label_title"
-                        android:summary="@string/ui_status_bar_carrier_label_summary"
-                        android:entries="@array/entries_status_bar_carrier_label"
-                        android:entryValues="@array/values_status_bar_carrier_label" />
-        <EditTextPreference android:key="pref_status_bar_carrier_label_custom"
-                        android:dialogTitle="@string/ui_status_bar_carrier_label_custom_title"
-                        android:title="@string/ui_status_bar_carrier_label_custom_title"
-                        android:summary="@string/ui_status_bar_carrier_label_custom_summary"
-                        android:defaultValue="Burst Kernel" />
+			android:title="@string/custom_carrier_label_title" />
 
 		<CheckBoxPreference
 			android:key="longpress_to_kill"

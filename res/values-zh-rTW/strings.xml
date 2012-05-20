@@ -92,9 +92,9 @@
 	<string name="ime_switcher_title">顯示輸入法切換圖示</string>
 	<string name="ime_switcher_summary">鍵盤輸入中於狀態欄顯示(需重啟手機!)</string>
 
-<!--	<string name="custom_carrier_label_title">自定義營運商</string>
+	<string name="custom_carrier_label_title">自定義營運商</string>
         <string name="custom_carrier_label_empty">請輸入新的名稱</string>
-        <string name="custom_carrier_label_warning">注意!還沒有設定自定義營運商,一旦使用此功能後只可通過WIPE功能抹取DATA資料還原,才能恢復SIM卡默認名稱!</string> -->
+        <string name="custom_carrier_label_warning">注意!還沒有設定自定義營運商,一旦使用此功能後只可通過WIPE功能抹取DATA資料還原,才能恢復SIM卡默認名稱!</string>
 	<string name="longpress_to_kill_title">長按返回鍵結束進程</string>
 	<string name="longpress_to_kill_summary">長按返回鍵將當前程序從內存中完全退出.</string>
 
@@ -549,13 +549,4 @@
     <!-- Forecase unavailable -->
     <string name="weather_3200"></string>
 
-    <!-- Custom Carrier Label -->
-    <string name="ui_status_bar_carrier_label_title">运营商名称类型</string>
-    <string name="ui_status_bar_carrier_label_summary">修改运营商名称</string>
-    <string name="ui_status_bar_carrier_label_use_default">默认</string>
-    <string name="ui_status_bar_carrier_label_use_spn">显示 SPN</string>
-    <string name="ui_status_bar_carrier_label_use_plmn">显示 PLMN</string>
-    <string name="ui_status_bar_carrier_label_use_custom">自定义文本</string>
-    <string name="ui_status_bar_carrier_label_custom_title">自定义运营商名称</string>
-    <string name="ui_status_bar_carrier_label_custom_summary">使用文本替代管理者提供的运营商名称</string>
 </resources>

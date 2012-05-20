@@ -43,7 +43,7 @@
 	<string name="ime_switcher_title">Показывать IME</string>
 	<string name="ime_switcher_summary">В статус баре, при наборе текста (перезагрузка)</string>
 
-<!--	<string name="custom_carrier_label_title">Свое название оператора</string> -->
+	<string name="custom_carrier_label_title">Свое название оператора</string>
 	<string name="longpress_to_kill_title">Удерживать чтобы закрыть</string>
 	<string name="longpress_to_kill_summary">Удерживайте кнопку НАЗАД чтобы закрыть текущее приложение</string>
 

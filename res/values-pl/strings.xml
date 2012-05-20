@@ -35,7 +35,7 @@
 	<string name="ime_switcher_title">Pokaż przełącznik metody wprowadzania</string>
 	<string name="ime_switcher_summary">W obszarze powiadomień (wymaga restartu)</string>
 
-<!--	<string name="custom_carrier_label_title">Własna nazwa operatora</string> -->
+	<string name="custom_carrier_label_title">Własna nazwa operatora</string>
 	<string name="longpress_to_kill_title">Wciśnij wstecz żeby zamknąć</string>
 	<string name="longpress_to_kill_summary">Trzymanie przycisku wstecz zamknie aktywny program</string>
 
