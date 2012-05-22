@@ -506,11 +506,11 @@
                 <item>Airplane mode</item>
                 <item>Vibrate</item>
                 <item>Silent</item>
+                <item>Sync</item>
                 <item>Data</item>
                 <item>2G</item>
                 <item>Tether</item>
                 <item>Torch</item>
-                <item>Sync</item>
         </string-array>
 
 	<string-array name="lockscreen_choice_entries">
