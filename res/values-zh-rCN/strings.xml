@@ -36,37 +36,45 @@
     <string name="advanced_settings">高级设置</string>
     <string name="misc_short">其他</string>
 
+    <!-- Menu Strings 顶部菜单 -->
+    <string name="menu_lockscreens_remove_wallpaper">移除锁屏壁纸</string>
+    <string name="menu_main_activity_change_locale">语言</string>
+    <string name="menu_nav_bar_reset">重置导航栏</string>
+    <string name="menu_weather_get_weather">获取天气</string>
+
     <!-- General Strings -->
     <string name="cancel">取消</string>
     <string name="ok">确定</string>
     
     <!-- Navigation Bar -->
     <string name="title_pref_enable_bar">启用导航栏</string>
-    <string name="navigation_bar_width_title">导航栏宽度(横屏显示时)</string>
-    <string name="navigation_bar_height_title">导航栏高度(垂直显示时)</string>
 
-    <string name="title_pref_menu_display">菜单键设置：虚拟键</string>
+    <string name="title_pref_menu_display">菜单键设置</string>
     <string name="summary_pref_menu_display">设置菜单键(下方状态栏虚拟键)显示位置,使用旧式 MENU 键时务必选择移除 MENU 键</string>
     <string name="navigation_bar">导航栏</string>
     <string name="navigation_bar_tint_title">虚拟键着色(反白图案)</string>
-    <string name="navigation_bar_glow_tint_title">虚拟键亮色</string>
-    <string name="navigation_bar_glow_tint_summary">更改按键发出的亮色.</string>
+    <string name="navigation_bar_glow_tint_title">虚拟按键点击颜色</string>
+    <string name="navigation_bar_glow_tint_summary">设置虚拟按钮被点击时的背景色</string>
+    <string name="navigation_bar_width_title">导航栏宽度(横屏显示时)</string>
+    <string name="navigation_bar_height_title">导航栏高度(垂直显示时)</string>
 
-    <string name="title_pref_navigation_menu_display">MENU键设置:ICS系统</string>    
+    <string name="title_pref_navigation_menu_display">菜单键显示设置</string>    
     <string name="summary_pref_navigation_menu_display">设置MENU键显示时机及方式</string>
 
     <string name="navbar_order_title">虚拟按键排序</string>
     <string name="navbar_order_summary">自定虚拟按键排列次序</string>
 
-    <string name="enabled_navbar_buttons_title">虚拟键管理</string>
-    <string name="enabled_navbar_buttons_summary">选择你需要的按键组合</string>
+    <string name="navbar_button_cat">自定虚拟键数目</string>
 
-    <string name="navbar_button_cat">自定虚拟键</string>
     <string name="navbar_qty_title">设置虚拟键数目</string>
     <string name="navbar_qty_summary">选择按键数目</string>
 
+    <string name="enabled_navbar_buttons_title">虚拟键管理</string>
+    <string name="enabled_navbar_buttons_summary">选择你需要的按键组合</string>
+
     <string name="navbar_action_title">屏幕直向时点击%1$s动作: </string>
     <string name="navbar_longpress_title">屏幕横向时长按%1$s动作: </string>
+
     <string name="navbar_action_home">主屏幕</string>
     <string name="navbar_action_back">返回键</string>
     <string name="navbar_action_recents">近期任务</string>
@@ -76,6 +84,10 @@
     <string name="navbar_action_power">电源键</string>
     <string name="navbar_action_none">空白</string>
 
+    <string name="navbar_enable_dialog_title">一定要重启的！</string>
+    <string name="navbar_enable_dialog_msg">请重新启动以启用/禁用此属性</string>
+    <string name="navbar_enable_dialog_negative">稍后重启</string>
+    <string name="navbar_enable_dialog_Positive">现在重启</string>
     <string name="button_transparency_title">虚拟按键透明度</string>
 
     <string name="long_press_home_title">长按主屏幕键设置</string>
@@ -88,55 +100,55 @@
     <string name="rotation_animation_delay_title">屏幕旋转延时值</string>
     <string name="rotation_animation_delay_summary">设置屏幕画面改变前最少的稳定时间.默认200毫秒(ms).</string>
 
-	<string name="ime_switcher_title">显示输入法切换图示</string>
-	<string name="ime_switcher_summary">输入时状态栏显示键盘图标（需要重启）</string>
+    <string name="ime_switcher_title">显示输入法切换图示</string>
+    <string name="ime_switcher_summary">输入时状态栏显示键盘图标（需要重启）</string>
 
-	<string name="custom_carrier_label_title">自定义营运商</string>
-        <string name="custom_carrier_label_empty">请输入新的名称</string>
-        <string name="custom_carrier_label_warning">注意!还没有设置自定义营运商,一旦使用此功能后只可通过WIPE功能抹取DATA数据撤消,才能还原运营商默认名称!</string>
+    <string name="custom_carrier_label_title">自定义营运商</string>
+    <string name="custom_carrier_label_empty">请输入新的名称</string>
+    <string name="custom_carrier_label_warning">注意!还没有设置自定义营运商,一旦使用此功能后只可通过WIPE功能抹取DATA数据撤消,才能还原运营商默认名称!</string>
 
-	<string name="longpress_to_kill_title">长按返回键结束进程</string>
-	<string name="longpress_to_kill_summary">长按返回键将当前程序从内存中完全退出.</string>
+    <string name="longpress_to_kill_title">长按返回键结束进程</string>
+    <string name="longpress_to_kill_summary">长按返回键将当前程序从内存中完全退出.</string>
 	
-	<string name="rotate_180_title">允许 180° 旋转</string>
-	<string name="rotate_180_summary">允许设备倒置显示!</string>
+    <string name="rotate_180_title">允许 180° 旋转</string>
+    <string name="rotate_180_summary">允许设备倒置显示!</string>
 
-	<string name="enable_volume_options">打开音量键选项</string>
+    <string name="enable_volume_options">打开音量键选项</string>
 
-        <string name="recent_app_switcher_title">近期任务窗口风格</string>
-        <string name="recent_app_switcher_summary">改变近期任务窗口风格（需要重启使用者介面）</string>
+    <string name="recent_app_switcher_title">近期任务窗口风格</string>
+    <string name="recent_app_switcher_summary">改变近期任务窗口风格（需要重启使用者介面）</string>
 
-        <string name="disable_bootanimation_title">关闭开机动画</string>
-        <string name="disable_bootanimation_summary">关闭开机动画, 加快开机速度</string>
+    <string name="disable_bootanimation_title">关闭开机动画</string>
+    <string name="disable_bootanimation_summary">关闭开机动画, 加快开机速度</string>
 
-        <string name="disable_bootaudio_title">关闭开机音效</string>
-        <string name="disable_bootaudio_summary">静音</string>
-        <string name="disable_bootaudio_summary_disabled">如要使用开机音效功能，你需要在以下把音效档加入指定路径如下： \n/system/media/boot_audio.mp3</string>
+    <string name="disable_bootaudio_title">关闭开机音效</string>
+    <string name="disable_bootaudio_summary">静音</string>
+    <string name="disable_bootaudio_summary_disabled">如要使用开机音效功能，你需要在以下把音效档加入指定路径如下： \n/system/media/boot_audio.mp3</string>
 
-        <string name="disable_bugmailer_title">禁用bug邮件反馈</string>
+    <string name="disable_bugmailer_title">禁用bug邮件反馈</string>
 
-	<string name="lcd_density_title">LCD屏幕密度</string>
-        <string name="lcd_density_summary">更改屏幕显示比例</string>
+    <string name="lcd_density_title">LCD屏幕密度</string>
+    <string name="lcd_density_summary">更改屏幕显示比例</string>
 
-	<!-- CRT animations -->
-	<string name="crt_animations_header">CRT 动画</string>
-	<string name="crt_on_title">CRT 开机动画</string>
-	<string name="crt_off_title">CRT 关机动画</string>
+    <!-- CRT animations -->
+    <string name="crt_animations_header">CRT 动画</string>
+    <string name="crt_on_title">CRT 开机动画</string>
+    <string name="crt_off_title">CRT 关机动画</string>
 
-	<!-- LCD Density -->
-	<string name="lcd_density_wizard">LCD 密度指南</string>
-	<string name="follow_through_title">遵循</string>
-	<string name="follow_through_summary">确保一步一步完成</string>
-	<string name="stock_density_title">1. 改变密度为默认值</string>
-	<string name="stock_density_summary">平板以及旧款电话 160. 大多数电话 240. Galaxy Nexus 使用 320 为默认值.</string>
-	<string name="reboot_title">2. 点我重启</string>
-	<string name="reboot_summary">回到此菜单，完成其余的步骤！</string>
-	<string name="clear_market_data_title">3. 清理市场数据</string>
-	<string name="clear_market_data_cleared">市场数据清除</string>
-	<string name="open_market_title">4. 打开市场选择同意</string>
-	<string name="open_market_summary">然后回到此菜单.</string>
-	<string name="custom_density_title">5. 再选择你需要的密度!</string>
-	<string name="custom_density_summary">如果你遇到市场兼容问题,回到这里,重复步骤.</string>
+    <!-- LCD Density -->
+    <string name="lcd_density_wizard">LCD 密度指南</string>
+    <string name="follow_through_title">遵循</string>
+    <string name="follow_through_summary">确保一步一步完成</string>
+    <string name="stock_density_title">1. 改变密度为默认值</string>
+    <string name="stock_density_summary">平板以及旧款电话 160. 大多数电话 240. Galaxy Nexus 使用 320 为默认值.</string>
+    <string name="reboot_title">2. 点我重启</string>
+    <string name="reboot_summary">回到此菜单，完成其余的步骤！</string>
+    <string name="clear_market_data_title">3. 清理市场数据</string>
+    <string name="clear_market_data_cleared">市场数据清除</string>
+    <string name="open_market_title">4. 打开市场选择同意</string>
+    <string name="open_market_summary">然后回到此菜单.</string>
+    <string name="custom_density_title">5. 再选择你需要的密度!</string>
+    <string name="custom_density_summary">如果你遇到市场兼容问题,回到这里,重复步骤.</string>
 
     <!-- Lockscreens -->
     <string name="pref_lockscreen_layout_title">锁屏风格</string>
@@ -173,6 +185,9 @@
     <string name="lockscreen_action_camera">相机</string>
     <string name="lockscreen_action_phone">拨号</string>
     <string name="lockscreen_action_none">空白</string>
+    <string name="lockscreen_custom_app_icon_no_sd">此功能需插入 SD 卡</string>
+    <string name="lockscreen_custom_app_icon_successfully">的图标设置成功</string>
+    <string name="lockscreen_custom_app_icon_failed">图标设置失败。没有 SD 卡？</string>
     <string name="lockscreen_landscape_title">水平方向锁屏</string>
     <string name="lockscreen_landscape_summary">无视重力感应强制启用横向界面</string>
     <string name="lockscreen_quick_unlock_control_title">快速 PIN 解锁</string>
@@ -181,12 +196,18 @@
     <string name="enable_fast_torch_summary">屏幕关闭时, 长按电源键能打开LED手电筒.松开则会自动关闭</string>
     <string name="lockscreen_wallpaper_title">选择锁屏壁纸</string>
     <string name="lockscreen_wallpaper_summary">选择锁屏的背景,在这个界面按下菜单键才可以看见</string>
+    <string name="lockscreen_wallpaper_no_external_storage">外部存储 (/sdcard) 不可用。请插入SD卡或修正 ROM ！</string>
+    <string name="lockscreen_wallpaper_not_set_sd">壁纸设置失败(未插入SD卡？)</string>
+    <string name="lockscreen_wallpaper_set_successfully">壁纸设置成功</string>
+    <string name="lockscreen_wallpaper_not_set">壁纸设置失败</string>
     <string name="lockscreen_text_color_title">锁屏文字颜色</string>
     <string name="lockscreen_calendar">锁屏日历</string>
     <string name="lockscreen_calendar_title">启用</string>
     <string name="lockscreen_calendar_summary">于锁屏显示日历中的下一个活动.</string>
     <string name="lockscreen_calendar_sources_title">撰择日历来源</string>
     <string name="lockscreen_calendar_sources_summary">选择想要查看的日历.</string>
+    <string name="lockscreen_calendar_dialog">选择所需的日历</string>
+    <string name="lockscreen_calendar_close">关闭</string>
     <string name="lockscreen_calendar_range_title">指定显示时间范围</string>
     <string name="lockscreen_calendar_range_summary">设置锁屏中显示那些活动时段.</string>
     <string name="lockscreen_calendar_use_colors_title">使用调色</string>
@@ -285,14 +306,14 @@
     <string name="enable_clock_weekday_summary">于时间前显示目前是本星期的哪一天</string>
 
     <!-- Statusbar | Toggles -->
-    <string name="toggle_style_title">快捷开关样式</string>
+    <string name="toggle_style_title">快捷开关</string>
     <string name="toggle_style_summary">显示开关的图标与文字.</string>
 
-    <string name="alternate_button_layout_title">切换按键动作</string>
+    <string name="alternate_button_layout_title">切换开关动作</string>
     <string name="alternate_button_layout_summary">使用按钮样式来取代默认的滑动样式.</string>
     
     <string name="enabled_toggles_title">快捷开关</string>
-    <string name="enabled_toggles_summary">启用</string>
+    <string name="enabled_toggles_summary">选择要显示的开关</string>
 
     <string name="toggles_display_dialog">选择需要启用的开关</string>
     <string name="toggles_display_close">关闭</string>
@@ -338,16 +359,19 @@
 	<string name="weather_custom_location_dialog_message">务必留意下面的例子! 错误设置会令手机不能正确获取天气信息外,可能引起其它问题.\n\nExamples: New York,NY // New York, NY // 10033 // London, England</string>
 	<string name="weather_custom_location_title">自定所在地</string>
 	<string name="weather_refresh_interval">更新频率</string>
-        <string name="weather_use_celcius">温度以摄氏度数显示</string>
+        <string name="weather_use_celcius">公制单位</string>
         <string name="weather_use_celcius_summary">以摄氏取代华氏显示.</string>
         <string name="weather_statusbar_style">状态栏天气讯息显示风格</string>
-
         <string name="weather_start_custom_app">天气服务使用自定义程序</string>
         <string name="weather_start_custom_app_summary">点击天气图示引导自定义程序.</string>
         <string name="weather_custom_app_title">自定义程序</string>
         <string name="weather_custom_app_dialog_title">选择程序</string>
         <string name="weather_custom_app_dialog_message">当前使用中程序</string>
-        <string name="weather_refreshing">立即更新天气信息!</string>
+        <string name="weather_refreshing">正在更新天气信息!</string>
+        <string name="weather_loc_warning_title">无法获取位置！</string>
+        <string name="weather_loc_warning_msg">Google的位置服务已禁用，无法从网络获取您当前的位置和天气信息。请手动设置自定义位置或允许 Google 位置服务从网络获取您的位置。</string>
+        <string name="weather_loc_warning_positive">启用位置服务</string>
+<string name="weather_loc_warning_negative">不启用</string>
 	
 	<!-- Dialog Titles -->
 	<string name="dt_free_memory">最小内存管理</string>
@@ -542,3 +566,4 @@
     <!-- Forecase unavailable -->
     <string name="weather_3200"></string>
 </resources>
+

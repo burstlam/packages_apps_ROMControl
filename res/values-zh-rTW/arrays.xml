@@ -162,14 +162,6 @@
 		<item>ICS版本任務管理員</item>
 	</string-array>
 
-    <string-array name="pref_lockscreen_options_values">
-		<item>2</item>
-		<item>6</item>
-        	<item>8</item>
-        	<item>1</item>
-        	<item>0</item>
-	</string-array>
-
         <string-array name="pref_lockscreen_options_entries">
 		<item>預設風格</item>
 		<item>四鍵風格</item>
@@ -178,16 +170,6 @@
                 <item>蜂巢風格</item>
 	</string-array>
 
-	<string-array name="pref_lockscreen_calendar_interval_values">
-		<item>1000</item>
-		<item>1500</item>
-	        <item>2000</item>
-	        <item>2500</item>
-	        <item>3000</item>
-	        <item>3500</item>
-	        <item>4000</item>
-	</string-array>
-	
 	<string-array name="pref_lockscreen_calendar_interval_entries">
 		<item>1 秒</item>
 		<item>1.5 秒</item>
@@ -216,14 +198,6 @@
 		<item>100mb</item>
 	</string-array>
 
-	<string-array name="minfree_values">
-		<item>1536,2048,4096,5120,5632,6144</item>
-		<item>2560,3840,6400,7680,10240,12800</item>
-		<item>2560,3840,6400,10240,12800,19200</item>
-		<item>2048,3072,6144,15360,17920,20480</item>
-		<item>2560,3840,6400,12800,12800,25600</item>
-	</string-array>
-	
 	<string-array name="battery_icon_entries">
 		<item>只顯示默認圖示</item>
 		<item>只顯示精確數值</item>
@@ -253,11 +227,11 @@
 		<item>飛航</item>
 		<item>振動</item>
 		<item>靜音</item>
+		<item>同步</item>
                 <item>數據</item>
                 <item>2G</item>
 		<item>Usb綁定</item>
 		<item>電筒</item>
-		<item>同步</item>
 	</string-array>
 	
 	<string-array name="lockscreen_choice_entries">

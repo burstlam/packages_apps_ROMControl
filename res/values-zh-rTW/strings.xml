@@ -35,6 +35,12 @@
 
     <string name="advanced_settings">進階設置</string>
     <string name="misc_short">其他</string>
+
+    <!-- Menu Strings -->
+    <string name="menu_lockscreens_remove_wallpaper">移除壁紙</string>
+    <string name="menu_main_activity_change_locale">語言</string>
+    <string name="menu_nav_bar_reset">重置</string>
+    <string name="menu_weather_get_weather">獲取天氣</string>
     
     <!-- General Strings -->
     <string name="cancel">取消</string>
@@ -42,7 +48,7 @@
 
     <!-- Navigation Bar -->
     <string name="title_pref_enable_bar">啟用導航欄</string>
-    <string name="title_pref_menu_display">MENU鍵設置：虛擬鍵</string>
+    <string name="title_pref_menu_display">MENU鍵設置</string>
     <string name="summary_pref_menu_display">設置MENU鍵(下方狀態欄虛擬鍵)顯示位置</string>
     <string name="navigation_bar">導航欄(虛擬鍵)設置</string>
     <string name="navigation_bar_tint_title">虛擬鍵著色(反白圖案)</string>
@@ -51,7 +57,7 @@
     <string name="navigation_bar_width_title">導航欄寬度(橫屏顯示時)</string>
     <string name="navigation_bar_height_title">導航欄高度(垂直顯示時)</string>
 
-    <string name="title_pref_navigation_menu_display">MENU鍵設置:ICS系統</string>
+    <string name="title_pref_navigation_menu_display">MENU鍵顯示設置</string>
     <string name="summary_pref_navigation_menu_display">設置MENU鍵顯示時機及方式</string>
 
     <string name="navbar_order_title">虛擬鍵樣式</string>
@@ -77,7 +83,11 @@
     <string name="navbar_action_power">電源鍵</string>
     <string name="navbar_action_none">空白</string>
 
-    <string name="button_transparency_title">虛擬鍵透明度</string>
+    <string name="navbar_enable_dialog_title">必須重啟系統！</string>
+    <string name="navbar_enable_dialog_msg">請重啟以啟用／禁用此功能</string>
+    <string name="navbar_enable_dialog_negative">稍後重啟</string>
+    <string name="navbar_enable_dialog_Positive">立即重啟</string>
+    <string name="button_transparency_title">虚拟按键透明度</string>
 
     <string name="long_press_home_title">長按HOME鍵設置</string>
     <string name="long_press_home_summary">設置長按HOME鍵時預定動作</string>
@@ -175,6 +185,9 @@
     <string name="lockscreen_action_mms">SMS短訊</string>
     <string name="lockscreen_action_phone">撥號</string>
     <string name="lockscreen_action_none">空白</string>
+    <string name="lockscreen_custom_app_icon_no_sd">此功能需插入SD卡</string>
+    <string name="lockscreen_custom_app_icon_successfully">的圖示成功設置</string>
+    <string name="lockscreen_custom_app_icon_failed">圖示設置失敗，請確認SD卡.</string>
     <string name="lockscreen_landscape_title">支援橫屏顯示解屏界面</string>
     <string name="lockscreen_landscape_summary">於鎖屏中啟用橫向界面</string>
     <string name="lockscreen_quick_unlock_control_title">快速PIN解鎖</string>
@@ -183,11 +196,18 @@
     <string name="enable_fast_torch_summary">屏幕關閉時, 長按電源鍵能打開LED手電筒.放開電源鍵則會自動關閉</string>
     <string name="lockscreen_wallpaper_title">選擇鎖屏壁紙</string>
     <string name="lockscreen_wallpaper_summary">可以選擇鎖屏的背景</string>
+    <string name="lockscreen_wallpaper_no_external_storage">外部存儲(/sdcard) 不可用。請插入SD卡或修正ROM錯誤 ！</string>
+    <string name="lockscreen_wallpaper_not_set_sd">壁紙設置失敗(未插入SD卡?)</string>
+    <string name="lockscreen_wallpaper_set_successfully">壁紙設置成功</string>
+    <string name="lockscreen_wallpaper_not_set">壁紙設置失敗</string>
     <string name="lockscreen_text_color_title">鎖屏文字顏色</string>
     <string name="lockscreen_calendar_title">啟用鎖屏日曆</string>
     <string name="lockscreen_calendar_summary">於鎖屏中顯示個人日曆活動事項。</string>
     <string name="lockscreen_calendar_sources_title">選擇日曆</string>
     <string name="lockscreen_calendar_sources_summary">選擇欲顯示之日曆。</string>
+    <string name="lockscreen_calendar_dialog">選擇所需日曆</string>
+    <string name="lockscreen_calendar_close">關閉</string>
+
     <string name="lockscreen_calendar_range_title">區間設定</string>
     <string name="lockscreen_calendar_range_summary">設定日曆顯示區間。</string>
     <string name="lockscreen_calendar_use_colors_title">使用彩色字</string>
@@ -293,7 +313,7 @@
     <string name="alternate_button_layout_summary">使用按鈕樣式來取代默認的滑動樣式.</string>
     
     <string name="enabled_toggles_title">啟用開關</string>
-    <string name="enabled_toggles_summary">啟用</string>
+    <string name="enabled_toggles_summary">選擇所需的開關</string>
 
     <string name="toggles_display_dialog">選擇需要啟用的開關</string>
     <string name="toggles_display_close">關閉</string>
