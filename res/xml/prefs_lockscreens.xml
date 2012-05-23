@@ -19,6 +19,11 @@
 		android:title="@string/pref_lockscreen_layout_title"
 		android:summary="@string/pref_lockscreen_layout_summary" />
 
+	<PreferenceCategory
+		android:key="lockscreen_targets"
+		android:title="@string/lockscreen_targets">
+	</PreferenceCategory>
+
 	<CheckBoxPreference
 		android:key="pref_lockscreen_menu_unlock"
 		android:title="@string/title_pref_lockscreen_menu_unlock"
@@ -128,12 +133,6 @@
 			android:key="show_lock_before_unlock"
 			android:title="@string/show_lock_before_unlock_title"
 			android:summary="@string/show_lock_before_unlock_summary" />
-
-	</PreferenceCategory>
-
-	<PreferenceCategory
-		android:key="lockscreen_targets"
-		android:title="@string/lockscreen_targets">
 
 	</PreferenceCategory>
 

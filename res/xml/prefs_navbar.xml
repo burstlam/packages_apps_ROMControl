@@ -40,7 +40,6 @@
 	<PreferenceCategory
 		android:key="navbar_buttons"
 		android:title="@string/navbar_button_cat">
-		
 	</PreferenceCategory>
 
 	<PreferenceCategory
