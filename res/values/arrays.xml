@@ -495,7 +495,6 @@
                 <item>DATA</item>
                 <item>2G</item>
                 <item>TETHER</item>
-		<item>TORCH</item>
 	</string-array>
 
         <string-array name="available_toggles_values">
@@ -510,7 +509,6 @@
                 <item>Data</item>
                 <item>2G</item>
                 <item>Tether</item>
-                <item>Torch</item>
         </string-array>
 
 	<string-array name="lockscreen_choice_entries">

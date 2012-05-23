@@ -231,7 +231,6 @@
                 <item>數據</item>
                 <item>2G</item>
 		<item>Usb綁定</item>
-		<item>電筒</item>
 	</string-array>
 	
 	<string-array name="lockscreen_choice_entries">

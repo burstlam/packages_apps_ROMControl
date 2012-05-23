@@ -248,7 +248,6 @@
         <item>数据</item>
         <item>2G</item>
         <item>Usb绑定</item>
-        <item>手电</item>
     </string-array>
 
     <string-array name="lockscreen_choice_entries">
