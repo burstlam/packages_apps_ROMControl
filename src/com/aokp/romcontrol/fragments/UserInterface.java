@@ -127,7 +127,7 @@ public class UserInterface extends AOKPPreferenceFragment implements
         
         if(!new File("/system/media/boot_audio.mp3").exists() &&
                 !new File("/system/media/boot_audio.unicorn").exists() ) {
-            mDisableBootAudio.setEnabled(false);
+            mDisableBootAudio.setEnabled(true);
             mDisableBootAudio.setSummary(R.string.disable_bootaudio_summary_disabled);
         } else {
             mDisableBootAudio.setChecked(!new File("/system/media/boot_audio.mp3").exists());
