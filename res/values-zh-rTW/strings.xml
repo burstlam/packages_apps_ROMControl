@@ -201,6 +201,7 @@
     <string name="lockscreen_wallpaper_set_successfully">壁紙設置成功</string>
     <string name="lockscreen_wallpaper_not_set">壁紙設置失敗</string>
     <string name="lockscreen_text_color_title">鎖屏文字顏色</string>
+    <string name="lockscreen_calendar">鎖屏日曆</string>
     <string name="lockscreen_calendar_title">啟用鎖屏日曆</string>
     <string name="lockscreen_calendar_summary">於鎖屏中顯示個人日曆活動事項。</string>
     <string name="lockscreen_calendar_sources_title">選擇日曆</string>
