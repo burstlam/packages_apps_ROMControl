@@ -307,11 +307,10 @@
     <string name="enable_clock_weekday_summary">於時間前顯示目前是本星期的哪一天</string>
 
     <!-- Statusbar | Toggles -->
-    <string name="toggle_style_title">快捷開關樣式</string>
+    <string name="toggle_style_title">快捷開關風格</string>
     <string name="toggle_style_summary">使用圖標或者文字樣式.</string>
 
-    <string name="alternate_button_layout_title">切換按鍵動作</string>
-    <string name="alternate_button_layout_summary">使用按鈕樣式來取代默認的滑動樣式.</string>
+    <string name="toggles_layout_title">開關樣式</string>
     
     <string name="enabled_toggles_title">啟用開關</string>
     <string name="enabled_toggles_summary">選擇所需的開關</string>

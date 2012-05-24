@@ -306,11 +306,10 @@
     <string name="enable_clock_weekday_summary">于时间前显示目前是本星期的哪一天</string>
 
     <!-- Statusbar | Toggles -->
-    <string name="toggle_style_title">快捷开关</string>
+    <string name="toggle_style_title">快捷开关风格</string>
     <string name="toggle_style_summary">显示开关的图标与文字.</string>
 
-    <string name="alternate_button_layout_title">切换开关动作</string>
-    <string name="alternate_button_layout_summary">使用按钮样式来取代默认的滑动样式.</string>
+    <string name="toggles_layout_title">开关式样</string>
     
     <string name="enabled_toggles_title">快捷开关</string>
     <string name="enabled_toggles_summary">选择要显示的开关</string>
@@ -322,7 +321,7 @@
     <string name="toggles_order_summary">选择要显示的开关</string>
     <string name="brightness_location_title">亮度开关位置</string>
     <string name="reset_toggles_title">重置</string>
-    <string name="reset_toggles_summary">重置开关位置显示顺序</string>
+    <string name="reset_toggles_summary">重置所有开关及状态</string>
 
     <!-- Statusbar | Signal -->
     <string name="signal_style">讯号值样式</string>
