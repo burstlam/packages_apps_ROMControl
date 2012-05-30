@@ -164,10 +164,14 @@
 
         <string-array name="pref_lockscreen_options_entries">
 		<item>預設風格</item>
-		<item>四鍵風格</item>
-                <item>八鍵風格</item>
                 <item>原生風格</item>
                 <item>蜂巢風格</item>
+                <item>三鍵</item>
+                <item>四鍵</item>
+                <item>五鍵</item>
+                <item>六鍵</item>
+                <item>七鍵</item>
+                <item>八鍵</item>
 	</string-array>
 
 	<string-array name="pref_lockscreen_calendar_interval_entries">

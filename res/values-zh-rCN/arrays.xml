@@ -167,10 +167,14 @@
 
     <string-array name="pref_lockscreen_options_entries">
         <item>默认</item>
-        <item>四键</item>
-        <item>八键</item>
         <item>原生</item>
         <item>蜂巢</item>
+        <item>三键</item>
+        <item>四键</item>
+        <item>五键</item>
+        <item>六键</item>
+        <item>七键</item>
+        <item>八键</item>
     </string-array>
 
     <string-array name="pref_lockscreen_calendar_interval_entries">
