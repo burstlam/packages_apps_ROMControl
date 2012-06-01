@@ -47,7 +47,7 @@
     <string name="ok">确定</string>
     
     <!-- Navigation Bar -->
-    <string name="title_pref_enable_bar">启用导航栏</string>
+    <string name="title_pref_enable_nav_bar">启用导航栏</string>
 
     <string name="title_pref_menu_display">菜单键设置</string>
     <string name="summary_pref_menu_display">设置菜单键(下方状态栏虚拟键)显示位置,使用旧式 MENU 键时务必选择移除 MENU 键</string>
@@ -143,9 +143,9 @@
     <string name="stock_density_summary">平板以及旧款电话 160. 大多数电话 240. Galaxy Nexus 使用 320 为默认值.</string>
     <string name="reboot_title">2. 点我重启</string>
     <string name="reboot_summary">回到此菜单，完成其余的步骤！</string>
-    <string name="clear_market_data_title">3. 清理市场数据</string>
-    <string name="clear_market_data_cleared">市场数据清除</string>
-    <string name="open_market_title">4. 打开市场选择同意</string>
+    <string name="clear_market_data_title">3. 清理Play商店数据</string>
+    <string name="clear_market_data_cleared">Play商店数据清除</string>
+    <string name="open_market_title">4. 打开Play商店选择接受</string>
     <string name="open_market_summary">然后回到此菜单.</string>
     <string name="custom_density_title">5. 再选择你需要的密度!</string>
     <string name="custom_density_summary">如果你遇到市场兼容问题,回到这里,重复步骤.</string>
@@ -565,4 +565,3 @@
     <!-- Forecase unavailable -->
     <string name="weather_3200"></string>
 </resources>
-
