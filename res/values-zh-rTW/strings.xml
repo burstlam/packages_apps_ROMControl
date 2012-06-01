@@ -47,7 +47,7 @@
     <string name="ok">確定</string>
 
     <!-- Navigation Bar -->
-    <string name="title_pref_enable_bar">啟用導航欄</string>
+    <string name="title_pref_enable_nav_bar">啟用導航欄</string>
     <string name="title_pref_menu_display">MENU鍵設置</string>
     <string name="summary_pref_menu_display">設置MENU鍵(下方狀態欄虛擬鍵)顯示位置</string>
     <string name="navigation_bar">導航欄(虛擬鍵)設置</string>
@@ -283,6 +283,9 @@
     <string name="statusbar_layout_summary">改變通知欄風格風格 (需要重啟使用者介面)</string>
     <string name="statusbar_fontsize">字體大小</string>
     <string name="statusbar_fontsize_summary">改變字體大小</string>
+
+    <string name="status_bar_notif_count_title">顯示通知計數</string>
+    <string name="status_bar_notif_count_summary">在狀態欄顯示未閱讀的通知計數</string>
 
     <!-- Statusbar | Battery -->
     <string name="battery_icon">電量圖示風格</string>

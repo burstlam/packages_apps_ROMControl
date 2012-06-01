@@ -283,6 +283,9 @@
     <string name="statusbar_fontsize">字体尺寸</string>
     <string name="statusbar_fontsize_summary">改变字体尺寸</string>
 
+    <string name="status_bar_notif_count_title">显示通知计数</string>
+    <string name="status_bar_notif_count_summary">在状态栏显示未阅读的通知计数</string>
+
     <!-- Statusbar | Battery -->
     <string name="battery_icon">电池图示风格</string>
     <string name="battery_summary_text_widget">@null</string>
