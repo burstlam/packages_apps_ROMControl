@@ -48,6 +48,8 @@
     
     <!-- Navigation Bar -->
     <string name="title_pref_enable_nav_bar">启用导航栏</string>
+    <string name="navbar_widgets">导航栏小工具</string>
+    <string name="navbar_widgets_reset">重置导航栏小工具</string>
 
     <string name="title_pref_menu_display">菜单键设置</string>
     <string name="summary_pref_menu_display">设置菜单键(下方状态栏虚拟键)显示位置,使用旧式 MENU 键时务必选择移除 MENU 键</string>

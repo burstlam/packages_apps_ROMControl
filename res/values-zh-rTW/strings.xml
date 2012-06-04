@@ -48,6 +48,9 @@
 
     <!-- Navigation Bar -->
     <string name="title_pref_enable_nav_bar">啟用導航欄</string>
+    <string name="navbar_widgets">導航欄小工具</string>
+    <string name="navbar_widgets_reset">重置導航欄小工具</string>
+
     <string name="title_pref_menu_display">MENU鍵設置</string>
     <string name="summary_pref_menu_display">設置MENU鍵(下方狀態欄虛擬鍵)顯示位置</string>
     <string name="navigation_bar">導航欄(虛擬鍵)設置</string>
