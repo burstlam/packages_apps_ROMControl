@@ -324,6 +324,7 @@
 		<item>最近打開軟件</item>
 		<item>搜尋鍵</item>
 		<item>Menu鍵</item>
+                <item>開關小工具</item>
 		<item>從內存清除當前程序</item>
 		<item>電源鍵</item>
 		<item>自訂軟件</item>
@@ -334,6 +335,18 @@
                 <item>ICS默認風格</item>
                 <item>WebOS風格</item>
                 <item>Sense4風格</item>
+        </string-array>
+
+        <string-array name="less_notification_sounds_entries">
+                <item>系統默認</item>
+                <item>3秒</item>
+                <item>5秒</item>
+                <item>10秒</item>
+                <item>15秒</item>
+                <item>30秒</item>
+                <item>45秒</item>
+                <item>1分鐘</item>
+                <item>2分鐘</item>
         </string-array>
 </resources>
 

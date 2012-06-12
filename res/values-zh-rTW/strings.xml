@@ -112,6 +112,9 @@
 	<string name="longpress_to_kill_summary">長按返回鍵將當前程序從內存中完全退出.</string>
 
 	<string name="enable_volume_options">啟用音效調校項目</string>
+
+        <string name="less_notification_sounds_title">減少通知音播放次數</string>
+        <string name="less_notification_sounds_summary">設定時間值限制程序播放通知音次數</string>
 	
         <string name="rotate_180_title">180° 翻轉螢幕</string>
         <string name="rotate_180_summary">啟用螢幕 180° 垂直翻轉功能。</string>
