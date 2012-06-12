@@ -96,7 +96,10 @@
     <string name="long_press_home_summary">設置長按HOME鍵時預定動作</string>
 
     <string name="glow_times_title">按鍵亮起速度</string>
-    <string name="glow_times_summary">按下時，動畫速度愈慢系統效能愈佳。</string>
+    <string name="glow_times_off">關閉</string>
+    <string name="glow_times_superquick">超快</string>
+    <string name="glow_times_quick">快速</string>
+    <string name="glow_times_normal">正常</string>
     
     <!-- UI -->
     <string name="rotation_animation_delay_title">翻轉螢幕延遲選項</string>

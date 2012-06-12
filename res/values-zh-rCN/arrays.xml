@@ -274,13 +274,6 @@
         <item>**null**</item>
     </string-array>
 
-    <string-array name="glow_times_entries">
-        <item>关闭</item>
-        <item>超快</item>
-        <item>快速</item>
-        <item>正常</item>
-    </string-array>
-
     <string-array name="lcd_density_entries">
         <item>160</item>
         <item>180</item>

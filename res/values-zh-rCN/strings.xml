@@ -96,7 +96,10 @@
     <string name="long_press_home_summary">选择长按主屏幕键的行为（需要重启）</string>
 
     <string name="glow_times_title">按键亮起速度</string>
-    <string name="glow_times_summary">调整按键动画速度, 降低速度能改善效能.</string>
+    <string name="glow_times_off">关闭</string>
+    <string name="glow_times_superquick">超快</string>
+    <string name="glow_times_quick">快速</string>
+    <string name="glow_times_normal">正常</string>
     
     <!-- UI -->
     <string name="rotation_animation_delay_title">屏幕旋转延时值</string>
