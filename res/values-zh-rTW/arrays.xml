@@ -166,12 +166,12 @@
 		<item>預設風格</item>
                 <item>原生風格</item>
                 <item>蜂巢風格</item>
-                <item>三鍵</item>
-                <item>四鍵</item>
-                <item>五鍵</item>
-                <item>六鍵</item>
-                <item>七鍵</item>
-                <item>八鍵</item>
+                <item>3鍵</item>
+                <item>4鍵</item>
+                <item>5鍵</item>
+                <item>6鍵</item>
+                <item>7鍵</item>
+                <item>8鍵</item>
 	</string-array>
 
 	<string-array name="pref_lockscreen_calendar_interval_entries">
@@ -317,7 +317,7 @@
 		<item>最近打開軟件</item>
 		<item>搜尋鍵</item>
 		<item>Menu鍵</item>
-                <item>開關小工具</item>
+                <item>小工具</item>
 		<item>從內存清除當前程序</item>
 		<item>電源鍵</item>
 		<item>自訂軟件</item>

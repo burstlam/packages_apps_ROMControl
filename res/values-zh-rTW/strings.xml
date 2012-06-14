@@ -60,6 +60,10 @@
     <string name="navigation_bar_width_title">導航欄寬度(橫屏顯示時)</string>
     <string name="navigation_bar_height_title">導航欄高度(垂直顯示時)</string>
 
+    <string name="navigation_bar_add_new_widget_title">添加小工具</string>
+    <string name="navigation_bar_add_new_widget_summary">添加導航欄小工具捷徑</string>
+    <string name="navigation_bar_widget">"小工具"</string>
+
     <string name="title_pref_navigation_menu_display">MENU鍵顯示設置</string>
     <string name="summary_pref_navigation_menu_display">設置MENU鍵顯示時機及方式</string>
 
@@ -148,14 +152,25 @@
         <string name="follow_through_summary">請務必按照下列步驟逐步修改。</string>
         <string name="stock_density_title">一、變更預設解析度</string>
         <string name="stock_density_summary">平板電腦與舊型號手機訊號使用 160，多數手機訊號使用 240，Galaxy Nexus 預設值為 320。</string>
+        <string name="stock_density_changed_summary">密度設置為：</string>
         <string name="reboot_title">二、重啟</string>
         <string name="reboot_summary">重啟後請回至本區，完成後續步驟。</string>
         <string name="clear_market_data_title">三、清除市場資料</string>
-        <string name="clear_market_data_cleared">市場資料已清除。</string>
-        <string name="open_market_title">四、打開市場點擊「接受」</string>
+        <string name="clear_market_data_cleared">GOOGLE PLAY資料已清除。</string>
+        <string name="clear_market_data_donot_cleared">無法清除GOOGLE PLAY資料，請手動刪除！</string>
+        <string name="open_market_title">四、打開GOOGLE PLAY並點擊「接受」</string>
         <string name="open_market_summary">完成後按返回鍵回至本區。</string>
+        <string name="open_market_summary_could_not_open">無法打開GOOGLE PLAY！如果你確認已經安裝，請嘗試手動打開。</string>
         <string name="custom_density_title">五、更改為你需要之解析度</string>
-        <string name="custom_density_summary">若市場出現相容性問題，請回至本區按完整步驟重來一次。</string>
+        <string name="custom_density_summary">若GOOGLE PLAY出現相容性問題，請回至本區按完整步驟重來一次。</string>
+        <string name="custom_density_summary_invalid">無效的密度數值！</string>
+        <string name="custom_density">自定義</string>
+        <string name="set_custom_density_title">設置自定義密度</string>
+        <string name="set_custom_density_set">設置</string>
+        <string name="custom_density_dialog_title">警告！</string>
+        <string name="custom_density_dialog_summary">改變LCD密度可能引起軟件不兼容強行關閉問題，屆時你需要重新由步驟1重設所有設置。</string>
+        <string name="custom_density_dialog_button_got">確認更新！</string>
+        <string name="custom_density_dialog_button_reboot">立即重啟</string>
 
     <!-- Lockscreens -->
     <string name="pref_lockscreen_layout_title">鎖屏風格</string>
@@ -520,6 +535,7 @@
         <string name="color_red_title">紅</string>
         <string name="color_green_title">綠</string>
         <string name="color_blue_title">藍</string>
+        <string name="gamma_dss_title">軟件灰階調節</string>
         <string name="reset_defaults">還原系統默認值</string>
 
     <!-- Weather Codes -->
