@@ -198,6 +198,8 @@
     <string name="volume_wake_summary">休眠中按音量鍵喚醒,但播放音樂時設定會無效</string>
     <string name="volume_music_controls_title">播放控制</string>
     <string name="volume_music_controls_summary">音樂播放器中長按音量鍵可控制跳往上/下一首</string>
+    <string name="lockscreen_stock_music_layout_title">播放器鎖屏原生風格</string>
+    <string name="lockscreen_stock_music_layout_summary">鎖屏顯示系統原生播放器風格.</string>
     <string name="lockscreen_show_nav_title">隱藏導航欄(虛擬鍵)</string>
     <string name="lockscreen_show_nav_summary">鎖屏狀態下隱藏導航欄(虛擬鍵).</string>
     <string name="custom_app_n_dialog_title">選擇動作 %1$s</string>

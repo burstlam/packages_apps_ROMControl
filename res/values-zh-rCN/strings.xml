@@ -198,6 +198,8 @@
     <string name="volume_wake_summary">通过音量键唤醒屏幕</string>
     <string name="volume_music_controls_title">音量键控制音乐</string>
     <string name="volume_music_controls_summary">长按音量键切换歌曲，方向可控制跳往上/下一首</string>
+    <string name="lockscreen_stock_music_layout_title">播放器锁屏原生风格</string>
+    <string name="lockscreen_stock_music_layout_summary">锁屏显示系统原生播放器风格.</string>
     <string name="lockscreen_show_nav_title">隐藏虚拟键</string>
     <string name="lockscreen_show_nav_summary">锁屏状态下取消虚拟键显示.</string>
     <string name="custom_app_n_dialog_title">选择目标%1$s的行为</string>
