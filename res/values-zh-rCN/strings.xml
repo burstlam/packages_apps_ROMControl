@@ -194,6 +194,8 @@
     <string name="lockscreen_battery_summary">在锁屏中恒定显示电量数值</string>
     <string name="lockscreen_weather_title">锁屏显示天气讯息</string>
     <string name="lockscreen_weather_summary">于锁屏中显示天气讯息. 使用前需要先开启天气服务</string>
+    <string name="lockscreen_weather_type_title">锁屏天气显示风格</string>
+    <string name="lockscreen_weather_type_summary">选择于锁屏中用图示或文字显示天气信息.</string>  
     <string name="volume_wake_title">音量键唤醒</string>
     <string name="volume_wake_summary">通过音量键唤醒屏幕</string>
     <string name="volume_music_controls_title">音量键控制音乐</string>
