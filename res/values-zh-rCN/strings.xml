@@ -104,6 +104,10 @@
     <string name="glow_times_superquick">超快</string>
     <string name="glow_times_quick">快速</string>
     <string name="glow_times_normal">正常</string>
+
+    <string name="combined_bar_title">组合栏</string>
+    <string name="combined_bar_auto_hide_title">自动隐藏</string>
+    <string name="combined_bar_auto_hide_summary">当运行全屏应用程序时隐藏组合栏</string>
     
     <!-- UI -->
     <string name="rotation_animation_delay_title">屏幕旋转延时值</string>
@@ -597,3 +601,4 @@
     <!-- Forecase unavailable -->
     <string name="weather_3200"></string>
 </resources>
+
