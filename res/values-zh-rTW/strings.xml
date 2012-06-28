@@ -104,6 +104,10 @@
     <string name="glow_times_superquick">超快</string>
     <string name="glow_times_quick">快速</string>
     <string name="glow_times_normal">正常</string>
+
+    <string name="combined_bar_title">組合欄</string>
+    <string name="combined_bar_auto_hide_title">自動隱藏</string>
+    <string name="combined_bar_auto_hide_summary">當執行全屏應用程式時隱藏組合欄</string>
     
     <!-- UI -->
     <string name="rotation_animation_delay_title">翻轉螢幕延遲選項</string>
@@ -255,6 +259,9 @@
     <string name="title_show_torch_toggle">顯示手電筒開關</string>  
     <string name="title_show_airplane_toggle">顯示飛航模式開關</string>
     <string name="title_show_navbar_hide">顯示虛擬鍵開關</string>
+
+    <!-- Share to Clipboard -->
+    <string name="clipboard_notification">複製到剪貼簿</string>
 
     <!-- Power Saving -->
     <string name="title_pref_powersaving_pref_mode">省電模式</string>
@@ -600,5 +607,18 @@
     <string name="weather_47">局部地區性雷暴</string>
     <!-- Forecase unavailable -->
     <string name="weather_3200"></string>
+
+    <!-- Miscellaneous -->
+    <string name="location_unavailable">無法抓取目前位置的天氣資訊</string>
+
+    <!-- cardinal directions -->
+    <string name="direction_north">北</string>
+    <string name="direction_north_east">東北</string>
+    <string name="direction_east">東</string>
+    <string name="direction_south_east">東南</string>
+    <string name="direction_south">南</string>
+    <string name="direction_south_west">西南</string>
+    <string name="direction_west">西</string>
+    <string name="direction_north_west">西北</string>
 
 </resources>
