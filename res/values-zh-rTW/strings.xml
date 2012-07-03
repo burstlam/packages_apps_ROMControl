@@ -260,8 +260,8 @@
     <string name="title_show_airplane_toggle">顯示飛航模式開關</string>
     <string name="title_show_navbar_hide">顯示虛擬鍵開關</string>
 
-    <!-- Share to Clipboard -->
-    <string name="clipboard_notification">複製到剪貼簿</string>
+    <!-- Share to Clipboard -->
+    <string name="clipboard_notification">複製到剪貼簿</string>
 
     <!-- Power Saving -->
     <string name="title_pref_powersaving_pref_mode">省電模式</string>

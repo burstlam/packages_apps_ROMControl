@@ -341,5 +341,10 @@
                 <item>1分鐘</item>
                 <item>2分鐘</item>
         </string-array>
+
+        <string-array name="pref_lockscreen_weather_type_entries">
+                <item>天氣欄</item>
+                <item>純文字</item>
+        </string-array>
 </resources>
 

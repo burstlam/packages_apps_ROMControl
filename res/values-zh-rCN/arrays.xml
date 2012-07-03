@@ -383,4 +383,10 @@
         <item>2分钟</item>
     </string-array>
 
+
+    <string-array name="pref_lockscreen_weather_type_entries">
+        <item>天气栏</item>
+        <item>纯文本</item>
+    </string-array>
+
 </resources>
