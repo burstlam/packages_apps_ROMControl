@@ -81,6 +81,7 @@ public class Lockscreens extends AOKPPreferenceFragment implements
     private static final String PREF_LOCKSCREEN_CALENDAR_HIDE_ONGOING = "lockscreen_calendar_hide_ongoing";
     private static final String PREF_LOCKSCREEN_CALENDAR_USE_COLORS = "lockscreen_calendar_use_colors";
     private static final String PREF_LOCKSCREEN_CALENDAR_INTERVAL = "lockscreen_calendar_interval";
+    private static final String PREF_LOCKSCREEN_VIBRATE = "lockscreen_vibrate";
 
     private static final String PREF_SHOW_LOCK_BEFORE_UNLOCK = "show_lock_before_unlock";
 
@@ -110,6 +111,7 @@ public class Lockscreens extends AOKPPreferenceFragment implements
     CheckBoxPreference mLockscreenCalendarHideOngoing;
     CheckBoxPreference mLockscreenCalendarUseColors;
     CheckBoxPreference mStockMusicLayout;
+    CheckBoxPreference mLockscreenVibrate;
 
     Preference mLockscreenWallpaper;
 
@@ -174,6 +176,10 @@ public class Lockscreens extends AOKPPreferenceFragment implements
         mStockMusicLayout = (CheckBoxPreference) findPreference(PREF_STOCK_MUSIC_LAYOUT);
         mStockMusicLayout.setChecked(Settings.System.getInt(getActivity().getContentResolver(),
                 Settings.System.LOCKSCREEN_STOCK_MUSIC_LAYOUT, 0) == 1);
+
+        mLockscreenVibrate = (CheckBoxPreference) findPreference(PREF_LOCKSCREEN_VIBRATE);
+	mLockscreenVibrate.setChecked(Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
+		Settings.System.LOCKSCREEN_VIBRATE_DISABLED, 1) == 1);
 
         mLockscreenWallpaper = findPreference("wallpaper");
 
@@ -298,6 +304,12 @@ public class Lockscreens extends AOKPPreferenceFragment implements
                     ((CheckBoxPreference) preference).isChecked() ? 1 : 0);
             return true;
 
+        } else if (preference == mLockscreenVibrate) {
+
+            Settings.System.putInt(getActivity().getContentResolver(),
+                    Settings.System.LOCKSCREEN_VIBRATE_DISABLED,
+                    ((CheckBoxPreference) preference).isChecked() ? 1 : 0);
+            return true;
         } else if (preference == mVolumeMusic) {
 
             Settings.System.putInt(getActivity().getContentResolver(),
