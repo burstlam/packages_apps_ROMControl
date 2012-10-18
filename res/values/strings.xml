@@ -147,6 +147,14 @@
 	<string name="lcd_density_title">LCD Density</string>
 	<string name="lcd_density_summary">unknown</string>
 
+        <!-- Menu Button Overflow -->
+        <string name="show_overflow_title">Show Menu UI Overflow</string>
+        <string name="show_overflow_summary">Display the 3-dot overflow menu button within apps</string>
+        <string name="show_overflow_toast_enable">The menu overflow button may not be visible until apps
+are restarted</string>
+        <string name="show_overflow_toast_disable">The menu overflow button may not be hidden until apps
+are restarted</string>
+
 	<!-- Scroller options -->
 	<string name="scroller_options">Scroller options</string>
         <string name="scroll">Scroller</string>
