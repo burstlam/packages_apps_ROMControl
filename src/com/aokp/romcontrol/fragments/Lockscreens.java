@@ -91,7 +91,8 @@ public class Lockscreens extends AOKPPreferenceFragment implements
     public static final int SELECT_WALLPAPER = 3;
 
     private static final String WALLPAPER_NAME = "lockscreen_wallpaper.jpg";
-
+    private static final String LOCKSCREEN_TRANSPARENT_PREF = "pref_lockscreen_transparent";
+    
     Preference mLockscreenWallpaper;
     Preference mLockscreenTargets;
 
@@ -111,6 +112,7 @@ public class Lockscreens extends AOKPPreferenceFragment implements
     CheckBoxPreference mLockscreenCalendarUseColors;
     CheckBoxPreference mLockscreenAutoRotate;
     CheckBoxPreference mStockMusicLayout;
+    CheckBoxPreference mLockTransparent;
 
     ListPreference mTargetNumber;
 
@@ -143,6 +145,10 @@ public class Lockscreens extends AOKPPreferenceFragment implements
 
         mLockscreenTextColor = (ColorPickerPreference) findPreference(PREF_LOCKSCREEN_TEXT_COLOR);
         mLockscreenTextColor.setOnPreferenceChangeListener(this);
+
+        mLockTransparent = (CheckBoxPreference) findPreference(LOCKSCREEN_TRANSPARENT_PREF);
+        mLockTransparent.setChecked(Settings.System.getBoolean(mContext
+                .getContentResolver(), Settings.System.LOCKSCREEN_TRANSPARENT, false));
 
         mLockscreenWeather = (CheckBoxPreference) findPreference(PREF_LOCKSCREEN_WEATHER);
         mLockscreenWeather.setChecked(Settings.System.getBoolean(getActivity().getContentResolver(),
@@ -231,6 +237,11 @@ public class Lockscreens extends AOKPPreferenceFragment implements
             Settings.System.putInt(getActivity().getContentResolver(),
                     Settings.System.LOCKSCREEN_MENU_UNLOCK,
                     ((CheckBoxPreference)preference).isChecked() ? 1 : 0);
+            return true;
+        } else if (preference == mLockTransparent) {
+            Settings.System.putBoolean(mContext.getContentResolver(),
+                    Settings.System.LOCKSCREEN_TRANSPARENT,
+                    ((CheckBoxPreference)preference).isChecked());
             return true;
         } else if (preference == mVolumeRockerWake) {
             Settings.System.putBoolean(mContext.getContentResolver(),

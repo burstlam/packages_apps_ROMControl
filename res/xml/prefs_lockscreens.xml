@@ -22,6 +22,10 @@
         android:key="layout"
         android:title="@string/lockscreen_layout_cat">
 
+        <CheckBoxPreference
+            android:key="pref_lockscreen_transparent"
+            android:title="@string/pref_lockscreen_transparent"/>
+
         <Preference
             android:key="wallpaper"
             android:title="@string/lockscreen_wallpaper_title"
