@@ -10,6 +10,7 @@ import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceScreen;
+import android.provider.Settings.SettingNotFoundException;
 import android.provider.Settings;
 import android.util.Log;
 
@@ -33,6 +34,8 @@ public class StatusBarClock extends AOKPPreferenceFragment implements
     private static final String PREF_CLOCK_SHORTCLICK = "clock_shortclick";
     private static final String PREF_CLOCK_LONGCLICK = "clock_longclick";
 
+    private static final String STATUS_BAR_TRANSPARENCY = "status_bar_transparency";
+
     private ShortcutPickerHelper mPicker;
     private Preference mPreference;
     private String mString;
@@ -45,6 +48,7 @@ public class StatusBarClock extends AOKPPreferenceFragment implements
     ListPreference mDateLongClick;
     ListPreference mClockShortClick;
     ListPreference mClockLongClick;
+    ListPreference mStatusbarTransparency;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -56,6 +60,12 @@ public class StatusBarClock extends AOKPPreferenceFragment implements
         PreferenceScreen prefs = getPreferenceScreen();
 
         mPicker = new ShortcutPickerHelper(this, this);
+
+        mStatusbarTransparency = (ListPreference) findPreference(STATUS_BAR_TRANSPARENCY);
+        int statusBarTransparency = Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
+                Settings.System.STATUS_BAR_TRANSPARENCY, 100);
+        mStatusbarTransparency.setValue(String.valueOf(statusBarTransparency));
+        mStatusbarTransparency.setOnPreferenceChangeListener(this);
 
         mClockStyle = (ListPreference) findPreference(PREF_ENABLE);
         mClockStyle.setOnPreferenceChangeListener(this);
@@ -127,6 +137,12 @@ public class StatusBarClock extends AOKPPreferenceFragment implements
             Settings.System.putInt(getActivity().getContentResolver(),
                     Settings.System.STATUSBAR_CLOCK_COLOR, intHex);
             Log.e("ROMAN", intHex + "");
+
+        } else if (preference == mStatusbarTransparency) {
+            int statusBarTransparency = Integer.valueOf((String) newValue);
+            result = Settings.System.putInt(getActivity().getContentResolver(),
+                    Settings.System.STATUS_BAR_TRANSPARENCY, statusBarTransparency);
+
         } else if (preference == mClockWeekday) {
             int val = Integer.parseInt((String) newValue);
             result = Settings.System.putInt(getActivity().getContentResolver(),
