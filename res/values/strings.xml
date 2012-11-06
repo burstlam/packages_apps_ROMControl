@@ -168,6 +168,9 @@
     <string name="show_overflow_summary">Display the 3-dot overflow menu button within apps</string>
     <string name="show_overflow_toast_enable">The menu overflow button may not be visible until apps are restarted</string>
     <string name="show_overflow_toast_disable">The menu overflow button may not be hidden until apps are restarted</string>
+    <string name="notification_show_wifi_ssid_title">Show Wifi network name</string>
+    <string name="notification_show_wifi_ssid_summary">Display the name of the currently connected Wifi network</string>
+
 
     <!-- LCD Density -->
     <string name="lcd_density_title">LCD Density</string>
@@ -566,17 +569,19 @@
     <string name="weather_use_celcius">Metric units</string>
     <string name="weather_use_celcius_summary">Enabling this will display weather temperature in Celsius rather than Fahrenheit and windspeed in km/h rather than mph.</string>
     <string name="weather_statusbar_style">Statusbar weather style</string>
-    <string name="weather_start_custom_app">Start custom app</string>
-    <string name="weather_start_custom_app_summary">Start a custom app when clicking on the weather image.</string>
-    <string name="weather_custom_app_title">Custom app</string>
-    <string name="weather_custom_app_dialog_title">Choose your app</string>
-    <string name="weather_custom_app_dialog_message">Package name for now.</string>
+    <string name="title_weather_longclick">Weather panel long click actions</string>
+    <string name="title_weather_shortclick">Weather panel short click actions</string>
+    <string name="update">Update weather panel</string>
     <string name="weather_refreshing">Requesting weather update!</string>
     <string name="weather_loc_warning_title">Cannot retrieve location!</string>
     <string name="weather_loc_warning_msg">"Obtaining location from network is currently disabled. This breaks the ability to get the current weather in your current location. Please set a custom location or enable obtaining your location from your network."</string>
     <string name="weather_loc_warning_positive">"Enable network location"</string>
     <string name="weather_loc_warning_negative">"Don't enable."</string>
     <string name="menu_weather_get_weather">Get weather</string>
+    <string name="weather_statusbar_hide">Weather panel hide options</string>
+    <string name="always_on">Always visible</string>
+    <string name="same_toggles">Hide with toggles</string>
+    <string name="opposite_toggles">Hide opposite of toggles</string>
 
     <!-- Weather Codes -->
     <string name="weather_0">Tornado</string>
@@ -722,6 +727,7 @@
     <!-- boot animation stuff -->
     <string name="insult_jerk">Jerk!</string>
     <string name="insult_protekk">ProTekk!</string>
+    <string name="insult_unicorns">Concede pink unicorns are for little girls</string>
 
     <!-- clock stuff -->
     <string name="right_clock">Right clock</string>
