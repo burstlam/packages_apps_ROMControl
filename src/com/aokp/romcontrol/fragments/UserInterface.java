@@ -29,6 +29,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.Rect;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -62,11 +63,13 @@ import android.widget.Toast;
 import com.aokp.romcontrol.AOKPPreferenceFragment;
 import com.aokp.romcontrol.R;
 import com.aokp.romcontrol.util.CMDProcessor;
+import com.aokp.romcontrol.util.AbstractAsyncSuCMDProcessor;
 import com.aokp.romcontrol.util.Helpers;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.StringBuilder;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.zip.ZipEntry;
@@ -82,6 +85,7 @@ public class UserInterface extends AOKPPreferenceFragment {
     private static final String PREF_NOTIFICATION_WALLPAPER_ALPHA = "notification_wallpaper_alpha";
     private static final String PREF_CUSTOM_CARRIER_LABEL = "custom_carrier_label";
     private static final String PREF_IME_SWITCHER = "ime_switcher";
+    private static final String PREF_LEFTY_MODE = "lefty_mode";
     private static final String PREF_RECENT_KILL_ALL = "recent_kill_all";
     private static final String PREF_RAM_USAGE_BAR = "ram_usage_bar";
     private static final String PREF_KILL_APP_LONGPRESS_BACK = "kill_app_longpress_back";
@@ -91,6 +95,7 @@ public class UserInterface extends AOKPPreferenceFragment {
     private static final String PREF_USE_ALT_RESOLVER = "use_alt_resolver";
     private static final String PREF_SHOW_OVERFLOW = "show_overflow";
     private static final String PREF_VIBRATE_NOTIF_EXPAND = "vibrate_notif_expand";
+    private static final String PREF_NOTIFICATION_SHOW_WIFI_SSID = "notification_show_wifi_ssid";
     private static final int REQUEST_PICK_WALLPAPER = 201;
     private static final int REQUEST_PICK_CUSTOM_ICON = 202;
     private static final int REQUEST_PICK_BOOT_ANIMATION = 203;
@@ -111,6 +116,7 @@ public class UserInterface extends AOKPPreferenceFragment {
     CheckBoxPreference mRamBar;
     CheckBoxPreference mKillAppLongpressBack;
     CheckBoxPreference mUseAltResolver;
+    CheckBoxPreference mLeftyMode;
     ImageView view;
     TextView error;
     CheckBoxPreference mShowActionOverflow;
@@ -119,6 +125,7 @@ public class UserInterface extends AOKPPreferenceFragment {
     CheckBoxPreference mDualpane;
     CheckBoxPreference mVibrateOnExpand;
     Preference mLcdDensity;
+    CheckBoxPreference mShowWifiName;
 
     private AnimationDrawable mAnimationPart1;
     private AnimationDrawable mAnimationPart2;
@@ -130,8 +137,10 @@ public class UserInterface extends AOKPPreferenceFragment {
     private String errormsg;
     private String bootAniPath;
 
-
-    Random randomGenerator = new Random();
+    private Random randomGenerator = new Random();
+    // previous random; so we don't repeat
+    private static int mLastRandomInsultIndex = -1;
+    private String[] mInsults;
 
     private int seekbarProgress;
     String mCustomLabelText = null;
@@ -148,6 +157,8 @@ public class UserInterface extends AOKPPreferenceFragment {
         addPreferencesFromResource(R.xml.prefs_ui);
 
         PreferenceScreen prefs = getPreferenceScreen();
+        mInsults = mContext.getResources().getStringArray(
+                R.array.disable_bootanimation_insults);
 
         mAllow180Rotation = (CheckBoxPreference) findPreference(PREF_180);
         mAllow180Rotation.setChecked(Settings.System.getInt(mContext
@@ -186,6 +197,10 @@ public class UserInterface extends AOKPPreferenceFragment {
         mShowImeSwitcher = (CheckBoxPreference) findPreference(PREF_IME_SWITCHER);
         mShowImeSwitcher.setChecked(Settings.System.getBoolean(mContext.getContentResolver(),
                 Settings.System.SHOW_STATUSBAR_IME_SWITCHER, true));
+
+        mLeftyMode = (CheckBoxPreference) findPreference(PREF_LEFTY_MODE);
+        mLeftyMode.setChecked(Settings.System.getBoolean(mContext.getContentResolver(),
+                Settings.System.NAVIGATION_BAR_LEFTY_MODE, false));
 
         mRecentKillAll = (CheckBoxPreference) findPreference(PREF_RECENT_KILL_ALL);
         mRecentKillAll.setChecked(Settings.System.getBoolean(getActivity  ().getContentResolver(),
@@ -235,6 +250,10 @@ public class UserInterface extends AOKPPreferenceFragment {
         mVibrateOnExpand.setChecked(Settings.System.getBoolean(mContext.getContentResolver(),
                 Settings.System.VIBRATE_NOTIF_EXPAND, true));
 
+        mShowWifiName = (CheckBoxPreference) findPreference(PREF_NOTIFICATION_SHOW_WIFI_SSID);
+        mShowWifiName.setChecked(Settings.System.getBoolean(mContext.getContentResolver(),
+                Settings.System.NOTIFICATION_SHOW_WIFI_SSID, false));
+
         if (mTablet) {
             prefs.removePreference(mNotificationWallpaper);
             prefs.removePreference(mWallpaperAlpha);
@@ -267,9 +286,8 @@ public class UserInterface extends AOKPPreferenceFragment {
 
     @Override
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen,
-            Preference preference) {
+            final Preference preference) {
         if (preference == mAllow180Rotation) {
-
             boolean checked = ((CheckBoxPreference) preference).isChecked();
             Settings.System.putInt(mContext.getContentResolver(),
                     Settings.System.ACCELEROMETER_ROTATION_ANGLES, checked ? (1 | 2 | 4 | 8) : (1 | 2 | 8 ));
@@ -280,23 +298,36 @@ public class UserInterface extends AOKPPreferenceFragment {
                     ((CheckBoxPreference) preference).isChecked());
             return true;
         } else if (preference == mDisableBootAnimation) {
-            boolean checked = ((CheckBoxPreference) preference).isChecked();
-            if (checked) {
+            CMDProcessor term = new CMDProcessor();
+            if (!term.su.runWaitFor(
+                    "grep -q \"debug.sf.nobootanimation\" /system/build.prop")
+                    .success()) {
+                // if not add value
                 Helpers.getMount("rw");
-                new CMDProcessor().su
-                        .runWaitFor("mv /system/media/bootanimation.zip /system/media/bootanimation.backup");
+                term.su.runWaitFor("echo debug.sf.nobootanimation="
+                    + String.valueOf(mDisableBootAnimation.isChecked() ? 1 : 0)
+                    + " >> /system/build.prop");
                 Helpers.getMount("ro");
-                Resources res = mContext.getResources();
-                String[] insults = res.getStringArray(R.array.disable_bootanimation_insults);
-                int randomInt = randomGenerator.nextInt(insults.length);
-                preference.setSummary(insults[randomInt]);
-            } else {
-                Helpers.getMount("rw");
-                new CMDProcessor().su
-                        .runWaitFor("mv /system/media/bootanimation.backup /system/media/bootanimation.zip");
-                Helpers.getMount("ro");
-                preference.setSummary("");
             }
+            // preform bootanimation operations off UI thread
+            AbstractAsyncSuCMDProcessor processor = new AbstractAsyncSuCMDProcessor(true) {
+                @Override
+                protected void onPostExecute(String result) {
+                    if (mDisableBootAnimation.isChecked()) {
+                        // do not show same insult as last time
+                        int newInsult = randomGenerator.nextInt(mInsults.length);
+                        while (newInsult == mLastRandomInsultIndex)
+                            newInsult = randomGenerator.nextInt(mInsults.length);
+
+                        // update our static index reference
+                        mLastRandomInsultIndex = newInsult;
+                        preference.setSummary(mInsults[newInsult]);
+                    } else {
+                        preference.setSummary("");
+                    }
+                }
+            };
+            processor.execute(getBootAnimationCommand(mDisableBootAnimation.isChecked()));
             return true;
         } else if (preference == mShowActionOverflow) {
             boolean enabled = mShowActionOverflow.isChecked();
@@ -347,12 +378,6 @@ public class UserInterface extends AOKPPreferenceFragment {
             Display display = getActivity().getWindowManager().getDefaultDisplay();
             int width = display.getWidth();
             int height = display.getHeight();
-            Rect rect = new Rect();
-            Window window = getActivity().getWindow();
-            window.getDecorView().getWindowVisibleDisplayFrame(rect);
-            int statusBarHeight = rect.top;
-            int contentViewTop = window.findViewById(Window.ID_ANDROID_CONTENT).getTop();
-            int titleBarHeight = contentViewTop - statusBarHeight;
 
             Intent intent = new Intent(Intent.ACTION_GET_CONTENT, null);
             intent.setType("image/*");
@@ -360,8 +385,8 @@ public class UserInterface extends AOKPPreferenceFragment {
             boolean isPortrait = getResources()
                     .getConfiguration().orientation
                     == Configuration.ORIENTATION_PORTRAIT;
-            intent.putExtra("aspectX", isPortrait ? width : height - titleBarHeight);
-            intent.putExtra("aspectY", isPortrait ? height - titleBarHeight : width);
+            intent.putExtra("aspectX", isPortrait ? width : height);
+            intent.putExtra("aspectY", isPortrait ? height : width);
             intent.putExtra("outputX", width);
             intent.putExtra("outputY", height);
             intent.putExtra("scale", true);
@@ -418,7 +443,13 @@ public class UserInterface extends AOKPPreferenceFragment {
             .create()
             .show();
             return true;
-        } else if (preference == mShowImeSwitcher) {
+        } else if (preference == mLeftyMode) {
+            Settings.System.putBoolean(getActivity().getContentResolver(),
+                    Settings.System.NAVIGATION_BAR_LEFTY_MODE,
+                    isCheckBoxPrefernceChecked(preference));
+            Helpers.restartSystemUI();
+            return true;
+        }else if (preference == mShowImeSwitcher) {
             Settings.System.putBoolean(getActivity().getContentResolver(),
                     Settings.System.SHOW_STATUSBAR_IME_SWITCHER,
                     isCheckBoxPrefernceChecked(preference));
@@ -478,6 +509,11 @@ public class UserInterface extends AOKPPreferenceFragment {
                     Settings.System.VIBRATE_NOTIF_EXPAND,
                     ((CheckBoxPreference) preference).isChecked());
             Helpers.restartSystemUI();
+            return true;
+        } else if (preference == mShowWifiName) {
+            Settings.System.putBoolean(mContext.getContentResolver(),
+                    Settings.System.NOTIFICATION_SHOW_WIFI_SSID,
+                    ((CheckBoxPreference) preference).isChecked());
             return true;
         }
 
@@ -718,6 +754,37 @@ public class UserInterface extends AOKPPreferenceFragment {
 
         finishedHandler.sendEmptyMessage(0);
 
+    }
+
+    /**
+     * creates a couple commands to perform all root
+     * operations needed to disable/enable bootanimations
+     *
+     * @param checked state of CheckBox
+     * @return script to turn bootanimations on/off
+     */
+    private String[] getBootAnimationCommand(boolean checked) {
+        String[] cmds = new String[2];
+        String storedLocation = "/system/media/bootanimation.backup";
+        String activeLocation = "/system/media/bootanimation.zip";
+        if (checked) {
+            /* make backup */
+            cmds[0] = "mv " + activeLocation + " " + storedLocation + "; ";
+        } else {
+            /* apply backup */
+            cmds[0] = "mv " + storedLocation + " " + activeLocation + "; ";
+        }
+        /*
+         * use sed to replace build.prop property
+         * debug.sf.nobootanimation=[1|0]
+         *
+         * without we get the Android shine animation when
+         * /system/media/bootanimation.zip is not found
+         */
+        cmds[1] = "busybox sed -i \"/debug.sf.nobootanimation/ c "
+                + "debug.sf.nobootanimation=" + String.valueOf(checked ? 1 : 0)
+                + "\" " + "/system/build.prop";
+        return cmds;
     }
 
     private Handler errorHandler = new Handler() {

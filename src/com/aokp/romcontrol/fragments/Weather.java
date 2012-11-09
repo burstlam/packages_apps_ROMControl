@@ -34,9 +34,6 @@ import com.aokp.romcontrol.weather.WeatherPrefs;
 import com.aokp.romcontrol.weather.WeatherRefreshService;
 import com.aokp.romcontrol.weather.WeatherService;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 public class Weather extends AOKPPreferenceFragment implements
         ShortcutPickerHelper.OnPickListener, OnPreferenceChangeListener {
 
@@ -47,12 +44,15 @@ public class Weather extends AOKPPreferenceFragment implements
     CheckBoxPreference mShowLoc;
     CheckBoxPreference mUseCelcius;
     ListPreference mStatusBarLocation;
+    ListPreference mPanelHideStatus;
     ListPreference mWeatherSyncInterval;
     EditTextPreference mCustomWeatherLoc;
-    CheckBoxPreference mUseCustomApp;
-    Preference mCustomWeatherApp;
+    ListPreference mWeatherShortClick;
+    ListPreference mWeatherLongClick;
 
     private ShortcutPickerHelper mPicker;
+    private Preference mPreference;
+    private String mString;
 
     SharedPreferences prefs;
 
@@ -66,6 +66,8 @@ public class Weather extends AOKPPreferenceFragment implements
 
         prefs = getActivity().getSharedPreferences("weather", Context.MODE_WORLD_WRITEABLE);
 
+        PreferenceScreen mRemove = getPreferenceScreen();
+
         mPicker = new ShortcutPickerHelper(this, this);
 
         mWeatherSyncInterval = (ListPreference) findPreference("refresh_interval");
@@ -77,6 +79,15 @@ public class Weather extends AOKPPreferenceFragment implements
         mStatusBarLocation.setOnPreferenceChangeListener(this);
         mStatusBarLocation.setValue(Settings.System.getInt(getContentResolver(),
                 Settings.System.STATUSBAR_WEATHER_STYLE, 2) + "");
+
+        mPanelHideStatus = (ListPreference) findPreference("weather_hide");
+        mPanelHideStatus.setOnPreferenceChangeListener(this);
+        mPanelHideStatus.setValue(Settings.System.getInt(getContentResolver(),
+                Settings.System.STATUSBAR_WEATHER_HIDE, 0) + "");
+
+	    if (mTablet) {
+            mRemove.removePreference(mPanelHideStatus);
+        }
 
         mCustomWeatherLoc = (EditTextPreference) findPreference("custom_location");
         mCustomWeatherLoc.setOnPreferenceChangeListener(this);
@@ -97,18 +108,13 @@ public class Weather extends AOKPPreferenceFragment implements
         mUseCelcius = (CheckBoxPreference) findPreference(WeatherPrefs.KEY_USE_CELCIUS);
         mUseCelcius.setChecked(WeatherPrefs.getUseCelcius(mContext));
 
-        mUseCustomApp = (CheckBoxPreference) findPreference(WeatherPrefs.KEY_USE_CUSTOM_APP);
-        mUseCustomApp.setChecked(WeatherPrefs.getUseCustomApp(mContext));
+        mWeatherShortClick = (ListPreference) findPreference("weather_shortclick");
+        mWeatherShortClick.setOnPreferenceChangeListener(this);
+        mWeatherShortClick.setSummary(getProperSummary(mWeatherShortClick));
 
-        mCustomWeatherApp = (Preference) findPreference(WeatherPrefs.KEY_CUSTOM_APP);
-        mCustomWeatherApp.setOnPreferenceChangeListener(this);
-        Pattern r = Pattern.compile("^#Intent");
-        Matcher m = r.matcher(mPicker.getFriendlyNameForUri(WeatherPrefs.getCustomApp(mContext)));
-        if(m.find( )) {
-            mCustomWeatherApp.setSummary("");
-        } else {
-            mCustomWeatherApp.setSummary(mPicker.getFriendlyNameForUri(WeatherPrefs.getCustomApp(mContext)));
-        }
+        mWeatherLongClick = (ListPreference) findPreference("weather_longclick");
+        mWeatherLongClick.setOnPreferenceChangeListener(this);
+        mWeatherLongClick.setSummary(getProperSummary(mWeatherLongClick));
 
         setHasOptionsMenu(true);
 
@@ -206,18 +212,14 @@ public class Weather extends AOKPPreferenceFragment implements
         } else if (preference == mUseCelcius) {
             return WeatherPrefs.setUseCelcius(mContext,
                     ((CheckBoxPreference) preference).isChecked());
-        } else if (preference == mUseCustomApp) {
-            return WeatherPrefs.setUseCustomApp(mContext,
-                    ((CheckBoxPreference) preference).isChecked());
-        } else if (preference == mCustomWeatherApp) {
-            mPicker.pickShortcut();
-            return true;
         }
         return super.onPreferenceTreeClick(preferenceScreen, preference);
     }
 
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
+        boolean result = false;
+
         if (preference == mWeatherSyncInterval) {
             int newVal = Integer.parseInt((String) newValue);
             preference.setSummary(newValue
@@ -241,16 +243,43 @@ public class Weather extends AOKPPreferenceFragment implements
              return Settings.System.putInt(getActivity().getContentResolver(),
                      Settings.System.STATUSBAR_WEATHER_STYLE,
                      Integer.parseInt(newVal));
+
+        } else if (preference == mWeatherShortClick) {
+
+            mPreference = preference;
+            mString = Settings.System.WEATHER_PANEL_SHORTCLICK;
+            if (newValue.equals("**app**")) {
+             mPicker.pickShortcut();
+            } else {
+            result = Settings.System.putString(getContentResolver(), Settings.System.WEATHER_PANEL_SHORTCLICK, (String) newValue);
+            mWeatherShortClick.setSummary(getProperSummary(mWeatherShortClick));
+            }
+
+        } else if (preference == mWeatherLongClick) {
+
+            mPreference = preference;
+            mString = Settings.System.WEATHER_PANEL_LONGCLICK;
+            if (newValue.equals("**app**")) {
+             mPicker.pickShortcut();
+            } else {
+            result = Settings.System.putString(getContentResolver(), Settings.System.WEATHER_PANEL_LONGCLICK, (String) newValue);
+            mWeatherLongClick.setSummary(getProperSummary(mWeatherLongClick));
+            }
+
+         } else if (preference == mPanelHideStatus) {
+
+             String newVal = (String) newValue;
+             return Settings.System.putInt(getActivity().getContentResolver(),
+                     Settings.System.STATUSBAR_WEATHER_HIDE,
+                     Integer.parseInt(newVal));
          }
          return false;
     }
 
     @Override
     public void shortcutPicked(String uri, String friendlyName, Bitmap bmp, boolean isApplication) {
-
-        if (WeatherPrefs.setCustomApp(mContext, uri)) {
-            mCustomWeatherApp.setSummary(friendlyName);
-        }
+          mPreference.setSummary(friendlyName);
+          Settings.System.putString(getContentResolver(), mString, (String) uri);
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -262,6 +291,29 @@ public class Weather extends AOKPPreferenceFragment implements
             }
         }
         super.onActivityResult(requestCode, resultCode, data);
+    }
+    private String getProperSummary(Preference preference) {
+        if (preference == mWeatherLongClick) {
+            mString = Settings.System.WEATHER_PANEL_LONGCLICK;
+        } else if (preference == mWeatherShortClick) {
+            mString = Settings.System.WEATHER_PANEL_SHORTCLICK;
+        }
+
+        String uri = Settings.System.getString(getActivity().getContentResolver(),mString);
+        String empty = "";
+
+        if (uri == null)
+            return empty;
+
+        if (uri.startsWith("**")) {
+            if (uri.equals("**update**"))
+                return getResources().getString(R.string.update);
+            else if (uri.equals("**nothing**"))
+                return getResources().getString(R.string.nothing);
+        } else {
+            return mPicker.getFriendlyNameForUri(uri);
+        }
+        return null;
     }
 
 }
