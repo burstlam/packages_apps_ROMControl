@@ -174,15 +174,6 @@
     <string name="notification_show_wifi_ssid_summary">Display the name of the currently connected Wifi network</string>
 
 
-    <!-- Scroller options -->
-    <string name="scroller_options">Scroller options</string>
-    <string name="scroll">Scroller</string>
-    <string name="scroll_title">Scroller options</string>
-    <string name="scroll_summary">Adjust feel of your scroller</string>
-
-    <string name="scroll_friction_title">Scroll friction</string>
-    <string name="custom_fling_velocity_title">Scroll fling velocity</string>
-
     <!-- LCD Density -->
     <string name="lcd_density_title">LCD Density</string>
     <string name="lcd_density_summary">unknown</string>
