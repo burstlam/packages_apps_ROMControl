@@ -26,10 +26,13 @@
             android:key="custom_carrier_label"
             android:title="@string/custom_carrier_label_title" />
 
-        <Preference
+        <ListPreference
             android:key="notification_wallpaper"
+            android:persistent="false"
+            android:dialogTitle="@string/notification_wallpaper_title"
             android:title="@string/notification_wallpaper_title"
-            android:summary="@string/notification_wallpaper_summary" />
+            android:entries="@array/notification_background_entries"
+            android:entryValues="@array/notification_background_values" />
 
         <Preference
             android:key="notification_wallpaper_alpha"

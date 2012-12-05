@@ -942,4 +942,8 @@
     <string name="navbar_defaultbg_plus_color">Default Bg plus color/alpha</string>
     <string name="navbar_defaultbg">Default Bg only</string>
 
+    <!-- notification background -->
+    <string name="notif_background_default">Default background</string>
+    <string name="notif_background_color_fill">Color fill</string>
+    <string name="notif_background_custom_image">Custom image</string>
 </resources>
