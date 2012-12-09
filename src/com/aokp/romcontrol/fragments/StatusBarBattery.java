@@ -29,6 +29,10 @@ public class StatusBarBattery extends AOKPPreferenceFragment implements
     ListPreference mBatteryBarThickness;
     CheckBoxPreference mBatteryBarChargingAnimation;
     ColorPickerPreference mBatteryBarColor;
+	ColorPickerPreference mBatteryTextColor;
+    ColorPickerPreference mBatteryChargeTextColor;
+	ColorPickerPreference mCmCirleRingColor;
+    ColorPickerPreference mCmCirleRingColorCharge;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -72,6 +76,22 @@ public class StatusBarBattery extends AOKPPreferenceFragment implements
                 .getContentResolver(),
                 Settings.System.STATUSBAR_BATTERY_BAR_THICKNESS, 1))
                 + "");
+
+		mBatteryChargeTextColor = (ColorPickerPreference)
+				findPreference("battery_charge_text_only_color");
+        mBatteryChargeTextColor.setOnPreferenceChangeListener(this);
+
+        mBatteryTextColor = (ColorPickerPreference)
+				findPreference("battery_text_only_color");
+        mBatteryTextColor.setOnPreferenceChangeListener(this);
+
+		mCmCirleRingColor = (ColorPickerPreference)
+                findPreference("battery_cmcircle_ring_color");
+        mCmCirleRingColor.setOnPreferenceChangeListener(this);
+
+        mCmCirleRingColorCharge = (ColorPickerPreference)
+                findPreference("battery_cmcircle_ring_color_charge");
+        mCmCirleRingColorCharge.setOnPreferenceChangeListener(this);		
     }
 
     @Override
@@ -121,6 +141,47 @@ public class StatusBarBattery extends AOKPPreferenceFragment implements
             int val = Integer.parseInt((String) newValue);
             return Settings.System.putInt(getActivity().getContentResolver(),
                     Settings.System.STATUSBAR_BATTERY_BAR_THICKNESS, val);
+
+        } else if (preference == mBatteryTextColor) {
+
+            String hex = ColorPickerPreference.convertToARGB(Integer.valueOf(String
+                    .valueOf(newValue)));
+            preference.setSummary(hex);
+
+            int intHex = ColorPickerPreference.convertToColorInt(hex);
+            Settings.System.putInt(getActivity().getContentResolver(),
+                    Settings.System.STATUSBAR_BATTERY_TEXT_COLOR, intHex);
+            return true;
+
+        } else if (preference == mBatteryChargeTextColor) {
+
+            String hex = ColorPickerPreference.convertToARGB(Integer.valueOf(String
+                    .valueOf(newValue)));
+            preference.setSummary(hex);
+            int intHex = ColorPickerPreference.convertToColorInt(hex);
+            Settings.System.putInt(getActivity().getContentResolver(),
+                    Settings.System.STATUSBAR_BATTERY_CHARGE_TEXT_COLOR, intHex);
+            return true;
+
+        } else if (preference == mCmCirleRingColor) {
+
+            String hex = ColorPickerPreference.convertToARGB(Integer.valueOf(String
+                    .valueOf(newValue)));
+            preference.setSummary(hex);
+            int intHex = ColorPickerPreference.convertToColorInt(hex);
+            Settings.System.putInt(getActivity().getContentResolver(),
+                    Settings.System.STATUSBAR_CMCIRLE_RING_COLOR, intHex);
+            return true;
+
+        } else if (preference == mCmCirleRingColorCharge) {
+
+            String hex = ColorPickerPreference.convertToARGB(Integer.valueOf(String
+                    .valueOf(newValue)));
+            preference.setSummary(hex);
+            int intHex = ColorPickerPreference.convertToColorInt(hex);
+            Settings.System.putInt(getActivity().getContentResolver(),
+                    Settings.System.STATUSBAR_CMCIRLE_RING_COLOR_CHARGE, intHex);
+            return true;
 
         }
         return false;

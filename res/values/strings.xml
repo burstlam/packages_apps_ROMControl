@@ -279,6 +279,11 @@
 
     <!-- Statusbar | Battery -->
     <string name="battery_icon">Battery icon style</string>
+	<string name="battery_color">Colors</string>
+    <string name="battery_charge_text_only_color">Battery charging text color</string>
+    <string name="battery_text_only_color">Battery text color</string>
+    <string name="battery_cm_circle_ring_color">CM circle mod ring color</string>
+    <string name="battery_cm_circle_ring_color_charge">CM circle mod charging ring color</string>
     <string name="battery_not_title">Battery icon in notifications</string>
     <string name="battery_not_summary">Battery icon will show up where the clear all button shows up</string>
     <string name="battery_bar">Battery bar location</string>
@@ -788,9 +793,12 @@
     <string name="on_the_bottom">On the bottom</string>
 
     <!-- Battery styles -->
-    <string name="icon_with_text">Icon with text</string>
-    <string name="icon_with_centered_text">Icon with centered text</string>
-    <string name="circlemod">CircleMOD</string>
+    <string name="icon_with_percent">Icon with percent</string>
+    <string name="icon_with_percent_center">Icon with percent centered</string>
+    <string name="circle_mod">CircleMOD</string>
+    <string name="cm_circle_wo_percent">CM circle w/o percent</string>
+    <string name="cm_circle_with_percent">CM circle with percent</string>
+	<string name="battery_hide">Hide</string>
 
     <!-- NavBar -->
     <string name="right">Right</string>
