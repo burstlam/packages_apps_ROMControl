@@ -105,6 +105,7 @@ public class UserInterface extends AOKPPreferenceFragment implements
     private static final String PREF_STATUSBAR_BACKGROUND_COLOR = "statusbar_background_color";
 	private static final String PREF_MODE_TABLET_UI = "mode_tabletui";
 	private static final String PREF_SHOW_OVERFLOW = "show_overflow";
+	private static final String PREF_FORCE_DUAL_PANEL = "force_dualpanel";
 
     CheckBoxPreference mAllow180Rotation;
     CheckBoxPreference mDisableBootAnimation;
@@ -124,6 +125,7 @@ public class UserInterface extends AOKPPreferenceFragment implements
     ColorPickerPreference mStatusbarBgColor;
 	CheckBoxPreference mTabletui;
 	CheckBoxPreference mShowActionOverflow;
+	CheckBoxPreference mDualpane;
 
     private AnimationDrawable mAnimationPart1;
     private AnimationDrawable mAnimationPart2;
@@ -215,6 +217,11 @@ public class UserInterface extends AOKPPreferenceFragment implements
         mTabletui.setChecked(Settings.System.getBoolean(mContext.getContentResolver(),
                         Settings.System.MODE_TABLET_UI, false));
 
+		mDualpane = (CheckBoxPreference) findPreference(PREF_FORCE_DUAL_PANEL);
+        mDualpane.setChecked(Settings.System.getBoolean(mContext.getContentResolver(),
+                        Settings.System.FORCE_DUAL_PANEL, getResources().getBoolean(
+                        com.android.internal.R.bool.preferences_prefer_dual_pane)));
+
         setHasOptionsMenu(true);
         updateCustomBackgroundSummary();
         updateVisibility();
@@ -288,6 +295,11 @@ public class UserInterface extends AOKPPreferenceFragment implements
 		} else if (preference == mTabletui) {
             Settings.System.putBoolean(mContext.getContentResolver(),
                     Settings.System.MODE_TABLET_UI,
+                    ((CheckBoxPreference) preference).isChecked());
+            return true;
+		} else if (preference == mDualpane) {
+            Settings.System.putBoolean(mContext.getContentResolver(),
+                    Settings.System.FORCE_DUAL_PANEL,
                     ((CheckBoxPreference) preference).isChecked());
             return true;
         } else if (preference == mDisableBootAnimation) {

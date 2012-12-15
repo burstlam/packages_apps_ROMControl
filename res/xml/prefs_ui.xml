@@ -65,6 +65,12 @@
 
     </PreferenceCategory>
 
+		<CheckBoxPreference
+            android:key="force_dualpanel"
+            android:title="@string/multipane_ui"
+            android:summary="@string/multipane_ui_summary"
+            android:defaultValue="false" />
+
 	<CheckBoxPreference
             android:key="show_overflow"
             android:title="@string/show_overflow_title"
