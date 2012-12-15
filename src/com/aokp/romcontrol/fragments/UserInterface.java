@@ -146,6 +146,10 @@ public class UserInterface extends AOKPPreferenceFragment implements
     private int seekbarProgress;
     String mCustomLabelText = null;
 
+	int newDensityValue;
+
+	DensityChanger densityFragment;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -177,6 +181,16 @@ public class UserInterface extends AOKPPreferenceFragment implements
         }
 
         mCustomBootAnimation = findPreference("custom_bootanimation");
+
+		mLcdDensity = findPreference("lcd_density_setup");
+        String currentProperty = SystemProperties.get("ro.sf.lcd_density");
+        try {
+            newDensityValue = Integer.parseInt(currentProperty);
+        } catch (Exception e) {
+            getPreferenceScreen().removePreference(mLcdDensity);
+        }
+
+        mLcdDensity.setSummary(getResources().getString(R.string.current_lcd_density) + currentProperty);
 
         mCustomLabel = findPreference(PREF_CUSTOM_CARRIER_LABEL);
         updateCustomLabelTextSummary();
@@ -445,6 +459,10 @@ public class UserInterface extends AOKPPreferenceFragment implements
             boolean checked = ((CheckBoxPreference)preference).isChecked();
             Settings.System.putBoolean(getActivity().getContentResolver(),
                     Settings.System.RAM_USAGE_BAR, checked ? true : false);
+            return true;
+		} else if (preference == mLcdDensity) {
+            ((PreferenceActivity) getActivity())
+                    .startPreferenceFragment(new DensityChanger(), true);
             return true;
         }
 
