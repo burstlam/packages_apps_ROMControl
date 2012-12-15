@@ -65,6 +65,12 @@
 
     </PreferenceCategory>
 
+	<CheckBoxPreference
+            android:key="mode_tabletui"
+            android:title="@string/tablet_ui"
+            android:summary="@string/tablet_ui_summary"
+            android:defaultValue="false" />
+
      <PreferenceCategory
             android:key="misc"
             android:title="@string/misc_short">

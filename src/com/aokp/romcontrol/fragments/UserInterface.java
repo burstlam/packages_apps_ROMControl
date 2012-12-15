@@ -103,6 +103,7 @@ public class UserInterface extends AOKPPreferenceFragment implements
     private static final String WALLPAPER_NAME = "notification_wallpaper.jpg";
     private static final String PREF_STATUSBAR_BACKGROUND_STYLE = "statusbar_background_style";
     private static final String PREF_STATUSBAR_BACKGROUND_COLOR = "statusbar_background_color";
+	private static final String PREF_MODE_TABLET_UI = "mode_tabletui";
 
     CheckBoxPreference mAllow180Rotation;
     CheckBoxPreference mDisableBootAnimation;
@@ -120,6 +121,7 @@ public class UserInterface extends AOKPPreferenceFragment implements
     ListPreference mStatusbarBgStyle;
     ListPreference mNotificationBackground;
     ColorPickerPreference mStatusbarBgColor;
+	CheckBoxPreference mTabletui;
 
     private AnimationDrawable mAnimationPart1;
     private AnimationDrawable mAnimationPart2;
@@ -202,6 +204,10 @@ public class UserInterface extends AOKPPreferenceFragment implements
         mStatusbarBgStyle = (ListPreference) findPreference(PREF_STATUSBAR_BACKGROUND_STYLE);
         mStatusbarBgStyle.setOnPreferenceChangeListener(this);
 
+		mTabletui = (CheckBoxPreference) findPreference(PREF_MODE_TABLET_UI);
+        mTabletui.setChecked(Settings.System.getBoolean(mContext.getContentResolver(),
+                        Settings.System.MODE_TABLET_UI, false));
+
         setHasOptionsMenu(true);
         updateCustomBackgroundSummary();
         updateVisibility();
@@ -257,6 +263,11 @@ public class UserInterface extends AOKPPreferenceFragment implements
         } else if (preference == mStatusBarNotifCount) {
             Settings.System.putBoolean(mContext.getContentResolver(),
                     Settings.System.STATUSBAR_NOTIF_COUNT,
+                    ((CheckBoxPreference) preference).isChecked());
+            return true;
+		} else if (preference == mTabletui) {
+            Settings.System.putBoolean(mContext.getContentResolver(),
+                    Settings.System.MODE_TABLET_UI,
                     ((CheckBoxPreference) preference).isChecked());
             return true;
         } else if (preference == mDisableBootAnimation) {
