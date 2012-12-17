@@ -11,6 +11,11 @@
             android:title="@string/lockscreen_quick_unlock_control_title"
             android:summary="@string/lockscreen_quick_unlock_control_summary" />
 
+        <CheckBoxPreference
+            android:key="menu_unlock_screen"
+            android:title="@string/lockscreen_menu_unlock_title"
+            android:summary="@string/lockscreen_menu_unlock_summary" />
+
     </PreferenceCategory>
     <PreferenceCategory
         android:key="layout"
