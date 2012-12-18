@@ -82,6 +82,8 @@ public class Lockscreens extends AOKPPreferenceFragment implements OnPreferenceC
 
     private static final String WALLPAPER_NAME = "lockscreen_wallpaper.jpg";
 
+    private static final String LOCKSCREEN_TRANSPARENT_PREF = "pref_lockscreen_transparent";
+
     Preference mLockscreenWallpaper;
     Preference mLockscreenTargets;
 
@@ -93,6 +95,8 @@ public class Lockscreens extends AOKPPreferenceFragment implements OnPreferenceC
     CheckBoxPreference mLockscreenUnlimitedWidgets;
     ColorPickerPreference mLockscreenTextColor;
     CheckBoxPreference mLockscreenAutoRotate;
+
+    CheckBoxPreference mLockTransparent;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -132,6 +136,10 @@ public class Lockscreens extends AOKPPreferenceFragment implements OnPreferenceC
         mLockscreenTextColor = (ColorPickerPreference) findPreference(PREF_LOCKSCREEN_TEXT_COLOR);
         mLockscreenTextColor.setOnPreferenceChangeListener(this);
 
+        mLockTransparent = (CheckBoxPreference) findPreference(LOCKSCREEN_TRANSPARENT_PREF);
+        mLockTransparent.setChecked(Settings.System.getBoolean(mContext
+                .getContentResolver(), Settings.System.LOCKSCREEN_TRANSPARENT, false));
+
         mLockscreenWallpaper = findPreference("wallpaper");
 
         setHasOptionsMenu(true);
@@ -159,6 +167,11 @@ public class Lockscreens extends AOKPPreferenceFragment implements OnPreferenceC
             Settings.System.putBoolean(mContext.getContentResolver(),
                     Settings.System.LOCKSCREEN_QUICK_UNLOCK_CONTROL,
                     ((CheckBoxPreference) preference).isChecked());
+            return true;
+        } else if (preference == mLockTransparent) {
+            Settings.System.putBoolean(mContext.getContentResolver(),
+                    Settings.System.LOCKSCREEN_TRANSPARENT,
+                    ((CheckBoxPreference)preference).isChecked());
             return true;
         } else if (preference == mLockscreenAllWidgets) {
             Settings.System.putBoolean(mContext.getContentResolver(),
