@@ -24,21 +24,51 @@
                 android:title="@string/navbar_qty_title"
                 android:summary="@string/navbar_qty_summary" />
 
-        <net.margaritov.preference.colorpicker.ColorPickerPreference
-                android:key="nav_button_color"
-                android:title="@string/navigation_bar_tint_title"
-                android:defaultValue="#FFFFFF" />
-
-        <net.margaritov.preference.colorpicker.ColorPickerPreference
-                android:key="nav_button_glow_color"
-                android:title="@string/navigation_bar_glow_tint_title"
-                android:summary="@string/navigation_bar_glow_tint_summary"
-                android:defaultValue="#FFFFFF" />
-
         <CheckBoxPreference
                 android:key="navigation_bar_menu_arrow_keys"
                 android:title="@string/navigation_bar_menu_arrow_keys_title"
                 android:summary="@string/navigation_bar_menu_arrow_keys_summary" />
+
+    <PreferenceCategory android:title="@string/navbar_bg">
+
+        <ListPreference
+            android:key="navbar_bg_style"
+            android:layout="?android:attr/preferenceLayoutChild"
+            android:persistent="true"
+            android:entries="@array/navbar_background_entries"
+            android:entryValues="@array/navbar_background_values"
+            android:title="@string/navbar_background_style" />
+
+        <net.margaritov.preference.colorpicker.ColorPickerPreference
+            android:key="navigation_bar_background_color"
+            android:shouldDisableView="true"
+            android:layout="?android:attr/preferenceLayoutChild"
+            android:persistent="true"
+            android:title="@string/navbar_bg_color"
+            android:defaultValue="#000000"
+            alphaSlider="true" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/navbar_button_colors">
+
+        <net.margaritov.preference.colorpicker.ColorPickerPreference
+            android:key="nav_button_color"
+            android:layout="?android:attr/preferenceLayoutChild"
+            android:persistent="true"
+            android:title="@string/navigation_bar_tint_title"
+            android:defaultValue="#FFFFFF"
+            alphaSlider="true" />
+
+        <net.margaritov.preference.colorpicker.ColorPickerPreference
+            android:key="nav_button_glow_color"
+            android:layout="?android:attr/preferenceLayoutChild"
+            android:persistent="true"
+            android:title="@string/navigation_bar_glow_tint_title"
+            android:summary="@string/navigation_bar_glow_tint_summary"
+            android:defaultValue="#FFFFFF" />
+
+    </PreferenceCategory>
 
         <PreferenceCategory
                 android:key="navbar_buttons"

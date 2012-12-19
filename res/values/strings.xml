@@ -932,4 +932,14 @@
     <string name="toggles_enable_haptic_feedback_title">Enable haptic feedback</string>
     <string name="toggles_enable_haptic_feedback_summary">Use haptic feedback when pressing toggles</string>
 
+    <!-- Burst Mod -->
+    <!-- Navigation Bar -->
+    <string name="navbar_bg_color">Navbar background color</string>
+    <string name="navbar_bg">Navbar background</string>
+    <string name="navbar_button_colors">Navbar button color</string>
+    <string name="navbar_background_style">Navbar background style</string>
+    <string name="navbar_color">Color/alpha only</string>
+    <string name="navbar_defaultbg_plus_color">Default Bg plus color/alpha</string>
+    <string name="navbar_defaultbg">Default Bg only</string>
+
 </resources>
