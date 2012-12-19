@@ -101,6 +101,8 @@ public class UserInterface extends AOKPPreferenceFragment implements
     private static final int SELECT_WALLPAPER = 5;
 
     private static final String WALLPAPER_NAME = "notification_wallpaper.jpg";
+    private static final String PREF_STATUSBAR_BACKGROUND_STYLE = "statusbar_background_style";
+    private static final String PREF_STATUSBAR_BACKGROUND_COLOR = "statusbar_background_color";
 
     CheckBoxPreference mAllow180Rotation;
     CheckBoxPreference mDisableBootAnimation;
@@ -115,7 +117,9 @@ public class UserInterface extends AOKPPreferenceFragment implements
     CheckBoxPreference mRecentKillAll;
     CheckBoxPreference mRamBar;
     CheckBoxPreference mShowImeSwitcher;
+    ListPreference mStatusbarBgStyle;
     ListPreference mNotificationBackground;
+    ColorPickerPreference mStatusbarBgColor;
 
     private AnimationDrawable mAnimationPart1;
     private AnimationDrawable mAnimationPart2;
@@ -192,8 +196,15 @@ public class UserInterface extends AOKPPreferenceFragment implements
         mRamBar.setChecked(Settings.System.getBoolean(getActivity  ().getContentResolver(),
                 Settings.System.RAM_USAGE_BAR, false));
 
+        mStatusbarBgColor = (ColorPickerPreference) findPreference(PREF_STATUSBAR_BACKGROUND_COLOR);
+        mStatusbarBgColor.setOnPreferenceChangeListener(this);
+
+        mStatusbarBgStyle = (ListPreference) findPreference(PREF_STATUSBAR_BACKGROUND_STYLE);
+        mStatusbarBgStyle.setOnPreferenceChangeListener(this);
+
         setHasOptionsMenu(true);
         updateCustomBackgroundSummary();
+        updateVisibility();
     }
 
     private void updateCustomBackgroundSummary() {
@@ -213,6 +224,16 @@ public class UserInterface extends AOKPPreferenceFragment implements
             mNotificationBackground.setValueIndex(2);
         }
         mNotificationBackground.setSummary(getResources().getString(resId));
+    }
+
+    private void updateVisibility() {
+        int visible = Settings.System.getInt(getActivity().getContentResolver(),
+                    Settings.System.STATUSBAR_BACKGROUND_STYLE, 2);
+        if (visible == 2) {
+            mStatusbarBgColor.setEnabled(false);
+        } else {
+            mStatusbarBgColor.setEnabled(true);
+        }
     }
 
     private void updateCustomLabelTextSummary() {
@@ -386,9 +407,29 @@ public class UserInterface extends AOKPPreferenceFragment implements
         return super.onPreferenceTreeClick(preferenceScreen, preference);
     }
 
-    public boolean onPreferenceChange(Preference preference, Object objValue) {
-        if (preference == mNotificationBackground) {
-            int indexOf = mNotificationBackground.findIndexOfValue(objValue.toString());
+    @Override
+    public boolean onPreferenceChange(Preference preference, Object newValue) {
+if (preference == mStatusbarBgStyle) {
+            int value = Integer.valueOf((String) newValue);
+            int index = mStatusbarBgStyle.findIndexOfValue((String) newValue);
+            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
+                    Settings.System.STATUSBAR_BACKGROUND_STYLE, value);
+            preference.setSummary(mStatusbarBgStyle.getEntries()[index]);
+            updateVisibility();
+            return true;
+
+        } else if (preference == mStatusbarBgColor) {
+            String hex = ColorPickerPreference.convertToARGB(Integer.valueOf(String
+                    .valueOf(newValue)));
+            preference.setSummary(hex);
+
+            int intHex = ColorPickerPreference.convertToColorInt(hex);
+            Settings.System.putInt(getActivity().getContentResolver(),
+                    Settings.System.STATUSBAR_BACKGROUND_COLOR, intHex);
+            Log.e("BAKED", intHex + "");
+
+} else if (preference == mNotificationBackground) {
+            int indexOf = mNotificationBackground.findIndexOfValue((String) newValue);
             switch (indexOf) {
                 //Displays color dialog when user has chosen color fill
                 case 0:
@@ -457,6 +498,10 @@ public class UserInterface extends AOKPPreferenceFragment implements
             return true;
         }
         return false;
+    }
+
+    private void deleteWallpaper() {
+        mContext.deleteFile(WALLPAPER_NAME);
     }
 
     @Override
