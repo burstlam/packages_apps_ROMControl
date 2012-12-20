@@ -42,6 +42,7 @@ import android.preference.PreferenceGroup;
 import android.preference.PreferenceScreen;
 import android.provider.MediaStore;
 import android.provider.Settings;
+import android.provider.Settings.SettingNotFoundException;
 import android.text.Spannable;
 import android.util.Log;
 import android.view.Display;
@@ -93,6 +94,7 @@ public class UserInterface extends AOKPPreferenceFragment implements
     private static final String PREF_RECENT_KILL_ALL = "recent_kill_all";
     private static final String PREF_RAM_USAGE_BAR = "ram_usage_bar";
     private static final String PREF_IME_SWITCHER = "ime_switcher";
+    private static final String PREF_STATUSBAR_BRIGHTNESS = "statusbar_brightness_slider";
 
     private static final int REQUEST_PICK_WALLPAPER = 201;
     private static final int REQUEST_PICK_CUSTOM_ICON = 202;
@@ -126,6 +128,8 @@ public class UserInterface extends AOKPPreferenceFragment implements
 	CheckBoxPreference mTabletui;
 	CheckBoxPreference mShowActionOverflow;
 	CheckBoxPreference mDualpane;
+	Preference mLcdDensity;
+    CheckBoxPreference mStatusbarSliderPreference;
 
     private AnimationDrawable mAnimationPart1;
     private AnimationDrawable mAnimationPart2;
@@ -161,6 +165,10 @@ public class UserInterface extends AOKPPreferenceFragment implements
         PreferenceScreen prefs = getPreferenceScreen();
         mInsults = mContext.getResources().getStringArray(
                 R.array.disable_bootanimation_insults);
+
+        mStatusbarSliderPreference = (CheckBoxPreference) findPreference(PREF_STATUSBAR_BRIGHTNESS);
+			        mStatusbarSliderPreference.setChecked(Settings.System.getBoolean(mContext.getContentResolver(),
+			                Settings.System.STATUSBAR_BRIGHTNESS_SLIDER, true));
 
         mAllow180Rotation = (CheckBoxPreference) findPreference(PREF_180);
         mAllow180Rotation.setChecked(Settings.System.getInt(mContext
@@ -412,6 +420,11 @@ public class UserInterface extends AOKPPreferenceFragment implements
         } else if (preference == mShowImeSwitcher) {
             Settings.System.putBoolean(getActivity().getContentResolver(),
                     Settings.System.SHOW_STATUSBAR_IME_SWITCHER,
+                    isCheckBoxPrefernceChecked(preference));
+            return true;
+        } else if (preference == mStatusbarSliderPreference) {
+            Settings.System.putBoolean(getActivity().getContentResolver(),
+                    Settings.System.STATUSBAR_BRIGHTNESS_SLIDER,
                     isCheckBoxPrefernceChecked(preference));
             return true;
         } else if (preference == mCustomLabel) {

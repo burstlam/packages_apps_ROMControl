@@ -4,6 +4,12 @@
 
     <PreferenceCategory android:title="@string/header_statusbar">
 
+        <CheckBoxPreference
+            android:key="statusbar_brightness_slider"
+            android:title="@string/brightness_slider_title"
+            android:summary="@string/brightness_slider_summary"
+            android:defaultValue="false" />
+
         <ListPreference
             android:key="statusbar_background_style"
             android:layout="?android:attr/preferenceLayoutChild"

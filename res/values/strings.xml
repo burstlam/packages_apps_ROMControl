@@ -951,6 +951,8 @@
     <string name="navbar_defaultbg">Default Bg only</string>
 
     <!-- Statusbar -->
+    <string name="brightness_slider_title">Statusbar brightness slider</string>
+    <string name="brightness_slider_summary">Allows you to slide your finger along the top of the statusbar to change the brightness. Does nothing when autobrightness is enabled.</string>
     <string name="statusbar_background_color">Statusbar background color</string>
     <string name="statusbar_bg">Statusbar background</string>
     <string name="statusbar_background_style">Statusbar background style</string>
@@ -961,4 +963,5 @@
     <string name="notif_background_custom_image">Custom image</string>
 
     <string name="pref_lockscreen_transparent">Enable transparent lockscreen</string>
+
 </resources>
