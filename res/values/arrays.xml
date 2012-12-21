@@ -832,4 +832,16 @@
         <item>2</item>
     </string-array>
 
+    <!-- Fast Toggle -->
+    <string-array name="fast_toggle_entries" translatable="false">
+        <item>@string/fast_toggle_off</item>
+        <item>@string/fast_toggle_right</item>
+        <item>@string/fast_toggle_left</item>
+    </string-array>
+    <string-array name="fast_toggle_values" translatable="false">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+
 </resources>
