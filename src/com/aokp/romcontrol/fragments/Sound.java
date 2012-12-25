@@ -54,7 +54,7 @@ public class Sound extends AOKPPreferenceFragment
         mEnableVolumeOptions = (CheckBoxPreference) findPreference(PREF_ENABLE_VOLUME_OPTIONS);
         mEnableVolumeOptions.setChecked(Settings.System.getBoolean(getActivity()
                 .getContentResolver(),
-                Settings.System.ENABLE_VOLUME_OPTIONS, false));
+                Settings.System.ENABLE_VOLUME_OPTIONS, true));
 
         mAnnoyingNotifications = (ListPreference) findPreference(PREF_LESS_NOTIFICATION_SOUNDS);
         mAnnoyingNotifications.setOnPreferenceChangeListener(this);
