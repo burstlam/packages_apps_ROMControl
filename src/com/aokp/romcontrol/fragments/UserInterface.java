@@ -1,16 +1,5 @@
 package com.aokp.romcontrol.fragments;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.InputStreamReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URISyntaxException;
-import java.util.Random;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -36,9 +25,9 @@ import android.os.SystemProperties;
 import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
-import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceGroup;
+import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceScreen;
 import android.provider.MediaStore;
 import android.provider.Settings;
@@ -50,7 +39,6 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.Window;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView.AdapterContextMenuInfo;
@@ -64,16 +52,24 @@ import android.widget.Toast;
 
 import com.aokp.romcontrol.AOKPPreferenceFragment;
 import com.aokp.romcontrol.R;
-import com.aokp.romcontrol.util.CMDProcessor;
 import com.aokp.romcontrol.util.AbstractAsyncSuCMDProcessor;
+import com.aokp.romcontrol.util.CMDProcessor;
 import com.aokp.romcontrol.util.Helpers;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.lang.StringBuilder;
+import java.nio.channels.FileChannel;
+import java.net.URISyntaxException;
 import java.util.Enumeration;
 import java.util.List;
+import java.util.Random;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
@@ -83,7 +79,7 @@ import net.margaritov.preference.colorpicker.ColorPickerView;
 public class UserInterface extends AOKPPreferenceFragment implements
         Preference.OnPreferenceChangeListener {
 
-    public static final String TAG = "UserInterface";
+    public final String TAG = getClass().getSimpleName();
 
     private static final String PREF_180 = "rotate_180";
     private static final String PREF_STATUS_BAR_NOTIF_COUNT = "status_bar_notif_count";
@@ -172,7 +168,8 @@ public class UserInterface extends AOKPPreferenceFragment implements
 
         mAllow180Rotation = (CheckBoxPreference) findPreference(PREF_180);
         mAllow180Rotation.setChecked(Settings.System.getInt(mContext
-                .getContentResolver(), Settings.System.ACCELEROMETER_ROTATION_ANGLES, (1 | 2 | 8)) == (1 | 2 | 4 | 8));
+                .getContentResolver(), Settings.System.ACCELEROMETER_ROTATION_ANGLES,
+                (1 | 2 | 8)) == (1 | 2 | 4 | 8));
 
         mStatusBarNotifCount = (CheckBoxPreference) findPreference(PREF_STATUS_BAR_NOTIF_COUNT);
         mStatusBarNotifCount.setChecked(Settings.System.getBoolean(mContext
@@ -294,7 +291,8 @@ public class UserInterface extends AOKPPreferenceFragment implements
         if (preference == mAllow180Rotation) {
             boolean checked = ((CheckBoxPreference) preference).isChecked();
             Settings.System.putInt(mContext.getContentResolver(),
-                    Settings.System.ACCELEROMETER_ROTATION_ANGLES, checked ? (1 | 2 | 4 | 8) : (1 | 2 | 8 ));
+                    Settings.System.ACCELEROMETER_ROTATION_ANGLES,
+                    checked ? (1 | 2 | 4 | 8) : (1 | 2 | 8 ));
             return true;
         } else if (preference == mStatusBarNotifCount) {
             Settings.System.putBoolean(mContext.getContentResolver(),
@@ -360,14 +358,16 @@ public class UserInterface extends AOKPPreferenceFragment implements
             PackageManager packageManager = getActivity().getPackageManager();
             Intent test = new Intent(Intent.ACTION_GET_CONTENT);
             test.setType("file/*");
-            List<ResolveInfo> list = packageManager.queryIntentActivities(test, PackageManager.GET_ACTIVITIES);
+            List<ResolveInfo> list = packageManager.queryIntentActivities(test,
+                    PackageManager.GET_ACTIVITIES);
             if(list.size() > 0) {
                 Intent intent = new Intent(Intent.ACTION_GET_CONTENT, null);
                 intent.setType("file/*");
                 startActivityForResult(intent, REQUEST_PICK_BOOT_ANIMATION);
             } else {
                 //No app installed to handle the intent - file explorer required
-                Toast.makeText(mContext, R.string.install_file_manager_error, Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, R.string.install_file_manager_error,
+                        Toast.LENGTH_SHORT).show();
             }
             return true;
         } else if (preference == mWallpaperAlpha) {
@@ -376,14 +376,16 @@ public class UserInterface extends AOKPPreferenceFragment implements
             String ok = res.getString(R.string.ok);
             String title = res.getString(R.string.alpha_dialog_title);
             float savedProgress = Settings.System.getFloat(getActivity()
-                        .getContentResolver(), Settings.System.NOTIF_WALLPAPER_ALPHA, 1.0f);
+                        .getContentResolver(), 
+                    Settings.System.NOTIF_WALLPAPER_ALPHA, 1.0f);
 
             LayoutInflater factory = LayoutInflater.from(getActivity());
             final View alphaDialog = factory.inflate(R.layout.seekbar_dialog, null);
             SeekBar seekbar = (SeekBar) alphaDialog.findViewById(R.id.seek_bar);
             OnSeekBarChangeListener seekBarChangeListener = new OnSeekBarChangeListener() {
                 @Override
-                public void onProgressChanged(SeekBar seekbar, int progress, boolean fromUser) {
+                public void onProgressChanged(SeekBar seekbar,
+                        int progress, boolean fromUser) {
                     seekbarProgress = seekbar.getProgress();
                 }
                 @Override
@@ -438,7 +440,8 @@ public class UserInterface extends AOKPPreferenceFragment implements
             input.setText(mCustomLabelText != null ? mCustomLabelText : "");
             alert.setView(input);
 
-            alert.setPositiveButton(getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
+            alert.setPositiveButton(getResources().getString(R.string.ok), 
+                    new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int whichButton) {
                     String value = ((Spannable) input.getText()).toString();
                     Settings.System.putString(getActivity().getContentResolver(),
@@ -449,7 +452,8 @@ public class UserInterface extends AOKPPreferenceFragment implements
                     mContext.sendBroadcast(i);
                 }
             });
-            alert.setNegativeButton(getResources().getString(R.string.cancel), new DialogInterface.OnClickListener() {
+            alert.setNegativeButton(getResources().getString(R.string.cancel),
+                    new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int whichButton) {
                     // Canceled.
                 }
@@ -534,32 +538,33 @@ if (preference == mStatusbarBgStyle) {
                     return false;
                  //Launches intent for user to select an image/crop it to set as background
                 case 1:
-                    Display display = getActivity().getWindowManager().getDefaultDisplay();
-                    int width = display.getWidth();
-                    int height = display.getHeight();
-                    Rect rect = new Rect();
-                    Window window = getActivity().getWindow();
-                    window.getDecorView().getWindowVisibleDisplayFrame(rect);
-                    int statusBarHeight = rect.top;
-                    int contentViewTop = window.findViewById(Window.ID_ANDROID_CONTENT).getTop();
-                    int titleBarHeight = contentViewTop - statusBarHeight;
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Display display = getActivity().getWindowManager().getDefaultDisplay();
+                            int width = display.getWidth();
+                            int height = display.getHeight();
 
-                    Intent intent = new Intent(Intent.ACTION_GET_CONTENT, null);
-                    intent.setType("image/*");
-                    intent.putExtra("crop", "true");
-                    boolean isPortrait = getResources()
-                            .getConfiguration().orientation
-                            == Configuration.ORIENTATION_PORTRAIT;
-                    intent.putExtra("aspectX", isPortrait ? width : height - titleBarHeight);
-                    intent.putExtra("aspectY", isPortrait ? height - titleBarHeight : width);
-                    intent.putExtra("outputX", width);
-                    intent.putExtra("outputY", height);
-                    intent.putExtra("scale", true);
-                    intent.putExtra("scaleUpIfNeeded", true);
-                    intent.putExtra(MediaStore.EXTRA_OUTPUT, getNotificationExternalUri());
-                    intent.putExtra("outputFormat", Bitmap.CompressFormat.PNG.toString());
+                            Intent intent = new Intent(Intent.ACTION_GET_CONTENT, null);
+                            intent.setType("image/*");
+                            intent.putExtra("crop", "true");
+                            boolean isPortrait = getResources()
+                                    .getConfiguration().orientation
+                                    == Configuration.ORIENTATION_PORTRAIT;
+                            intent.putExtra("aspectX", isPortrait ? width : height);
+                            intent.putExtra("aspectY", isPortrait ? height : width);
+                            intent.putExtra("outputX", width);
+                            intent.putExtra("outputY", height);
+                            intent.putExtra("scale", true);
+                            intent.putExtra("scaleUpIfNeeded", true);
+                            intent.putExtra(MediaStore.EXTRA_OUTPUT,
+                                    getNotificationExternalUri());
+                            intent.putExtra("outputFormat",
+                                    Bitmap.CompressFormat.PNG.toString());
 
-                    startActivityForResult(intent, REQUEST_PICK_WALLPAPER);
+                            startActivityForResult(intent, REQUEST_PICK_WALLPAPER);
+                        }
+                    }).start();
                     return true;
                 //Sets background color to default
                 case 2:
@@ -591,8 +596,13 @@ if (preference == mStatusbarBgStyle) {
         switch (item.getItemId()) {
             case R.id.remove_wallpaper:
                 File f = new File(mContext.getFilesDir(), WALLPAPER_NAME);
-                mContext.deleteFile(WALLPAPER_NAME);
-                Helpers.restartSystemUI();
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        mContext.deleteFile(WALLPAPER_NAME);
+                        Helpers.restartSystemUI();
+                    }
+                }).start();
                 return true;
             default:
                 return super.onContextItemSelected(item);
@@ -606,85 +616,95 @@ if (preference == mStatusbarBgStyle) {
         return Uri.fromFile(wallpaper);
     }
 
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, final Intent data) {
         if (resultCode == Activity.RESULT_OK) {
             if (requestCode == REQUEST_PICK_WALLPAPER) {
 
-                FileOutputStream wallpaperStream = null;
-                try {
-                    wallpaperStream = mContext.openFileOutput(WALLPAPER_NAME,
-                            Context.MODE_WORLD_READABLE);
-                } catch (FileNotFoundException e) {
-                    return; // NOOOOO
-                }
+                Runnable wallpaperInstall = new Runnable() {
+                    @Override
+                    public void run() {
 
-                Uri selectedImageUri = getNotificationExternalUri();
-                Bitmap bitmap = BitmapFactory.decodeFile(selectedImageUri.getPath());
+                        FileOutputStream wallpaperStream = null;
+                        try {
+                            wallpaperStream = mContext.openFileOutput(WALLPAPER_NAME,
+                                    Context.MODE_WORLD_READABLE);
+                        } catch (FileNotFoundException e) {
+                            return; // NOOOOO
+                        }
+                        Uri selectedImageUri = getNotificationExternalUri();
+                        Bitmap bitmap = BitmapFactory.decodeFile(selectedImageUri.getPath());
 
-                bitmap.compress(Bitmap.CompressFormat.PNG, 100, wallpaperStream);
+                        bitmap.compress(Bitmap.CompressFormat.PNG, 100, wallpaperStream);
 
-                Settings.System.putString(getContentResolver(),
-                                            Settings.System.NOTIF_BACKGROUND, null);
+                        Settings.System.putString(getContentResolver(),
+                                                    Settings.System.NOTIF_BACKGROUND, null);
 
-                updateCustomBackgroundSummary();
-                Helpers.restartSystemUI();
+                        updateCustomBackgroundSummary();
+                        Helpers.restartSystemUI();
+                         }
+                    };
+                    new Thread(wallpaperInstall).start();
             } else if (requestCode == REQUEST_PICK_BOOT_ANIMATION) {
-                if (data==null) {
-                    //Nothing returned by user, probably pressed back button in file manager
-                    return;
-                }
 
-                bootAniPath = data.getData().getEncodedPath();
+                    if (data == null) {
+                        //Nothing returned by user, probably pressed back button in file manager
+                        return;
+                    }
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                builder.setTitle(R.string.bootanimation_preview);
-                builder.setPositiveButton(R.string.apply, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        Helpers.getMount("rw");
-                        //backup old boot animation
-                        new CMDProcessor().su.runWaitFor("mv /system/media/bootanimation.zip /system/media/bootanimation.backup");
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                    builder.setTitle(R.string.bootanimation_preview);
+                    final Runnable install = new Runnable() {
+                        @Override
+                        public void run() {
+                            bootAniPath = data.getData().getEncodedPath();
+                            Helpers.getMount("rw");
+                            //backup old boot animation
+                            CMDProcessor processor = new CMDProcessor();
+                            processor.su.runWaitFor("mv /system/media/bootanimation.zip" +
+                                    " /system/media/bootanimation.backup");
 
-                        //Copy new bootanimation, give proper permissions
-                        new CMDProcessor().su.runWaitFor("cp "+ bootAniPath +" /system/media/bootanimation.zip");
-                        new CMDProcessor().su.runWaitFor("chmod 644 /system/media/bootanimation.zip");
+                            //Copy new bootanimation, give proper permissions
+                            processor.su.runWaitFor("cp " + bootAniPath
+                                    + " /system/media/bootanimation.zip");
+                            processor.su.runWaitFor(
+                                    "chmod 644 /system/media/bootanimation.zip");
 
                         //Update setting to reflect that boot animation is now enabled
                         mDisableBootAnimation.setChecked(false);
 
                         Helpers.getMount("ro");
-
+                    }
+                };
+                builder.setPositiveButton(R.string.apply,
+                        new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        new Thread(install).start();
                         dialog.dismiss();
                     }
                 });
-                builder.setNegativeButton(com.android.internal.R.string.cancel, new DialogInterface.OnClickListener() {
+                builder.setNegativeButton(com.android.internal.R.string.cancel, 
+                        new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
                     }
                 });
 
-                LayoutInflater inflater = (LayoutInflater) getActivity().getSystemService(getActivity().LAYOUT_INFLATER_SERVICE);
+                LayoutInflater inflater = (LayoutInflater) getActivity()
+                        .getSystemService(getActivity().LAYOUT_INFLATER_SERVICE);
                 View layout = inflater.inflate(R.layout.dialog_bootanimation_preview,
                         (ViewGroup) getActivity().findViewById(R.id.bootanimation_layout_root));
-
                 error = (TextView) layout.findViewById(R.id.textViewError);
-
                 view = (ImageView) layout.findViewById(R.id.imageViewPreview);
                 view.setVisibility(View.GONE);
 
                 Display display = getActivity().getWindowManager().getDefaultDisplay();
                 Point size = new Point();
                 display.getSize(size);
-
                 view.setLayoutParams(new LinearLayout.LayoutParams(size.x/2, size.y/2));
-
                 error.setText(R.string.creating_preview);
-
                 builder.setView(layout);
-
                 AlertDialog dialog = builder.create();
-
                 dialog.setOwnerActivity(getActivity());
-
                 dialog.show();
 
                 Thread thread = new Thread(new Runnable() {
@@ -701,56 +721,74 @@ if (preference == mStatusbarBgStyle) {
     }
 
     public void copy(File src, File dst) throws IOException {
-        InputStream in = new FileInputStream(src);
-        FileOutputStream out = new FileOutputStream(dst);
-
-        // Transfer bytes from in to out
-        byte[] buf = new byte[1024];
-        int len;
-        while ((len = in.read(buf)) > 0) {
-            out.write(buf, 0, len);
+        // use file channels for faster byte transfers
+        FileChannel inChannel = new
+                FileInputStream(src).getChannel();
+        FileChannel outChannel = new
+                FileOutputStream(dst).getChannel();
+        try {
+            // move the bytes from in to out
+            inChannel.transferTo(0,
+                    inChannel.size(),
+                    outChannel);
+        } finally {
+            // ensure closure
+            if (inChannel != null) inChannel.close();
+            if (outChannel != null) outChannel.close();
         }
-        in.close();
-        out.close();
     }
 
     private void createPreview(String path) {
         File zip = new File(path);
-
         ZipFile zipfile = null;
         String desc = "";
+        InputStream inputStream = null;
+        InputStreamReader inputStreamReader = null;
+        BufferedReader bufferedReader = null;
         try {
             zipfile = new ZipFile(zip);
             ZipEntry ze = zipfile.getEntry("desc.txt");
-            InputStream in = zipfile.getInputStream(ze);
-            InputStreamReader is = new InputStreamReader(in);
+            inputStream = zipfile.getInputStream(ze);
+            inputStreamReader = new InputStreamReader(inputStream);
             StringBuilder sb = new StringBuilder();
-            BufferedReader br = new BufferedReader(is);
-            String read = br.readLine();
-            while(read != null) {
+            bufferedReader = new BufferedReader(inputStreamReader);
+            String read = bufferedReader.readLine();
+            while (read != null) {
                 sb.append(read);
                 sb.append("\n");
-                read = br.readLine();
+                read = bufferedReader.readLine();
             }
             desc = sb.toString();
-            br.close();
-            is.close();
-            in.close();
-
         } catch (Exception e1) {
             errormsg = getActivity().getString(R.string.error_reading_zip_file);
             errorHandler.sendEmptyMessage(0);
             return;
+        } finally {
+            try {
+                if (bufferedReader != null)
+                    bufferedReader.close();
+            } catch (IOException e) {
+                // we tried
+            }
+            try {
+                if (inputStreamReader != null)
+                    inputStreamReader.close();
+            } catch (IOException e) {
+                // we tried
+            }
+            try {
+                if (inputStream != null)
+                    inputStream.close();
+            } catch (IOException e) {
+                // moving on...
+            }
         }
 
         String[] info = desc.replace("\\r", "").split("\\n");
-
         width = Integer.parseInt(info[0].split(" ")[0]);
         height = Integer.parseInt(info[0].split(" ")[1]);
         delay = Integer.parseInt(info[0].split(" ")[2]);
-
         mPartName1 = info[1].split(" ")[3];
-
         try {
             if (info.length > 2) {
                 mPartName2 = info[2].split(" ")[3];
@@ -758,20 +796,16 @@ if (preference == mStatusbarBgStyle) {
             else {
                 mPartName2 = "";
             }
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             mPartName2 = "";
         }
 
         BitmapFactory.Options opt = new BitmapFactory.Options();
         opt.inSampleSize = 4;
-
         mAnimationPart1 = new AnimationDrawable();
         mAnimationPart2 = new AnimationDrawable();
 
-        try
-        {
+        try {
             for (Enumeration<? extends ZipEntry> e = zipfile.entries(); e.hasMoreElements();) {
                 ZipEntry entry = (ZipEntry) e.nextElement();
                 if (entry.isDirectory()) {
@@ -779,14 +813,27 @@ if (preference == mStatusbarBgStyle) {
                 }
                 String partname = entry.getName().split("/")[0];
                 if (mPartName1.equalsIgnoreCase(partname)) {
-                    InputStream is = zipfile.getInputStream(entry);
-                    mAnimationPart1.addFrame(new BitmapDrawable(getResources(), BitmapFactory.decodeStream(is, null, opt)), delay);
-                    is.close();
-                }
-                else if (mPartName2.equalsIgnoreCase(partname)) {
-                    InputStream is = zipfile.getInputStream(entry);
-                    mAnimationPart2.addFrame(new BitmapDrawable(getResources(), BitmapFactory.decodeStream(is, null, opt)), delay);
-                    is.close();
+                    InputStream partOneInStream = null;
+                    try {
+                        partOneInStream = zipfile.getInputStream(entry);
+                        mAnimationPart1.addFrame(new BitmapDrawable(getResources(),
+                                BitmapFactory.decodeStream(partOneInStream,
+                                        null, opt)), delay);
+                    } finally {
+                        if (partOneInStream != null)
+                            partOneInStream.close();
+                    }
+                } else if (mPartName2.equalsIgnoreCase(partname)) {
+                    InputStream partTwoInStream = null;
+                    try {
+                        partTwoInStream = zipfile.getInputStream(entry);
+                        mAnimationPart2.addFrame(new BitmapDrawable(getResources(),
+                                BitmapFactory.decodeStream(partTwoInStream,
+                                        null, opt)), delay);
+                    } finally {
+                        if (partTwoInStream != null)
+                            partTwoInStream.close();
+                    }
                 }
             }
         } catch (IOException e1) {
@@ -800,7 +847,8 @@ if (preference == mStatusbarBgStyle) {
             mAnimationPart1.setOneShot(false);
             mAnimationPart2.setOneShot(false);
 
-            mAnimationPart1.setOnAnimationFinishedListener(new AnimationDrawable.OnAnimationFinishedListener() {
+            mAnimationPart1.setOnAnimationFinishedListener(
+                    new AnimationDrawable.OnAnimationFinishedListener() {
 
                 @Override
                 public void onAnimationFinished() {
@@ -811,8 +859,7 @@ if (preference == mStatusbarBgStyle) {
                 }
             });
 
-        }
-        else {
+        } else {
             mAnimationPart1.setOneShot(false);
         }
 
