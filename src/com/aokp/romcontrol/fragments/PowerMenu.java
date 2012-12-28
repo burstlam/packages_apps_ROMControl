@@ -15,6 +15,7 @@ import com.aokp.romcontrol.R.xml;
 public class PowerMenu extends AOKPPreferenceFragment {
 
     //private static final String PREF_POWER_SAVER = "show_power_saver";
+    private static final String PREF_POWER_OFF = "show_power_off";
     private static final String PREF_SCREENSHOT = "show_screenshot";
     private static final String PREF_TORCH_TOGGLE = "show_torch_toggle";
     private static final String PREF_AIRPLANE_TOGGLE = "show_airplane_toggle";
@@ -22,6 +23,7 @@ public class PowerMenu extends AOKPPreferenceFragment {
 	private static final String PREF_EXPANDED_DESKTOP_TOGGLE = "power_menu_expanded_desktop";
 
     //CheckBoxPreference mShowPowerSaver;
+    CheckBoxPreference mShowPowerOff;
     CheckBoxPreference mShowScreenShot;
     CheckBoxPreference mShowTorchToggle;
     CheckBoxPreference mShowAirplaneToggle;
@@ -46,6 +48,10 @@ public class PowerMenu extends AOKPPreferenceFragment {
                     .setSummary("You need to enable power saver before you can see it in the power menu.");
         }
         mShowPowerSaver.setChecked(powerSaverVal != 0); */
+
+        mShowPowerOff = (CheckBoxPreference) findPreference(PREF_POWER_OFF);
+        mShowPowerOff.setChecked(Settings.System.getInt(getActivity()
+                .getContentResolver(), Settings.System.POWER_DIALOG_SHOW_POWER_OFF, 1) == 1);
 
         mShowTorchToggle = (CheckBoxPreference) findPreference(PREF_TORCH_TOGGLE);
         mShowTorchToggle.setChecked(Settings.System.getBoolean(getActivity()
@@ -82,6 +88,11 @@ public class PowerMenu extends AOKPPreferenceFragment {
                     Settings.System.POWER_DIALOG_SHOW_POWER_SAVER,
                     ((CheckBoxPreference)preference).isChecked() ? 1 : 0);
             return true; */
+        } else if (preference == mShowPowerOff) {
+            Settings.System.putInt(getActivity().getContentResolver(),
+                    Settings.System.POWER_DIALOG_SHOW_POWER_OFF,
+                    ((CheckBoxPreference) preference).isChecked() ? 1 : 0);
+            return true;
         } else if (preference == mShowTorchToggle) {
             Settings.System.putBoolean(getActivity().getContentResolver(),
                     Settings.System.POWER_DIALOG_SHOW_TORCH_TOGGLE,
