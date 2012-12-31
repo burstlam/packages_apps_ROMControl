@@ -323,6 +323,7 @@
     <!-- Navigation Bar -->
     <string name="navigation_bar">Navigation bar</string>
     <string name="navbar_button_cat">Navigation bar buttons</string>
+    <string name="navbar_button_colors">Navigation bar buttons color</string>
     <string name="title_pref_menu_display">Menu location</string>
     <string name="summary_pref_menu_display">Remember to remove your menu buttons if you\'re using the big menu button!</string>
     <string name="title_pref_navigation_menu_display">Menu visibility</string>
@@ -947,15 +948,6 @@
     <string name="toggles_enable_haptic_feedback_summary">Use haptic feedback when pressing toggles</string>
 
     <!-- Burst Mod -->
-    <!-- Navigation Bar -->
-    <string name="navbar_bg_color">Navbar background color</string>
-    <string name="navbar_bg">Navbar background</string>
-    <string name="navbar_button_colors">Navbar button color</string>
-    <string name="navbar_background_style">Navbar background style</string>
-    <string name="navbar_color">Color/alpha only</string>
-    <string name="navbar_defaultbg_plus_color">Default Bg plus color/alpha</string>
-    <string name="navbar_defaultbg">Default Bg only</string>
-
     <!-- Statusbar -->
     <string name="brightness_slider_title">Statusbar brightness slider</string>
     <string name="brightness_slider_summary">Allows you to slide your finger along the top of the statusbar to change the brightness. Does nothing when autobrightness is enabled.</string>
