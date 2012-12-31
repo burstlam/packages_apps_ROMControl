@@ -99,8 +99,6 @@ public class UserInterface extends AOKPPreferenceFragment implements
     private static final int SELECT_WALLPAPER = 5;
 
     private static final String WALLPAPER_NAME = "notification_wallpaper.jpg";
-    private static final String PREF_STATUSBAR_BACKGROUND_STYLE = "statusbar_background_style";
-    private static final String PREF_STATUSBAR_BACKGROUND_COLOR = "statusbar_background_color";
 	private static final String PREF_MODE_TABLET_UI = "mode_tabletui";
 	private static final String PREF_SHOW_OVERFLOW = "show_overflow";
 	private static final String PREF_FORCE_DUAL_PANEL = "force_dualpanel";
@@ -118,9 +116,7 @@ public class UserInterface extends AOKPPreferenceFragment implements
     CheckBoxPreference mRecentKillAll;
     CheckBoxPreference mRamBar;
     CheckBoxPreference mShowImeSwitcher;
-    ListPreference mStatusbarBgStyle;
     ListPreference mNotificationBackground;
-    ColorPickerPreference mStatusbarBgColor;
 	CheckBoxPreference mTabletui;
 	CheckBoxPreference mShowActionOverflow;
 	CheckBoxPreference mDualpane;
@@ -221,12 +217,6 @@ public class UserInterface extends AOKPPreferenceFragment implements
         mRamBar.setChecked(Settings.System.getBoolean(getActivity  ().getContentResolver(),
                 Settings.System.RAM_USAGE_BAR, false));
 
-        mStatusbarBgColor = (ColorPickerPreference) findPreference(PREF_STATUSBAR_BACKGROUND_COLOR);
-        mStatusbarBgColor.setOnPreferenceChangeListener(this);
-
-        mStatusbarBgStyle = (ListPreference) findPreference(PREF_STATUSBAR_BACKGROUND_STYLE);
-        mStatusbarBgStyle.setOnPreferenceChangeListener(this);
-
 		mShowActionOverflow = (CheckBoxPreference) findPreference(PREF_SHOW_OVERFLOW);
         mShowActionOverflow.setChecked((Settings.System.getInt(getActivity().
                         getApplicationContext().getContentResolver(),
@@ -243,7 +233,6 @@ public class UserInterface extends AOKPPreferenceFragment implements
 
         setHasOptionsMenu(true);
         updateCustomBackgroundSummary();
-        updateVisibility();
     }
 
     private void updateCustomBackgroundSummary() {
@@ -263,16 +252,6 @@ public class UserInterface extends AOKPPreferenceFragment implements
             mNotificationBackground.setValueIndex(2);
         }
         mNotificationBackground.setSummary(getResources().getString(resId));
-    }
-
-    private void updateVisibility() {
-        int visible = Settings.System.getInt(getActivity().getContentResolver(),
-                    Settings.System.STATUSBAR_BACKGROUND_STYLE, 2);
-        if (visible == 2) {
-            mStatusbarBgColor.setEnabled(false);
-        } else {
-            mStatusbarBgColor.setEnabled(true);
-        }
     }
 
     private void updateCustomLabelTextSummary() {
@@ -488,26 +467,7 @@ public class UserInterface extends AOKPPreferenceFragment implements
 
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
-if (preference == mStatusbarBgStyle) {
-            int value = Integer.valueOf((String) newValue);
-            int index = mStatusbarBgStyle.findIndexOfValue((String) newValue);
-            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
-                    Settings.System.STATUSBAR_BACKGROUND_STYLE, value);
-            preference.setSummary(mStatusbarBgStyle.getEntries()[index]);
-            updateVisibility();
-            return true;
-
-        } else if (preference == mStatusbarBgColor) {
-            String hex = ColorPickerPreference.convertToARGB(Integer.valueOf(String
-                    .valueOf(newValue)));
-            preference.setSummary(hex);
-
-            int intHex = ColorPickerPreference.convertToColorInt(hex);
-            Settings.System.putInt(getActivity().getContentResolver(),
-                    Settings.System.STATUSBAR_BACKGROUND_COLOR, intHex);
-            Log.e("BAKED", intHex + "");
-
-} else if (preference == mNotificationBackground) {
+        if (preference == mNotificationBackground) {
             int indexOf = mNotificationBackground.findIndexOfValue((String) newValue);
             switch (indexOf) {
                 //Displays color dialog when user has chosen color fill
