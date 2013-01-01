@@ -664,13 +664,6 @@ public class Navbar extends AOKPPreferenceFragment implements
                 pAction.setIcon(resize(getNavbarIconImage(i, false)));
             }
         }
-
-        if(mNavBarAlpha != null) {
-            final float defaultNavAlpha = Settings.System.getFloat(getActivity()
-                    .getContentResolver(), Settings.System.NAVIGATION_BAR_ALPHA,
-                    204);
-            mNavBarAlpha.setInitValue((int) (defaultNavAlpha * 100));
-        }
     }
 
     private Drawable resize(Drawable image) {
@@ -813,6 +806,11 @@ public class Navbar extends AOKPPreferenceFragment implements
     @Override
     public void onResume() {
         super.onResume();
+        final float defaultNavAlpha = Settings.System.getFloat(getActivity()
+                .getContentResolver(), Settings.System.NAVIGATION_BAR_ALPHA,
+                0.8f);
+        mNavBarAlpha.setInitValue(Math.round(defaultNavAlpha * 100));
+
         refreshSettings();
     }
 
