@@ -170,6 +170,11 @@ public class Helpers {
         return null;
     }
 
+
+    public static boolean fileExists(String filename) {
+        return new File(filename).exists();
+    }
+
     public static boolean writeOneLine(String fname, String value) {
         try {
             FileWriter fw = new FileWriter(fname);
