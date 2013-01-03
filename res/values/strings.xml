@@ -355,6 +355,7 @@
     <string name="navbar_widgets_shiftLeft">Shift left</string>
     <string name="navbar_widgets_shiftRight">Shift right</string>
     <string name="navbar_widgets_delete">Delete widget</string>
+    <string name="navigation_bar_alpha_title">Navigation bar opacity</string>
 
     <!-- Nav Ring Targets -->
     <string name="navbar_ring_cat">Navigation Bar Ring Targets</string>
