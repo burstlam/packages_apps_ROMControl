@@ -20,8 +20,10 @@ public class PowerMenu extends PreferenceFragment {
     private static final String PREF_AIRPLANE_TOGGLE = "show_airplane_toggle";
     private static final String PREF_NAVBAR_HIDE = "show_navbar_hide";
     private static final String PREF_EXPANDED_DESKTOP_TOGGLE = "power_menu_expanded_desktop";
+    private static final String PREF_POWER_OFF = "show_power_off";
 
     //CheckBoxPreference mShowPowerSaver;
+    CheckBoxPreference mShowPowerOff;
     CheckBoxPreference mShowScreenShot;
     //CheckBoxPreference mShowTorchToggle;
     CheckBoxPreference mShowAirplaneToggle;
@@ -52,6 +54,12 @@ public class PowerMenu extends PreferenceFragment {
                 .getContentResolver(), Settings.System.POWER_DIALOG_SHOW_TORCH_TOGGLE,
                 0) == 1);
         */
+
+        mShowPowerOff = (CheckBoxPreference) findPreference(PREF_POWER_OFF);
+        mShowPowerOff.setChecked(Settings.System.getInt(getActivity()
+                .getContentResolver(), Settings.System.POWER_DIALOG_SHOW_POWER_OFF,
+                1) == 1);
+
         mShowScreenShot = (CheckBoxPreference) findPreference(PREF_SCREENSHOT);
         mShowScreenShot.setChecked(Settings.System.getInt(getActivity()
                 .getContentResolver(), Settings.System.POWER_DIALOG_SHOW_SCREENSHOT,
@@ -75,7 +83,12 @@ public class PowerMenu extends PreferenceFragment {
 
     @Override
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
-        if (preference == mShowScreenShot) {
+        if (preference == mShowPowerOff) {
+            Settings.System.putInt(getActivity().getContentResolver(),
+                    Settings.System.POWER_DIALOG_SHOW_POWER_OFF,
+                    ((CheckBoxPreference) preference).isChecked() ? 1 : 0);
+            return true;
+        } else if (preference == mShowScreenShot) {
             Settings.System.putInt(getActivity().getContentResolver(),
                     Settings.System.POWER_DIALOG_SHOW_SCREENSHOT,
                     ((CheckBoxPreference)preference).isChecked() ? 1 : 0);
