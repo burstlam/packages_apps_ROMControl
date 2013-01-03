@@ -908,4 +908,9 @@
     <string name="status_bar_transparency_title">Statusbar Transparency</string>
     <string name="status_bar_transparency_summary">Adjust statusbar transparency</string>
 
+    <!-- notification background -->
+    <string name="notif_background_default">Default background</string>
+    <string name="notif_background_color_fill">Color fill</string>
+    <string name="notif_background_custom_image">Custom image</string>
+
 </resources>

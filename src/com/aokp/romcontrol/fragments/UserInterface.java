@@ -35,8 +35,10 @@ import android.os.Handler;
 import android.os.Message;
 import android.os.SystemProperties;
 import android.preference.CheckBoxPreference;
+import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
+import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceGroup;
 import android.preference.PreferenceScreen;
 import android.provider.MediaStore;
@@ -74,8 +76,12 @@ import java.util.Enumeration;
 import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
+import net.margaritov.preference.colorpicker.ColorPickerPreference;
+import net.margaritov.preference.colorpicker.ColorPickerView;
 
-public class UserInterface extends AOKPPreferenceFragment {
+
+public class UserInterface extends AOKPPreferenceFragment implements
+         Preference.OnPreferenceChangeListener {
 
     public static final String TAG = "UserInterface";
 
@@ -108,6 +114,7 @@ public class UserInterface extends AOKPPreferenceFragment {
     CheckBoxPreference mDisableBootAnimation;
     CheckBoxPreference mStatusBarNotifCount;
     Preference mNotificationWallpaper;
+    ListPreference mNotificationBackground;
     Preference mCustomBootAnimation;
     Preference mWallpaperAlpha;
     Preference mCustomLabel;
@@ -137,6 +144,7 @@ public class UserInterface extends AOKPPreferenceFragment {
     private String errormsg;
     private String bootAniPath;
 
+    private Activity mActivity;
     private Random randomGenerator = new Random();
     // previous random; so we don't repeat
     private static int mLastRandomInsultIndex = -1;
@@ -156,6 +164,7 @@ public class UserInterface extends AOKPPreferenceFragment {
         // Load the preferences from an XML resource
         addPreferencesFromResource(R.xml.prefs_ui);
 
+        mActivity = getActivity();
         PreferenceScreen prefs = getPreferenceScreen();
         mInsults = mContext.getResources().getStringArray(
                 R.array.disable_bootanimation_insults);
@@ -242,7 +251,8 @@ public class UserInterface extends AOKPPreferenceFragment {
             ((PreferenceGroup) findPreference("navbar")).removePreference(mKillAppLongpressBack);
         }
 
-        mNotificationWallpaper = findPreference(PREF_NOTIFICATION_WALLPAPER);
+        mNotificationBackground = (ListPreference) findPreference(PREF_NOTIFICATION_WALLPAPER);
+                mNotificationBackground.setOnPreferenceChangeListener(this);
 
         mWallpaperAlpha = (Preference) findPreference(PREF_NOTIFICATION_WALLPAPER_ALPHA);
 
@@ -262,6 +272,26 @@ public class UserInterface extends AOKPPreferenceFragment {
         }
 
         setHasOptionsMenu(true);
+        updateCustomBackgroundSummary();
+    }
+
+    private void updateCustomBackgroundSummary() {
+        String wallpaperPath = "/data/data/com.baked.romcontrol/files/notification_wallpaper.jpg";
+        File file = new File(wallpaperPath);
+        int resId;
+        String value = Settings.System.getString(getContentResolver(),
+                Settings.System.NOTIF_BACKGROUND);
+        if (file.exists()) {
+            resId = R.string.notif_background_custom_image;
+            mNotificationBackground.setValueIndex(1);
+        } else if (value != null) {
+            resId = R.string.notif_background_color_fill;
+            mNotificationBackground.setValueIndex(0);
+        } else {
+            resId = R.string.notif_background_default;
+            mNotificationBackground.setValueIndex(2);
+        }
+        mNotificationBackground.setSummary(getResources().getString(resId));
     }
 
     private void writeKillAppLongpressBackOptions() {
@@ -373,28 +403,6 @@ public class UserInterface extends AOKPPreferenceFragment {
                 //No app installed to handle the intent - file explorer required
                 Toast.makeText(mContext, R.string.install_file_manager_error, Toast.LENGTH_SHORT).show();
             }
-            return true;
-        } else if (preference == mNotificationWallpaper) {
-            Display display = getActivity().getWindowManager().getDefaultDisplay();
-            int width = display.getWidth();
-            int height = display.getHeight();
-
-            Intent intent = new Intent(Intent.ACTION_GET_CONTENT, null);
-            intent.setType("image/*");
-            intent.putExtra("crop", "true");
-            boolean isPortrait = getResources()
-                    .getConfiguration().orientation
-                    == Configuration.ORIENTATION_PORTRAIT;
-            intent.putExtra("aspectX", isPortrait ? width : height);
-            intent.putExtra("aspectY", isPortrait ? height : width);
-            intent.putExtra("outputX", width);
-            intent.putExtra("outputY", height);
-            intent.putExtra("scale", true);
-            intent.putExtra("scaleUpIfNeeded", true);
-            intent.putExtra(MediaStore.EXTRA_OUTPUT, getNotificationExternalUri());
-            intent.putExtra("outputFormat", Bitmap.CompressFormat.PNG.toString());
-
-            startActivityForResult(intent, REQUEST_PICK_WALLPAPER);
             return true;
         } else if (preference == mWallpaperAlpha) {
             Resources res = getActivity().getResources();
@@ -520,6 +528,83 @@ public class UserInterface extends AOKPPreferenceFragment {
         return super.onPreferenceTreeClick(preferenceScreen, preference);
     }
 
+    public boolean onPreferenceChange(Preference preference, Object objValue) {
+        if (preference == mNotificationBackground) {
+            int indexOf = mNotificationBackground.findIndexOfValue(objValue.toString());
+            switch (indexOf) {
+                //Displays color dialog when user has chosen color fill
+                case 0:
+                    final ColorPickerView colorView = new ColorPickerView(mActivity);
+                    int currentColor = Settings.System.getInt(getContentResolver(),
+                            Settings.System.NOTIF_BACKGROUND, -1);
+                    if (currentColor != -1) {
+                        colorView.setColor(currentColor);
+                    }
+                    colorView.setAlphaSliderVisible(true);
+                    new AlertDialog.Builder(mActivity)
+                    .setTitle(R.string.notif_wallpaper_alpha_title)
+                    .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener(){
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Settings.System.putInt(getContentResolver(), Settings.System.NOTIF_BACKGROUND, colorView.getColor());
+                            updateCustomBackgroundSummary();
+                            Helpers.restartSystemUI();
+                        }
+                    }).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener(){
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    }).setView(colorView).show();
+                    deleteWallpaper();
+                    return false;
+                 //Launches intent for user to select an image/crop it to set as background
+                case 1:
+                    Display display = getActivity().getWindowManager().getDefaultDisplay();
+                    int width = display.getWidth();
+                    int height = display.getHeight();
+                    Rect rect = new Rect();
+                    Window window = getActivity().getWindow();
+                    window.getDecorView().getWindowVisibleDisplayFrame(rect);
+                    int statusBarHeight = rect.top;
+                    int contentViewTop = window.findViewById(Window.ID_ANDROID_CONTENT).getTop();
+                    int titleBarHeight = contentViewTop - statusBarHeight;
+
+                    Intent intent = new Intent(Intent.ACTION_GET_CONTENT, null);
+                    intent.setType("image/*");
+                    intent.putExtra("crop", "true");
+                    boolean isPortrait = getResources()
+                            .getConfiguration().orientation
+                            == Configuration.ORIENTATION_PORTRAIT;
+                    intent.putExtra("aspectX", isPortrait ? width : height - titleBarHeight);
+                    intent.putExtra("aspectY", isPortrait ? height - titleBarHeight : width);
+                    intent.putExtra("outputX", width);
+                    intent.putExtra("outputY", height);
+                    intent.putExtra("scale", true);
+                    intent.putExtra("scaleUpIfNeeded", true);
+                    intent.putExtra(MediaStore.EXTRA_OUTPUT, getNotificationExternalUri());
+                    intent.putExtra("outputFormat", Bitmap.CompressFormat.PNG.toString());
+
+                    startActivityForResult(intent, REQUEST_PICK_WALLPAPER);
+                    return true;
+                //Sets background color to default
+                case 2:
+                    Settings.System.putString(getContentResolver(),
+                            Settings.System.NOTIF_BACKGROUND, null);
+                    deleteWallpaper();
+                    updateCustomBackgroundSummary();
+                    break;
+            }
+            Helpers.restartSystemUI();
+            return true;
+        }
+        return false;
+    }
+
+    private void deleteWallpaper() {
+        mContext.deleteFile(WALLPAPER_NAME);
+    }
+
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
@@ -561,8 +646,10 @@ public class UserInterface extends AOKPPreferenceFragment {
 
                 Uri selectedImageUri = getNotificationExternalUri();
                 Bitmap bitmap = BitmapFactory.decodeFile(selectedImageUri.getPath());
-
                 bitmap.compress(Bitmap.CompressFormat.PNG, 100, wallpaperStream);
+                Settings.System.putString(getContentResolver(),
+                                            Settings.System.NOTIF_BACKGROUND, null);
+                updateCustomBackgroundSummary();
                 Helpers.restartSystemUI();
             } else if (requestCode == REQUEST_PICK_BOOT_ANIMATION) {
                 if (data==null) {
