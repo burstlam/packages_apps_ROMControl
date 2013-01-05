@@ -833,4 +833,19 @@
         <item>2</item>
     </string-array>
 
+    <!-- Performance settings -->
+    <string-array name="pref_zram_size_entries">
+        <item>@string/pref_zram_size_disable</item>
+        <item>@string/pref_zram_size_10</item>
+        <item>@string/pref_zram_size_18</item>
+        <item>@string/pref_zram_size_26</item>
+    </string-array>
+
+    <string-array name="pref_zram_size_values" translatable="false">
+        <item>0</item>
+        <item>10</item>
+        <item>18</item>
+        <item>26</item>
+    </string-array>
+
 </resources>
