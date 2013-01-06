@@ -78,6 +78,7 @@ public class Lockscreens extends AOKPPreferenceFragment implements OnPreferenceC
     private static final String PREF_LOCKSCREEN_BATTERY = "lockscreen_battery";
     private static final String PREF_LOCKSCREEN_TEXT_COLOR = "lockscreen_text_color";
     private static final String KEY_LOCK_CLOCK = "lock_clock";
+    private static final String PREF_LOCKSCREEN_HIDE_INITIAL_PAGE_HINTS = "lockscreen_hide_initial_page_hints";
 
     public static final int REQUEST_PICK_WALLPAPER = 199;
     public static final int REQUEST_PICK_CUSTOM_ICON = 200;
@@ -105,6 +106,7 @@ public class Lockscreens extends AOKPPreferenceFragment implements OnPreferenceC
     CheckBoxPreference mLockTransparent;
     CheckBoxPreference mLockscreenMenuUnlock;
     CheckBoxPreference mVibratePref;
+    CheckBoxPreference mLockscreenHideInitialPageHints;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -160,6 +162,10 @@ public class Lockscreens extends AOKPPreferenceFragment implements OnPreferenceC
                 .getContentResolver(), Settings.System.MENU_UNLOCK_SCREEN, false));
 
         mLockscreenWallpaper = findPreference("wallpaper");
+
+        mLockscreenHideInitialPageHints = (CheckBoxPreference)findPreference(PREF_LOCKSCREEN_HIDE_INITIAL_PAGE_HINTS);
+        mLockscreenHideInitialPageHints.setChecked(Settings.System.getBoolean(getActivity().getContentResolver(),
+                Settings.System.LOCKSCREEN_HIDE_INITIAL_PAGE_HINTS, false));
 
         setHasOptionsMenu(true);
     }
@@ -246,6 +252,11 @@ public class Lockscreens extends AOKPPreferenceFragment implements OnPreferenceC
             Settings.System.putBoolean(mContext.getContentResolver(),
                     Settings.System.LOCKSCREEN_AUTO_ROTATE,
                     ((CheckBoxPreference) preference).isChecked());
+            return true;
+        } else if (preference == mLockscreenHideInitialPageHints) {
+            Settings.System.putInt(getActivity().getContentResolver(),
+                    Settings.System.LOCKSCREEN_HIDE_INITIAL_PAGE_HINTS,
+                    ((CheckBoxPreference)preference).isChecked() ? 1 : 0);
             return true;
         }
 
