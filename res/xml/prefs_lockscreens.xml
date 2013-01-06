@@ -2,6 +2,12 @@
 <PreferenceScreen
     xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <Preference
+        android:fragment="com.aokp.romcontrol.fragments.LockscreenTargets"
+        android:key="lockscreen_targets"
+        android:summary="@string/lockscreen_target_summary"
+        android:title="@string/lockscreen_target_title" />
+
     <!-- Lock clock -->
     <PreferenceScreen
         android:key="lock_clock"
