@@ -86,6 +86,7 @@ public class Lockscreens extends AOKPPreferenceFragment implements OnPreferenceC
     private static final String PREF_LOCKSCREEN_TEXT_COLOR = "lockscreen_text_color";
     private static final String KEY_LOCK_CLOCK = "lock_clock";
     private static final String PREF_LOCKSCREEN_HIDE_INITIAL_PAGE_HINTS = "lockscreen_hide_initial_page_hints";
+    private static final String KEY_LOCKSCREEN_MAXIMIZE_WIDGETS = "lockscreen_maximize_widgets";
     private static final String KEY_ALWAYS_BATTERY_PREF = "lockscreen_battery_status";
     private static final String KEY_BACKGROUND_PREF = "lockscreen_background";
     private static final String KEY_BACKGROUND_ALPHA_PREF = "lockscreen_alpha";
@@ -115,6 +116,7 @@ public class Lockscreens extends AOKPPreferenceFragment implements OnPreferenceC
     CheckBoxPreference mLockscreenMenuUnlock;
     CheckBoxPreference mVibratePref;
     CheckBoxPreference mLockscreenHideInitialPageHints;
+    CheckBoxPreference mMaximizeWidgets;
 
     ListPreference mBatteryStatus;
     ListPreference mCustomBackground;
@@ -137,6 +139,14 @@ public class Lockscreens extends AOKPPreferenceFragment implements OnPreferenceC
         mActivity = getActivity();
         mResolver = mActivity.getContentResolver();
         mIsScreenLarge = Helpers.isTablet(getActivity());
+
+        mMaximizeWidgets = (CheckBoxPreference)findPreference(KEY_LOCKSCREEN_MAXIMIZE_WIDGETS);
+        if (Helpers.isTablet(getActivity())) {
+            getPreferenceScreen().removePreference(mMaximizeWidgets);
+            mMaximizeWidgets = null;
+        } else {
+            mMaximizeWidgets.setOnPreferenceChangeListener(this);
+        }
 
         // Dont display the lock clock preference if its not installed
         removePreferenceIfPackageNotInstalled(findPreference(KEY_LOCK_CLOCK));
@@ -214,6 +224,11 @@ public class Lockscreens extends AOKPPreferenceFragment implements OnPreferenceC
     public void onResume() {
         super.onResume();
 
+        ContentResolver cr = getActivity().getContentResolver();
+        if (mMaximizeWidgets != null) {
+            mMaximizeWidgets.setChecked(Settings.System.getInt(cr,
+                    Settings.System.LOCKSCREEN_MAXIMIZE_WIDGETS, 0) == 1);
+        }
     }
 
     @Override
@@ -406,6 +421,11 @@ public class Lockscreens extends AOKPPreferenceFragment implements OnPreferenceC
             int intHex = ColorPickerPreference.convertToColorInt(hex);
             Settings.System.putInt(getActivity().getContentResolver(),
                     Settings.System.LOCKSCREEN_CUSTOM_TEXT_COLOR, intHex);
+            return true;
+        } else if (preference == mMaximizeWidgets) {
+            boolean value = (Boolean) objValue;
+            Settings.System.putInt(getActivity().getContentResolver(),
+                    Settings.System.LOCKSCREEN_MAXIMIZE_WIDGETS, value ? 1 : 0);
             return true;
         }
         return false;

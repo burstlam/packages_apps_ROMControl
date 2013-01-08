@@ -963,6 +963,8 @@
     <!-- Lock screen -->
     <string name="lockscreen_vibrate_enabled_title">Vibrate</string>
     <string name="lockscreen_vibrate_enabled_head">Vibrate when unlocking</string>
+    <string name="lockscreen_maximize_widgets_title">Maximize widgets</string>
+    <string name="lockscreen_maximize_widgets_summary">Show widgets maximized and the unlock mimimized when the screen is turned on</string>
 
     <!-- Lock screen background -->
     <string name="lockscreen_custom_background_title">Background</string>
