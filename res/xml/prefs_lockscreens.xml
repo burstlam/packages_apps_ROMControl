@@ -37,18 +37,6 @@
         android:key="layout"
         android:title="@string/lockscreen_layout_cat">
 
-        <ListPreference
-            android:key="lockscreen_background"
-            android:persistent="false"
-            android:dialogTitle="@string/lockscreen_custom_background_title"
-            android:title="@string/lockscreen_custom_background_title"
-            android:entries="@array/lockscreen_background_entries"
-            android:entryValues="@array/lockscreen_background_values"/>
-
-        <com.android.settings.widget.SeekBarPreference
-            android:key="lockscreen_alpha"
-            android:title="@string/lockscreen_alpha_title" />
-
         <CheckBoxPreference
             android:key="lockscreen_maximize_widgets"
             android:persistent="false"
