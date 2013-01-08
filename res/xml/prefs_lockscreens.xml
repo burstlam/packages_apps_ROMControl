@@ -38,6 +38,11 @@
         android:title="@string/lockscreen_layout_cat">
 
         <CheckBoxPreference
+            android:key="lockscreen_hide_initial_page_hints"
+            android:title="@string/lockscreen_hide_initial_page_hints_title"
+            android:summary="@string/lockscreen_hide_initial_page_hints_summary" />
+
+        <CheckBoxPreference
             android:key="lockscreen_maximize_widgets"
             android:persistent="false"
             android:title="@string/lockscreen_maximize_widgets_title"
@@ -56,11 +61,6 @@
             android:key="lockscreen_battery"
             android:title="@string/lockscreen_battery_title"
             android:summary="@string/lockscreen_battery_summary" />
-
-        <CheckBoxPreference
-            android:key="lockscreen_hide_initial_page_hints"
-            android:title="@string/lockscreen_hide_initial_page_hints_title"
-            android:summary="@string/lockscreen_hide_initial_page_hints_summary" />
 
     </PreferenceCategory>
     <PreferenceCategory
