@@ -87,7 +87,6 @@ public class Lockscreens extends AOKPPreferenceFragment implements OnPreferenceC
 
     private static final String WALLPAPER_NAME = "lockscreen_wallpaper.jpg";
 
-    private static final String LOCKSCREEN_TRANSPARENT_PREF = "pref_lockscreen_transparent";
     private static final String PREF_MENU_UNLOCK_SCREEN = "menu_unlock_screen";
     private static final String KEY_VIBRATE_PREF = "lockscreen_vibrate";
 
@@ -103,7 +102,6 @@ public class Lockscreens extends AOKPPreferenceFragment implements OnPreferenceC
     ColorPickerPreference mLockscreenTextColor;
     CheckBoxPreference mLockscreenAutoRotate;
 
-    CheckBoxPreference mLockTransparent;
     CheckBoxPreference mLockscreenMenuUnlock;
     CheckBoxPreference mVibratePref;
     CheckBoxPreference mLockscreenHideInitialPageHints;
@@ -149,10 +147,6 @@ public class Lockscreens extends AOKPPreferenceFragment implements OnPreferenceC
         mLockscreenTextColor = (ColorPickerPreference) findPreference(PREF_LOCKSCREEN_TEXT_COLOR);
         mLockscreenTextColor.setOnPreferenceChangeListener(this);
 
-        mLockTransparent = (CheckBoxPreference) findPreference(LOCKSCREEN_TRANSPARENT_PREF);
-        mLockTransparent.setChecked(Settings.System.getBoolean(mContext
-                .getContentResolver(), Settings.System.LOCKSCREEN_TRANSPARENT, false));
-
         mVibratePref = (CheckBoxPreference) findPreference(KEY_VIBRATE_PREF);
             mVibratePref.setChecked(Settings.System.getBoolean(getActivity()
                 .getContentResolver(), Settings.System.LOCKSCREEN_VIBRATE_ENABLED, true));
@@ -192,11 +186,6 @@ public class Lockscreens extends AOKPPreferenceFragment implements OnPreferenceC
             Settings.System.putBoolean(mContext.getContentResolver(),
                     Settings.System.LOCKSCREEN_QUICK_UNLOCK_CONTROL,
                     ((CheckBoxPreference) preference).isChecked());
-            return true;
-        } else if (preference == mLockTransparent) {
-            Settings.System.putBoolean(mContext.getContentResolver(),
-                    Settings.System.LOCKSCREEN_TRANSPARENT,
-                    ((CheckBoxPreference)preference).isChecked());
             return true;
         }  else if (preference == mVibratePref) {
             Settings.System.putBoolean(mContext.getContentResolver(),

@@ -963,7 +963,6 @@
     <!-- Lock screen -->
     <string name="lockscreen_vibrate_enabled_title">Vibrate</string>
     <string name="lockscreen_vibrate_enabled_head">Vibrate when unlocking</string>
-    <string name="pref_lockscreen_transparent">Enable transparent lockscreen</string>
 
     <!--- Lock clock -->
     <string name="lock_clock_title">Lock clock widget</string>
