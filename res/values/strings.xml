@@ -967,21 +967,4 @@
     <string name="lock_clock_title">Lock clock widget</string>
     <string name="lock_clock_summary">View or change how the Lock clock widgets will display</string>
 
-    <!-- Memory Management -->
-    <string name="memory_management_title">Memory management</string>
-    <string name="memory_management_summary">Customize the usage of memory to alter system performance</string>
-    <!-- zRam -->
-    <string name="pref_zram_title">zRam</string>
-    <string name="pref_zram_summary">Compress memory for increased virtual capacity (requires reboot)</string>
-    <string name="pref_zram_size_disable">Disabled</string>
-    <string name="pref_zram_size_10">10%</string>
-    <string name="pref_zram_size_18">18% (Default)</string>
-    <string name="pref_zram_size_26">26%</string>
-    <!-- KSM -->
-    <string name="pref_ksm_title">Kernel samepage merging</string>
-    <string name="pref_ksm_summary">KSM reduces physical memory requirements and improves performance</string>
-    <!-- Purgeable Assets -->
-    <string name="pref_purgeable_assets_title">Allow purging of assets</string>
-    <string name="pref_purgeable_assets_summary">Purging of bitmap memory assets allows the freeing of more RAM when needed (requires reboot)</string>
-
 </resources>

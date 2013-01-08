@@ -74,13 +74,6 @@
         android:title="@string/header_system" />
 
     <header
-        android:id="@+id/memorymanagement"
-        android:fragment="com.aokp.romcontrol.fragments.MemoryManagement"
-        android:title="@string/memory_management_title"
-        android:icon="@drawable/ic_settings_performance"
-        android:summary="@string/memory_management_summary" />
-
-    <header
         android:id="@+id/led"
         android:fragment="com.aokp.romcontrol.fragments.LEDControl"
         android:title="@string/led_options"
