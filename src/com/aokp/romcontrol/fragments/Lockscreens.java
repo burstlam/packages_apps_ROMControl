@@ -60,6 +60,7 @@ import java.util.ArrayList;
 import com.aokp.romcontrol.AOKPPreferenceFragment;
 import com.aokp.romcontrol.R;
 import com.aokp.romcontrol.ROMControlActivity;
+import com.aokp.romcontrol.util.Helpers;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -117,10 +118,6 @@ public class Lockscreens extends AOKPPreferenceFragment implements OnPreferenceC
 
         // Load the preferences from an XML resource
         addPreferencesFromResource(R.xml.prefs_lockscreens);
-
-        mActivity = getActivity();
-        mResolver = mActivity.getContentResolver();
-        mIsScreenLarge = Helpers.isTablet(getActivity());
 
         mMaximizeWidgets = (CheckBoxPreference)findPreference(KEY_LOCKSCREEN_MAXIMIZE_WIDGETS);
         if (Helpers.isTablet(getActivity())) {
@@ -293,7 +290,7 @@ public class Lockscreens extends AOKPPreferenceFragment implements OnPreferenceC
                     Settings.System.LOCKSCREEN_CUSTOM_TEXT_COLOR, intHex);
             return true;
         } else if (preference == mMaximizeWidgets) {
-            boolean value = (Boolean) objValue;
+            boolean value = (Boolean) newValue;
             Settings.System.putInt(getActivity().getContentResolver(),
                     Settings.System.LOCKSCREEN_MAXIMIZE_WIDGETS, value ? 1 : 0);
             return true;
