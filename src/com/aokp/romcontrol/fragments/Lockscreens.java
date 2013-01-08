@@ -61,6 +61,9 @@ import com.aokp.romcontrol.AOKPPreferenceFragment;
 import com.aokp.romcontrol.R;
 import com.aokp.romcontrol.ROMControlActivity;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class Lockscreens extends AOKPPreferenceFragment implements OnPreferenceChangeListener {
 
     private static final String TAG = "Lockscreens";
@@ -74,6 +77,7 @@ public class Lockscreens extends AOKPPreferenceFragment implements OnPreferenceC
     private static final String PREF_LOCKSCREEN_UNLIMITED_WIDGETS = "lockscreen_unlimited_widgets";
     private static final String PREF_LOCKSCREEN_BATTERY = "lockscreen_battery";
     private static final String PREF_LOCKSCREEN_TEXT_COLOR = "lockscreen_text_color";
+    private static final String KEY_LOCK_CLOCK = "lock_clock";
 
     public static final int REQUEST_PICK_WALLPAPER = 199;
     public static final int REQUEST_PICK_CUSTOM_ICON = 200;
@@ -109,6 +113,9 @@ public class Lockscreens extends AOKPPreferenceFragment implements OnPreferenceC
 
         // Load the preferences from an XML resource
         addPreferencesFromResource(R.xml.prefs_lockscreens);
+
+        // Dont display the lock clock preference if its not installed
+        removePreferenceIfPackageNotInstalled(findPreference(KEY_LOCK_CLOCK));
 
         mVolumeRockerWake = (CheckBoxPreference) findPreference(PREF_VOLUME_ROCKER_WAKE);
         mVolumeRockerWake.setChecked(Settings.System.getBoolean(mContext
@@ -320,5 +327,22 @@ public class Lockscreens extends AOKPPreferenceFragment implements OnPreferenceC
         out.close();
     }
 
+    private boolean removePreferenceIfPackageNotInstalled(Preference preference) {
+        String intentUri = ((PreferenceScreen) preference).getIntent().toUri(1);
+        Pattern pattern = Pattern.compile("component=([^/]+)/");
+        Matcher matcher = pattern.matcher(intentUri);
+
+        String packageName = matcher.find() ? matcher.group(1) : null;
+        if (packageName != null) {
+            try {
+                getPackageManager().getPackageInfo(packageName, 0);
+            } catch (NameNotFoundException e) {
+                Log.e(TAG, "package " + packageName + " not installed, hiding preference.");
+                getPreferenceScreen().removePreference(preference);
+                return true;
+            }
+        }
+        return false;
+    }
 }
 
