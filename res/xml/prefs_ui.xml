@@ -88,10 +88,10 @@
             android:key="misc"
             android:title="@string/misc_short">
 
-        <CheckBoxPreference
+    <!--    <CheckBoxPreference
             android:key="kill_app_longpress_back"
             android:title="@string/kill_app_longpress_back"
-            android:summary="@string/kill_app_longpress_back_summary" />
+            android:summary="@string/kill_app_longpress_back_summary" /> -->
 
          <CheckBoxPreference
             android:key="rotate_180"
