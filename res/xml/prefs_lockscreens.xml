@@ -19,15 +19,20 @@
     </PreferenceScreen>
 
     <PreferenceCategory
-            android:key="security"
-            android:title="@string/lockscreen_security_cat">
+            android:key="lock_widgets"
+            android:title="@string/lock_widgets_short">
+            <CheckBoxPreference
+                android:key="lockscreen_all_widgets"
+                android:title="@string/lockscreen_all_widgets_title"
+                android:summary="@string/lockscreen_all_widgets_summary" />
 
-        <CheckBoxPreference
-            android:key="lockscreen_quick_unlock_control"
-            android:title="@string/lockscreen_quick_unlock_control_title"
-            android:summary="@string/lockscreen_quick_unlock_control_summary" />
+            <CheckBoxPreference
+                android:key="lockscreen_unlimited_widgets"
+                android:title="@string/lockscreen_unlimited_widgets_title"
+                android:summary="@string/lockscreen_unlimited_widgets_summary" />
 
     </PreferenceCategory>
+
     <PreferenceCategory
         android:key="layout"
         android:title="@string/lockscreen_layout_cat">
@@ -85,18 +90,4 @@
 
     </PreferenceCategory>
 
-    <PreferenceCategory
-            android:key="lock_widgets"
-            android:title="@string/lock_widgets_short">
-            <CheckBoxPreference
-                android:key="lockscreen_all_widgets"
-                android:title="@string/lockscreen_all_widgets_title"
-                android:summary="@string/lockscreen_all_widgets_summary" />
-
-            <CheckBoxPreference
-                android:key="lockscreen_unlimited_widgets"
-                android:title="@string/lockscreen_unlimited_widgets_title"
-                android:summary="@string/lockscreen_unlimited_widgets_summary" />
-
-    </PreferenceCategory>
 </PreferenceScreen>
