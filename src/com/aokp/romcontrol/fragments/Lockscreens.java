@@ -90,7 +90,6 @@ public class Lockscreens extends AOKPPreferenceFragment implements OnPreferenceC
     private static final String WALLPAPER_NAME = "lockscreen_wallpaper.jpg";
 
     private static final String LOCKSCREEN_TRANSPARENT_PREF = "pref_lockscreen_transparent";
-    private static final String PREF_MENU_UNLOCK_SCREEN = "menu_unlock_screen";
 
     Preference mLockscreenWallpaper;
     Preference mLockscreenTargets;
@@ -105,7 +104,6 @@ public class Lockscreens extends AOKPPreferenceFragment implements OnPreferenceC
     CheckBoxPreference mLockscreenAutoRotate;
 
     CheckBoxPreference mLockTransparent;
-    CheckBoxPreference mLockscreenMenuUnlock;
     CheckBoxPreference mLockscreenHideInitialPageHints;
     CheckBoxPreference mMaximizeWidgets;
 
@@ -162,10 +160,6 @@ public class Lockscreens extends AOKPPreferenceFragment implements OnPreferenceC
         mLockTransparent.setChecked(Settings.System.getBoolean(mContext
                 .getContentResolver(), Settings.System.LOCKSCREEN_TRANSPARENT, false));
 
-        mLockscreenMenuUnlock = (CheckBoxPreference) findPreference(PREF_MENU_UNLOCK_SCREEN);
-        mLockscreenMenuUnlock.setChecked(Settings.System.getBoolean(getActivity()
-                .getContentResolver(), Settings.System.MENU_UNLOCK_SCREEN, false));
-
         mLockscreenWallpaper = findPreference("wallpaper");
 
         mLockscreenHideInitialPageHints = (CheckBoxPreference)findPreference(PREF_LOCKSCREEN_HIDE_INITIAL_PAGE_HINTS);
@@ -206,11 +200,6 @@ public class Lockscreens extends AOKPPreferenceFragment implements OnPreferenceC
         } else if (preference == mLockTransparent) {
             Settings.System.putBoolean(mContext.getContentResolver(),
                     Settings.System.LOCKSCREEN_TRANSPARENT,
-                    ((CheckBoxPreference)preference).isChecked());
-            return true;
-        } else if (preference == mLockscreenMenuUnlock) {
-            Settings.System.putBoolean(getActivity().getContentResolver(),
-                    Settings.System.MENU_UNLOCK_SCREEN,
                     ((CheckBoxPreference)preference).isChecked());
             return true;
         } else if (preference == mLockscreenAllWidgets) {
