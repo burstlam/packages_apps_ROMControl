@@ -88,12 +88,6 @@
                 android:title="@string/lockscreen_auto_rotate_title"
                 android:summary="@string/lockscreen_auto_rotate_summary" />
 
-            <CheckBoxPreference
-                android:key="lockscreen_vibrate"
-                android:persistent="false"
-                android:title="@string/lockscreen_vibrate_enabled_title"
-                android:summary="@string/lockscreen_vibrate_enabled_head"/>
-
     </PreferenceCategory>
 
     <PreferenceCategory

@@ -91,7 +91,6 @@ public class Lockscreens extends AOKPPreferenceFragment implements OnPreferenceC
 
     private static final String LOCKSCREEN_TRANSPARENT_PREF = "pref_lockscreen_transparent";
     private static final String PREF_MENU_UNLOCK_SCREEN = "menu_unlock_screen";
-    private static final String KEY_VIBRATE_PREF = "lockscreen_vibrate";
 
     Preference mLockscreenWallpaper;
     Preference mLockscreenTargets;
@@ -107,7 +106,6 @@ public class Lockscreens extends AOKPPreferenceFragment implements OnPreferenceC
 
     CheckBoxPreference mLockTransparent;
     CheckBoxPreference mLockscreenMenuUnlock;
-    CheckBoxPreference mVibratePref;
     CheckBoxPreference mLockscreenHideInitialPageHints;
     CheckBoxPreference mMaximizeWidgets;
 
@@ -164,10 +162,6 @@ public class Lockscreens extends AOKPPreferenceFragment implements OnPreferenceC
         mLockTransparent.setChecked(Settings.System.getBoolean(mContext
                 .getContentResolver(), Settings.System.LOCKSCREEN_TRANSPARENT, false));
 
-        mVibratePref = (CheckBoxPreference) findPreference(KEY_VIBRATE_PREF);
-            mVibratePref.setChecked(Settings.System.getBoolean(getActivity()
-                .getContentResolver(), Settings.System.LOCKSCREEN_VIBRATE_ENABLED, true));
-
         mLockscreenMenuUnlock = (CheckBoxPreference) findPreference(PREF_MENU_UNLOCK_SCREEN);
         mLockscreenMenuUnlock.setChecked(Settings.System.getBoolean(getActivity()
                 .getContentResolver(), Settings.System.MENU_UNLOCK_SCREEN, false));
@@ -212,11 +206,6 @@ public class Lockscreens extends AOKPPreferenceFragment implements OnPreferenceC
         } else if (preference == mLockTransparent) {
             Settings.System.putBoolean(mContext.getContentResolver(),
                     Settings.System.LOCKSCREEN_TRANSPARENT,
-                    ((CheckBoxPreference)preference).isChecked());
-            return true;
-        }  else if (preference == mVibratePref) {
-            Settings.System.putBoolean(mContext.getContentResolver(),
-                    Settings.System.LOCKSCREEN_VIBRATE_ENABLED,
                     ((CheckBoxPreference)preference).isChecked());
             return true;
         } else if (preference == mLockscreenMenuUnlock) {
