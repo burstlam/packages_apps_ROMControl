@@ -71,7 +71,6 @@ public class Lockscreens extends AOKPPreferenceFragment implements OnPreferenceC
     private static final boolean DEBUG = true;
 
     private static final String PREF_VOLUME_ROCKER_WAKE = "volume_rocker_wake";
-    private static final String PREF_VOLUME_MUSIC = "volume_music_controls";
     private static final String PREF_LOCKSCREEN_AUTO_ROTATE = "lockscreen_auto_rotate";
     private static final String PREF_LOCKSCREEN_ALL_WIDGETS = "lockscreen_all_widgets";
     private static final String PREF_LOCKSCREEN_UNLIMITED_WIDGETS = "lockscreen_unlimited_widgets";
@@ -92,7 +91,6 @@ public class Lockscreens extends AOKPPreferenceFragment implements OnPreferenceC
     Preference mLockscreenWallpaper;
     Preference mLockscreenTargets;
 
-    CheckBoxPreference mVolumeMusic;
     CheckBoxPreference mVolumeRockerWake;
     CheckBoxPreference mLockscreenBattery;
     CheckBoxPreference mLockscreenAllWidgets;
@@ -126,10 +124,6 @@ public class Lockscreens extends AOKPPreferenceFragment implements OnPreferenceC
         mVolumeRockerWake = (CheckBoxPreference) findPreference(PREF_VOLUME_ROCKER_WAKE);
         mVolumeRockerWake.setChecked(Settings.System.getBoolean(mContext
                 .getContentResolver(), Settings.System.VOLUME_WAKE_SCREEN, false));
-
-        mVolumeMusic = (CheckBoxPreference) findPreference(PREF_VOLUME_MUSIC);
-        mVolumeMusic.setChecked(Settings.System.getBoolean(mContext.getContentResolver(),
-                Settings.System.VOLUME_MUSIC_CONTROLS, false));
 
         mLockscreenAutoRotate = (CheckBoxPreference)findPreference(PREF_LOCKSCREEN_AUTO_ROTATE);
         mLockscreenAutoRotate.setChecked(Settings.System.getBoolean(mContext
@@ -179,11 +173,6 @@ public class Lockscreens extends AOKPPreferenceFragment implements OnPreferenceC
         if (preference == mVolumeRockerWake) {
             Settings.System.putBoolean(mContext.getContentResolver(),
                     Settings.System.VOLUME_WAKE_SCREEN,
-                    ((CheckBoxPreference) preference).isChecked());
-            return true;
-        } else if (preference == mVolumeMusic) {
-            Settings.System.putBoolean(mContext.getContentResolver(),
-                    Settings.System.VOLUME_MUSIC_CONTROLS,
                     ((CheckBoxPreference) preference).isChecked());
             return true;
         } else if (preference == mLockTransparent) {
