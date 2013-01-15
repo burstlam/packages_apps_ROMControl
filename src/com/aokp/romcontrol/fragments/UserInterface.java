@@ -99,7 +99,6 @@ public class UserInterface extends AOKPPreferenceFragment implements
     private static final int SELECT_WALLPAPER = 5;
 
     private static final String WALLPAPER_NAME = "notification_wallpaper.jpg";
-	private static final String PREF_MODE_TABLET_UI = "mode_tabletui";
 	private static final String PREF_SHOW_OVERFLOW = "show_overflow";
 	private static final String PREF_FORCE_DUAL_PANEL = "force_dualpanel";
 
@@ -117,7 +116,6 @@ public class UserInterface extends AOKPPreferenceFragment implements
     CheckBoxPreference mRamBar;
     CheckBoxPreference mShowImeSwitcher;
     ListPreference mNotificationBackground;
-	CheckBoxPreference mTabletui;
 	CheckBoxPreference mShowActionOverflow;
 	CheckBoxPreference mDualpane;
 	Preference mLcdDensity;
@@ -222,10 +220,6 @@ public class UserInterface extends AOKPPreferenceFragment implements
                         getApplicationContext().getContentResolver(),
                         Settings.System.UI_FORCE_OVERFLOW_BUTTON, 0) == 1));
 
-		mTabletui = (CheckBoxPreference) findPreference(PREF_MODE_TABLET_UI);
-        mTabletui.setChecked(Settings.System.getBoolean(mContext.getContentResolver(),
-                        Settings.System.MODE_TABLET_UI, false));
-
 		mDualpane = (CheckBoxPreference) findPreference(PREF_FORCE_DUAL_PANEL);
         mDualpane.setChecked(Settings.System.getBoolean(mContext.getContentResolver(),
                         Settings.System.FORCE_DUAL_PANEL, getResources().getBoolean(
@@ -290,11 +284,6 @@ public class UserInterface extends AOKPPreferenceFragment implements
                 Toast.makeText(getActivity(), R.string.show_overflow_toast_disable,
                         Toast.LENGTH_LONG).show();
             }
-            return true;
-		} else if (preference == mTabletui) {
-            Settings.System.putBoolean(mContext.getContentResolver(),
-                    Settings.System.MODE_TABLET_UI,
-                    ((CheckBoxPreference) preference).isChecked());
             return true;
 		} else if (preference == mDualpane) {
             Settings.System.putBoolean(mContext.getContentResolver(),

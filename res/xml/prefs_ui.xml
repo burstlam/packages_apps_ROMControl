@@ -60,12 +60,6 @@
         android:title="@string/tabletUI_cat">
 
 	<CheckBoxPreference
-            android:key="mode_tabletui"
-            android:title="@string/tablet_ui"
-            android:summary="@string/tablet_ui_summary"
-            android:defaultValue="false" />
-
-	<CheckBoxPreference
             android:key="force_dualpanel"
             android:title="@string/multipane_ui"
             android:summary="@string/multipane_ui_summary"
