@@ -29,6 +29,24 @@
                 android:title="@string/navigation_bar_menu_arrow_keys_title"
                 android:summary="@string/navigation_bar_menu_arrow_keys_summary" />
 
+        <PreferenceCategory
+            android:key="navbar_hide_cat"
+            android:title="@string/navbar_hide">
+
+        <CheckBoxPreference
+                android:key="navbar_hide_enable"
+                android:title="@string/navbar_hide_enable_title" />
+
+        <ListPreference
+                android:entries="@array/hide_navbar_timeout_entries"
+                android:entryValues="@array/hide_navbar_timeout_values"
+                android:key="navbar_hide_timeout"
+                android:title="@string/title_navbar_timeout"
+                android:summary="@string/summary_navbar_timeout"
+                android:dependency="navbar_hide_enable" />
+
+        </PreferenceCategory>
+
     <PreferenceCategory android:title="@string/navbar_button_colors">
 
         <com.aokp.romcontrol.widgets.SeekBarPreference
@@ -133,6 +151,7 @@
             android:title="@string/button_transparency_title" />
 
         </PreferenceCategory>
+
         <PreferenceCategory
             android:key="navbar_widgets_cat"
             android:title="@string/navbar_widgets">

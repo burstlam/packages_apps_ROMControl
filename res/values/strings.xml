@@ -323,6 +323,7 @@
 
     <!-- Navigation Bar -->
     <string name="navigation_bar">Navigation bar</string>
+    <string name="navbar_hide">NavBar Hide Options</string>
     <string name="navbar_button_cat">Navigation bar buttons</string>
     <string name="navbar_button_colors">Navigation bar buttons color</string>
     <string name="title_pref_menu_display">Menu location</string>
@@ -385,6 +386,9 @@
     <string name="navigation_bar_menu_arrow_keys_title">Menu arrow keys</string>
     <string name="navigation_bar_menu_arrow_keys_summary">Show arrow keys in the navigation bar while typing</string>
     <string name="navigation_bar_alpha_title">Navigation bar opacity</string>
+    <string name="navbar_hide_enable_title">Hidden Navbar Enable</string>
+    <string name="title_navbar_timeout">Hidden Navbar Timeout</string>
+    <string name="summary_navbar_timeout">Timeout time for Hidden Navbar Window</string>
 
     <!-- Nav Ring Targets -->
     <string name="navbar_ring_cat">Navigation Bar Ring Targets</string>
