@@ -234,9 +234,6 @@ public class UserInterface extends AOKPPreferenceFragment implements
         mHideExtras.setChecked(Settings.System.getBoolean(cr,
                         Settings.System.HIDE_EXTRAS_SYSTEM_BAR, false));
 
-        mNavBarAlpha = (SeekBarPreference) findPreference("navigation_bar_alpha");
-        mNavBarAlpha.setOnPreferenceChangeListener(this);
-
         mUserModeUI = (ListPreference) findPreference(PREF_USER_MODE_UI);
         int uiMode = Settings.System.getInt(cr, Settings.System.CURRENT_UI_MODE, 0);
         mUserModeUI.setValue(Integer.toString(Settings.System.getInt(mContext.getContentResolver(),
