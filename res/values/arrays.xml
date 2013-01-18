@@ -850,6 +850,18 @@
         <item>2</item>
     </string-array>
 
+    <!--UI Mode -->
+    <string-array name="user_mode_ui_entries" translatable="false">
+        <item>@string/phone_mode_ui</item>
+        <item>@string/tablet_mode_ui</item>
+        <item>@string/phablet_mode_ui</item>
+    </string-array>
+    <string-array name="user_mode_ui_values" translatable="false">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+
     <!-- Fast Toggle -->
     <string-array name="fast_toggle_entries" translatable="false">
         <item>@string/fast_toggle_off</item>
