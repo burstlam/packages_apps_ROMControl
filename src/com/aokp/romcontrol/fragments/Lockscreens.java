@@ -79,6 +79,14 @@ public class Lockscreens extends AOKPPreferenceFragment implements OnPreferenceC
 
     private static final String LOCKSCREEN_TRANSPARENT_PREF = "pref_lockscreen_transparent";
 
+    public static final int REQUEST_PICK_WALLPAPER = 199;
+    public static final int REQUEST_PICK_CUSTOM_ICON = 200;
+    public static final int SELECT_ACTIVITY = 2;
+    public static final int SELECT_WALLPAPER = 3;
+
+    private static final String WALLPAPER_NAME = "lockscreen_wallpaper.jpg";
+
+    Preference mLockscreenWallpaper;
     Preference mLockscreenTargets;
 
     CheckBoxPreference mVolumeRockerWake;
@@ -139,6 +147,8 @@ public class Lockscreens extends AOKPPreferenceFragment implements OnPreferenceC
         mLockTransparent.setChecked(Settings.System.getBoolean(mContext
                 .getContentResolver(), Settings.System.LOCKSCREEN_TRANSPARENT, false));
 
+        mLockscreenWallpaper = findPreference("wallpaper");
+
         mLockscreenHideInitialPageHints = (CheckBoxPreference)findPreference(PREF_LOCKSCREEN_HIDE_INITIAL_PAGE_HINTS);
         mLockscreenHideInitialPageHints.setChecked(Settings.System.getBoolean(getActivity().getContentResolver(),
                 Settings.System.LOCKSCREEN_HIDE_INITIAL_PAGE_HINTS, false));
@@ -172,6 +182,31 @@ public class Lockscreens extends AOKPPreferenceFragment implements OnPreferenceC
             Settings.System.putBoolean(mContext.getContentResolver(),
                     Settings.System.LOCKSCREEN_TRANSPARENT,
                     ((CheckBoxPreference)preference).isChecked());
+            return true;
+        } else if (preference == mLockscreenWallpaper) {
+            Display display = getActivity().getWindowManager().getDefaultDisplay();
+
+            int width = getActivity().getWallpaperDesiredMinimumWidth();
+            int height = getActivity().getWallpaperDesiredMinimumHeight();
+
+            float spotlightX = (float)display.getWidth() / width;
+            float spotlightY = (float)display.getHeight() / height;
+
+            Intent intent = new Intent(Intent.ACTION_GET_CONTENT, null);
+            intent.setType("image/*");
+            intent.putExtra("crop", "true");
+            intent.putExtra("scale", true);
+            intent.putExtra("scaleUpIfNeeded", true);
+            intent.putExtra("aspectX", width);
+            intent.putExtra("aspectY", height);
+            intent.putExtra("outputX", width);
+            intent.putExtra("outputY", height);
+            intent.putExtra("spotlightX", spotlightX);
+            intent.putExtra("spotlightY", spotlightY);
+            intent.putExtra("outputFormat", Bitmap.CompressFormat.PNG.toString());
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, getLockscreenExternalUri());
+
+            startActivityForResult(intent, REQUEST_PICK_WALLPAPER);
             return true;
         } else if (preference == mLockscreenAllWidgets) {
             Settings.System.putBoolean(mContext.getContentResolver(),
@@ -231,6 +266,61 @@ public class Lockscreens extends AOKPPreferenceFragment implements OnPreferenceC
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.lockscreens, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
+        switch (item.getItemId()) {
+            case R.id.remove_wallpaper:
+                File f = new File(mContext.getFilesDir(), WALLPAPER_NAME);
+                Log.e(TAG, mContext.deleteFile(WALLPAPER_NAME) + "");
+                Log.e(TAG, mContext.deleteFile(WALLPAPER_NAME) + "");
+                return true;
+            default:
+                return super.onContextItemSelected(item);
+        }
+    }
+
+    private Uri getLockscreenExternalUri() {
+        File dir = mContext.getExternalCacheDir();
+        File wallpaper = new File(dir, WALLPAPER_NAME);
+
+        return Uri.fromFile(wallpaper);
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == REQUEST_PICK_WALLPAPER) {
+
+                FileOutputStream wallpaperStream = null;
+                try {
+                    wallpaperStream = mContext.openFileOutput(WALLPAPER_NAME,
+                            Context.MODE_WORLD_READABLE);
+                } catch (FileNotFoundException e) {
+                    return; // NOOOOO
+                }
+
+                Uri selectedImageUri = getLockscreenExternalUri();
+                Bitmap bitmap = BitmapFactory.decodeFile(selectedImageUri.getPath());
+
+                bitmap.compress(Bitmap.CompressFormat.PNG, 100, wallpaperStream);
+            }
+        }
+    }
+
+    public void copy(File src, File dst) throws IOException {
+        InputStream in = new FileInputStream(src);
+        FileOutputStream out = new FileOutputStream(dst);
+
+        // Transfer bytes from in to out
+        byte[] buf = new byte[1024];
+        int len;
+        while ((len = in.read(buf)) > 0) {
+            out.write(buf, 0, len);
+        }
+        in.close();
+        out.close();
     }
 
     private boolean removePreferenceIfPackageNotInstalled(Preference preference) {
