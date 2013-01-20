@@ -245,7 +245,7 @@ public class UserInterface extends AOKPPreferenceFragment implements
     }
 
     private void updateCustomBackgroundSummary() {
-        String wallpaperPath = "/data/data/com.baked.romcontrol/files/notification_wallpaper.jpg";
+        String wallpaperPath = "/data/data/com.aokp.romcontrol/files/notification_wallpaper.jpg";
         File file = new File(wallpaperPath);
         int resId;
         String value = Settings.System.getString(getContentResolver(),
