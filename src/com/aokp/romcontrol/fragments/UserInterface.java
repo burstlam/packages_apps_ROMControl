@@ -94,6 +94,7 @@ public class UserInterface extends AOKPPreferenceFragment implements
     private static final String PREF_STATUSBAR_BRIGHTNESS = "statusbar_brightness_slider";
     private static final String PREF_USER_MODE_UI = "user_mode_ui";
     private static final String PREF_HIDE_EXTRAS = "hide_extras";
+    public static final String STATUS_BAR_MAX_NOTIF = "status_bar_max_notifications";
 
     private static final int REQUEST_PICK_WALLPAPER = 201;
     private static final int REQUEST_PICK_CUSTOM_ICON = 202;
@@ -125,6 +126,7 @@ public class UserInterface extends AOKPPreferenceFragment implements
     CheckBoxPreference mStatusbarSliderPreference;
     ListPreference mUserModeUI;
     CheckBoxPreference mHideExtras;
+    ListPreference mStatusBarMaxNotif;
 
     private AnimationDrawable mAnimationPart1;
     private AnimationDrawable mAnimationPart2;
@@ -229,6 +231,11 @@ public class UserInterface extends AOKPPreferenceFragment implements
                         Settings.System.FORCE_DUAL_PANEL, getResources().getBoolean(
                         com.android.internal.R.bool.preferences_prefer_dual_pane)));
 
+        mStatusBarMaxNotif = (ListPreference) findPreference(STATUS_BAR_MAX_NOTIF);
+        int maxNotIcons = Settings.System.getInt(getActivity().getContentResolver(),
+                Settings.System.MAX_NOTIFICATION_ICONS, 2);
+        mStatusBarMaxNotif.setValue(String.valueOf(maxNotIcons));
+        mStatusBarMaxNotif.setOnPreferenceChangeListener(this);
 
         mHideExtras = (CheckBoxPreference) findPreference(PREF_HIDE_EXTRAS);
         mHideExtras.setChecked(Settings.System.getBoolean(cr,
@@ -514,6 +521,11 @@ public class UserInterface extends AOKPPreferenceFragment implements
         } else if (preference == mUserModeUI) {
             Settings.System.putInt(getActivity().getContentResolver(),
                     Settings.System.USER_UI_MODE, Integer.parseInt((String) newValue));
+            return true;
+        } else if (preference == mStatusBarMaxNotif) {
+            int maxNotIcons = Integer.valueOf((String) newValue);
+            Settings.System.putInt(getActivity().getContentResolver(),
+                    Settings.System.MAX_NOTIFICATION_ICONS, maxNotIcons);
             return true;
         }
         return false;

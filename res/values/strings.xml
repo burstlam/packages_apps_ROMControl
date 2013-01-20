@@ -970,6 +970,10 @@
     <string name="tablet_mode_ui">Tablet - Combined NavBar and SystemBar</string>
     <string name="phablet_mode_ui">Phablet - NavBar stays at bottom in landscape</string>
 
+    <!--StatusBar-->
+    <string name="status_bar_max_notifications_title">Number of notification icons</string>
+    <string name="status_bar_max_notifications_summary">Applies only to tablet-UI portrait view</string>
+
     <!-- notification background -->
     <string name="notif_background_default">Default background</string>
     <string name="notif_background_color_fill">Color fill</string>
