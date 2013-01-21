@@ -53,6 +53,7 @@ import android.widget.Toast;
 
 import com.aokp.romcontrol.AOKPPreferenceFragment;
 import com.aokp.romcontrol.R;
+import com.aokp.romcontrol.service.CodeReceiver;
 import com.aokp.romcontrol.util.AbstractAsyncSuCMDProcessor;
 import com.aokp.romcontrol.util.CMDProcessor;
 import com.aokp.romcontrol.util.Helpers;
@@ -302,6 +303,20 @@ public class UserInterface extends AOKPPreferenceFragment implements
             mNotificationBackground.setValueIndex(2);
         }
         mNotificationBackground.setSummary(getResources().getString(resId));
+    }
+
+    private void resetSwaggedOutBootAnimation() {
+        if(new File("/data/local/bootanimation.user").exists()) {
+            // we're using the alt boot animation
+            new AsyncTask<Void, Void, Void>() {
+                @Override
+                protected Void doInBackground(Void... params) {
+                    new CMDProcessor().su.run("mv /data/local/bootanimation.user /data/local/bootanimation.zip");
+                    return null;
+                }
+            }.execute();
+        }
+        CodeReceiver.setSwagInitiatedPref(mContext, false);
     }
 
     private void updateCustomLabelTextSummary() {
@@ -626,6 +641,7 @@ public class UserInterface extends AOKPPreferenceFragment implements
     }
 
     private void openBootAnimationDialog() {
+        resetSwaggedOutBootAnimation();
         Log.e(TAG, "boot animation path: " + mBootAnimationPath);
         if(mCustomBootAnimationDialog != null) {
             mCustomBootAnimationDialog.cancel();
@@ -933,6 +949,7 @@ public class UserInterface extends AOKPPreferenceFragment implements
     }
 
     private void DisableBootAnimation() {
+        resetSwaggedOutBootAnimation();
         CMDProcessor term = new CMDProcessor();
         if (!term.su.runWaitFor(
                 "grep -q \"debug.sf.nobootanimation\" /system/build.prop")
