@@ -106,6 +106,7 @@ public class UserInterface extends AOKPPreferenceFragment implements
     private static final String BOOTANIMATION_USER_PATH = "/data/local/bootanimation.zip";
     private static final String BOOTANIMATION_SYSTEM_PATH = "/system/media/bootanimation.zip";
 
+	private static final String PREF_SHOW_OVERFLOW = "show_overflow";
 	private static final String PREF_FORCE_DUAL_PANEL = "force_dualpanel";
 
     CheckBoxPreference mAllow180Rotation;
@@ -122,6 +123,7 @@ public class UserInterface extends AOKPPreferenceFragment implements
     CheckBoxPreference mRamBar;
     CheckBoxPreference mShowImeSwitcher;
     ListPreference mNotificationBackground;
+	CheckBoxPreference mShowActionOverflow;
 	CheckBoxPreference mDualpane;
 	Preference mLcdDensity;
     CheckBoxPreference mStatusbarSliderPreference;
@@ -216,6 +218,11 @@ public class UserInterface extends AOKPPreferenceFragment implements
         mRamBar = (CheckBoxPreference) findPreference(PREF_RAM_USAGE_BAR);
         mRamBar.setChecked(Settings.System.getBoolean(getActivity().getContentResolver(),
                 Settings.System.RAM_USAGE_BAR, false));
+
+		mShowActionOverflow = (CheckBoxPreference) findPreference(PREF_SHOW_OVERFLOW);
+        mShowActionOverflow.setChecked(Settings.System.getBoolean(getActivity().
+                        getApplicationContext().getContentResolver(),
+                        Settings.System.UI_FORCE_OVERFLOW_BUTTON, false));
 
 		mDualpane = (CheckBoxPreference) findPreference(PREF_FORCE_DUAL_PANEL);
         mDualpane.setChecked(Settings.System.getBoolean(cr,
@@ -320,6 +327,19 @@ public class UserInterface extends AOKPPreferenceFragment implements
             Settings.System.putBoolean(mContext.getContentResolver(),
                     Settings.System.STATUSBAR_NOTIF_COUNT,
                     ((CheckBoxPreference) preference).isChecked());
+            return true;
+        } else if (preference == mShowActionOverflow) {
+            boolean enabled = mShowActionOverflow.isChecked();
+            Settings.System.putBoolean(getContentResolver(), Settings.System.UI_FORCE_OVERFLOW_BUTTON,
+                    enabled ? true : false);
+            // Show toast appropriately
+            if (enabled) {
+                Toast.makeText(getActivity(), R.string.show_overflow_toast_enable,
+                        Toast.LENGTH_LONG).show();
+            } else {
+                Toast.makeText(getActivity(), R.string.show_overflow_toast_disable,
+                        Toast.LENGTH_LONG).show();
+            }
             return true;
 		} else if (preference == mDualpane) {
             Settings.System.putBoolean(mContext.getContentResolver(),
