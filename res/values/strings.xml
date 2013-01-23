@@ -283,7 +283,6 @@
     <string name="toggle_battery">Battery</string>
     <string name="toggle_brightness">Brightness</string>
 	<string name="toggle_screen">Screen Off</string>
-    <string name="toggle_ram">Ram Tile</string>
     <string name="toggle_sound_state">Ring/Vib/Silent</string>
 
     <!-- Statusbar | Battery -->
