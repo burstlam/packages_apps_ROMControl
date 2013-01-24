@@ -557,6 +557,7 @@ public class UserInterface extends AOKPPreferenceFragment implements
         } else if (preference == mUserModeUI) {
             Settings.System.putInt(getActivity().getContentResolver(),
                     Settings.System.USER_UI_MODE, Integer.parseInt((String) newValue));
+            Helpers.restartSystemUI();
             return true;
         } else if (preference == mStatusBarMaxNotif) {
             int maxNotIcons = Integer.valueOf((String) newValue);
