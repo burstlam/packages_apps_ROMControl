@@ -30,6 +30,14 @@
                 android:targetClass="com.cyanogenmod.lockclock.preference.Preferences" />
     </PreferenceScreen>
 
+    <PreferenceScreen
+         android:key="security"
+         android:title="@string/lockscreen_security_cat" >
+        <intent android:action="android.intent.action.MAIN"
+                android:targetPackage="com.android.settings"
+                android:targetClass="com.android.settings.SecuritySettings" />
+    </PreferenceScreen>
+
     <PreferenceCategory
             android:key="lock_widgets"
             android:title="@string/lock_widgets_short">
