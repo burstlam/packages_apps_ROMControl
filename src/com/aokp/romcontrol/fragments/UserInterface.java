@@ -75,6 +75,7 @@ import java.util.Random;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
+import com.aokp.romcontrol.widgets.SeekBarPreference;
 import net.margaritov.preference.colorpicker.ColorPickerPreference;
 import net.margaritov.preference.colorpicker.ColorPickerView;
 
@@ -96,6 +97,7 @@ public class UserInterface extends AOKPPreferenceFragment implements
     private static final String PREF_USER_MODE_UI = "user_mode_ui";
     private static final String PREF_HIDE_EXTRAS = "hide_extras";
     public static final String STATUS_BAR_MAX_NOTIF = "status_bar_max_notifications";
+    private static final String PREF_NOTIFICATION_ALPHA = "notification_alpha";
 
     private static final int REQUEST_PICK_WALLPAPER = 201;
     private static final int REQUEST_PICK_CUSTOM_ICON = 202;
@@ -132,6 +134,7 @@ public class UserInterface extends AOKPPreferenceFragment implements
     CheckBoxPreference mHideExtras;
     ListPreference mStatusBarMaxNotif;
     AlertDialog mCustomBootAnimationDialog;
+    SeekBarPreference mNotifAlpha;
 
     private AnimationDrawable mAnimationPart1;
     private AnimationDrawable mAnimationPart2;
@@ -245,6 +248,18 @@ public class UserInterface extends AOKPPreferenceFragment implements
         mUserModeUI.setValue(Integer.toString(Settings.System.getInt(mContext.getContentResolver(),
                 Settings.System.USER_UI_MODE, uiMode)));
         mUserModeUI.setOnPreferenceChangeListener(this);
+
+        float notifTransparency;
+        try{
+            notifTransparency = Settings.System.getFloat(getActivity().getContentResolver(), Settings.System.NOTIF_ALPHA);
+        }catch (Exception e) {
+            notifTransparency = 0;
+            Settings.System.putFloat(getActivity().getContentResolver(), Settings.System.NOTIF_ALPHA, 0);
+        }
+        mNotifAlpha = (SeekBarPreference) findPreference(PREF_NOTIFICATION_ALPHA);
+        mNotifAlpha.setInitValue((int) (notifTransparency * 100));
+        mNotifAlpha.setProperty(Settings.System.NOTIF_ALPHA);
+        mNotifAlpha.setOnPreferenceChangeListener(this);
 
         setHasOptionsMenu(true);
         updateCustomBackgroundSummary();
@@ -563,6 +578,11 @@ public class UserInterface extends AOKPPreferenceFragment implements
             int maxNotIcons = Integer.valueOf((String) newValue);
             Settings.System.putInt(getActivity().getContentResolver(),
                     Settings.System.MAX_NOTIFICATION_ICONS, maxNotIcons);
+            return true;
+        } else if (preference == mNotifAlpha) {
+            float valNav = Float.parseFloat((String) newValue);
+            Settings.System.putFloat(getActivity().getContentResolver(),
+                    Settings.System.NOTIF_ALPHA, valNav / 100);
             return true;
         }
         return false;
