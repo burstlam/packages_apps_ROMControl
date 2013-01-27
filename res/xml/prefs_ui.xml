@@ -4,6 +4,11 @@
 
     <PreferenceCategory android:title="@string/header_statusbar">
 
+        <PreferenceScreen
+            android:fragment="com.aokp.romcontrol.fragments.StatusBarStyle"
+            android:key="status_bar_background_style"
+            android:title="@string/status_bar_background_style" />
+
         <CheckBoxPreference
             android:key="statusbar_brightness_slider"
             android:title="@string/brightness_slider_title"
