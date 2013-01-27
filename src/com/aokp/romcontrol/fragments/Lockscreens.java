@@ -77,8 +77,6 @@ public class Lockscreens extends AOKPPreferenceFragment implements OnPreferenceC
     private static final String PREF_LOCKSCREEN_USE_CAROUSEL = "lockscreen_use_widget_container_carousel";
     private static final String KEY_LOCKSCREEN_MAXIMIZE_WIDGETS = "lockscreen_maximize_widgets";
 
-    private static final String LOCKSCREEN_TRANSPARENT_PREF = "pref_lockscreen_transparent";
-
     Preference mLockscreenTargets;
 
     CheckBoxPreference mVolumeRockerWake;
@@ -88,7 +86,6 @@ public class Lockscreens extends AOKPPreferenceFragment implements OnPreferenceC
     ColorPickerPreference mLockscreenTextColor;
     CheckBoxPreference mLockscreenAutoRotate;
 
-    CheckBoxPreference mLockTransparent;
     CheckBoxPreference mLockscreenHideInitialPageHints;
     CheckBoxPreference mMaximizeWidgets;
     CheckBoxPreference mLockscreenUseCarousel;
@@ -135,10 +132,6 @@ public class Lockscreens extends AOKPPreferenceFragment implements OnPreferenceC
         mLockscreenTextColor = (ColorPickerPreference) findPreference(PREF_LOCKSCREEN_TEXT_COLOR);
         mLockscreenTextColor.setOnPreferenceChangeListener(this);
 
-        mLockTransparent = (CheckBoxPreference) findPreference(LOCKSCREEN_TRANSPARENT_PREF);
-        mLockTransparent.setChecked(Settings.System.getBoolean(mContext
-                .getContentResolver(), Settings.System.LOCKSCREEN_TRANSPARENT, false));
-
         mLockscreenHideInitialPageHints = (CheckBoxPreference)findPreference(PREF_LOCKSCREEN_HIDE_INITIAL_PAGE_HINTS);
         mLockscreenHideInitialPageHints.setChecked(Settings.System.getBoolean(getActivity().getContentResolver(),
                 Settings.System.LOCKSCREEN_HIDE_INITIAL_PAGE_HINTS, false));
@@ -167,11 +160,6 @@ public class Lockscreens extends AOKPPreferenceFragment implements OnPreferenceC
             Settings.System.putBoolean(mContext.getContentResolver(),
                     Settings.System.VOLUME_WAKE_SCREEN,
                     ((CheckBoxPreference) preference).isChecked());
-            return true;
-        } else if (preference == mLockTransparent) {
-            Settings.System.putBoolean(mContext.getContentResolver(),
-                    Settings.System.LOCKSCREEN_TRANSPARENT,
-                    ((CheckBoxPreference)preference).isChecked());
             return true;
         } else if (preference == mLockscreenAllWidgets) {
             Settings.System.putBoolean(mContext.getContentResolver(),

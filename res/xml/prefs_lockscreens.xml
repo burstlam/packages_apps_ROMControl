@@ -68,10 +68,6 @@
             android:title="@string/lockscreen_maximize_widgets_title"
             android:summary="@string/lockscreen_maximize_widgets_summary" />
 
-        <CheckBoxPreference
-            android:key="pref_lockscreen_transparent"
-            android:title="@string/pref_lockscreen_transparent"/>
-
         <net.margaritov.preference.colorpicker.ColorPickerPreference
             android:key="lockscreen_text_color"
             android:title="@string/lockscreen_text_color_title"
