@@ -111,6 +111,7 @@ public class UserInterface extends AOKPPreferenceFragment implements
 
 	private static final String PREF_SHOW_OVERFLOW = "show_overflow";
 	private static final String PREF_FORCE_DUAL_PANEL = "force_dualpanel";
+    private static final String PREF_WAKEUP_WHEN_PLUGGED_UNPLUGGED = "wakeup_when_plugged_unplugged";
 
     CheckBoxPreference mAllow180Rotation;
     CheckBoxPreference mDisableBootAnimation;
@@ -135,6 +136,7 @@ public class UserInterface extends AOKPPreferenceFragment implements
     ListPreference mStatusBarMaxNotif;
     AlertDialog mCustomBootAnimationDialog;
     SeekBarPreference mNotifAlpha;
+    CheckBoxPreference mWakeUpWhenPluggedOrUnplugged;
 
     private AnimationDrawable mAnimationPart1;
     private AnimationDrawable mAnimationPart2;
@@ -260,6 +262,16 @@ public class UserInterface extends AOKPPreferenceFragment implements
         mNotifAlpha.setInitValue((int) (notifTransparency * 100));
         mNotifAlpha.setProperty(Settings.System.NOTIF_ALPHA);
         mNotifAlpha.setOnPreferenceChangeListener(this);
+
+        mWakeUpWhenPluggedOrUnplugged = (CheckBoxPreference) findPreference(PREF_WAKEUP_WHEN_PLUGGED_UNPLUGGED);
+        mWakeUpWhenPluggedOrUnplugged.setChecked(Settings.System.getBoolean(mContext.getContentResolver(),
+                        Settings.System.WAKEUP_WHEN_PLUGGED_UNPLUGGED, true));
+
+        // hide option if device is already set to never wake up
+        if(!mContext.getResources().getBoolean(
+                com.android.internal.R.bool.config_unplugTurnsOnScreen)) {
+            ((PreferenceGroup) findPreference("misc")).removePreference(mWakeUpWhenPluggedOrUnplugged);
+        }
 
         setHasOptionsMenu(true);
         updateCustomBackgroundSummary();
@@ -497,6 +509,11 @@ public class UserInterface extends AOKPPreferenceFragment implements
 		} else if (preference == mLcdDensity) {
             ((PreferenceActivity) getActivity())
                     .startPreferenceFragment(new DensityChanger(), true);
+            return true;
+        } else if (preference == mWakeUpWhenPluggedOrUnplugged) {
+            Settings.System.putBoolean(getActivity().getContentResolver(),
+                    Settings.System.WAKEUP_WHEN_PLUGGED_UNPLUGGED,
+                    ((CheckBoxPreference) preference).isChecked());
             return true;
         }
 
