@@ -4,6 +4,10 @@
 
     <PreferenceCategory android:title="@string/header_statusbar">
 
+        <Preference
+            android:key="transparency_dialog"
+            android:title="@string/transparency_dialog_title" />
+
         <CheckBoxPreference
             android:key="statusbar_brightness_slider"
             android:title="@string/brightness_slider_title"
