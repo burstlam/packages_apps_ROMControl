@@ -49,14 +49,21 @@
 
     <PreferenceCategory android:title="@string/navbar_button_colors">
 
-        <com.aokp.romcontrol.widgets.SeekBarPreference
-            android:key="navigation_bar_alpha"
-            android:title="@string/navigation_bar_alpha_title" />
-
         <net.margaritov.preference.colorpicker.ColorPickerPreference
             android:key="nav_bar_color"
-            android:title="@string/navigation_bar_color_title"
+            android:title="@string/nav_bar_color_title"
             android:defaultValue="#000000" />
+
+        <com.aokp.romcontrol.widgets.SeekBarPreference
+             android:key="nav_bar_alpha"
+             android:title="@string/nav_bar_transparency_title" />
+
+        <ListPreference
+            android:key="nav_bar_alpha_mode"
+            android:dialogTitle="@string/nav_bar_alpha_mode_dialog_text_title"
+            android:title="@string/nav_bar_alpha_mode_text_title"
+            android:entries="@array/entries_nav_bar_alpha_mode"
+            android:entryValues="@array/values_nav_bar_alpha_mode" />
 
         <net.margaritov.preference.colorpicker.ColorPickerPreference
             android:key="nav_button_color"
@@ -70,6 +77,10 @@
             android:title="@string/navigation_bar_glow_tint_title"
             android:summary="@string/navigation_bar_glow_tint_summary"
             android:defaultValue="#FFFFFF" />
+
+        <com.aokp.romcontrol.widgets.SeekBarPreference
+            android:key="button_transparency"
+            android:title="@string/button_transparency_title" />
 
     </PreferenceCategory>
 
@@ -145,10 +156,6 @@
         <com.aokp.romcontrol.widgets.SeekBarPreference
             android:key="width_land"
             android:title="@string/width_land_title" />
-
-        <com.aokp.romcontrol.widgets.SeekBarPreference
-            android:key="button_transparency"
-            android:title="@string/button_transparency_title" />
 
         </PreferenceCategory>
 
