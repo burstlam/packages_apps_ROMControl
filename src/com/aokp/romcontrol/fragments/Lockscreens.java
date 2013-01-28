@@ -78,6 +78,7 @@ public class Lockscreens extends AOKPPreferenceFragment implements OnPreferenceC
     private static final String PREF_LOCKSCREEN_HIDE_INITIAL_PAGE_HINTS = "lockscreen_hide_initial_page_hints";
     private static final String PREF_LOCKSCREEN_USE_CAROUSEL = "lockscreen_use_widget_container_carousel";
     private static final String KEY_LOCKSCREEN_MAXIMIZE_WIDGETS = "lockscreen_maximize_widgets";
+    private static final String PREF_LOCKSCREEN_LONGPRESS_CHALLENGE = "lockscreen_longpress_challenge";
 
     private static final int REQUEST_CODE_BG_WALLPAPER = 1024;
     private static final int LOCKSCREEN_BACKGROUND_COLOR_FILL = 0;
@@ -98,6 +99,7 @@ public class Lockscreens extends AOKPPreferenceFragment implements OnPreferenceC
     CheckBoxPreference mMaximizeWidgets;
     CheckBoxPreference mLockscreenUseCarousel;
     ListPreference mCustomBackground;
+    CheckBoxPreference mLockscreenLongpressChallenge;
 
     private File mWallpaperImage;
     private File mWallpaperTemporary;
@@ -158,6 +160,15 @@ public class Lockscreens extends AOKPPreferenceFragment implements OnPreferenceC
 
         mWallpaperImage = new File(getActivity().getFilesDir()+"/lockwallpaper");
         mWallpaperTemporary = new File(getActivity().getCacheDir()+"/lockwallpaper.tmp");
+
+        mLockscreenLongpressChallenge = (CheckBoxPreference)findPreference(PREF_LOCKSCREEN_LONGPRESS_CHALLENGE);
+        mLockscreenLongpressChallenge.setChecked(Settings.System.getBoolean(getActivity().getContentResolver(),
+                Settings.System.LOCKSCREEN_LONGPRESS_CHALLENGE, false));
+
+        if (isTablet(mContext)) {
+            ((PreferenceGroup)findPreference("misc")).removePreference((Preference)findPreference(
+PREF_LOCKSCREEN_LONGPRESS_CHALLENGE));
+        }
 
         setHasOptionsMenu(true);
     }
@@ -226,6 +237,11 @@ public class Lockscreens extends AOKPPreferenceFragment implements OnPreferenceC
             Settings.System.putInt(getActivity().getContentResolver(),
                     Settings.System.LOCKSCREEN_USE_WIDGET_CONTAINER_CAROUSEL,
                     ((CheckBoxPreference)preference).isChecked() ? 1 : 0);
+            return true;
+        } else if (preference == mLockscreenLongpressChallenge) {
+            Settings.System.putBoolean(getActivity().getContentResolver(),
+                    Settings.System.LOCKSCREEN_LONGPRESS_CHALLENGE,
+                    ((CheckBoxPreference)preference).isChecked());
             return true;
         }
 
