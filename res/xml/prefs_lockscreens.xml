@@ -2,6 +2,14 @@
 <PreferenceScreen
     xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <PreferenceScreen
+         android:key="security"
+         android:title="@string/lockscreen_security_cat" >
+        <intent android:action="android.intent.action.MAIN"
+                android:targetPackage="com.android.settings"
+                android:targetClass="com.android.settings.SecuritySettings" />
+    </PreferenceScreen>
+
     <PreferenceCategory
          android:key="shortcuts"
          android:title="@string/ls_shortcuts_title" >
@@ -28,14 +36,6 @@
         <intent android:action="android.intent.action.MAIN"
                 android:targetPackage="com.cyanogenmod.lockclock"
                 android:targetClass="com.cyanogenmod.lockclock.preference.Preferences" />
-    </PreferenceScreen>
-
-    <PreferenceScreen
-         android:key="security"
-         android:title="@string/lockscreen_security_cat" >
-        <intent android:action="android.intent.action.MAIN"
-                android:targetPackage="com.android.settings"
-                android:targetClass="com.android.settings.SecuritySettings" />
     </PreferenceScreen>
 
     <PreferenceCategory
