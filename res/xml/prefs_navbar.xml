@@ -4,11 +4,6 @@
                 android:key="enable_nav_bar"
                 android:title="@string/navbar_enable_bar" />
 
-        <PreferenceScreen
-            android:fragment="com.aokp.romcontrol.fragments.PieControl"
-            android:key="toolbar_pie_controls"
-            android:title="@string/pie_controls_title" />
-
         <ListPreference
                 android:entries="@array/pref_navigation_menu_entries"
                 android:entryValues="@array/pref_navigation_menu_values"
