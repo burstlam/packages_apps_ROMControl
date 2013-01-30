@@ -87,7 +87,9 @@ public class Lockscreens extends AOKPPreferenceFragment implements OnPreferenceC
     public static final int SELECT_WALLPAPER = 3;
 
     private static final String WALLPAPER_NAME = "lockscreen_wallpaper.jpg";
+    private static final String LOCKSCREEN_TRANSPARENT_PREF = "pref_lockscreen_transparent";
 
+    CheckBoxPreference mLockTransparent;
     Preference mLockscreenWallpaper;
     Preference mLockscreenTargets;
 
@@ -136,6 +138,10 @@ public class Lockscreens extends AOKPPreferenceFragment implements OnPreferenceC
                 Settings.System.LOCKSCREEN_BATTERY, false));
 
         mLockscreenWallpaper = findPreference("wallpaper");
+
+        mLockTransparent = (CheckBoxPreference) findPreference(LOCKSCREEN_TRANSPARENT_PREF);
+        mLockTransparent.setChecked(Settings.System.getBoolean(mContext
+                .getContentResolver(), Settings.System.LOCKSCREEN_TRANSPARENT, false));
 
         mLockscreenAllWidgets = (CheckBoxPreference)findPreference(PREF_LOCKSCREEN_ALL_WIDGETS);
         mLockscreenAllWidgets.setChecked(Settings.System.getBoolean(getActivity().getContentResolver(),
@@ -228,6 +234,11 @@ PREF_LOCKSCREEN_LONGPRESS_CHALLENGE));
         } else if (preference == mLockscreenLongpressChallenge) {
             Settings.System.putBoolean(getActivity().getContentResolver(),
                     Settings.System.LOCKSCREEN_LONGPRESS_CHALLENGE,
+                    ((CheckBoxPreference)preference).isChecked());
+            return true;
+        } else if (preference == mLockTransparent) {
+            Settings.System.putBoolean(mContext.getContentResolver(),
+                    Settings.System.LOCKSCREEN_TRANSPARENT,
                     ((CheckBoxPreference)preference).isChecked());
             return true;
         } else if (preference == mLockscreenWallpaper) {
