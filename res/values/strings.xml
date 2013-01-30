@@ -1083,15 +1083,6 @@
     <string name="icon_picker_gallery_title">Gallery</string>
     <string name="icon_picker_pack_title">Icon pack</string>
 
-    <!-- Custom lock screen background -->
-    <string name="lockscreen_custom_background_title">Background</string>
-    <string name="lockscreen_custom_background_dialog_title">Choose color</string>
-    <string name="lockscreen_background_result_successful">Background changed successfully</string>
-    <string name="lockscreen_background_result_not_successful">Background could not be changed</string>
-    <string name="lockscreen_background_color_fill">Color fill</string>
-    <string name="lockscreen_background_custom_image">Custom image</string>
-    <string name="lockscreen_background_default_wallpaper">Default wallpaper</string>
-
     <!-- Navigation bar background style -->
     <string name="nav_bar_transparency_title">Navigation bar transparency</string>
     <string name="nav_bar_color_title">Navigation bar color</string>
