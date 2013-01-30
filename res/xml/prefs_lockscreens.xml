@@ -51,6 +51,11 @@
                 android:title="@string/lockscreen_unlimited_widgets_title"
                 android:summary="@string/lockscreen_unlimited_widgets_summary" />
 
+            <CheckBoxPreference
+                android:key="lockscreen_camera_widget"
+                android:title="@string/lockscreen_camera_widget_title"
+                android:summary="@string/lockscreen_camera_widget_summary" />
+
     </PreferenceCategory>
 
     <PreferenceCategory
