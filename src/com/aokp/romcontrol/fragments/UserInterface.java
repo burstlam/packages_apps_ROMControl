@@ -1,6 +1,7 @@
 package com.aokp.romcontrol.fragments;
 
 import android.app.Activity;
+import android.app.ActivityManager;
 import android.app.AlertDialog;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -112,6 +113,7 @@ public class UserInterface extends AOKPPreferenceFragment implements
 	private static final String PREF_SHOW_OVERFLOW = "show_overflow";
 	private static final String PREF_FORCE_DUAL_PANEL = "force_dualpanel";
     private static final String PREF_WAKEUP_WHEN_PLUGGED_UNPLUGGED = "wakeup_when_plugged_unplugged";
+    private static final String NOTIFICATION_SHADE_DIM = "notification_shade_dim";
 
     CheckBoxPreference mAllow180Rotation;
     CheckBoxPreference mDisableBootAnimation;
@@ -137,6 +139,7 @@ public class UserInterface extends AOKPPreferenceFragment implements
     AlertDialog mCustomBootAnimationDialog;
     SeekBarPreference mNotifAlpha;
     CheckBoxPreference mWakeUpWhenPluggedOrUnplugged;
+    CheckBoxPreference mNotificationShadeDim;
 
     private AnimationDrawable mAnimationPart1;
     private AnimationDrawable mAnimationPart2;
@@ -271,6 +274,14 @@ public class UserInterface extends AOKPPreferenceFragment implements
         if(!mContext.getResources().getBoolean(
                 com.android.internal.R.bool.config_unplugTurnsOnScreen)) {
             ((PreferenceGroup) findPreference("misc")).removePreference(mWakeUpWhenPluggedOrUnplugged);
+        }
+
+        mNotificationShadeDim = (CheckBoxPreference) findPreference(NOTIFICATION_SHADE_DIM);
+        mNotificationShadeDim.setChecked((Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
+                Settings.System.NOTIFICATION_SHADE_DIM, ActivityManager.isHighEndGfx() ? 1 : 0)== 1));
+
+        if (Helpers.isTablet(getActivity())) {
+                getPreferenceScreen().removePreference(mNotificationShadeDim);
         }
 
         setHasOptionsMenu(true);
@@ -514,6 +525,11 @@ public class UserInterface extends AOKPPreferenceFragment implements
             Settings.System.putBoolean(getActivity().getContentResolver(),
                     Settings.System.WAKEUP_WHEN_PLUGGED_UNPLUGGED,
                     ((CheckBoxPreference) preference).isChecked());
+            return true;
+        } else if (preference == mNotificationShadeDim) {
+            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
+                    Settings.System.NOTIFICATION_SHADE_DIM,
+                    mNotificationShadeDim.isChecked() ? 1 :0);
             return true;
         }
 
