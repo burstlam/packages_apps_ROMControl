@@ -35,6 +35,7 @@ import android.widget.TextView;
 
 import com.aokp.romcontrol.AOKPPreferenceFragment;
 import com.aokp.romcontrol.R;
+import com.aokp.romcontrol.util.Helpers;
 import com.aokp.romcontrol.widgets.TouchInterceptor;
 import com.aokp.romcontrol.widgets.SeekBarPreference;
 import com.scheffsblend.smw.Preferences.ImageListPreference;
@@ -81,6 +82,10 @@ public class StatusBarToggles extends AOKPPreferenceFragment implements
 
         mFastToggle = (ListPreference) findPreference(PREF_ENABLE_FASTTOGGLE);
         mFastToggle.setOnPreferenceChangeListener(this);
+        int statusFastToggle = Settings.System.getInt(getActivity().getContentResolver(),
+            Settings.System.FAST_TOGGLE, 0);
+        mFastToggle.setValue(String.valueOf(statusFastToggle));
+        updateFastToggleSummary(statusFastToggle);
 
         final String[] entries = getResources().getStringArray(R.array.available_toggles_entries);
 
@@ -104,10 +109,9 @@ public class StatusBarToggles extends AOKPPreferenceFragment implements
             return true;
         } else if (preference == mFastToggle) {
             int statusFastToggle = Integer.valueOf((String) newValue);
-            int index = mFastToggle.findIndexOfValue((String) newValue);
             Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(), 
                     Settings.System.FAST_TOGGLE, statusFastToggle);
-            preference.setSummary(mFastToggle.getEntries()[index]);
+            updateFastToggleSummary(statusFastToggle);
             return true;
         }
         return false;
@@ -177,6 +181,21 @@ public class StatusBarToggles extends AOKPPreferenceFragment implements
         }
         return super.onPreferenceTreeClick(preferenceScreen, preference);
 
+    }
+            
+    private void updateFastToggleSummary(int value) {
+        Resources res = getResources();
+
+        if (value == 0) {
+            mFastToggle.setSummary(res.getString(R.string.fast_toggle_off));
+        } else if (value == 3) {
+            mFastToggle.setSummary(res.getString(R.string.fast_toggle_always_summary));
+        } else {
+            String direction = res.getString(value == 2
+                    ? R.string.fast_toggle_left
+                    : R.string.fast_toggle_right);
+            mFastToggle.setSummary(res.getString(R.string.toggle_enable_fasttoggle_summary, direction));
+        }
     }
 
     @Override

@@ -240,6 +240,8 @@
     <string name="fast_toggle_off">Off</string>
     <string name="fast_toggle_left">Left</string>
     <string name="fast_toggle_right">Right</string>
+    <string name="fast_toggle_always">Always</string>
+    <string name="fast_toggle_always_summary">Pull down Quick Settings when there are no active notifications</string>
 
     <!-- Statusbar | Clock -->
     <string name="clock_title_enable">Clock style</string>
