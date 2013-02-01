@@ -82,6 +82,8 @@ public class Navbar extends AOKPPreferenceFragment implements
     private static final String NAVIGATION_BAR_WIDGETS = "navigation_bar_widgets";
     private static final String PREF_MENU_ARROWS = "navigation_bar_menu_arrow_keys";
     private static final String NAVBAR_HIDE_ENABLE = "navbar_hide_enable";
+    private static final String NAVBAR_HIDE_VISIBLE = "navbar_hide_visible";
+    private static final String DRAG_HANDLE_WIDTH = "drag_handle_width";
     private static final String NAVBAR_HIDE_TIMEOUT = "navbar_hide_timeout";
     private static final String PREF_NAV_BAR_ALPHA = "nav_bar_alpha";
     private static final String PREF_NAV_BAR_ALPHA_MODE = "nav_bar_alpha_mode";
@@ -121,6 +123,8 @@ public class Navbar extends AOKPPreferenceFragment implements
     Preference mConfigureWidgets;
     CheckBoxPreference mNavBarHideEnable;
     ListPreference mNavBarHideTimeout;
+    CheckBoxPreference mNavBarHideVisible;
+    SeekBarPreference mDragHandleWidth;
 
     private int mPendingIconIndex = -1;
     private NavBarCustomAction mPendingNavBarCustomAction = null;
@@ -171,10 +175,19 @@ public class Navbar extends AOKPPreferenceFragment implements
         mNavBarButtonQty.setValue(Settings.System.getInt(getActivity().getContentResolver(),
                 Settings.System.NAVIGATION_BAR_BUTTONS_QTY, 3) + "");
 
-
         mNavBarHideEnable = (CheckBoxPreference) findPreference(NAVBAR_HIDE_ENABLE);
         mNavBarHideEnable.setChecked(Settings.System.getBoolean(getContentResolver(),
                 Settings.System.NAV_HIDE_ENABLE, false));
+
+        mNavBarHideVisible = (CheckBoxPreference) findPreference(NAVBAR_HIDE_VISIBLE);
+        mNavBarHideVisible.setChecked(Settings.System.getBoolean(getContentResolver(),
+                Settings.System.DRAG_HANDLE_VISIBLE, true));
+
+        final int defaultDragWidth = Settings.System.getInt(getActivity()
+                .getContentResolver(), Settings.System.DRAG_HANDLE_WEIGHT, 0);
+        mDragHandleWidth = (SeekBarPreference) findPreference(DRAG_HANDLE_WIDTH);
+        mDragHandleWidth.setInitValue((int) (defaultDragWidth));
+        mDragHandleWidth.setOnPreferenceChangeListener(this);
 
         mNavBarHideTimeout = (ListPreference) findPreference(NAVBAR_HIDE_TIMEOUT);
         mNavBarHideTimeout.setOnPreferenceChangeListener(this);
@@ -338,6 +351,13 @@ public class Navbar extends AOKPPreferenceFragment implements
             Settings.System.putBoolean(getActivity().getContentResolver(),
                     Settings.System.NAVIGATION_BAR_SHOW_NOW, !((CheckBoxPreference) preference).isChecked());
             Helpers.restartSystemUI();
+            refreshSettings();
+            return true;
+        } else if (preference == mNavBarHideVisible) {
+
+            Settings.System.putBoolean(getActivity().getContentResolver(),
+                    Settings.System.DRAG_HANDLE_VISIBLE,
+                    ((CheckBoxPreference) preference).isChecked());
             refreshSettings();
             return true;
         } else if (preference == mEnableNavringLong) {
@@ -514,6 +534,19 @@ public class Navbar extends AOKPPreferenceFragment implements
             Settings.System.putInt(getActivity().getContentResolver(),
                     Settings.System.NAVBAR_ALPHA_MODE, alphaMode);
             mAlphaMode.setSummary(mAlphaMode.getEntries()[index]);
+            return true;
+       /* } else if (preference == mDragHandleWidth) {
+            float val = Float.parseFloat((String) newValue);
+            Settings.System.putFloat(getActivity().getContentResolver(),
+                    Settings.System.DRAG_HANDLE_WEIGHT, val);
+            refreshSettings();
+            return true; */
+        } else if (preference == mDragHandleWidth) {
+            String newVal = (String) newValue;
+            int dp = Integer.parseInt(newVal);
+            //int height = mapChosenDpToPixels(dp);
+            Settings.System.putInt(getContentResolver(),
+                    Settings.System.DRAG_HANDLE_WEIGHT, dp);
             return true;
         } else if (preference == mWidthPort) {
             float val = Float.parseFloat((String) newValue);
