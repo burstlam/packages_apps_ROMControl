@@ -1077,4 +1077,23 @@
         <item>2</item>
         <item>3</item>
     </string-array>
+
+    <string-array name="entries_dpi_system_window">
+        <item>120 dpi</item>
+        <item>160 dpi</item>
+        <item>213 dpi</item>
+        <item>240 dpi</item>
+        <item>320 dpi</item>
+        <item>480 dpi</item>
+    </string-array>
+
+    <string-array name="values_dpi_system_window" translatable="false">
+        <item>120</item>
+        <item>160</item>
+        <item>213</item>
+        <item>240</item>
+        <item>320</item>
+        <item>480</item>
+    </string-array>
+
 </resources>

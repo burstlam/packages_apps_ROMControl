@@ -20,6 +20,8 @@
     <uses-permission android:name="android.permission.READ_SYNC_SETTINGS" />
     <uses-permission android:name="android.permission.WRITE_SYNC_SETTINGS" />
     <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS_FULL" />
+    <uses-permission android:name="android.permission.FORCE_STOP_PACKAGES" />
+    <uses-permission android:name="android.permission.COPY_PROTECTED_DATA" />
 
     <application
         android:hardwareAccelerated="true"
@@ -39,6 +41,24 @@
         <activity
             android:name=".fragments.UserInterface"
             android:label="@string/title_ui" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="com.aokp.romcontrol.SHORTCUT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".fragments.DpiGroups"
+            android:label="@string/dpi_groups_title" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="com.aokp.romcontrol.SHORTCUT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="fragments.CustomDpiGroupPreference"
+            android:label="@string/dpi_groups_title" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
