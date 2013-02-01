@@ -30,6 +30,8 @@ public class PieControl extends AOKPPreferenceFragment
     private static final String PIE_SIZE = "pie_size";
     private static final String PIE_TRIGGER = "pie_trigger";
     private static final String PIE_GAP = "pie_gap";
+    private static final String PIE_MENU = "pie_menu";
+    private static final String PIE_SEARCH = "pie_search";
 
     private ListPreference mPieMode;
     private ListPreference mPieSize;
@@ -37,6 +39,8 @@ public class PieControl extends AOKPPreferenceFragment
     private CheckBoxPreference mPieControls;
     private ListPreference mPieTrigger;
     private ListPreference mPieGap;
+    private CheckBoxPreference mPieMenu;
+    private CheckBoxPreference mPieSearch;
 
     private Context mContext;
     private int mAllowedLocations;
@@ -83,6 +87,14 @@ public class PieControl extends AOKPPreferenceFragment
         mPieGap.setValue(String.valueOf(pieGap));
         mPieGap.setOnPreferenceChangeListener(this);
 
+        mPieMenu = (CheckBoxPreference) prefSet.findPreference(PIE_MENU);
+        mPieMenu.setChecked(Settings.System.getInt(mContext.getContentResolver(),
+                Settings.System.PIE_MENU, 1) == 1);
+
+        mPieSearch = (CheckBoxPreference) prefSet.findPreference(PIE_SEARCH);
+        mPieSearch.setChecked(Settings.System.getInt(mContext.getContentResolver(),
+                Settings.System.PIE_SEARCH, 1) == 1);
+
     }
 
     private void checkControls() {
@@ -99,6 +111,16 @@ public class PieControl extends AOKPPreferenceFragment
                     Settings.System.PIE_CONTROLS,
                     mPieControls.isChecked() ? 1 : 0);
             checkControls();
+        } else if (preference == mPieMenu) {
+            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
+                    Settings.System.PIE_MENU, 
+                    mPieMenu.isChecked() ? 1 : 0);
+            return true;
+        } else if (preference == mPieSearch) {
+            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
+                    Settings.System.PIE_SEARCH, 
+                    mPieSearch.isChecked() ? 1 : 0);
+            return true;
         }
         return super.onPreferenceTreeClick(preferenceScreen, preference);
     }
