@@ -19,11 +19,13 @@
 
         <CheckBoxPreference
                 android:key="navbar_hide_visible"
-                android:title="@string/navbar_hide_visible_title" />
+                android:title="@string/navbar_hide_visible_title"
+                android:dependency="navbar_hide_enable" />
 
         <com.aokp.romcontrol.widgets.SeekBarPreference
                 android:key="drag_handle_width"
-                android:title="@string/drag_handle_width_title" />
+                android:title="@string/drag_handle_width_title"
+                android:dependency="navbar_hide_enable" />
 
         <ListPreference
                 android:entries="@array/hide_navbar_timeout_entries"
@@ -34,6 +36,9 @@
                 android:dependency="navbar_hide_enable" />
 
         </PreferenceCategory>
+
+        <PreferenceCategory
+                android:title="@string/navbar_ui">
 
         <ListPreference
                 android:entries="@array/pref_navigation_menu_entries"
@@ -59,6 +64,7 @@
                 android:key="navigation_bar_menu_arrow_keys"
                 android:title="@string/navigation_bar_menu_arrow_keys_title"
                 android:summary="@string/navigation_bar_menu_arrow_keys_summary" />
+        </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/navbar_button_colors">
 
