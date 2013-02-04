@@ -105,6 +105,7 @@ public class UserInterface extends AOKPPreferenceFragment implements
     private static final String PREF_HIDE_EXTRAS = "hide_extras";
     public static final String STATUS_BAR_MAX_NOTIF = "status_bar_max_notifications";
     private static final String PREF_NOTIFICATION_ALPHA = "notification_alpha";
+    private static final String STATUSBAR_HIDDEN = "statusbar_hidden";
 
     private static final int REQUEST_PICK_WALLPAPER = 201;
     private static final int REQUEST_PICK_CUSTOM_ICON = 202;
@@ -146,6 +147,7 @@ public class UserInterface extends AOKPPreferenceFragment implements
     SeekBarPreference mNotifAlpha;
     CheckBoxPreference mWakeUpWhenPluggedOrUnplugged;
     CheckBoxPreference mNotificationShadeDim;
+    CheckBoxPreference mStatusBarHide;
 
     private AnimationDrawable mAnimationPart1;
     private AnimationDrawable mAnimationPart2;
@@ -289,6 +291,10 @@ public class UserInterface extends AOKPPreferenceFragment implements
         if (Helpers.isTablet(getActivity())) {
                 getPreferenceScreen().removePreference(mNotificationShadeDim);
         }
+
+        mStatusBarHide = (CheckBoxPreference) findPreference(STATUSBAR_HIDDEN);
+        mStatusBarHide.setChecked(Settings.System.getBoolean(cr,
+                Settings.System.STATUSBAR_HIDDEN, false));
 
         setHasOptionsMenu(true);
         updateCustomBackgroundSummary();
@@ -546,6 +552,11 @@ public class UserInterface extends AOKPPreferenceFragment implements
             // getFragmentManager().beginTransaction().add(new
             // TransparencyDialog(), null).commit();
             openTransparencyDialog();
+            return true;
+        } else if (preference == mStatusBarHide) {
+            boolean checked = ((CheckBoxPreference)preference).isChecked();
+            Settings.System.putBoolean(getActivity().getContentResolver(),
+                    Settings.System.STATUSBAR_HIDDEN, checked ? true : false);
             return true;
         }
 
