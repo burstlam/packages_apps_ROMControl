@@ -310,6 +310,7 @@
     <string name="toggle_powermenu">Power Menu</string>
     <string name="toggle_profile">Profile</string>
     <string name="toggle_quiethours">Quiet Hours</string>
+    <string name="toggle_quickrecord">Quick Record</string>
 
     <!-- Statusbar | Battery -->
     <string name="battery_icon">Battery icon style</string>
