@@ -85,8 +85,9 @@
         <item>TORCH</item>
         <item>2G</item>
         <item>LTE</item>
-		<item>SCREEN</item>
-         <item>NAVBARHIDE</item>
+        <item>SCREEN</item>
+        <item>NAVBARHIDE</item>
+        <item>POWERMENU</item>
     </string-array>
     <string-array name="available_toggles_values" translatable="false">
         <item>@string/toggle_user</item>
@@ -116,6 +117,7 @@
         <item>@string/toggle_lte</item>
 		<item>@string/toggle_screen</item>
         <item>@string/toggle_navbar_hide</item>
+        <item>@string/toggle_powermenu</item>
     </string-array>
 
     <!-- Toggles per row -->
