@@ -21,11 +21,17 @@
         android:key="toolbar_pie_controls"
         android:title="@string/pie_controls_title" />
 
+
         <CheckBoxPreference
             android:key="pie_controls"
             android:title="@string/pie_controls_title"
             android:summary="@string/pie_controls_summary"
             android:defaultValue="false" />
+
+        <Preference
+            android:fragment="com.aokp.romcontrol.fragments.PieColor"
+            android:key="pie_color"
+            android:title="@string/pie_color_title" />
 
         <ListPreference
             android:key="pie_trigger"
@@ -77,10 +83,10 @@
             android:title="@string/pie_search_title"
             android:summary="@string/pie_search_summary" />
 
-        <Preference
-            android:fragment="com.aokp.romcontrol.fragments.PieColor"
-            android:key="pie_color"
-            android:title="@string/pie_color_title" />
+        <CheckBoxPreference
+            android:key="pie_lastapp"
+            android:title="@string/pie_lastapp_title"
+            android:summary="@string/pie_lastapp_summary" />
 
 </PreferenceScreen>
 
