@@ -1,9 +1,12 @@
 
 package com.aokp.romcontrol.fragments;
 
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
+import android.preference.ListPreference;
 import android.preference.Preference;
+import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceScreen;
 import android.provider.Settings;
 import android.provider.Settings.SettingNotFoundException;
@@ -12,7 +15,8 @@ import com.aokp.romcontrol.AOKPPreferenceFragment;
 import com.aokp.romcontrol.R;
 import com.aokp.romcontrol.R.xml;
 
-public class PowerMenu extends AOKPPreferenceFragment {
+public class PowerMenu extends AOKPPreferenceFragment implements
+    OnPreferenceChangeListener{
 
     //private static final String PREF_POWER_SAVER = "show_power_saver";
     private static final String PREF_POWER_OFF = "show_power_off";
@@ -21,6 +25,7 @@ public class PowerMenu extends AOKPPreferenceFragment {
     private static final String PREF_AIRPLANE_TOGGLE = "show_airplane_toggle";
     private static final String PREF_NAVBAR_HIDE = "show_navbar_hide";
 	private static final String PREF_EXPANDED_DESKTOP_TOGGLE = "power_menu_expanded_desktop";
+	private static final String EXPANDED_DESKTOP_STYLE = "expanded_desktop_style";
 
     //CheckBoxPreference mShowPowerSaver;
     CheckBoxPreference mShowPowerOff;
@@ -29,6 +34,7 @@ public class PowerMenu extends AOKPPreferenceFragment {
     CheckBoxPreference mShowAirplaneToggle;
     CheckBoxPreference mShowNavBarHide;
 	CheckBoxPreference mExpandedDesktopPref;
+    ListPreference mExpandedDesktopSbPref;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -73,6 +79,26 @@ public class PowerMenu extends AOKPPreferenceFragment {
         mExpandedDesktopPref.setChecked(Settings.System.getInt(getActivity()
                 .getContentResolver(), Settings.System.POWER_DIALOG_SHOW_EXPANDED_DESKTOP_TOGGLE, 
                 0) == 1);
+
+        PreferenceScreen prefSet = getPreferenceScreen();
+        mExpandedDesktopSbPref = (ListPreference) prefSet.findPreference(EXPANDED_DESKTOP_STYLE);
+        mExpandedDesktopSbPref.setOnPreferenceChangeListener(this);
+        int expandedDesktopValue = Settings.System.getInt(getContentResolver(), Settings.System.EXPANDED_DESKTOP_STYLE, 0);
+        mExpandedDesktopSbPref.setValue(String.valueOf(expandedDesktopValue));
+        updateExpandedDesktopSummary(expandedDesktopValue);
+
+    }
+
+    @Override
+    public boolean onPreferenceChange(Preference preference, Object newValue) {
+        if (preference == mExpandedDesktopSbPref) {
+            int expandedDesktopValue = Integer.valueOf((String) newValue);
+            Settings.System.putInt(getContentResolver(),
+                    Settings.System.EXPANDED_DESKTOP_STYLE, expandedDesktopValue);
+            updateExpandedDesktopSummary(expandedDesktopValue);
+            return true;
+        }
+        return false;
     }
 
     @Override
@@ -116,5 +142,17 @@ public class PowerMenu extends AOKPPreferenceFragment {
         }
 
         return super.onPreferenceTreeClick(preferenceScreen, preference);
+    }
+
+    private void updateExpandedDesktopSummary(int value) {
+        Resources res = getResources();
+
+        if (value == 1) {
+            String statusBarPresent = res.getString(R.string.expanded_desktop_summary_status_bar);
+            mExpandedDesktopPref.setSummary(res.getString(R.string.summary_expanded_desktop, statusBarPresent));
+        } else if (value == 2) {
+            String statusBarPresent = res.getString(R.string.expanded_desktop_summary_no_status_bar);
+            mExpandedDesktopPref.setSummary(res.getString(R.string.summary_expanded_desktop, statusBarPresent));
+        }
     }
 }

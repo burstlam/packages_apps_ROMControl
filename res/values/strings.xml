@@ -75,6 +75,13 @@
     <string name="title_show_airplane_toggle">Show airplane toggle</string>
     <string name="title_show_navbar_hide">Show navigation bar toggle</string>
 	<string name="power_menu_expanded_desktop">Show Expanded desktop toggle</string>
+    <!--Expanded Desktop Enhancement: Status Bar Switch -->
+    <string name="expanded_desktop_status_bar_state">Expanded desktop statusbar state</string>
+    <string name="summary_expanded_desktop">%1$s</string>
+    <string name="expanded_desktop_summary_status_bar">With status bar</string>
+    <string name="expanded_desktop_summary_no_status_bar">Without status bar</string>
+    <string name="expanded_desktop_staus_bar">With status bar</string>
+    <string name="expanded_desktop_no_staus_bar">Without status bar</string>
 
     <!-- Power Saving -->
     <string name="title_pref_powersaving_pref_mode">Enable power saver</string>
