@@ -83,7 +83,7 @@ public class Navbar extends AOKPPreferenceFragment implements
     private static final String NAVIGATION_BAR_WIDGETS = "navigation_bar_widgets";
     private static final String PREF_MENU_ARROWS = "navigation_bar_menu_arrow_keys";
     private static final String NAVBAR_HIDE_ENABLE = "navbar_hide_enable";
-    private static final String NAVBAR_HIDE_VISIBLE = "navbar_hide_visible";
+    private static final String DRAG_HANDLE_OPACITY = "drag_handle_opacity";
     private static final String DRAG_HANDLE_WIDTH = "drag_handle_width";
     private static final String NAVBAR_HIDE_TIMEOUT = "navbar_hide_timeout";
     private static final String PREF_NAV_BAR_ALPHA = "nav_bar_alpha";
@@ -125,7 +125,7 @@ public class Navbar extends AOKPPreferenceFragment implements
     Preference mConfigureWidgets;
     CheckBoxPreference mNavBarHideEnable;
     ListPreference mNavBarHideTimeout;
-    CheckBoxPreference mNavBarHideVisible;
+    SeekBarPreference mDragHandleOpacity;
     SeekBarPreference mDragHandleWidth;
 
     private int mPendingIconIndex = -1;
@@ -181,10 +181,11 @@ public class Navbar extends AOKPPreferenceFragment implements
         mNavBarHideEnable.setChecked(Settings.System.getBoolean(getContentResolver(),
                 Settings.System.NAV_HIDE_ENABLE, false));
 
-        mNavBarHideVisible = (CheckBoxPreference) findPreference(NAVBAR_HIDE_VISIBLE);
-        mNavBarHideVisible.setChecked(Settings.System.getBoolean(getContentResolver(),
-                Settings.System.DRAG_HANDLE_VISIBLE, true));
-
+        final int defaultDragOpacity = Settings.System.getInt(getActivity()
+                .getContentResolver(), Settings.System.DRAG_HANDLE_OPACITY,50);
+        mDragHandleOpacity = (SeekBarPreference) findPreference(DRAG_HANDLE_OPACITY);
+        mDragHandleOpacity.setInitValue((int) (defaultDragOpacity));
+			        mDragHandleOpacity.setOnPreferenceChangeListener(this);
         final int defaultDragWidth = Settings.System.getInt(getActivity()
                 .getContentResolver(), Settings.System.DRAG_HANDLE_WEIGHT, 0);
         mDragHandleWidth = (SeekBarPreference) findPreference(DRAG_HANDLE_WIDTH);
@@ -357,13 +358,6 @@ public class Navbar extends AOKPPreferenceFragment implements
             Settings.System.putBoolean(getActivity().getContentResolver(),
                     Settings.System.NAVIGATION_BAR_SHOW_NOW, !((CheckBoxPreference) preference).isChecked());
             Helpers.restartSystemUI();
-            refreshSettings();
-            return true;
-        } else if (preference == mNavBarHideVisible) {
-
-            Settings.System.putBoolean(getActivity().getContentResolver(),
-                    Settings.System.DRAG_HANDLE_VISIBLE,
-                    ((CheckBoxPreference) preference).isChecked());
             refreshSettings();
             return true;
         } else if (preference == mEnableNavringLong) {
@@ -541,12 +535,12 @@ public class Navbar extends AOKPPreferenceFragment implements
                     Settings.System.NAVBAR_ALPHA_MODE, alphaMode);
             mAlphaMode.setSummary(mAlphaMode.getEntries()[index]);
             return true;
-       /* } else if (preference == mDragHandleWidth) {
-            float val = Float.parseFloat((String) newValue);
-            Settings.System.putFloat(getActivity().getContentResolver(),
-                    Settings.System.DRAG_HANDLE_WEIGHT, val);
-            refreshSettings();
-            return true; */
+        } else if (preference == mDragHandleOpacity) {
+            String newVal = (String) newValue;
+            int op = Integer.parseInt(newVal);
+            Settings.System.putInt(getActivity().getContentResolver(),
+                    Settings.System.DRAG_HANDLE_OPACITY, op);
+            return true;
         } else if (preference == mDragHandleWidth) {
             String newVal = (String) newValue;
             int dp = Integer.parseInt(newVal);
