@@ -77,12 +77,6 @@
             android:title="@string/pie_search_title"
             android:summary="@string/pie_search_summary" />
 
-        <CheckBoxPreference
-            android:key="pie_notifications"
-            android:title="@string/pie_notifications_title"
-            android:summary="@string/pie_notifications_summary"
-            android:defaultValue="false" />
-
         <Preference
             android:fragment="com.aokp.romcontrol.fragments.PieColor"
             android:key="pie_color"

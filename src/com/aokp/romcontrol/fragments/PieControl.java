@@ -32,7 +32,6 @@ public class PieControl extends AOKPPreferenceFragment
     private static final String PIE_GAP = "pie_gap";
     private static final String PIE_MENU = "pie_menu";
     private static final String PIE_SEARCH = "pie_search";
-    private static final String PIE_NOTIFICATIONS = "pie_notifications";
 
     private ListPreference mPieMode;
     private ListPreference mPieSize;
@@ -42,7 +41,6 @@ public class PieControl extends AOKPPreferenceFragment
     private ListPreference mPieGap;
     private CheckBoxPreference mPieMenu;
     private CheckBoxPreference mPieSearch;
-    private CheckBoxPreference mPieNotifi;
 
     private Context mContext;
     private int mAllowedLocations;
@@ -97,10 +95,6 @@ public class PieControl extends AOKPPreferenceFragment
         mPieSearch.setChecked(Settings.System.getInt(mContext.getContentResolver(),
                 Settings.System.PIE_SEARCH, 1) == 1);
 
-        mPieNotifi = (CheckBoxPreference) prefSet.findPreference(PIE_NOTIFICATIONS);
-        mPieNotifi.setChecked((Settings.System.getInt(getContentResolver(),
-                Settings.System.PIE_NOTIFICATIONS, 0) == 1));
-
     }
 
     private void checkControls() {
@@ -110,7 +104,6 @@ public class PieControl extends AOKPPreferenceFragment
         mPieSize.setEnabled(pieCheck);
         mPieTrigger.setEnabled(pieCheck);
         mPieGap.setEnabled(pieCheck);
-        mPieNotifi.setEnabled(pieCheck);
     }
 
     @Override
@@ -129,10 +122,6 @@ public class PieControl extends AOKPPreferenceFragment
             Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
                     Settings.System.PIE_SEARCH, 
                     mPieSearch.isChecked() ? 1 : 0);
-        } else if (preference == mPieNotifi) {
-            Settings.System.putInt(mContext.getContentResolver(),
-                    Settings.System.PIE_NOTIFICATIONS,
-                    mPieNotifi.isChecked() ? 1 : 0);
         }
         return super.onPreferenceTreeClick(preferenceScreen, preference);
     }

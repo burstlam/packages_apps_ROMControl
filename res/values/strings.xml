@@ -1169,10 +1169,6 @@
     <string name="pie_trigger_big">@string/pie_gap_big</string>
     <string name="pie_trigger_huge">@string/pie_gap_huge</string>
 
-    <!-- The Loner -->
-    <string name="pie_notifications_title">Enable Chevron Targets</string>
-    <string name="pie_notifications_summary">Enabling, will let the Notification panels and QuickSettings active when swipe.</string>
-
     <!-- DPI PER APP-->
     <string name="dpi_groups_title">DPI Groups</string>
     <string name="dpi_groups_summary">Define wich apps should be in each DPI group</string>
