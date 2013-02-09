@@ -86,8 +86,6 @@ public class Navbar extends AOKPPreferenceFragment implements
     private static final String DRAG_HANDLE_OPACITY = "drag_handle_opacity";
     private static final String DRAG_HANDLE_WIDTH = "drag_handle_width";
     private static final String NAVBAR_HIDE_TIMEOUT = "navbar_hide_timeout";
-    private static final String PREF_NAV_BAR_ALPHA = "nav_bar_alpha";
-    private static final String PREF_NAV_BAR_ALPHA_MODE = "nav_bar_alpha_mode";
 
     public static final int REQUEST_PICK_CUSTOM_ICON = 200;
     public static final int REQUEST_PICK_LANDSCAPE_ICON = 201;
@@ -97,9 +95,6 @@ public class Navbar extends AOKPPreferenceFragment implements
     public static final String PREFS_NAV_BAR = "navbar";
 
     Preference mNavRingTargets;
-
-    SeekBarPreference mNavBarTransparency;
-    ListPreference mAlphaMode;
 
     // move these later
     ColorPickerPreference mNavigationColor;
@@ -232,14 +227,7 @@ public class Navbar extends AOKPPreferenceFragment implements
         mButtonAlpha.setInitValue((int) (defaultButtonAlpha * 100));
         mButtonAlpha.setOnPreferenceChangeListener(this);
 
-        mAlphaMode = (ListPreference) prefs.findPreference(PREF_NAV_BAR_ALPHA_MODE);
-        int alphaMode = Settings.System.getInt(getActivity().getContentResolver(),
-                Settings.System.NAVBAR_ALPHA_MODE, 1);
-        mAlphaMode.setValue(String.valueOf(alphaMode));
-        mAlphaMode.setSummary(mAlphaMode.getEntry());
-        mAlphaMode.setOnPreferenceChangeListener(this);
-
-        mNavBarAlpha = (SeekBarPreference) findPreference("nav_bar_alpha");
+        mNavBarAlpha = (SeekBarPreference) findPreference("navigation_bar_alpha");
         mNavBarAlpha.setOnPreferenceChangeListener(this);
 
         mWidthHelp = (Preference) findPreference("width_help");
@@ -303,10 +291,6 @@ public class Navbar extends AOKPPreferenceFragment implements
                         Settings.System.NAVIGATION_BAR_COLOR, 1);
                 Settings.System.putInt(getActivity().getContentResolver(),
                         Settings.System.NAVIGATION_BAR_TINT, -1);
-                Settings.System.putInt(getActivity().getContentResolver(),
-                        Settings.System.NAVBAR_ALPHA_MODE, 1);
-                Settings.System.putFloat(getActivity().getContentResolver(),
-                       Settings.System.NAVIGATION_BAR_ALPHA, 0.0f);
                 Settings.System.putInt(getActivity().getContentResolver(),
                         Settings.System.NAVIGATION_BAR_GLOW_TINT, -1);
                 Settings.System.putInt(getActivity().getContentResolver(),
@@ -527,13 +511,6 @@ public class Navbar extends AOKPPreferenceFragment implements
             Settings.System.putFloat(getActivity().getContentResolver(),
                     Settings.System.NAVIGATION_BAR_ALPHA,
                     val);
-            return true;
-        } else if (preference == mAlphaMode) {
-            int alphaMode = Integer.valueOf((String) newValue);
-            int index = mAlphaMode.findIndexOfValue((String) newValue);
-            Settings.System.putInt(getActivity().getContentResolver(),
-                    Settings.System.NAVBAR_ALPHA_MODE, alphaMode);
-            mAlphaMode.setSummary(mAlphaMode.getEntries()[index]);
             return true;
         } else if (preference == mDragHandleOpacity) {
             String newVal = (String) newValue;

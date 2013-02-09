@@ -1116,17 +1116,6 @@
     <string name="icon_picker_gallery_title">Gallery</string>
     <string name="icon_picker_pack_title">Icon pack</string>
 
-    <!-- Navigation bar background style -->
-    <string name="nav_bar_transparency_title">Navigation bar transparency</string>
-    <string name="nav_bar_color_title">Navigation bar color</string>
-    <string name="nav_bar_background_style">Navigation bar background</string>
-    <string name="nav_bar_alpha_mode_dialog_text_title">Show navigation and status bar transparency</string>
-    <string name="nav_bar_alpha_mode_text_title">Transparency mode</string>
-    <string name="nav_bar_alpha_mode_home">on launcher</string>
-    <string name="nav_bar_alpha_mode_default">on launcher and lockscreen</string>
-    <string name="nav_bar_alpha_mode_always">always</string>
-    <string name="nav_bar_style_reset">Reset</string>
-
     <!-- Pie controls -->
     <string name="pie_controls_title">Pie controls</string>
     <string name="pie_controls_summary">Allows navigation and status report on expanded desktop mode</string>

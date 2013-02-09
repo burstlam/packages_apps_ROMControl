@@ -67,21 +67,14 @@
 
     <PreferenceCategory android:title="@string/navbar_button_colors">
 
+        <com.aokp.romcontrol.widgets.SeekBarPreference
+            android:key="navigation_bar_alpha"
+            android:title="@string/navigation_bar_alpha_title" />
+
         <net.margaritov.preference.colorpicker.ColorPickerPreference
             android:key="nav_bar_color"
-            android:title="@string/nav_bar_color_title"
+            android:title="@string/navigation_bar_color_title"
             android:defaultValue="#000000" />
-
-        <ListPreference
-            android:key="nav_bar_alpha_mode"
-            android:dialogTitle="@string/nav_bar_alpha_mode_dialog_text_title"
-            android:title="@string/nav_bar_alpha_mode_text_title"
-            android:entries="@array/entries_nav_bar_alpha_mode"
-            android:entryValues="@array/values_nav_bar_alpha_mode" />
-
-        <com.aokp.romcontrol.widgets.SeekBarPreference
-             android:key="nav_bar_alpha"
-             android:title="@string/nav_bar_transparency_title" />
 
         <net.margaritov.preference.colorpicker.ColorPickerPreference
             android:key="nav_button_color"
