@@ -118,6 +118,8 @@ public class PieControl extends AOKPPreferenceFragment
             Settings.System.putInt(mContext.getContentResolver(),
                     Settings.System.PIE_CONTROLS,
                     mPieControls.isChecked() ? 1 : 0);
+            Settings.System.putBoolean(getActivity().getContentResolver(),
+                    Settings.System.NAV_HIDE_ENABLE, true);
             checkControls();
             Helpers.restartSystemUI();
         } else if (preference == mPieMenu) {
