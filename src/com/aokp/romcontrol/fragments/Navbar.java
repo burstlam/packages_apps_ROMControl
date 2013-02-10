@@ -227,9 +227,6 @@ public class Navbar extends AOKPPreferenceFragment implements
         mButtonAlpha.setInitValue((int) (defaultButtonAlpha * 100));
         mButtonAlpha.setOnPreferenceChangeListener(this);
 
-        mNavBarAlpha = (SeekBarPreference) findPreference("navigation_bar_alpha");
-        mNavBarAlpha.setOnPreferenceChangeListener(this);
-
         mWidthHelp = (Preference) findPreference("width_help");
 
         float defaultPort = Settings.System.getFloat(getActivity()
@@ -505,12 +502,6 @@ public class Navbar extends AOKPPreferenceFragment implements
             Settings.System.putFloat(getActivity().getContentResolver(),
                     Settings.System.NAVIGATION_BAR_BUTTON_ALPHA,
                     val * 0.01f);
-            return true;
-        } else if (preference == mNavBarAlpha) {
-            float val = (float) (Integer.parseInt((String)newValue) * 0.01);
-            Settings.System.putFloat(getActivity().getContentResolver(),
-                    Settings.System.NAVIGATION_BAR_ALPHA,
-                    val);
             return true;
         } else if (preference == mDragHandleOpacity) {
             String newVal = (String) newValue;
@@ -937,16 +928,6 @@ public class Navbar extends AOKPPreferenceFragment implements
         return "navbar_icon_" + index + ".png";
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        final float defaultNavAlpha = Settings.System.getFloat(getActivity()
-                .getContentResolver(), Settings.System.NAVIGATION_BAR_ALPHA,
-                0.8f);
-        mNavBarAlpha.setInitValue(Math.round(defaultNavAlpha * 100));
-
-        refreshSettings();
-    }
 
     public static class NavbarLayout extends ListFragment {
         private static final String TAG = "NavbarLayout";
