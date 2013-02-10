@@ -90,6 +90,7 @@
         <item>NAVBARHIDE</item>
         <item>POWERMENU</item>
         <item>PROFILE</item>
+        <item>QUIETHOURS</item>
     </string-array>
     <string-array name="available_toggles_values" translatable="false">
         <item>@string/toggle_user</item>
@@ -122,6 +123,7 @@
         <item>@string/toggle_navbar_hide</item>
         <item>@string/toggle_powermenu</item>
         <item>@string/toggle_profile</item>
+        <item>@string/toggle_quiethours</item>
     </string-array>
 
     <!-- Toggles per row -->

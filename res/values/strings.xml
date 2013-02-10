@@ -309,6 +309,7 @@
     <string name="toggle_navbar_hide">Navbar Auto Hide</string>
     <string name="toggle_powermenu">Power Menu</string>
     <string name="toggle_profile">Profile</string>
+    <string name="toggle_quiethours">Quiet Hours</string>
 
     <!-- Statusbar | Battery -->
     <string name="battery_icon">Battery icon style</string>
