@@ -33,6 +33,19 @@
             android:key="pie_color"
             android:title="@string/pie_color_title" />
 
+        <CheckBoxPreference
+            android:key="pie_center"
+            android:title="@string/pie_center_title"
+            android:summary="@string/pie_center_summary" />
+
+        <ListPreference
+            android:key="pie_gravity"
+            android:dialogTitle="@string/pie_gravity_title"
+            android:title="@string/pie_gravity_title"
+            android:summary="@string/pie_gravity_summary"
+            android:entries="@array/entries_pie_gravity"
+            android:entryValues="@array/values_pie_gravity" />
+
         <ListPreference
             android:key="pie_trigger"
             android:dialogTitle="@string/pie_trigger_title"
@@ -48,14 +61,6 @@
             android:summary="@string/pie_mode_summary"
             android:entries="@array/entries_pie_mode"
             android:entryValues="@array/values_pie_mode" />
-
-        <ListPreference
-            android:key="pie_gravity"
-            android:dialogTitle="@string/pie_gravity_title"
-            android:title="@string/pie_gravity_title"
-            android:summary="@string/pie_gravity_summary"
-            android:entries="@array/entries_pie_gravity"
-            android:entryValues="@array/values_pie_gravity" />
 
         <ListPreference
             android:key="pie_size"

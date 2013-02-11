@@ -33,11 +33,13 @@ public class PieControl extends AOKPPreferenceFragment
     private static final String PIE_MENU = "pie_menu";
     private static final String PIE_SEARCH = "pie_search";
     private static final String PIE_LASTAPP = "pie_lastapp";
+    private static final String PIE_CENTER = "pie_center";
 
     private ListPreference mPieMode;
     private ListPreference mPieSize;
     private ListPreference mPieGravity;
     private CheckBoxPreference mPieControls;
+    private CheckBoxPreference mPieCenter;
     private ListPreference mPieTrigger;
     private ListPreference mPieGap;
     private CheckBoxPreference mPieMenu;
@@ -58,6 +60,10 @@ public class PieControl extends AOKPPreferenceFragment
         mPieControls = (CheckBoxPreference) findPreference(PIE_CONTROLS);
         mPieControls.setChecked((Settings.System.getInt(mContext.getContentResolver(),
                 Settings.System.PIE_CONTROLS, 0) == 1));
+
+        mPieCenter = (CheckBoxPreference) prefSet.findPreference(PIE_CENTER);
+        mPieCenter.setChecked(Settings.System.getInt(mContext.getContentResolver(),
+                Settings.System.PIE_CENTER, 1) == 1);
 
         mPieGravity = (ListPreference) prefSet.findPreference(PIE_GRAVITY);
         int pieGravity = Settings.System.getInt(mContext.getContentResolver(),
@@ -134,6 +140,9 @@ public class PieControl extends AOKPPreferenceFragment
             Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
                     Settings.System.PIE_LAST_APP,
                     mPieLastApp.isChecked() ? 1 : 0);
+        } else if (preference == mPieCenter) {
+            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
+                    Settings.System.PIE_CENTER, mPieCenter.isChecked() ? 1 : 0);
         }
         return super.onPreferenceTreeClick(preferenceScreen, preference);
     }

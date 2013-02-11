@@ -1146,6 +1146,8 @@
     <string name="pie_search_summary">Access to Google Now via Pie</string>
     <string name="pie_lastapp_title">Last App button</string>
     <string name="pie_lastapp_summary">Enable last app button on Pie</string>
+    <string name="pie_center_title">Center pie</string>
+    <string name="pie_center_summary">If un-checked, pie appears where your fingers is</string>
 
     <!-- Pie Color Settings -->
     <string name="pie_color_title">Pie color settings</string>
