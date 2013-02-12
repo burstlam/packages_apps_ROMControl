@@ -73,7 +73,7 @@ public class PowerMenu extends AOKPPreferenceFragment implements
 
         mShowNavBarHide = (CheckBoxPreference) findPreference(PREF_NAVBAR_HIDE);
         mShowNavBarHide.setChecked(Settings.System.getBoolean(getActivity()
-                .getContentResolver(), Settings.System.POWER_DIALOG_SHOW_NAVBAR_HIDE, false));
+                .getContentResolver(), Settings.System.POWER_DIALOG_SHOW_NAVBAR_HIDE, true));
 
 		mExpandedDesktopPref = (CheckBoxPreference) findPreference(PREF_EXPANDED_DESKTOP_TOGGLE);
         mExpandedDesktopPref.setChecked(Settings.System.getInt(getActivity()
