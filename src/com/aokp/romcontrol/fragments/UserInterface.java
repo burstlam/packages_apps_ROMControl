@@ -8,6 +8,7 @@ import android.app.DialogFragment;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.DialogInterface.OnMultiChoiceClickListener;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
@@ -121,6 +122,8 @@ public class UserInterface extends AOKPPreferenceFragment implements
 	private static final String PREF_FORCE_DUAL_PANEL = "force_dualpanel";
     private static final String PREF_WAKEUP_WHEN_PLUGGED_UNPLUGGED = "wakeup_when_plugged_unplugged";
     private static final String NOTIFICATION_SHADE_DIM = "notification_shade_dim";
+    private static final String PREF_POWER_CRT_SCREEN_ON = "system_power_crt_screen_on";
+    private static final String PREF_POWER_CRT_SCREEN_OFF = "system_power_crt_screen_off";
 
     CheckBoxPreference mAllow180Rotation;
     CheckBoxPreference mDisableBootAnimation;
@@ -148,7 +151,10 @@ public class UserInterface extends AOKPPreferenceFragment implements
     CheckBoxPreference mWakeUpWhenPluggedOrUnplugged;
     CheckBoxPreference mNotificationShadeDim;
     CheckBoxPreference mStatusBarHide;
+    CheckBoxPreference mCrtOff;
+    CheckBoxPreference mCrtOn;
 
+    private boolean isCrtOffChecked = false;
     private AnimationDrawable mAnimationPart1;
     private AnimationDrawable mAnimationPart2;
     
@@ -185,6 +191,28 @@ public class UserInterface extends AOKPPreferenceFragment implements
         ContentResolver cr = mContext.getContentResolver();
         mInsults = mContext.getResources().getStringArray(
                 R.array.disable_bootanimation_insults);
+
+       // respect device default configuration
+        // true fades while false animates
+        boolean electronBeamFadesConfig = mContext.getResources().getBoolean(
+                com.android.internal.R.bool.config_animateScreenLights);
+
+        // use this to enable/disable crt on feature
+        // crt only works if crt off is enabled
+        // total system failure if only crt on is enabled
+        isCrtOffChecked = Settings.System.getInt(getActivity().getContentResolver(),
+                Settings.System.SYSTEM_POWER_ENABLE_CRT_OFF,
+                electronBeamFadesConfig ? 0 : 1) == 1;
+
+        mCrtOff = (CheckBoxPreference) findPreference(PREF_POWER_CRT_SCREEN_OFF);
+        mCrtOff.setChecked(isCrtOffChecked);
+        mCrtOff.setOnPreferenceChangeListener(this);
+
+        mCrtOn = (CheckBoxPreference) findPreference(PREF_POWER_CRT_SCREEN_ON);
+        mCrtOn.setChecked(Settings.System.getInt(getActivity().getContentResolver(),
+                Settings.System.SYSTEM_POWER_ENABLE_CRT_ON, 0) == 1);
+        mCrtOn.setEnabled(isCrtOffChecked);
+        mCrtOn.setOnPreferenceChangeListener(this);
 
         mStatusbarSliderPreference = (CheckBoxPreference) findPreference(PREF_STATUSBAR_BRIGHTNESS);
 			        mStatusbarSliderPreference.setChecked(Settings.System.getBoolean(mContext.getContentResolver(),
@@ -565,6 +593,7 @@ public class UserInterface extends AOKPPreferenceFragment implements
 
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
+        final String key = preference.getKey();
         if (preference == mNotificationBackground) {
             int indexOf = mNotificationBackground.findIndexOfValue((String) newValue);
             switch (indexOf) {
@@ -643,6 +672,24 @@ public class UserInterface extends AOKPPreferenceFragment implements
             float valNav = Float.parseFloat((String) newValue);
             Settings.System.putFloat(getActivity().getContentResolver(),
                     Settings.System.NOTIF_ALPHA, valNav / 100);
+            return true;
+        } else if (mCrtOff.equals(preference)) {
+            isCrtOffChecked = ((Boolean) newValue).booleanValue();
+            Settings.System.putInt(getActivity().getContentResolver(),
+                    Settings.System.SYSTEM_POWER_ENABLE_CRT_OFF,
+                    (isCrtOffChecked ? 1 : 0));
+            // if crt off gets turned off, crt on gets turned off and disabled
+            if (!isCrtOffChecked) {
+                Settings.System.putInt(getActivity().getContentResolver(),
+                        Settings.System.SYSTEM_POWER_ENABLE_CRT_ON, 0);
+                mCrtOn.setChecked(false);
+            }
+            mCrtOn.setEnabled(isCrtOffChecked);
+            return true;
+        } else if (mCrtOn.equals(preference)) {
+            Settings.System.putInt(getActivity().getContentResolver(),
+                    Settings.System.SYSTEM_POWER_ENABLE_CRT_ON,
+                    ((Boolean) newValue).booleanValue() ? 1 : 0);
             return true;
         }
         return false;

@@ -166,9 +166,19 @@
             android:title="@string/custom_bootanimation_title"
             android:summary="@string/custom_bootanimation_summary" />
 
-         <CheckBoxPreference
+        <CheckBoxPreference
             android:key="disable_bootanimation"
             android:title="@string/disable_bootanimation_title" />
+
+        <CheckBoxPreference
+            android:key="system_power_crt_screen_off"
+            android:summary="@string/system_power_crt_screen_off_summary"
+            android:title="@string/system_power_crt_screen_off_title" />
+
+        <CheckBoxPreference
+            android:key="system_power_crt_screen_on"
+            android:summary="@string/system_power_crt_screen_on_summary"
+            android:title="@string/system_power_crt_screen_on_title" />
 
     </PreferenceCategory>
 
