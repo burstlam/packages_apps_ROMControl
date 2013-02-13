@@ -266,6 +266,10 @@ public class UserInterface extends AOKPPreferenceFragment implements
         mVibrateOnExpand.setChecked(Settings.System.getBoolean(cr,
                 Settings.System.VIBRATE_NOTIF_EXPAND, true));
 
+        if (!hasVibration) {
+            ((PreferenceGroup)findPreference("notification")).removePreference(mVibrateOnExpand);
+        }
+
         mRecentKillAll = (CheckBoxPreference) findPreference(PREF_RECENT_KILL_ALL);
         mRecentKillAll.setChecked(Settings.System.getBoolean(getActivity().getContentResolver(),
                 Settings.System.RECENT_KILL_ALL_BUTTON, false));
