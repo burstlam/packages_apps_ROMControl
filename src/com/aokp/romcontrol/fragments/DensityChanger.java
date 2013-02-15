@@ -26,7 +26,7 @@ import android.widget.EditText;
 import com.aokp.romcontrol.AOKPPreferenceFragment;
 import com.aokp.romcontrol.R;
 import com.aokp.romcontrol.util.CMDProcessor;
-import com.aokp.romcontrol.util.CMDProcessor.CommandResult;
+import com.aokp.romcontrol.util.CommandResult;
 import com.aokp.romcontrol.util.Helpers;
 
 public class DensityChanger extends AOKPPreferenceFragment implements
