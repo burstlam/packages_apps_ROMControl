@@ -2,6 +2,15 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:aokp="http://schemas.android.com/apk/res/com.aokp.romcontrol">
 
+    <PreferenceCategory android:title="@string/notification_cat">
+    <PreferenceScreen
+        android:key="notification_drawer"
+        android:fragment="com.aokp.romcontrol.fragments.PowerWidget"
+        android:title="@string/notification_drawer_title" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/header_statusbar">
+
     <Preference
         android:key="enabled_toggles"
         android:summary="@string/enabled_toggles_summary"
@@ -30,5 +39,7 @@
         android:title="@string/toggle_enable_fasttoggle_title"
         android:entries="@array/fast_toggle_entries"
         android:entryValues="@array/fast_toggle_values" />
+
+    </PreferenceCategory>
 
 </PreferenceScreen>

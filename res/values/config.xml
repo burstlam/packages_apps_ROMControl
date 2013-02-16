@@ -15,6 +15,9 @@
     <!-- Whether can use color tuning -->
     <bool name="has_color_tuning">true</bool>
 
+    <!-- LED Flashlight -->
+    <bool name="has_led_flash">true</bool>
+
     <!-- Whether device has led brightness feature -->
     <bool name="has_led_brightness_feature">false</bool>
 

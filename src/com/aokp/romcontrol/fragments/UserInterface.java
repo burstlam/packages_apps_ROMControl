@@ -14,6 +14,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.database.ContentObserver;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Point;
@@ -101,7 +102,7 @@ public class UserInterface extends AOKPPreferenceFragment implements
     private static final String PREF_RECENT_KILL_ALL = "recent_kill_all";
     private static final String PREF_RAM_USAGE_BAR = "ram_usage_bar";
     private static final String PREF_IME_SWITCHER = "ime_switcher";
-    private static final String PREF_STATUSBAR_BRIGHTNESS = "statusbar_brightness_slider";
+    private static final String STATUS_BAR_BRIGHTNESS_CONTROL = "status_bar_brightness_control";
     private static final String PREF_USER_MODE_UI = "user_mode_ui";
     private static final String PREF_HIDE_EXTRAS = "hide_extras";
     public static final String STATUS_BAR_MAX_NOTIF = "status_bar_max_notifications";
@@ -142,7 +143,7 @@ public class UserInterface extends AOKPPreferenceFragment implements
 	CheckBoxPreference mShowActionOverflow;
 	CheckBoxPreference mDualpane;
 	Preference mLcdDensity;
-    CheckBoxPreference mStatusbarSliderPreference;
+    CheckBoxPreference mStatusBarBrightnessControl;
     ListPreference mUserModeUI;
     CheckBoxPreference mHideExtras;
     ListPreference mStatusBarMaxNotif;
@@ -153,6 +154,8 @@ public class UserInterface extends AOKPPreferenceFragment implements
     CheckBoxPreference mStatusBarHide;
     CheckBoxPreference mCrtOff;
     CheckBoxPreference mCrtOn;
+
+    private StatusBarBrightnessChangedObserver mStatusBarBrightnessChangedObserver;
 
     private boolean isCrtOffChecked = false;
     private AnimationDrawable mAnimationPart1;
@@ -215,9 +218,13 @@ public class UserInterface extends AOKPPreferenceFragment implements
         mCrtOn.setEnabled(isCrtOffChecked);
         mCrtOn.setOnPreferenceChangeListener(this);
 
-        mStatusbarSliderPreference = (CheckBoxPreference) findPreference(PREF_STATUSBAR_BRIGHTNESS);
-			        mStatusbarSliderPreference.setChecked(Settings.System.getBoolean(mContext.getContentResolver(),
-			                Settings.System.STATUSBAR_BRIGHTNESS_SLIDER, true));
+        mStatusBarBrightnessControl = (CheckBoxPreference) findPreference(STATUS_BAR_BRIGHTNESS_CONTROL);
+        mStatusBarBrightnessControl.setChecked((Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
+                            Settings.System.STATUS_BAR_BRIGHTNESS_CONTROL, 0) == 1));
+
+        // Start observing for changes on auto brightness
+        mStatusBarBrightnessChangedObserver = new StatusBarBrightnessChangedObserver(new Handler());
+        mStatusBarBrightnessChangedObserver.startObserving();
 
         mAllow180Rotation = (CheckBoxPreference) findPreference(PREF_180);
         mUserRotationAngles = Settings.System.getInt(cr,
@@ -341,6 +348,27 @@ public class UserInterface extends AOKPPreferenceFragment implements
         setHasOptionsMenu(true);
         updateCustomBackgroundSummary();
         resetBootAnimation();
+        updateStatusBarBrightnessControl();
+    }
+
+    private void updateStatusBarBrightnessControl() {
+        int mode;
+        try {
+            if (mStatusBarBrightnessControl != null) {
+                mode = Settings.System.getIntForUser(mContext.getContentResolver(),
+                    Settings.System.SCREEN_BRIGHTNESS_MODE,
+                    Settings.System.SCREEN_BRIGHTNESS_MODE_MANUAL);
+
+                if (mode == Settings.System.SCREEN_BRIGHTNESS_MODE_AUTOMATIC) {
+                    mStatusBarBrightnessControl.setEnabled(false);
+                    mStatusBarBrightnessControl.setSummary(R.string.status_bar_toggle_info);
+                } else {
+                    mStatusBarBrightnessControl.setEnabled(true);
+                    mStatusBarBrightnessControl.setSummary(R.string.status_bar_toggle_brightness_summary);
+                }
+            }
+        } catch (SettingNotFoundException e) {
+        }
     }
 
     @Override
@@ -355,6 +383,25 @@ public class UserInterface extends AOKPPreferenceFragment implements
             } else {
                 mDisableBootAnimation.setSummary(null);
             }
+        }
+        updateStatusBarBrightnessControl();
+    }
+
+    private class StatusBarBrightnessChangedObserver extends ContentObserver {
+        public StatusBarBrightnessChangedObserver(Handler handler) {
+            super(handler);
+        }
+
+        @Override
+        public void onChange(boolean selfChange) {
+            updateStatusBarBrightnessControl();
+        }
+
+        public void startObserving() {
+            final ContentResolver cr = getActivity().getApplicationContext().getContentResolver();
+            cr.registerContentObserver(
+                    Settings.System.getUriFor(Settings.System.SCREEN_BRIGHTNESS_MODE),
+                    false, this);
         }
     }
 
@@ -521,11 +568,6 @@ public class UserInterface extends AOKPPreferenceFragment implements
         } else if (preference == mShowImeSwitcher) {
             Settings.System.putBoolean(getActivity().getContentResolver(),
                     Settings.System.SHOW_STATUSBAR_IME_SWITCHER,
-                    isCheckBoxPrefernceChecked(preference));
-            return true;
-        } else if (preference == mStatusbarSliderPreference) {
-            Settings.System.putBoolean(getActivity().getContentResolver(),
-                    Settings.System.STATUSBAR_BRIGHTNESS_SLIDER,
                     isCheckBoxPrefernceChecked(preference));
             return true;
         } else if (preference == mCustomLabel) {
@@ -704,6 +746,11 @@ public class UserInterface extends AOKPPreferenceFragment implements
             Settings.System.putInt(getActivity().getContentResolver(),
                     Settings.System.SYSTEM_POWER_ENABLE_CRT_ON,
                     ((Boolean) newValue).booleanValue() ? 1 : 0);
+            return true;
+        } else if (preference == mStatusBarBrightnessControl) {
+            boolean value = mStatusBarBrightnessControl.isChecked();
+            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
+                    Settings.System.STATUS_BAR_BRIGHTNESS_CONTROL, value ? 1 : 0);
             return true;
         }
         return false;
