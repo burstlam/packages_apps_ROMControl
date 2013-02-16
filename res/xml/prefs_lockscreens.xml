@@ -20,11 +20,21 @@
         android:summary="@string/lockscreen_target_summary"
         android:title="@string/lockscreen_target_title" />
 
+    <CheckBoxPreference
+            android:key="lockscreen_eight_targets"
+            android:title="@string/lockscreen_eight_targets_title"
+            android:summary="@string/lockscreen_eight_targets_summary" />
+
     <PreferenceScreen
-        android:key="lock_screen_shortcuts"
+        android:key="lockscreen_shortcuts"
         android:fragment="com.aokp.romcontrol.fragments.LockscreenShortcuts"
         android:title="@string/lock_screen_shortcuts_title"
         android:summary="@string/lock_screen_shortcuts_summary" />
+
+    <CheckBoxPreference
+            android:key="lockscreen_shortcuts_longpress"
+            android:title="@string/lockscreen_shorcuts_longpress_title"
+            android:summary="@string/lockscreen_shorcuts_longpress_summary" />
 
     </PreferenceCategory>
 

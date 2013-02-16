@@ -168,6 +168,8 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".fragments.LockscreenShortCuts"/>
+        <activity
             android:name=".fragments.About"
             android:label="@string/title_about" >
             <intent-filter>

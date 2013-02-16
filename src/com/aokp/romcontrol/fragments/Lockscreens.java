@@ -59,6 +59,7 @@ import com.aokp.romcontrol.ROMControlActivity;
 import com.aokp.romcontrol.util.Helpers;
 import net.margaritov.preference.colorpicker.ColorPickerPreference;
 import net.margaritov.preference.colorpicker.ColorPickerView;
+import com.android.internal.widget.multiwaveview.GlowPadView;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -80,6 +81,9 @@ public class Lockscreens extends AOKPPreferenceFragment implements OnPreferenceC
     private static final String PREF_LOCKSCREEN_USE_CAROUSEL = "lockscreen_use_widget_container_carousel";
     private static final String KEY_LOCKSCREEN_MAXIMIZE_WIDGETS = "lockscreen_maximize_widgets";
     private static final String PREF_LOCKSCREEN_LONGPRESS_CHALLENGE = "lockscreen_longpress_challenge";
+    private static final String PREF_LOCKSCREEN_EIGHT_TARGETS = "lockscreen_eight_targets";
+    private static final String PREF_LOCKSCREEN_SHORTCUTS = "lockscreen_shortcuts";
+    private static final String PREF_LOCKSCREEN_SHORTCUTS_LONGPRESS = "lockscreen_shortcuts_longpress";
 
     public static final int REQUEST_PICK_WALLPAPER = 199;
     public static final int REQUEST_PICK_CUSTOM_ICON = 200;
@@ -105,10 +109,20 @@ public class Lockscreens extends AOKPPreferenceFragment implements OnPreferenceC
     CheckBoxPreference mLockscreenUseCarousel;
     CheckBoxPreference mLockscreenLongpressChallenge;
     CheckBoxPreference mCameraWidget;
+    CheckBoxPreference mLockscreenEightTargets;
+    Preference mShortcuts;
+    CheckBoxPreference mLockscreenShortcutsLongpress;
+
+    private boolean mIsScreenLarge;
+    private Activity mActivity;
+    private ContentResolver mResolver;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mActivity = getActivity();
+        mResolver = mActivity.getContentResolver();
+        mIsScreenLarge = Helpers.isTablet(getActivity());
         setTitle(R.string.title_lockscreens);
 
         // Load the preferences from an XML resource
@@ -170,6 +184,19 @@ public class Lockscreens extends AOKPPreferenceFragment implements OnPreferenceC
         mLockscreenLongpressChallenge.setChecked(Settings.System.getBoolean(getActivity().getContentResolver(),
                 Settings.System.LOCKSCREEN_LONGPRESS_CHALLENGE, false));
 
+        mLockscreenEightTargets = (CheckBoxPreference) findPreference(PREF_LOCKSCREEN_EIGHT_TARGETS);
+        mLockscreenEightTargets.setChecked(Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
+                Settings.System.LOCKSCREEN_EIGHT_TARGETS, 0) == 1);
+
+        mLockscreenShortcutsLongpress = (CheckBoxPreference) findPreference(PREF_LOCKSCREEN_SHORTCUTS_LONGPRESS);
+        mLockscreenShortcutsLongpress.setChecked(Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
+                Settings.System.LOCKSCREEN_SHORTCUTS_LONGPRESS, 0) == 1);
+        mLockscreenShortcutsLongpress.setEnabled(!mLockscreenEightTargets.isChecked());
+
+        mShortcuts = (Preference) findPreference(PREF_LOCKSCREEN_SHORTCUTS);
+        mShortcuts.setEnabled(!mLockscreenEightTargets.isChecked());
+
+
         if (isTablet(mContext) || isPhablet(mContext)) {
             ((PreferenceGroup)findPreference("misc")).removePreference((Preference)findPreference(PREF_LOCKSCREEN_LONGPRESS_CHALLENGE));
         }
@@ -194,6 +221,23 @@ public class Lockscreens extends AOKPPreferenceFragment implements OnPreferenceC
             Settings.System.putBoolean(mContext.getContentResolver(),
                     Settings.System.VOLUME_WAKE_SCREEN,
                     ((CheckBoxPreference) preference).isChecked());
+            return true;
+        } else if (preference == mLockscreenEightTargets) {
+            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
+                    Settings.System.LOCKSCREEN_EIGHT_TARGETS, mLockscreenEightTargets.isChecked() ? 1 : 0);
+            mShortcuts.setEnabled(!mLockscreenEightTargets.isChecked());
+            mLockscreenShortcutsLongpress.setEnabled(!mLockscreenEightTargets.isChecked());
+            Settings.System.putString(getActivity().getApplicationContext().getContentResolver(),
+                    Settings.System.LOCKSCREEN_TARGETS, GlowPadView.EMPTY_TARGET);
+            for (File pic : mActivity.getFilesDir().listFiles()) {
+                if (pic.getName().startsWith("lockscreen_")) {
+                    pic.delete();
+                }
+            }
+            return true;
+        } else if (preference == mLockscreenShortcutsLongpress) {
+            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
+                    Settings.System.LOCKSCREEN_SHORTCUTS_LONGPRESS, mLockscreenShortcutsLongpress.isChecked() ? 1 : 0);
             return true;
         } else if (preference == mLockscreenAllWidgets) {
             Settings.System.putBoolean(mContext.getContentResolver(),
