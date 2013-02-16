@@ -53,7 +53,9 @@ public class StatusBarToggles extends AOKPPreferenceFragment implements
     private static final String PREF_ENABLE_TOGGLES = "enabled_toggles";
     private static final String PREF_TOGGLES_PER_ROW = "toggles_per_row";
     private static final String PREF_TOGGLE_FAV_CONTACT = "toggle_fav_contact";
-    private static final String PREF_ENABLE_FASTTOGGLE = "enable_fast_toggle"; 
+    private static final String PREF_ENABLE_FASTTOGGLE = "enable_fast_toggle";
+    private static final String PREF_NOTIFICATION_SHOW_WIFI_SSID = "notification_show_wifi_ssid";
+
 
     private final int PICK_CONTACT = 1;
 
@@ -62,6 +64,7 @@ public class StatusBarToggles extends AOKPPreferenceFragment implements
     ListPreference mTogglesPerRow;
     Preference mFavContact;
     ListPreference mFastToggle;
+    CheckBoxPreference mShowWifiName;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -98,6 +101,10 @@ public class StatusBarToggles extends AOKPPreferenceFragment implements
         else {
             getPreferenceScreen().removePreference(mFavContact);
         }
+
+        mShowWifiName = (CheckBoxPreference) findPreference(PREF_NOTIFICATION_SHOW_WIFI_SSID);
+        mShowWifiName.setChecked(Settings.System.getInt(getActivity().getContentResolver(),
+                Settings.System.NOTIFICATION_SHOW_WIFI_SSID, 0) == 1);
     }
 
     @Override
@@ -119,7 +126,12 @@ public class StatusBarToggles extends AOKPPreferenceFragment implements
 
     @Override
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
-        if (preference == mEnabledToggles) {
+        if (preference == mShowWifiName) {
+            Settings.System.putInt(getActivity().getContentResolver(),
+                    Settings.System.NOTIFICATION_SHOW_WIFI_SSID,
+                    mShowWifiName.isChecked() ? 1 : 0);
+            return true;
+        } else if (preference == mEnabledToggles) {
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
             ArrayList<String> enabledToggles = getTogglesStringArray(getActivity());

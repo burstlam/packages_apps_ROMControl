@@ -7,6 +7,13 @@
         android:key="notification_drawer"
         android:fragment="com.aokp.romcontrol.fragments.PowerWidget"
         android:title="@string/notification_drawer_title" />
+
+    <CheckBoxPreference
+        android:key="notification_show_wifi_ssid"
+        android:title="@string/notification_show_wifi_ssid_title"
+        android:summary="@string/notification_show_wifi_ssid_summary"
+        android:defaultValue="false" />
+
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/header_statusbar">
