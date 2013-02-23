@@ -1244,8 +1244,15 @@
    <string name="system_power_crt_screen_on_title">CRT Screen On</string>
    <string name="system_power_crt_screen_on_summary">Screen will animate an Electron Beam when turned on</string>
 
+    <!-- Low Battery Warning -->
+   <string name="pref_low_battery_warning_policy_title">Low battery warning</string>
+
     <!-- Power Widget -->
     <string name="notification_drawer_title">Notification Power Widget</string>
+    <string name="low_bat_warning_on">Pop-up and sound</string>
+    <string name="low_bat_warning_popup_only">Pop-up only</string>
+    <string name="low_bat_warning_sound_only">Sound only</string>
+    <string name="low_bat_warning_off">Off</string>
 
     <!-- Widgets -->
     <string name="power_widget_title">Power widget</string>
