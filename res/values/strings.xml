@@ -1425,4 +1425,7 @@
     <string name="lowercase">Lowercase</string>
     <string name="uppercase">Uppercase</string>
     <string name="custom_java_format">Custom Java Format</string>
+
+    <!-- Lockscreen See Through -->
+    <string name="lockscreen_seethrough">Lockscreen See through</string>
 </resources>

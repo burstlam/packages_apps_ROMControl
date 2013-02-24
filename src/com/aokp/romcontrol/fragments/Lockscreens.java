@@ -96,11 +96,13 @@ public class Lockscreens extends AOKPPreferenceFragment implements OnPreferenceC
     private static final String PREF_LOCKSCREEN_SHORTCUTS_LONGPRESS = "lockscreen_shortcuts_longpress";
     private static final String KEY_LOCKSCREEN_BACKGROUND_ALPHA = "lockscreen_background_alpha";
     public static final String KEY_BACKGROUND_PREF = "lockscreen_background";
+    private static final String KEY_SEE_TRHOUGH = "see_through";
 
     private File mWallpaperImage;
     private File mWallpaperTemporary;
     private ListPreference mCustomBackground;
     private Preference mWallpaperAlpha;
+    CheckBoxPreference mSeeThrough;
 
     Preference mLockscreenTargets;
 
@@ -211,6 +213,10 @@ public class Lockscreens extends AOKPPreferenceFragment implements OnPreferenceC
         mWallpaperTemporary = new File(getActivity().getCacheDir() + "/lockwallpaper.tmp");
 
         mWallpaperAlpha = (Preference) findPreference(KEY_LOCKSCREEN_BACKGROUND_ALPHA);
+
+        mSeeThrough = (CheckBoxPreference) findPreference(KEY_SEE_TRHOUGH);
+        mSeeThrough.setChecked(Settings.System.getInt(getActivity().getContentResolver(),
+                Settings.System.LOCKSCREEN_SEE_THROUGH, 0) == 1);
 
         setHasOptionsMenu(true);
     }
@@ -375,8 +381,12 @@ public class Lockscreens extends AOKPPreferenceFragment implements OnPreferenceC
             .create()
             .show();
             return true;
+        } else if (preference == mSeeThrough) {
+            Settings.System.putInt(mContext.getContentResolver(), 
+                Settings.System.LOCKSCREEN_SEE_THROUGH, 
+                ((CheckBoxPreference)preference).isChecked() ? 1 : 0);
+            return true;
         }
-
         return super.onPreferenceTreeClick(preferenceScreen, preference);
     }
 

@@ -52,6 +52,10 @@
         android:key="layout"
         android:title="@string/lockscreen_layout_cat">
 
+    <CheckBoxPreference
+        android:key="see_through"
+        android:title="@string/lockscreen_seethrough"/>
+
     <ListPreference
         android:key="lockscreen_background"
         android:persistent="false"
