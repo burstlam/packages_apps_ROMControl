@@ -123,7 +123,7 @@ public class UserInterface extends AOKPPreferenceFragment implements
 	private static final String PREF_FORCE_DUAL_PANEL = "force_dualpanel";
     private static final String PREF_WAKEUP_WHEN_PLUGGED_UNPLUGGED = "wakeup_when_plugged_unplugged";
     private static final String NOTIFICATION_SHADE_DIM = "notification_shade_dim";
-    private static final String PREF_POWER_CRT_SCREEN_ON = "system_power_crt_screen_on";
+    private static final String KEY_POWER_CRT_MODE = "system_power_crt_mode";
     private static final String PREF_POWER_CRT_SCREEN_OFF = "system_power_crt_screen_off";
     private static final String PREF_LOW_BATTERY_WARNING_POLICY = "pref_low_battery_warning_policy";
 
@@ -154,12 +154,12 @@ public class UserInterface extends AOKPPreferenceFragment implements
     CheckBoxPreference mNotificationShadeDim;
     CheckBoxPreference mStatusBarHide;
     CheckBoxPreference mCrtOff;
-    CheckBoxPreference mCrtOn;
+    ListPreference mCrtMode;
     ListPreference mLowBatteryWarning;
 
     private StatusBarBrightnessChangedObserver mStatusBarBrightnessChangedObserver;
 
-    private boolean isCrtOffChecked = false;
+    private boolean mIsCrtOffChecked = false;
     private AnimationDrawable mAnimationPart1;
     private AnimationDrawable mAnimationPart2;
     
@@ -204,21 +204,19 @@ public class UserInterface extends AOKPPreferenceFragment implements
                 com.android.internal.R.bool.config_animateScreenLights);
 
         // use this to enable/disable crt on feature
-        // crt only works if crt off is enabled
-        // total system failure if only crt on is enabled
-        isCrtOffChecked = Settings.System.getInt(getActivity().getContentResolver(),
+        mIsCrtOffChecked = Settings.System.getInt(getActivity().getContentResolver(),
                 Settings.System.SYSTEM_POWER_ENABLE_CRT_OFF,
                 electronBeamFadesConfig ? 0 : 1) == 1;
 
         mCrtOff = (CheckBoxPreference) findPreference(PREF_POWER_CRT_SCREEN_OFF);
-        mCrtOff.setChecked(isCrtOffChecked);
-        mCrtOff.setOnPreferenceChangeListener(this);
+        mCrtOff.setChecked(mIsCrtOffChecked);
 
-        mCrtOn = (CheckBoxPreference) findPreference(PREF_POWER_CRT_SCREEN_ON);
-        mCrtOn.setChecked(Settings.System.getInt(getActivity().getContentResolver(),
-                Settings.System.SYSTEM_POWER_ENABLE_CRT_ON, 0) == 1);
-        mCrtOn.setEnabled(isCrtOffChecked);
-        mCrtOn.setOnPreferenceChangeListener(this);
+        mCrtMode = (ListPreference) findPreference(KEY_POWER_CRT_MODE);
+        int crtMode = Settings.System.getInt(getActivity().getContentResolver(),
+                Settings.System.SYSTEM_POWER_CRT_MODE, 0);
+        mCrtMode.setValue(String.valueOf(crtMode));
+        mCrtMode.setSummary(mCrtMode.getEntry());
+        mCrtMode.setOnPreferenceChangeListener(this);
 
         mLowBatteryWarning = (ListPreference) findPreference(PREF_LOW_BATTERY_WARNING_POLICY);
         int lowBatteryWarning = Settings.System.getInt(getActivity().getContentResolver(),
@@ -656,6 +654,11 @@ public class UserInterface extends AOKPPreferenceFragment implements
             Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
                     Settings.System.STATUS_BAR_BRIGHTNESS_CONTROL, value ? 1 : 0);
             return true;
+        } else if (preference == mCrtOff) {
+            Settings.System.putInt(getActivity().getContentResolver(),
+                    Settings.System.SYSTEM_POWER_ENABLE_CRT_OFF,
+                    mCrtOff.isChecked() ? 1 : 0);
+            return true;
         }
         return super.onPreferenceTreeClick(preferenceScreen, preference);
     }
@@ -742,23 +745,12 @@ public class UserInterface extends AOKPPreferenceFragment implements
             Settings.System.putFloat(getActivity().getContentResolver(),
                     Settings.System.NOTIF_ALPHA, valNav / 100);
             return true;
-        } else if (mCrtOff.equals(preference)) {
-            isCrtOffChecked = ((Boolean) newValue).booleanValue();
+        } else if (preference == mCrtMode) {
+            int crtMode = Integer.valueOf((String) newValue);
+            int index = mCrtMode.findIndexOfValue((String) newValue);
             Settings.System.putInt(getActivity().getContentResolver(),
-                    Settings.System.SYSTEM_POWER_ENABLE_CRT_OFF,
-                    (isCrtOffChecked ? 1 : 0));
-            // if crt off gets turned off, crt on gets turned off and disabled
-            if (!isCrtOffChecked) {
-                Settings.System.putInt(getActivity().getContentResolver(),
-                        Settings.System.SYSTEM_POWER_ENABLE_CRT_ON, 0);
-                mCrtOn.setChecked(false);
-            }
-            mCrtOn.setEnabled(isCrtOffChecked);
-            return true;
-        } else if (mCrtOn.equals(preference)) {
-            Settings.System.putInt(getActivity().getContentResolver(),
-                    Settings.System.SYSTEM_POWER_ENABLE_CRT_ON,
-                    ((Boolean) newValue).booleanValue() ? 1 : 0);
+                    Settings.System.SYSTEM_POWER_CRT_MODE, crtMode);
+            mCrtMode.setSummary(mCrtMode.getEntries()[index]);
             return true;
         } else if (preference == mLowBatteryWarning) {
             int lowBatteryWarning = Integer.valueOf((String) newValue);
