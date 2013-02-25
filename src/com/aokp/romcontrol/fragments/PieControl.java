@@ -69,7 +69,7 @@ public class PieControl extends AOKPPreferenceFragment
 
         mPieStick = (CheckBoxPreference) prefSet.findPreference(PIE_STICK);
         mPieStick.setChecked(Settings.System.getInt(mContext.getContentResolver(),
-                Settings.System.PIE_STICK, 0) == 1);
+                Settings.System.PIE_STICK, 1) == 1);
 
         mPieGravity = (ListPreference) prefSet.findPreference(PIE_GRAVITY);
         int pieGravity = Settings.System.getInt(mContext.getContentResolver(),
@@ -84,20 +84,25 @@ public class PieControl extends AOKPPreferenceFragment
         mPieMode.setOnPreferenceChangeListener(this);
 
         mPieSize = (ListPreference) prefSet.findPreference(PIE_SIZE);
-        String pieSize = Settings.System.getString(mContext.getContentResolver(),
-                Settings.System.PIE_SIZE);
-        mPieSize.setValue(pieSize != null && !pieSize.isEmpty() ? pieSize : "1");
-        mPieSize.setOnPreferenceChangeListener(this);
-
         mPieTrigger = (ListPreference) prefSet.findPreference(PIE_TRIGGER);
-        String pieTrigger = Settings.System.getString(mContext.getContentResolver(),
-                Settings.System.PIE_TRIGGER);
-        mPieTrigger.setValue(pieTrigger != null && !pieTrigger.isEmpty() ? pieTrigger : "1");
+        try {
+            float pieSize = Settings.System.getFloat(mContext.getContentResolver(),
+                    Settings.System.PIE_SIZE, 1.0f);
+            mPieSize.setValue(String.valueOf(pieSize));
+  
+            float pieTrigger = Settings.System.getFloat(mContext.getContentResolver(),
+                    Settings.System.PIE_TRIGGER);
+            mPieTrigger.setValue(String.valueOf(pieTrigger));
+        } catch(SettingNotFoundException ex) {
+            // So what
+        }
+
+        mPieSize.setOnPreferenceChangeListener(this);
         mPieTrigger.setOnPreferenceChangeListener(this);
 
         mPieGap = (ListPreference) prefSet.findPreference(PIE_GAP);
         int pieGap = Settings.System.getInt(mContext.getContentResolver(),
-                Settings.System.PIE_GAP, 1);
+                Settings.System.PIE_GAP, 3);
         mPieGap.setValue(String.valueOf(pieGap));
         mPieGap.setOnPreferenceChangeListener(this);
 
