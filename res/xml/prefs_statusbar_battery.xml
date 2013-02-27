@@ -18,25 +18,25 @@
         <net.margaritov.preference.colorpicker.ColorPickerPreference
             android:key="battery_text_only_color"
             android:title="@string/battery_text_only_color"
-            android:defaultValue="@android:color/holo_blue_light"
+            android:defaultValue="0xff33b5e5"
             android:persistent="true" />
 
         <net.margaritov.preference.colorpicker.ColorPickerPreference
             android:key="battery_charge_text_only_color"
             android:title="@string/battery_charge_text_only_color"
-            android:defaultValue="#FF99CC00"
+            android:defaultValue="0xff99cc00"
             android:persistent="true" />
 
         <net.margaritov.preference.colorpicker.ColorPickerPreference
             android:key="battery_cmcircle_ring_color"
             android:title="@string/battery_cm_circle_ring_color"
-            android:defaultValue="@android:color/holo_blue_light"
+            android:defaultValue="0xff33b5e5"
             android:persistent="true" />
 
         <net.margaritov.preference.colorpicker.ColorPickerPreference
             android:key="battery_cmcircle_ring_color_charge"
             android:title="@string/battery_cm_circle_ring_color_charge"
-            android:defaultValue="@android:color/holo_blue_light"
+            android:defaultValue="0xff33b5e5"
             android:persistent="true" />
 
     </PreferenceCategory>
@@ -65,7 +65,7 @@
         <net.margaritov.preference.colorpicker.ColorPickerPreference
             android:key="battery_bar_color"
             android:title="@string/battery_bar_color"
-            android:defaultValue="#33B5E5" />
+            android:defaultValue="0xff33b5e5" />
 
         <ListPreference
             android:key="battery_bar_thickness"

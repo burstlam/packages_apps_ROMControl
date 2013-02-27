@@ -70,6 +70,10 @@ public class StatusBarClock extends AOKPPreferenceFragment implements
 
         PreferenceScreen prefs = getPreferenceScreen();
 
+        int defaultColor;
+        int intColor;
+        String hexColor;
+
         mPicker = new ShortcutPickerHelper(this, this);
 
         mClockStyle = (ListPreference) findPreference(PREF_ENABLE);
@@ -86,6 +90,13 @@ public class StatusBarClock extends AOKPPreferenceFragment implements
 
         mColorPicker = (ColorPickerPreference) findPreference(PREF_COLOR_PICKER);
         mColorPicker.setOnPreferenceChangeListener(this);
+        defaultColor = getResources().getColor(
+                com.android.internal.R.color.holo_blue_light);
+        intColor = Settings.System.getInt(getActivity().getContentResolver(),
+                    Settings.System.STATUSBAR_CLOCK_COLOR, defaultColor);
+        hexColor = String.format("#%08x", (0xffffffff & intColor));
+        mColorPicker.setSummary(hexColor);
+        mColorPicker.setNewPreviewColor(intColor);
 
         mClockDateDisplay = (ListPreference) findPreference(PREF_CLOCK_DATE_DISPLAY);
         mClockDateDisplay.setOnPreferenceChangeListener(this);

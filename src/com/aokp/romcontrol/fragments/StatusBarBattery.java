@@ -41,6 +41,10 @@ public class StatusBarBattery extends AOKPPreferenceFragment implements
         // Load the preferences from an XML resource
         addPreferencesFromResource(R.xml.prefs_statusbar_battery);
 
+        int defaultColor;
+        int intColor;
+        String hexColor;
+
         mBatteryIcon = (ListPreference) findPreference(PREF_BATT_ICON);
         mBatteryIcon.setOnPreferenceChangeListener(this);
         mBatteryIcon.setValue((Settings.System.getInt(getActivity()
@@ -64,6 +68,13 @@ public class StatusBarBattery extends AOKPPreferenceFragment implements
 
         mBatteryBarColor = (ColorPickerPreference) findPreference(PREF_BATT_BAR_COLOR);
         mBatteryBarColor.setOnPreferenceChangeListener(this);
+        defaultColor = getResources().getColor(
+                com.android.internal.R.color.holo_blue_light);
+        intColor = Settings.System.getInt(getActivity().getContentResolver(),
+                    Settings.System.STATUSBAR_BATTERY_BAR_COLOR, defaultColor);
+        hexColor = String.format("#%08x", (0xffffffff & intColor));
+        mBatteryBarColor.setSummary(hexColor);
+        mBatteryBarColor.setNewPreviewColor(intColor);
 
         mBatteryBarChargingAnimation = (CheckBoxPreference) findPreference(PREF_BATT_ANIMATE);
         mBatteryBarChargingAnimation.setChecked(Settings.System.getInt(
@@ -77,21 +88,49 @@ public class StatusBarBattery extends AOKPPreferenceFragment implements
                 Settings.System.STATUSBAR_BATTERY_BAR_THICKNESS, 1))
                 + "");
 
-		mBatteryChargeTextColor = (ColorPickerPreference)
-				findPreference("battery_charge_text_only_color");
-        mBatteryChargeTextColor.setOnPreferenceChangeListener(this);
-
         mBatteryTextColor = (ColorPickerPreference)
 				findPreference("battery_text_only_color");
         mBatteryTextColor.setOnPreferenceChangeListener(this);
+        defaultColor = getResources().getColor(
+                com.android.internal.R.color.holo_blue_light);
+        intColor = Settings.System.getInt(getActivity().getContentResolver(),
+                    Settings.System.STATUSBAR_BATTERY_TEXT_COLOR, defaultColor);
+        hexColor = String.format("#%08x", (0xffffffff & intColor));
+        mBatteryTextColor.setSummary(hexColor);
+        mBatteryTextColor.setNewPreviewColor(intColor);
+
+		mBatteryChargeTextColor = (ColorPickerPreference)
+				findPreference("battery_charge_text_only_color");
+        mBatteryChargeTextColor.setOnPreferenceChangeListener(this);
+        defaultColor = getResources().getColor(
+                com.android.internal.R.color.holo_blue_light);
+        intColor = Settings.System.getInt(getActivity().getContentResolver(),
+                    Settings.System.STATUSBAR_BATTERY_CHARGE_TEXT_COLOR, defaultColor);
+        hexColor = String.format("#%08x", (0xffffffff & intColor));
+        mBatteryChargeTextColor.setSummary(hexColor);
+        mBatteryChargeTextColor.setNewPreviewColor(intColor);
 
 		mCmCirleRingColor = (ColorPickerPreference)
                 findPreference("battery_cmcircle_ring_color");
         mCmCirleRingColor.setOnPreferenceChangeListener(this);
+        defaultColor = getResources().getColor(
+                com.android.internal.R.color.holo_blue_light);
+        intColor = Settings.System.getInt(getActivity().getContentResolver(),
+                    Settings.System.STATUSBAR_CMCIRLE_RING_COLOR, defaultColor);
+        hexColor = String.format("#%08x", (0xffffffff & intColor));
+        mCmCirleRingColor.setSummary(hexColor);
+        mCmCirleRingColor.setNewPreviewColor(intColor);
 
         mCmCirleRingColorCharge = (ColorPickerPreference)
                 findPreference("battery_cmcircle_ring_color_charge");
-        mCmCirleRingColorCharge.setOnPreferenceChangeListener(this);		
+        mCmCirleRingColorCharge.setOnPreferenceChangeListener(this);
+        defaultColor = getResources().getColor(
+                com.android.internal.R.color.holo_blue_light);
+        intColor = Settings.System.getInt(getActivity().getContentResolver(),
+                    Settings.System.STATUSBAR_CMCIRLE_RING_COLOR_CHARGE, defaultColor);
+        hexColor = String.format("#%08x", (0xffffffff & intColor));
+        mCmCirleRingColorCharge.setSummary(hexColor);
+        mCmCirleRingColorCharge.setNewPreviewColor(intColor);		
     }
 
     @Override
