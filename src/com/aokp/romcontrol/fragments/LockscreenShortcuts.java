@@ -296,8 +296,8 @@ public class LockscreenShortcuts extends ApplicationsDialogPreference {
         String[] labels;
 
         public IconAdapter() {
-            labels = mResources.getStringArray(R.array.lockscreen_shortcut_icon_picker_labels);
-            icons = mResources.obtainTypedArray(R.array.lockscreen_shortcut_icon_picker_icons);
+            labels = mResources.getStringArray(R.array.lockscreen_icon_picker_labels);
+            icons = mResources.obtainTypedArray(R.array.lockscreen_icon_picker_icons);
         }
 
         @Override

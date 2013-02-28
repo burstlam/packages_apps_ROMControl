@@ -147,8 +147,8 @@ public class IconPick {
         TypedArray icons;
 
         public IconAdapter() {
-            labels = mResources.getStringArray(R.array.lockscreen_shortcut_icon_picker_labels);
-            icons = mResources.obtainTypedArray(R.array.lockscreen_shortcut_icon_picker_icons);
+            labels = mResources.getStringArray(R.array.lockscreen_icon_picker_labels);
+            icons = mResources.obtainTypedArray(R.array.lockscreen_icon_picker_icons);
         }
 
         @Override
