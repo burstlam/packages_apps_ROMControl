@@ -308,7 +308,7 @@
     <string name="toggle_ime">IME</string>
     <string name="toggle_battery">Battery</string>
     <string name="toggle_brightness">Brightness</string>
-	<string name="toggle_screen">Screen Off</string>
+	<string name="toggle_sleep">Screen Off</string>
     <string name="toggle_sound_state">Ring/Vib/Silent</string>
     <string name="toggle_navbar_hide">Navbar Auto Hide</string>
     <string name="toggle_powermenu">Power Menu</string>
