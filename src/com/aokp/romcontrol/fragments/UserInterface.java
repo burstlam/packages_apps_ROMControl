@@ -115,6 +115,7 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
     private static final String BOOTANIMATION_SYSTEM_PATH = "/system/media/bootanimation.zip";
     private static final String STATUS_BAR_CARRIER_LABEL = "status_bar_carrier_label";
     private static final String STATUS_BAR_CARRIER_COLOR = "status_bar_carrier_color";
+    private static final CharSequence  PREF_NOTIFICATION_BEHAVIOUR = "notifications_behaviour";
 
     CheckBoxPreference mDisableBootAnimation;
     CheckBoxPreference mStatusBarNotifCount;
@@ -142,6 +143,7 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
 
     CheckBoxPreference mStatusBarCarrierLabel;
     ColorPickerPreference mCarrierColorPicker;
+    ListPreference mNotificationsBehavior;
 
     private AnimationDrawable mAnimationPart1;
     private AnimationDrawable mAnimationPart2;
@@ -185,6 +187,13 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
 
         mCustomLabel = findPreference(PREF_CUSTOM_CARRIER_LABEL);
         updateCustomLabelTextSummary();
+
+        mNotificationsBehavior = (ListPreference) findPreference(PREF_NOTIFICATION_BEHAVIOUR);
+        int CurrentBehavior = Settings.System.getInt(getContentResolver(),
+                Settings.System.NOTIFICATIONS_BEHAVIOUR, 0);
+        mNotificationsBehavior.setValue(String.valueOf(CurrentBehavior));
+        mNotificationsBehavior.setSummary(mNotificationsBehavior.getEntry());
+        mNotificationsBehavior.setOnPreferenceChangeListener(this);
 
         mStatusbarSliderPreference = (CheckBoxPreference) findPreference(PREF_STATUSBAR_BRIGHTNESS);
         mStatusbarSliderPreference.setChecked(Settings.System.getBoolean(mContentResolver,
@@ -1084,6 +1093,15 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
             int intHex = ColorPickerPreference.convertToColorInt(hex);
             Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
                     Settings.System.STATUS_BAR_CARRIER_COLOR, intHex);
+            return true;
+        } else if (preference == mNotificationsBehavior) {
+            String val = (String) newValue;
+            Settings.System.putInt(getContentResolver(),
+                Settings.System.NOTIFICATIONS_BEHAVIOUR,
+            Integer.valueOf(val));
+            int index = mNotificationsBehavior.findIndexOfValue(val);
+            mNotificationsBehavior.setSummary(mNotificationsBehavior.getEntries()[index]);
+            Helpers.restartSystemUI();
             return true;
         }
         return false;

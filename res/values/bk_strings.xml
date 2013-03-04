@@ -76,4 +76,11 @@
     <string name="show_carrier_label_title">carrier label</string>
     <string name="show_carrier_label_summary">Show Carrier label in statsbar</string>
     <string name="status_bar_carrier_color">Select Statusbar Carrier Label Color</string>
+
+    <!-- Notification behavior -->
+    <string name="notification_behaviour_title">Notification behavior</string>
+    <string name="noti_beh_normal">Normal</string>
+    <string name="noti_beh_never">Never</string>
+    <string name="noti_beh_always">Always</string>
+    <string name="noti_beh_old">Old Style</string>
 </resources>
