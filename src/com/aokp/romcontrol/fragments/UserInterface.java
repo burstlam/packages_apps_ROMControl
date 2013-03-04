@@ -117,6 +117,7 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
     private static final CharSequence KEY_POWER_CRT_MODE = "system_power_crt_mode";
     private static final CharSequence PREF_POWER_CRT_SCREEN_OFF = "system_power_crt_screen_off";
     private static final CharSequence PREF_LOW_BATTERY_WARNING_POLICY = "pref_low_battery_warning_policy";
+    private static final CharSequence  PREF_NOTIFICATION_BEHAVIOUR = "notifications_behaviour";
 
     private static final CharSequence PREF_DISABLE_BOOTANIM = "disable_bootanimation";
     private static final CharSequence PREF_CUSTOM_BOOTANIM = "custom_bootanimation";
@@ -161,6 +162,7 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
     CheckBoxPreference mCrtOff;
     ListPreference mCrtMode;
     ListPreference mLowBatteryWarning;
+    ListPreference mNotificationsBehavior;
 
     private StatusBarBrightnessChangedObserver mStatusBarBrightnessChangedObserver;
 
@@ -348,6 +350,13 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
         mNotificationShadeDim.setChecked((Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
                 Settings.System.NOTIFICATION_SHADE_DIM, ActivityManager.isHighEndGfx() ? 1 : 0)== 1));
 
+        mNotificationsBehavior = (ListPreference) findPreference(PREF_NOTIFICATION_BEHAVIOUR);
+        int CurrentBehavior = Settings.System.getInt(getContentResolver(),
+                Settings.System.NOTIFICATIONS_BEHAVIOUR, 0);
+        mNotificationsBehavior.setValue(String.valueOf(CurrentBehavior));
+        mNotificationsBehavior.setSummary(mNotificationsBehavior.getEntry());
+        mNotificationsBehavior.setOnPreferenceChangeListener(this);
+
         if (Helpers.isTablet(getActivity())) {
                 getPreferenceScreen().removePreference(mNotificationShadeDim);
         }
@@ -417,10 +426,10 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
     }
 
     /**
-* Resets boot animation path. Essentially clears temporary-set boot animation
-* set by the user from the dialog.
-* @return returns true if a boot animation exists (user or system). false otherwise.
-*/
+     * Resets boot animation path. Essentially clears temporary-set boot animation
+     * set by the user from the dialog.
+     * @return returns true if a boot animation exists (user or system). false otherwise.
+     */
     private boolean resetBootAnimation() {
         boolean bootAnimationExists = false;
         if(new File(BOOTANIMATION_USER_PATH).exists()) {
@@ -752,6 +761,15 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
             Settings.System.putInt(getActivity().getContentResolver(),
                     Settings.System.POWER_UI_LOW_BATTERY_WARNING_POLICY, lowBatteryWarning);
             mLowBatteryWarning.setSummary(mLowBatteryWarning.getEntries()[index]);
+            return true;
+        } else if (preference == mNotificationsBehavior) {
+            String val = (String) newValue;
+            Settings.System.putInt(getContentResolver(),
+                Settings.System.NOTIFICATIONS_BEHAVIOUR,
+            Integer.valueOf(val));
+            int index = mNotificationsBehavior.findIndexOfValue(val);
+            mNotificationsBehavior.setSummary(mNotificationsBehavior.getEntries()[index]);
+            Helpers.restartSystemUI();
             return true;
         }
         return false;

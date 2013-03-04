@@ -1041,6 +1041,13 @@
     <string name="notification_shade_dim_title">Dim notification shade</string>
     <string name="notification_shade_dim_summary">Toggle the dimming effect when pulling down the notification shade</string>
 
+    <!-- Notification behavior -->
+    <string name="notification_behaviour_title">Notification behavior</string>
+    <string name="noti_beh_normal">Normal</string>
+    <string name="noti_beh_never">Never</string>
+    <string name="noti_beh_always">Always</string>
+    <string name="noti_beh_old">Old Style</string>
+
     <!-- Lockscreen Widget -->
     <string name="lockscreen_maximize_widgets_title">Maximize widgets</string>
     <string name="lockscreen_maximize_widgets_summary">Show widgets maximized and the unlock mimimized when the screen is turned on</string>
