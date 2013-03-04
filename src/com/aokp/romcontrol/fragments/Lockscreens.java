@@ -201,7 +201,7 @@ public class Lockscreens extends AOKPPreferenceFragment implements OnPreferenceC
         mShortcuts.setEnabled(!mLockscreenEightTargets.isChecked());
 
 
-        if (isTablet(mContext) || isPhablet(mContext)) {
+        if (isSW600DPScreen(mContext)) {
             ((PreferenceGroup)findPreference("misc")).removePreference((Preference)findPreference(PREF_LOCKSCREEN_LONGPRESS_CHALLENGE));
         }
 
