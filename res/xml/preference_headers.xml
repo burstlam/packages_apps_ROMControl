@@ -38,6 +38,12 @@
         android:summary="@string/header_summary_navigation_bar" />
 
      <header
+            android:fragment="com.aokp.romcontrol.fragments.PieControl"
+            android:key="toolbar_pie_controls"
+            android:icon="@drawable/ic_pie_control"
+            android:title="@string/pie_controls_title" />
+
+     <header
         android:id="@+id/nav_ring"
         android:fragment="com.aokp.romcontrol.fragments.NavRingTargets"
         android:icon="@drawable/ic_rom_control_navigation_ring"

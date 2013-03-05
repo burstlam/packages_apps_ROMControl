@@ -4,11 +4,6 @@
                 android:key="enable_nav_bar"
                 android:title="@string/navbar_enable_bar" />
 
-        <Preference
-            android:fragment="com.aokp.romcontrol.fragments.PieControl"
-            android:key="toolbar_pie_controls"
-            android:title="@string/pie_controls_title" />
-
         <PreferenceCategory
             android:key="navbar_hide_cat"
             android:title="@string/navbar_hide">
