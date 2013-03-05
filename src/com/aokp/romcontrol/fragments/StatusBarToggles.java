@@ -44,7 +44,7 @@ public class StatusBarToggles extends AOKPPreferenceFragment implements
     private static final String PREF_TOGGLE_FAV_CONTACT = "toggle_fav_contact";
     private static final String PREF_ENABLE_FASTTOGGLE = "enable_fast_toggle";
     private static final String PREF_NOTIFICATION_SHOW_WIFI_SSID = "notification_show_wifi_ssid";
-
+    private static final String PREF_SCREENSHOT_TIMEOUT = "toggle_screenshot_timeout";
 
     private final int PICK_CONTACT = 1;
 
@@ -55,6 +55,7 @@ public class StatusBarToggles extends AOKPPreferenceFragment implements
     Preference mFavContact;
     ListPreference mFastToggle;
     CheckBoxPreference mShowWifiName;
+    ListPreference mScreenTimeout;
 
     BroadcastReceiver mReceiver;
     ArrayList<String> mToggles;
@@ -104,6 +105,8 @@ public class StatusBarToggles extends AOKPPreferenceFragment implements
         mFastToggle.setValue(String.valueOf(statusFastToggle));
         updateFastToggleSummary(statusFastToggle);
 
+        mScreenTimeout = (ListPreference) findPreference(PREF_SCREENSHOT_TIMEOUT);
+        mScreenTimeout.setOnPreferenceChangeListener(this);
 
         mShowWifiName = (CheckBoxPreference) findPreference(PREF_NOTIFICATION_SHOW_WIFI_SSID);
         mShowWifiName.setChecked(Settings.System.getInt(getActivity().getContentResolver(),
@@ -173,6 +176,11 @@ public class StatusBarToggles extends AOKPPreferenceFragment implements
                     Settings.System.TOGGLES_STYLE, val);
             mTogglesStyle.setValue((String) newValue);
             Helpers.restartSystemUI();
+        } else if (preference == mScreenTimeout) {
+            int val = Integer.parseInt((String) newValue);
+            Settings.System.putInt(getActivity().getContentResolver(),
+                    Settings.System.SCREENSHOT_TIMEOUT, val);
+            return true;
         }
         return true;
     }
