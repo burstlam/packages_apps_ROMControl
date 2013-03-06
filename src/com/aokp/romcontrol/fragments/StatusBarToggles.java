@@ -84,13 +84,12 @@ public class StatusBarToggles extends AOKPPreferenceFragment implements
 
         mTogglesPerRow = (ListPreference) findPreference(PREF_TOGGLES_PER_ROW);
         mTogglesPerRow.setOnPreferenceChangeListener(this);
-        mTogglesPerRow.setValue(Settings.System.getInt(getActivity().getContentResolver(),
+        mTogglesPerRow.setValue(Settings.System.getInt(mContentRes,
                 Settings.System.QUICK_TOGGLES_PER_ROW, 3) + "");
 
         mTogglesStyle = (ListPreference) findPreference(PREF_TOGGLES_STYLE);
         mTogglesStyle.setOnPreferenceChangeListener(this);
-        mTogglesStyle.setValue(String.valueOf(Settings.System.getInt(getActivity()
-                .getContentResolver(),
+        mTogglesStyle.setValue(String.valueOf(Settings.System.getInt(mContentRes,
                 Settings.System.TOGGLES_STYLE, 0)));
 
         mLayout = findPreference("toggles");
@@ -99,14 +98,13 @@ public class StatusBarToggles extends AOKPPreferenceFragment implements
 
         mFastToggle = (ListPreference) findPreference(PREF_ENABLE_FASTTOGGLE);
         mFastToggle.setOnPreferenceChangeListener(this);
-        int statusFastToggle = Settings.System.getInt(getActivity().getContentResolver(),
+        int statusFastToggle = Settings.System.getInt(mContentRes,
             Settings.System.FAST_TOGGLE, 0);
         mFastToggle.setValue(String.valueOf(statusFastToggle));
         updateFastToggleSummary(statusFastToggle);
 
-
         mShowWifiName = (CheckBoxPreference) findPreference(PREF_NOTIFICATION_SHOW_WIFI_SSID);
-        mShowWifiName.setChecked(Settings.System.getInt(getActivity().getContentResolver(),
+        mShowWifiName.setChecked(Settings.System.getInt(mContentRes,
                 Settings.System.NOTIFICATION_SHOW_WIFI_SSID, 0) == 1);
         }
 
@@ -158,18 +156,18 @@ public class StatusBarToggles extends AOKPPreferenceFragment implements
     public boolean onPreferenceChange(Preference preference, Object newValue) {
         if (preference == mTogglesPerRow) {
             int val = Integer.parseInt((String) newValue);
-            Settings.System.putInt(getActivity().getContentResolver(),
+            Settings.System.putInt(mContentRes,
                     Settings.System.QUICK_TOGGLES_PER_ROW, val);
             return true;
         } else if (preference == mFastToggle) {
             int statusFastToggle = Integer.valueOf((String) newValue);
-            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(), 
+            Settings.System.putInt(mContentRes,
                     Settings.System.FAST_TOGGLE, statusFastToggle);
             updateFastToggleSummary(statusFastToggle);
             return true;
         } else if (preference == mTogglesStyle) {
             int val = Integer.parseInt((String) newValue);
-            Settings.System.putInt(getActivity().getContentResolver(),
+            Settings.System.putInt(mContentRes,
                     Settings.System.TOGGLES_STYLE, val);
             mTogglesStyle.setValue((String) newValue);
             Helpers.restartSystemUI();
@@ -181,7 +179,7 @@ public class StatusBarToggles extends AOKPPreferenceFragment implements
     @Override
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
         if (preference == mShowWifiName) {
-            Settings.System.putInt(getActivity().getContentResolver(),
+            Settings.System.putInt(mContentRes,
                     Settings.System.NOTIFICATION_SHOW_WIFI_SSID,
                     mShowWifiName.isChecked() ? 1 : 0);
             return true;
@@ -217,7 +215,7 @@ public class StatusBarToggles extends AOKPPreferenceFragment implements
             }
             if (!anyChecked) {
                 // no toggles are checked, wipe the setting to be sure
-                Settings.System.putString(getContentResolver(), Settings.System.QUICK_TOGGLES, "");
+                Settings.System.putString(mContentRes, Settings.System.QUICK_TOGGLES, "");
             }
 
             builder.setTitle(R.string.toggles_display_dialog);
@@ -297,7 +295,7 @@ public class StatusBarToggles extends AOKPPreferenceFragment implements
                         if (cursor.moveToFirst()) {
                             String lookup_key = cursor.getString(cursor
                                     .getColumnIndex(ContactsContract.Contacts.LOOKUP_KEY));
-                            Settings.System.putString(getActivity().getContentResolver(),
+                            Settings.System.putString(mContentRes,
                                     Settings.System.QUICK_TOGGLE_FAV_CONTACT, lookup_key);
                         }
                     } finally {

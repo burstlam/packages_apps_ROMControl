@@ -116,48 +116,48 @@ public class PowerMenu extends AOKPPreferenceFragment implements
     @Override
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
         if (preference == mShowScreenShot) {
-            Settings.System.putBoolean(getActivity().getContentResolver(),
+            Settings.System.putBoolean(mContentRes,
                     Settings.System.POWER_DIALOG_SHOW_SCREENSHOT,
                     ((CheckBoxPreference)preference).isChecked());
             return true;
         /*
         } else if (preference == mShowPowerSaver) {
-            Settings.System.putInt(getActivity().getContentResolver(),
+            Settings.System.putInt(mContentRes,
                     Settings.System.POWER_DIALOG_SHOW_POWER_SAVER,
                     ((CheckBoxPreference)preference).isChecked() ? 1 : 0);
             return true; */
         } else if (preference == mShowPowerOff) {
-            Settings.System.putInt(getActivity().getContentResolver(),
+            Settings.System.putInt(mContentRes,
                     Settings.System.POWER_DIALOG_SHOW_POWER_OFF,
                     ((CheckBoxPreference) preference).isChecked() ? 1 : 0);
             return true;
         } else if (preference == mShowTorchToggle) {
-            Settings.System.putBoolean(getActivity().getContentResolver(),
+            Settings.System.putBoolean(mContentRes,
                     Settings.System.POWER_DIALOG_SHOW_TORCH_TOGGLE,
                     ((CheckBoxPreference)preference).isChecked());
             return true;
         } else if (preference == mShowAirplaneToggle) {
-            Settings.System.putBoolean(getActivity().getContentResolver(),
+            Settings.System.putBoolean(mContentRes,
                     Settings.System.POWER_DIALOG_SHOW_AIRPLANE_TOGGLE,
                     ((CheckBoxPreference)preference).isChecked());
             return true;
         } else if (preference == mShowNavBarHide) {
-            Settings.System.putBoolean(getActivity().getContentResolver(),
+            Settings.System.putBoolean(mContentRes,
                     Settings.System.POWER_DIALOG_SHOW_NAVBAR_HIDE,
                     ((CheckBoxPreference)preference).isChecked());
             return true;
 		} else if (preference == mExpandedDesktopPref) {
-            Settings.System.putInt(getActivity().getContentResolver(),
+            Settings.System.putInt(mContentRes,
                     Settings.System.POWER_DIALOG_SHOW_EXPANDED_DESKTOP_TOGGLE,
                     ((CheckBoxPreference)preference).isChecked() ? 1 : 0);
             return true;
         } else if (preference == mPieRestart) {
-            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
+            Settings.System.putInt(mContentRes,
                     Settings.System.EXPANDED_DESKTOP_RESTART_LAUNCHER, 
                     ((CheckBoxPreference)preference).isChecked() ? 1 : 0);
             return true;
 		} else if (preference == mShowRebootKeyguard) {
-            Settings.System.putBoolean(getActivity().getContentResolver(),
+            Settings.System.putBoolean(mContentRes,
                     Settings.System.POWER_DIALOG_SHOW_REBOOT_KEYGUARD,
                     ((CheckBoxPreference)preference).isChecked());
             return true;

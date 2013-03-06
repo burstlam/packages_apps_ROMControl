@@ -150,50 +150,50 @@ public class Lockscreens extends AOKPPreferenceFragment implements OnPreferenceC
         removePreferenceIfPackageNotInstalled(findPreference(KEY_LOCK_CLOCK));
 
         mVolumeRockerWake = (CheckBoxPreference) findPreference(PREF_VOLUME_ROCKER_WAKE);
-        mVolumeRockerWake.setChecked(Settings.System.getBoolean(mContext
-                .getContentResolver(), Settings.System.VOLUME_WAKE_SCREEN, false));
+        mVolumeRockerWake.setChecked(Settings.System.getBoolean(mContentRes,
+                Settings.System.VOLUME_WAKE_SCREEN, false));
 
         mLockscreenAutoRotate = (CheckBoxPreference)findPreference(PREF_LOCKSCREEN_AUTO_ROTATE);
-        mLockscreenAutoRotate.setChecked(Settings.System.getBoolean(mContext
-                .getContentResolver(), Settings.System.LOCKSCREEN_AUTO_ROTATE, false));
+        mLockscreenAutoRotate.setChecked(Settings.System.getBoolean(mContentRes,
+                Settings.System.LOCKSCREEN_AUTO_ROTATE, false));
 
         mLockscreenBattery = (CheckBoxPreference)findPreference(PREF_LOCKSCREEN_BATTERY);
-        mLockscreenBattery.setChecked(Settings.System.getBoolean(getActivity().getContentResolver(),
+        mLockscreenBattery.setChecked(Settings.System.getBoolean(mContentRes,
                 Settings.System.LOCKSCREEN_BATTERY, false));
 
         mLockscreenAllWidgets = (CheckBoxPreference)findPreference(PREF_LOCKSCREEN_ALL_WIDGETS);
-        mLockscreenAllWidgets.setChecked(Settings.System.getBoolean(getActivity().getContentResolver(),
+        mLockscreenAllWidgets.setChecked(Settings.System.getBoolean(mContentRes,
                 Settings.System.LOCKSCREEN_ALL_WIDGETS, false));
 
         mLockscreenUnlimitedWidgets = (CheckBoxPreference)findPreference(PREF_LOCKSCREEN_UNLIMITED_WIDGETS);
-        mLockscreenUnlimitedWidgets.setChecked(Settings.System.getBoolean(getActivity().getContentResolver(),
+        mLockscreenUnlimitedWidgets.setChecked(Settings.System.getBoolean(mContentRes,
                 Settings.System.LOCKSCREEN_UNLIMITED_WIDGETS, false));
 
         mCameraWidget = (CheckBoxPreference) findPreference(KEY_LOCKSCREEN_CAMERA_WIDGET);
-        mCameraWidget.setChecked(Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
+        mCameraWidget.setChecked(Settings.System.getInt(mContentRes,
                 Settings.System.KG_CAMERA_WIDGET, 0) == 1);
 
         mLockscreenTextColor = (ColorPickerPreference) findPreference(PREF_LOCKSCREEN_TEXT_COLOR);
         mLockscreenTextColor.setOnPreferenceChangeListener(this);
 
         mLockscreenHideInitialPageHints = (CheckBoxPreference)findPreference(PREF_LOCKSCREEN_HIDE_INITIAL_PAGE_HINTS);
-        mLockscreenHideInitialPageHints.setChecked(Settings.System.getBoolean(getActivity().getContentResolver(),
+        mLockscreenHideInitialPageHints.setChecked(Settings.System.getBoolean(mContentRes,
                 Settings.System.LOCKSCREEN_HIDE_INITIAL_PAGE_HINTS, false));
 
         mLockscreenUseCarousel = (CheckBoxPreference)findPreference(PREF_LOCKSCREEN_USE_CAROUSEL);
-        mLockscreenUseCarousel.setChecked(Settings.System.getBoolean(getActivity().getContentResolver(),
+        mLockscreenUseCarousel.setChecked(Settings.System.getBoolean(mContentRes,
                 Settings.System.LOCKSCREEN_USE_WIDGET_CONTAINER_CAROUSEL, false));
 
         mLockscreenLongpressChallenge = (CheckBoxPreference)findPreference(PREF_LOCKSCREEN_LONGPRESS_CHALLENGE);
-        mLockscreenLongpressChallenge.setChecked(Settings.System.getBoolean(getActivity().getContentResolver(),
+        mLockscreenLongpressChallenge.setChecked(Settings.System.getBoolean(mContentRes,
                 Settings.System.LOCKSCREEN_LONGPRESS_CHALLENGE, false));
 
         mLockscreenEightTargets = (CheckBoxPreference) findPreference(PREF_LOCKSCREEN_EIGHT_TARGETS);
-        mLockscreenEightTargets.setChecked(Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
+        mLockscreenEightTargets.setChecked(Settings.System.getInt(mContentRes,
                 Settings.System.LOCKSCREEN_EIGHT_TARGETS, 0) == 1);
 
         mLockscreenShortcutsLongpress = (CheckBoxPreference) findPreference(PREF_LOCKSCREEN_SHORTCUTS_LONGPRESS);
-        mLockscreenShortcutsLongpress.setChecked(Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
+        mLockscreenShortcutsLongpress.setChecked(Settings.System.getInt(mContentRes,
                 Settings.System.LOCKSCREEN_SHORTCUTS_LONGPRESS, 0) == 1);
         mLockscreenShortcutsLongpress.setEnabled(!mLockscreenEightTargets.isChecked());
 
@@ -215,8 +215,8 @@ public class Lockscreens extends AOKPPreferenceFragment implements OnPreferenceC
         mWallpaperAlpha = (Preference) findPreference(KEY_LOCKSCREEN_BACKGROUND_ALPHA);
 
         mLockTransparent = (CheckBoxPreference) findPreference(LOCKSCREEN_TRANSPARENT_PREF);
-        mLockTransparent.setChecked(Settings.System.getBoolean(mContext
-                .getContentResolver(), Settings.System.LOCKSCREEN_TRANSPARENT, false));
+        mLockTransparent.setChecked(Settings.System.getBoolean(mContentRes,
+                Settings.System.LOCKSCREEN_TRANSPARENT, false));
 
         setHasOptionsMenu(true);
     }
@@ -247,7 +247,7 @@ public class Lockscreens extends AOKPPreferenceFragment implements OnPreferenceC
                 mWallpaperImage.setReadable(true, false);
                 Toast.makeText(mActivity, getResources().getString(R.string.
                         lockscreen_background_result_successful), Toast.LENGTH_LONG).show();
-                Settings.System.putString(getContentResolver(),
+                Settings.System.putString(mContentRes,
                         Settings.System.LOCKSCREEN_BACKGROUND,"");
                 updateCustomBackgroundSummary();
             } else {
@@ -264,9 +264,8 @@ public class Lockscreens extends AOKPPreferenceFragment implements OnPreferenceC
     public void onResume() {
         super.onResume();
 
-        ContentResolver cr = getActivity().getContentResolver();
         if (mMaximizeWidgets != null) {
-            mMaximizeWidgets.setChecked(Settings.System.getInt(cr,
+            mMaximizeWidgets.setChecked(Settings.System.getInt(mContentRes,
                     Settings.System.LOCKSCREEN_MAXIMIZE_WIDGETS, 0) == 1);
         }
     }
@@ -274,16 +273,16 @@ public class Lockscreens extends AOKPPreferenceFragment implements OnPreferenceC
     @Override
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
         if (preference == mVolumeRockerWake) {
-            Settings.System.putBoolean(mContext.getContentResolver(),
+            Settings.System.putBoolean(mContentRes,
                     Settings.System.VOLUME_WAKE_SCREEN,
                     ((CheckBoxPreference) preference).isChecked());
             return true;
         } else if (preference == mLockscreenEightTargets) {
-            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
+            Settings.System.putInt(mContentRes,
                     Settings.System.LOCKSCREEN_EIGHT_TARGETS, mLockscreenEightTargets.isChecked() ? 1 : 0);
             mShortcuts.setEnabled(!mLockscreenEightTargets.isChecked());
             mLockscreenShortcutsLongpress.setEnabled(!mLockscreenEightTargets.isChecked());
-            Settings.System.putString(getActivity().getApplicationContext().getContentResolver(),
+            Settings.System.putString(mContentRes,
                     Settings.System.LOCKSCREEN_TARGETS, GlowPadView.EMPTY_TARGET);
             for (File pic : mActivity.getFilesDir().listFiles()) {
                 if (pic.getName().startsWith("lockscreen_")) {
@@ -292,46 +291,47 @@ public class Lockscreens extends AOKPPreferenceFragment implements OnPreferenceC
             }
             return true;
         } else if (preference == mLockscreenShortcutsLongpress) {
-            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
-                    Settings.System.LOCKSCREEN_SHORTCUTS_LONGPRESS, mLockscreenShortcutsLongpress.isChecked() ? 1 : 0);
+            Settings.System.putInt(mContentRes,
+                    Settings.System.LOCKSCREEN_SHORTCUTS_LONGPRESS,
+                    mLockscreenShortcutsLongpress.isChecked() ? 1 : 0);
             return true;
         } else if (preference == mLockscreenAllWidgets) {
-            Settings.System.putBoolean(mContext.getContentResolver(),
+            Settings.System.putBoolean(mContentRes,
                     Settings.System.LOCKSCREEN_ALL_WIDGETS,
                     ((CheckBoxPreference) preference).isChecked());
             return true;
         } else if (preference == mCameraWidget) {
-            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
+            Settings.System.putInt(mContentRes,
                     Settings.System.KG_CAMERA_WIDGET, 
                     ((CheckBoxPreference)preference).isChecked() ? 1 : 0);
             return true;
         } else if (preference == mLockscreenUnlimitedWidgets) {
-            Settings.System.putBoolean(mContext.getContentResolver(),
+            Settings.System.putBoolean(mContentRes,
                     Settings.System.LOCKSCREEN_UNLIMITED_WIDGETS,
                     ((CheckBoxPreference) preference).isChecked());
             return true;
         } else if (preference == mLockscreenBattery) {
-            Settings.System.putInt(getActivity().getContentResolver(),
+            Settings.System.putInt(mContentRes,
                     Settings.System.LOCKSCREEN_BATTERY,
                     ((CheckBoxPreference)preference).isChecked() ? 1 : 0);
             return true;
         } else if (preference == mLockscreenAutoRotate) {
-            Settings.System.putBoolean(mContext.getContentResolver(),
+            Settings.System.putBoolean(mContentRes,
                     Settings.System.LOCKSCREEN_AUTO_ROTATE,
                     ((CheckBoxPreference) preference).isChecked());
             return true;
         } else if (preference == mLockscreenHideInitialPageHints) {
-            Settings.System.putInt(getActivity().getContentResolver(),
+            Settings.System.putInt(mContentRes,
                     Settings.System.LOCKSCREEN_HIDE_INITIAL_PAGE_HINTS,
                     ((CheckBoxPreference)preference).isChecked() ? 1 : 0);
             return true;
         } else if (preference == mLockscreenUseCarousel) {
-            Settings.System.putInt(getActivity().getContentResolver(),
+            Settings.System.putInt(mContentRes,
                     Settings.System.LOCKSCREEN_USE_WIDGET_CONTAINER_CAROUSEL,
                     ((CheckBoxPreference)preference).isChecked() ? 1 : 0);
             return true;
         } else if (preference == mLockscreenLongpressChallenge) {
-            Settings.System.putBoolean(getActivity().getContentResolver(),
+            Settings.System.putBoolean(mContentRes,
                     Settings.System.LOCKSCREEN_LONGPRESS_CHALLENGE,
                     ((CheckBoxPreference)preference).isChecked());
             return true;
@@ -374,7 +374,7 @@ public class Lockscreens extends AOKPPreferenceFragment implements OnPreferenceC
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     float val = ((float) seekbarProgress / 100);
-                    Settings.System.putFloat(getActivity().getContentResolver(),
+                    Settings.System.putFloat(mContentRes,
                         Settings.System.LOCKSCREEN_BACKGROUND_ALPHA, val);
                 }
             })
@@ -382,7 +382,7 @@ public class Lockscreens extends AOKPPreferenceFragment implements OnPreferenceC
             .show();
             return true;
         } else if (preference == mLockTransparent) {
-            Settings.System.putBoolean(mContext.getContentResolver(),
+            Settings.System.putBoolean(mContentRes,
                     Settings.System.LOCKSCREEN_TRANSPARENT,
                     ((CheckBoxPreference)preference).isChecked());
             return true;
@@ -400,12 +400,12 @@ public class Lockscreens extends AOKPPreferenceFragment implements OnPreferenceC
             String hex = ColorPickerPreference.convertToARGB(Integer.valueOf(String.valueOf(newValue)));
             preference.setSummary(hex);
             int intHex = ColorPickerPreference.convertToColorInt(hex);
-            Settings.System.putInt(getActivity().getContentResolver(),
+            Settings.System.putInt(mContentRes,
                     Settings.System.LOCKSCREEN_CUSTOM_TEXT_COLOR, intHex);
             return true;
         } else if (preference == mMaximizeWidgets) {
             boolean value = (Boolean) newValue;
-            Settings.System.putInt(getActivity().getContentResolver(),
+            Settings.System.putInt(mContentRes,
                     Settings.System.LOCKSCREEN_MAXIMIZE_WIDGETS, value ? 1 : 0);
             return true;
         }
@@ -438,7 +438,7 @@ public class Lockscreens extends AOKPPreferenceFragment implements OnPreferenceC
     private boolean handleBackgroundSelection(int selection) {
         if (selection == LOCKSCREEN_BACKGROUND_COLOR_FILL) {
             final ColorPickerView colorView = new ColorPickerView(getActivity());
-            int currentColor = Settings.System.getInt(getContentResolver(),
+            int currentColor = Settings.System.getInt(mContentRes,
                     Settings.System.LOCKSCREEN_BACKGROUND, -1);
 
             if (currentColor != -1) {
@@ -451,7 +451,7 @@ public class Lockscreens extends AOKPPreferenceFragment implements OnPreferenceC
                     .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            Settings.System.putInt(getContentResolver(),
+                            Settings.System.putInt(mContentRes,
                                     Settings.System.LOCKSCREEN_BACKGROUND, colorView.getColor());
                             updateCustomBackgroundSummary();
                         }
@@ -502,7 +502,7 @@ public class Lockscreens extends AOKPPreferenceFragment implements OnPreferenceC
                 // Do nothing here
             }
         } else if (selection == LOCKSCREEN_BACKGROUND_DEFAULT_WALLPAPER) {
-            Settings.System.putString(getContentResolver(),
+            Settings.System.putString(mContentRes,
                     Settings.System.LOCKSCREEN_BACKGROUND, null);
             updateCustomBackgroundSummary();
             return true;
