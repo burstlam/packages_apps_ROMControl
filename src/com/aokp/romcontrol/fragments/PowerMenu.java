@@ -26,6 +26,7 @@ public class PowerMenu extends AOKPPreferenceFragment implements
     private static final String PREF_NAVBAR_HIDE = "show_navbar_hide";
 	private static final String PREF_EXPANDED_DESKTOP_TOGGLE = "power_menu_expanded_desktop";
 	private static final String EXPANDED_DESKTOP_STYLE = "expanded_desktop_style";
+    private static final String PIE_RESTART = "pie_restart_launcher";
 
     //CheckBoxPreference mShowPowerSaver;
     CheckBoxPreference mShowPowerOff;
@@ -35,6 +36,7 @@ public class PowerMenu extends AOKPPreferenceFragment implements
     CheckBoxPreference mShowNavBarHide;
 	CheckBoxPreference mExpandedDesktopPref;
     ListPreference mExpandedDesktopSbPref;
+    private CheckBoxPreference mPieRestart;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -87,6 +89,10 @@ public class PowerMenu extends AOKPPreferenceFragment implements
         mExpandedDesktopSbPref.setValue(String.valueOf(expandedDesktopValue));
         updateExpandedDesktopSummary(expandedDesktopValue);
 
+        mPieRestart = (CheckBoxPreference) prefSet.findPreference(PIE_RESTART);
+        mPieRestart.setChecked(Settings.System.getInt(mContext.getContentResolver(),
+                Settings.System.EXPANDED_DESKTOP_RESTART_LAUNCHER, 1) == 1);
+
     }
 
     @Override
@@ -137,6 +143,11 @@ public class PowerMenu extends AOKPPreferenceFragment implements
 		} else if (preference == mExpandedDesktopPref) {
             Settings.System.putInt(getActivity().getContentResolver(),
                     Settings.System.POWER_DIALOG_SHOW_EXPANDED_DESKTOP_TOGGLE,
+                    ((CheckBoxPreference)preference).isChecked() ? 1 : 0);
+            return true;
+        } else if (preference == mPieRestart) {
+            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
+                    Settings.System.EXPANDED_DESKTOP_RESTART_LAUNCHER, 
                     ((CheckBoxPreference)preference).isChecked() ? 1 : 0);
             return true;
         }
