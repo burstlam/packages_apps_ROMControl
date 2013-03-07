@@ -352,12 +352,6 @@
         <service android:name=".service.FlipService"/>
         <service android:name=".service.ExternalCommandService"
             android:exported="false"/>
-        <service android:name=".service.BootService"/>
-        <service android:name=".service.HeadphoneService"/>
-        <service android:name=".service.FlipService"/>
-        <service
-            android:name=".service.ExternalCommandService"
-            android:exported="false"/>
     </application>
 
 </manifest>
