@@ -227,7 +227,7 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
 
         mLowBatteryWarning = (ListPreference) findPreference(PREF_LOW_BATTERY_WARNING_POLICY);
         int lowBatteryWarning = Settings.System.getInt(mContentResolver,
-                                    Settings.System.POWER_UI_LOW_BATTERY_WARNING_POLICY, 3);
+                                    Settings.System.POWER_UI_LOW_BATTERY_WARNING_POLICY, 0);
         mLowBatteryWarning.setValue(String.valueOf(lowBatteryWarning));
         mLowBatteryWarning.setSummary(mLowBatteryWarning.getEntry());
         mLowBatteryWarning.setOnPreferenceChangeListener(this);

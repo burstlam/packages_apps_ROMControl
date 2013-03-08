@@ -1264,15 +1264,8 @@
     <string name="system_power_crt_mode_vertical">Portrait vertical</string>
     <string name="system_power_crt_mode_both">Orientation dependent</string>
 
-    <!-- Low Battery Warning -->
-   <string name="pref_low_battery_warning_policy_title">Low battery warning</string>
-
     <!-- Power Widget -->
     <string name="notification_drawer_title">Notification Power Widget</string>
-    <string name="low_bat_warning_on">Pop-up and sound</string>
-    <string name="low_bat_warning_popup_only">Pop-up only</string>
-    <string name="low_bat_warning_sound_only">Sound only</string>
-    <string name="low_bat_warning_off">Off</string>
 
     <!-- Widgets -->
     <string name="power_widget_title">Power widget</string>
@@ -1474,4 +1467,15 @@
     <string name="timeout_normal">Normal</string>
     <string name="timeout_slow">Slow</string>
     <string name="timeout_eslow">Extremely Slow</string>
+
+    <!-- Low Battery Warning -->
+    <string name="pref_low_battery_warning_policy_title">Low battery warning</string>
+    <string name="pref_low_battery_warning_policy_dialog_title">Indicate low battery warning with</string>
+    <string name="low_battery_warning_policy_popup_sound">Pop-up and sound</string>
+    <string name="low_battery_warning_policy_notif_sound">Notification and sound</string>
+    <string name="low_battery_warning_policy_popup">Pop-up dialog only</string>
+    <string name="low_battery_warning_policy_notif">Notification only</string>
+    <string name="low_battery_warning_policy_sound">Sound only</string>
+    <string name="low_battery_warning_policy_disabled">Disabled</string>
+
 </resources>
