@@ -117,6 +117,7 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
     private static final String STATUS_BAR_CARRIER_COLOR = "status_bar_carrier_color";
     private static final CharSequence  PREF_NOTIFICATION_BEHAVIOUR = "notifications_behaviour";
     private static final CharSequence KEY_STATUS_BAR_ICON_OPACITY = "status_bar_icon_opacity";
+    private static final CharSequence PREF_LOW_BATTERY_WARNING_POLICY = "pref_low_battery_warning_policy";
 
     CheckBoxPreference mDisableBootAnimation;
     CheckBoxPreference mStatusBarNotifCount;
@@ -146,6 +147,7 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
     ColorPickerPreference mCarrierColorPicker;
     ListPreference mNotificationsBehavior;
     ListPreference mStatusBarIconOpacity;
+    ListPreference mLowBatteryWarning;
 
     private AnimationDrawable mAnimationPart1;
     private AnimationDrawable mAnimationPart2;
@@ -202,6 +204,13 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
                 Settings.System.STATUS_BAR_NOTIF_ICON_OPACITY, 140);
         mStatusBarIconOpacity.setValue(String.valueOf(iconOpacity));
         mStatusBarIconOpacity.setOnPreferenceChangeListener(this);
+
+        mLowBatteryWarning = (ListPreference) findPreference(PREF_LOW_BATTERY_WARNING_POLICY);
+        int lowBatteryWarning = Settings.System.getInt(mContentResolver,
+                                    Settings.System.POWER_UI_LOW_BATTERY_WARNING_POLICY, 0);
+        mLowBatteryWarning.setValue(String.valueOf(lowBatteryWarning));
+        mLowBatteryWarning.setSummary(mLowBatteryWarning.getEntry());
+        mLowBatteryWarning.setOnPreferenceChangeListener(this);
 
         mStatusbarSliderPreference = (CheckBoxPreference) findPreference(PREF_STATUSBAR_BRIGHTNESS);
         mStatusbarSliderPreference.setChecked(Settings.System.getBoolean(mContentResolver,
@@ -1115,6 +1124,13 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
             int iconOpacity = Integer.valueOf((String) newValue);
             Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
                     Settings.System.STATUS_BAR_NOTIF_ICON_OPACITY, iconOpacity);
+            return true;
+        } else if (preference == mLowBatteryWarning) {
+            int lowBatteryWarning = Integer.valueOf((String) newValue);
+            int index = mLowBatteryWarning.findIndexOfValue((String) newValue);
+            Settings.System.putInt(getActivity().getContentResolver(),
+                    Settings.System.POWER_UI_LOW_BATTERY_WARNING_POLICY, lowBatteryWarning);
+            mLowBatteryWarning.setSummary(mLowBatteryWarning.getEntries()[index]);
             return true;
         }
         return false;
