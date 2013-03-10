@@ -315,12 +315,17 @@ public class Navbar extends AOKPPreferenceFragment implements
             Helpers.restartSystemUI();
             return true;
         } else if (preference == mNavBarHideEnable) {
-
             Settings.System.putBoolean(mContentRes,
                     Settings.System.NAV_HIDE_ENABLE,
                     ((CheckBoxPreference) preference).isChecked());
             Settings.System.putBoolean(mContentRes,
                     Settings.System.NAVIGATION_BAR_SHOW_NOW, !((CheckBoxPreference) preference).isChecked());
+            mDragHandleOpacity.setInitValue(Settings.System.getInt(mContentRes,
+                    Settings.System.DRAG_HANDLE_OPACITY,50));
+            mDragHandleWidth.setInitValue(Settings.System.getInt(mContentRes,
+                    Settings.System.DRAG_HANDLE_WEIGHT,5));
+            mNavBarHideTimeout.setValue(Settings.System.getInt(mContentRes,
+                    Settings.System.NAV_HIDE_TIMEOUT, 3000) + "");
             Helpers.restartSystemUI();
             refreshSettings();
             return true;
