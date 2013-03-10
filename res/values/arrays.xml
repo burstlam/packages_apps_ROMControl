@@ -211,6 +211,7 @@
         <item>@string/circle_mod</item>
         <item>@string/cm_circle_wo_percent</item>
         <item>@string/cm_circle_with_percent</item>
+        <item>@string/rb_battery</item>
         <item>@string/battery_hide</item>
     </string-array>
     <string-array name="battery_icon_values" translatable="false">
@@ -222,6 +223,7 @@
         <item>5</item>
         <item>6</item>
         <item>7</item>
+        <item>8</item>
     </string-array>
 
     <!-- NavBar -->

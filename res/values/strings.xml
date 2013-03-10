@@ -869,6 +869,7 @@
     <string name="circle_mod">CircleMOD</string>
     <string name="cm_circle_wo_percent">CM circle w/o percent</string>
     <string name="cm_circle_with_percent">CM circle with percent</string>
+	<string name="rb_battery">RootBox Circle Mod</string>
 	<string name="battery_hide">Hide</string>
 
     <!-- NavBar -->
