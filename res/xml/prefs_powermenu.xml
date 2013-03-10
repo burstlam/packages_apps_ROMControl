@@ -4,6 +4,9 @@
     <CheckBoxPreference android:key="show_power_off"
         android:title="@string/title_show_power_off" />
 
+	<CheckBoxPreference android:key="show_reboot_keyguard"
+        android:title="@string/title_show_reboot_keyguard" />
+
     <CheckBoxPreference android:key="show_screenshot"
         android:title="@string/title_show_screenshot" />
 <!--
