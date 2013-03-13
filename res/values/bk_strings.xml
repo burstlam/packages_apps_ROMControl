@@ -423,4 +423,8 @@
     <string name="statusbar_quick_peek_title">Quick peek</string>
     <string name="statusbar_quick_peek_summary">Peek at the statusbar when hidden by swiping down from top edge of screen</string>
 
+    <!-- Status bar notification icon opacity -->
+    <string name="status_bar_icon_opacity">Notification icon opacity</string>
+    <string name="status_bar_icon_opacity_summary">Sets opacity of status bar notification icons</string> 
+    <string name="sb_icon_opacity_default">55%(Default)</string>
 </resources>
