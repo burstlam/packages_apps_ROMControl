@@ -118,6 +118,7 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
     private static final CharSequence PREF_POWER_CRT_SCREEN_OFF = "system_power_crt_screen_off";
     private static final CharSequence PREF_LOW_BATTERY_WARNING_POLICY = "pref_low_battery_warning_policy";
     private static final CharSequence  PREF_NOTIFICATION_BEHAVIOUR = "notifications_behaviour";
+    private static final CharSequence KEY_STATUS_BAR_ICON_OPACITY = "status_bar_icon_opacity"; 
 
     private static final CharSequence PREF_DISABLE_BOOTANIM = "disable_bootanimation";
     private static final CharSequence PREF_CUSTOM_BOOTANIM = "custom_bootanimation";
@@ -163,6 +164,7 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
     ListPreference mCrtMode;
     ListPreference mLowBatteryWarning;
     ListPreference mNotificationsBehavior;
+    ListPreference mStatusBarIconOpacity; 
 
     private StatusBarBrightnessChangedObserver mStatusBarBrightnessChangedObserver;
 
@@ -364,6 +366,12 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
         mStatusBarHide = (CheckBoxPreference) findPreference(STATUSBAR_HIDDEN);
         mStatusBarHide.setChecked(Settings.System.getBoolean(mContentResolver,
                 Settings.System.STATUSBAR_HIDDEN, false));
+
+        mStatusBarIconOpacity = (ListPreference) findPreference(KEY_STATUS_BAR_ICON_OPACITY);
+        int iconOpacity = Settings.System.getInt(mContentResolver,
+                Settings.System.STATUS_BAR_NOTIF_ICON_OPACITY, 140);
+        mStatusBarIconOpacity.setValue(String.valueOf(iconOpacity));
+        mStatusBarIconOpacity.setOnPreferenceChangeListener(this); 
 
         setHasOptionsMenu(true);
         resetBootAnimation();
@@ -771,6 +779,11 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
             mNotificationsBehavior.setSummary(mNotificationsBehavior.getEntries()[index]);
             Helpers.restartSystemUI();
             return true;
+        } else if (preference == mStatusBarIconOpacity) {
+            int iconOpacity = Integer.valueOf((String) newValue);
+            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
+                    Settings.System.STATUS_BAR_NOTIF_ICON_OPACITY, iconOpacity);
+            return true; 
         }
         return false;
     }
