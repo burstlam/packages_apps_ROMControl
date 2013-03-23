@@ -5,10 +5,6 @@
                 android:title="@string/navbar_enable_bar" />
 
         <PreferenceCategory
-                android:key="navbar_buttons"
-                android:title="@string/navbar_button_cat" />
-
-        <PreferenceCategory
             android:key="navbar_hide_cat"
             android:title="@string/navbar_hide">
 
