@@ -81,7 +81,9 @@
     <string name="title_show_airplane_toggle">Show Airplane mode</string>
     <string name="title_show_navbar_hide">Show NavBar and Statusbar toggles</string>
 	<string name="power_menu_expanded_desktop">Show Expanded desktop toggle</string>
-    <string name="title_show_reboot_keyguard">Show Reboot option while on lockscreen</string>
+    <string name="title_show_reboot_keyguard">Show Reboot on lockscreen</string>
+    <string name="summary_off_show_reboot_keyguard">Reboot option will not be shown while on lockscreen</string>
+    <string name="summary_on_show_reboot_keyguard">Reboot option will be shown while on lockscreen</string>
     <string name="title_show_volume_state_toggle">Show Volume States</string>
 
     <!--Expanded Desktop Enhancement: Status Bar Switch -->
