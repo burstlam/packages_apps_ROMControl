@@ -63,6 +63,11 @@
         <PreferenceCategory
                 android:key="navbar_colors_cat"
                 android:title="@string/navbar_color_cat" >
+
+               <Preference
+                       android:key="transparency_dialog"
+                       android:title="@string/transparency_dialog_title" /> 
+
                <net.margaritov.preference.colorpicker.ColorPickerPreference
                        android:key="nav_bar_color"
                        android:title="@string/navigation_bar_color_title"

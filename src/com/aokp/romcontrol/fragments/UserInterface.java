@@ -102,7 +102,6 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
     private static final CharSequence PREF_VIBRATE_NOTIF_EXPAND = "vibrate_notif_expand";
     private static final CharSequence PREF_RECENT_KILL_ALL = "recent_kill_all";
     private static final CharSequence PREF_RAM_USAGE_BAR = "ram_usage_bar";
-    private static final CharSequence PREF_IME_SWITCHER = "ime_switcher";
     private static final CharSequence STATUS_BAR_BRIGHTNESS_CONTROL = "status_bar_brightness_control";
     private static final CharSequence PREF_USER_MODE_UI = "user_mode_ui";
     private static final CharSequence PREF_HIDE_EXTRAS = "hide_extras";
@@ -147,7 +146,6 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
     CheckBoxPreference mVibrateOnExpand;
     CheckBoxPreference mRecentKillAll;
     CheckBoxPreference mRamBar;
-    CheckBoxPreference mShowImeSwitcher;
 	CheckBoxPreference mShowActionOverflow;
 	CheckBoxPreference mDualpane;
 	Preference mLcdDensity;
@@ -275,10 +273,6 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
 
         mCustomLabel = findPreference(PREF_CUSTOM_CARRIER_LABEL);
         updateCustomLabelTextSummary();
-
-        mShowImeSwitcher = (CheckBoxPreference) findPreference(PREF_IME_SWITCHER);
-        mShowImeSwitcher.setChecked(Settings.System.getBoolean(mContentResolver,
-                Settings.System.SHOW_STATUSBAR_IME_SWITCHER, true));
 
         mNotificationBackground = (ListPreference) findPreference(PREF_NOTIFICATION_WALLPAPER);
                 mNotificationBackground.setOnPreferenceChangeListener(this);
@@ -587,11 +581,6 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
             })
             .create()
             .show();
-            return true;
-        } else if (preference == mShowImeSwitcher) {
-            Settings.System.putBoolean(mContentResolver,
-                    Settings.System.SHOW_STATUSBAR_IME_SWITCHER,
-                    isCheckBoxPrefernceChecked(preference));
             return true;
         } else if (preference == mCustomLabel) {
             AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
