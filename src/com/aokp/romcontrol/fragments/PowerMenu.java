@@ -27,6 +27,7 @@ public class PowerMenu extends AOKPPreferenceFragment implements
 	private static final String PREF_EXPANDED_DESKTOP_TOGGLE = "power_menu_expanded_desktop";
 	private static final String EXPANDED_DESKTOP_STYLE = "expanded_desktop_style";
     private static final String PIE_RESTART = "pie_restart_launcher";
+    private static final String PREF_VOLUME_STATE_TOGGLE = "show_volume_state_toggle";
 	private static final String PREF_REBOOT_KEYGUARD = "show_reboot_keyguard";
 
     //CheckBoxPreference mShowPowerSaver;
@@ -38,6 +39,7 @@ public class PowerMenu extends AOKPPreferenceFragment implements
 	CheckBoxPreference mExpandedDesktopPref;
     ListPreference mExpandedDesktopSbPref;
     private CheckBoxPreference mPieRestart;
+    CheckBoxPreference mShowVolumeStateToggle;
 	CheckBoxPreference mShowRebootKeyguard;
 
     @Override
@@ -78,6 +80,10 @@ public class PowerMenu extends AOKPPreferenceFragment implements
         mShowNavBarHide = (CheckBoxPreference) findPreference(PREF_NAVBAR_HIDE);
         mShowNavBarHide.setChecked(Settings.System.getBoolean(getActivity()
                 .getContentResolver(), Settings.System.POWER_DIALOG_SHOW_NAVBAR_HIDE, true));
+
+        mShowVolumeStateToggle = (CheckBoxPreference) findPreference(PREF_VOLUME_STATE_TOGGLE);
+        mShowVolumeStateToggle.setChecked(Settings.System.getBoolean(mContentRes,
+                Settings.System.POWER_DIALOG_SHOW_VOLUME_STATE_TOGGLE, true));
 
 		mExpandedDesktopPref = (CheckBoxPreference) findPreference(PREF_EXPANDED_DESKTOP_TOGGLE);
         mExpandedDesktopPref.setChecked(Settings.System.getInt(getActivity()
@@ -144,6 +150,11 @@ public class PowerMenu extends AOKPPreferenceFragment implements
         } else if (preference == mShowNavBarHide) {
             Settings.System.putBoolean(mContentRes,
                     Settings.System.POWER_DIALOG_SHOW_NAVBAR_HIDE,
+                    ((CheckBoxPreference)preference).isChecked());
+            return true;
+        } else if (preference == mShowVolumeStateToggle) {
+            Settings.System.putBoolean(mContentRes,
+                    Settings.System.POWER_DIALOG_SHOW_VOLUME_STATE_TOGGLE,
                     ((CheckBoxPreference)preference).isChecked());
             return true;
 		} else if (preference == mExpandedDesktopPref) {
