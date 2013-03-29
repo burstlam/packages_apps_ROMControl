@@ -811,6 +811,24 @@ public class StatusBarToggles extends AOKPPreferenceFragment implements
                     f.delete();
                 refreshButtons();
             }
+            if (requestCode == PICK_CONTACT) {
+                Uri contactData = data.getData();
+                String[] projection = new String[] {ContactsContract.Contacts.LOOKUP_KEY};
+                String selection = ContactsContract.Contacts.DISPLAY_NAME + " IS NOT NULL";
+                CursorLoader cursorLoader = new CursorLoader(getActivity().getBaseContext(), contactData, projection, selection, null, null);
+                Cursor cursor = cursorLoader.loadInBackground();
+                if (cursor != null) {
+                    try {
+                        if (cursor.moveToFirst()) {
+                            String lookup_key = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.LOOKUP_KEY));
+                            Settings.System.putString(getActivity().getContentResolver(),
+                            Settings.System.QUICK_TOGGLE_FAV_CONTACT, lookup_key);
+                        }
+                    } finally {
+                        cursor.close();
+                    }
+                }
+            }
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
