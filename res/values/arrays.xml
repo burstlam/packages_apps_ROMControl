@@ -220,6 +220,26 @@
         <item>5</item>
     </string-array>
 
+    <!-- Screenshot delay -->
+    <string-array name="screenshot_delay_entries" translatable="false">
+        <item>@string/screenshot_2_seconds</item>
+        <item>@string/screenshot_3_seconds</item>
+        <item>@string/screenshot_4_seconds</item>
+        <item>@string/screenshot_5_seconds</item>
+        <item>@string/screenshot_6_seconds</item>
+        <item>@string/screenshot_7_seconds</item>
+        <item>@string/screenshot_8_seconds</item>
+    </string-array>
+    <string-array name="screenshot_delay_values" translatable="false">
+        <item>2000</item>
+        <item>3000</item>
+        <item>4000</item>
+        <item>5000</item>
+        <item>6000</item>
+        <item>7000</item>
+        <item>8000</item>
+    </string-array>
+
     <!-- Custom toggle collapse bar -->
     <string-array name="collapse_bar_entries" translatable="false">
         <item>@string/no_collapse</item>

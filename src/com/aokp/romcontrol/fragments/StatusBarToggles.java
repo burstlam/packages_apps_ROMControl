@@ -85,6 +85,7 @@ public class StatusBarToggles extends AOKPPreferenceFragment implements
     private static final String PREF_COLLAPSE_BAR = "collapse_bar";
     private static final String PREF_DCLICK_ACTION = "dclick_action";
     private static final String PREF_CUSTOM_TOGGLE = "custom_toggle_pref";
+    private static final String PREF_SCREENSHOT_DELAY = "screenshot_delay";
 
     private final int PICK_CONTACT = 1;
 
@@ -107,6 +108,7 @@ public class StatusBarToggles extends AOKPPreferenceFragment implements
     ListPreference mNumberOfActions;
     CheckBoxPreference mShowWifiName;
     CustomTogglePref mCustomToggles;
+    ListPreference mScreenshotDelay;
 
     BroadcastReceiver mReceiver;
     ArrayList<String> mToggles;
@@ -176,6 +178,11 @@ public class StatusBarToggles extends AOKPPreferenceFragment implements
             Settings.System.FAST_TOGGLE, 0);
         mFastToggle.setValue(String.valueOf(statusFastToggle));
         updateFastToggleSummary(statusFastToggle);
+
+        mScreenshotDelay = (ListPreference) findPreference(PREF_SCREENSHOT_DELAY);
+        mScreenshotDelay.setOnPreferenceChangeListener(this);
+        mScreenshotDelay.setValue(String.valueOf(Settings.System.getInt(mContentRes,
+            Settings.System.SCREENSHOT_TOGGLE_DELAY, 5000)));
 
         mShowWifiName = (CheckBoxPreference) findPreference(PREF_NOTIFICATION_SHOW_WIFI_SSID);
         mShowWifiName.setChecked(Settings.System.getInt(mContentRes,
@@ -329,6 +336,11 @@ public class StatusBarToggles extends AOKPPreferenceFragment implements
                     Settings.System.TOGGLES_STYLE, val);
             mTogglesStyle.setValue((String) newValue);
             Helpers.restartSystemUI();
+        } else if (preference == mScreenshotDelay) {
+            int val = Integer.parseInt((String) newValue);
+            Settings.System.putInt(mContentRes,
+            Settings.System.SCREENSHOT_TOGGLE_DELAY, val);
+            mScreenshotDelay.setValue((String) newValue);
         } else if (preference == mAdvancedStates) {
             boolean val = (Boolean) newValue;
             Settings.System.putBoolean(mContentRes,
