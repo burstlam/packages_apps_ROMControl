@@ -213,6 +213,9 @@ public class StatusBarToggles extends AOKPPreferenceFragment implements
         if (isSW600DPScreen(mContext) || isTablet(mContext)) {
             getPreferenceScreen().removePreference(mFastToggle);
         }
+        if (Integer.parseInt(mTogglesStyle.getValue()) > 1) {
+            mFastToggle.setEnabled(false);
+        }
         refreshSettings();
     }
 
@@ -335,6 +338,7 @@ public class StatusBarToggles extends AOKPPreferenceFragment implements
             Settings.System.putInt(mContentRes,
                     Settings.System.TOGGLES_STYLE, val);
             mTogglesStyle.setValue((String) newValue);
+            mFastToggle.setEnabled(val > 1 ? false : true);
             Helpers.restartSystemUI();
         } else if (preference == mScreenshotDelay) {
             int val = Integer.parseInt((String) newValue);
