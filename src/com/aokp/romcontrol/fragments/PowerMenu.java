@@ -99,7 +99,7 @@ public class PowerMenu extends AOKPPreferenceFragment implements
 
         mPieRestart = (CheckBoxPreference) prefSet.findPreference(PIE_RESTART);
         mPieRestart.setChecked(Settings.System.getInt(mContext.getContentResolver(),
-                Settings.System.EXPANDED_DESKTOP_RESTART_LAUNCHER, 1) == 1);
+                Settings.System.EXPANDED_DESKTOP_RESTART_LAUNCHER, 0) == 1);
 
 		mShowRebootKeyguard = (CheckBoxPreference) findPreference(PREF_REBOOT_KEYGUARD);
         mShowRebootKeyguard.setChecked(Settings.System.getBoolean(getActivity()
