@@ -48,7 +48,6 @@
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
-
                 <category android:name="com.aokp.romcontrol.SHORTCUT"/>
             </intent-filter>
         </activity>
@@ -57,7 +56,6 @@
             android:label="@string/title_ui">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
-
                 <category android:name="com.aokp.romcontrol.SHORTCUT"/>
             </intent-filter>
         </activity>
@@ -92,7 +90,6 @@
             android:label="@string/title_statusbar_clock">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
-
                 <category android:name="com.aokp.romcontrol.SHORTCUT"/>
             </intent-filter>
         </activity>
@@ -101,7 +98,6 @@
             android:label="@string/title_statusbar_battery">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
-
                 <category android:name="com.aokp.romcontrol.SHORTCUT"/>
             </intent-filter>
         </activity>
@@ -110,7 +106,6 @@
             android:label="@string/title_navbar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
-
                 <category android:name="com.aokp.romcontrol.SHORTCUT"/>
             </intent-filter>
         </activity>
@@ -137,7 +132,6 @@
             android:label="@string/title_navring" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="com.aokp.romcontrol.SHORTCUT" />
             </intent-filter>
         </activity>
@@ -146,7 +140,14 @@
             android:label="@string/title_ribbon" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
+                <category android:name="com.aokp.romcontrol.SHORTCUT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".fragments.SoftKeyOptions"
+            android:label= "@string/title_softkey"  >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
                 <category android:name="com.aokp.romcontrol.SHORTCUT" />
             </intent-filter>
         </activity>
@@ -166,7 +167,6 @@
             android:label="@string/title_led">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
-
                 <category android:name="com.aokp.romcontrol.SHORTCUT"/>
             </intent-filter>
         </activity>
@@ -175,7 +175,6 @@
             android:label="@string/title_power_menu">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
-
                 <category android:name="com.aokp.romcontrol.SHORTCUT"/>
             </intent-filter>
         </activity>
@@ -184,7 +183,6 @@
             android:label="@string/title_spen" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="com.aokp.romcontrol.SHORTCUT" />
             </intent-filter>
         </activity>
@@ -193,7 +191,6 @@
             android:label="@string/title_lockscreens">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
-
                 <category android:name="com.aokp.romcontrol.SHORTCUT"/>
             </intent-filter>
         </activity>
@@ -218,7 +215,6 @@
             android:label="@string/title_sound">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
-
                 <category android:name="com.aokp.romcontrol.SHORTCUT"/>
             </intent-filter>
         </activity>
@@ -249,7 +245,6 @@
             android:label="@string/title_statusbar_toggles">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
-
                 <category android:name="com.aokp.romcontrol.SHORTCUT"/>
             </intent-filter>
         </activity>
@@ -260,7 +255,6 @@
             android:label="@string/vibrations">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
-
                 <category android:name="com.aokp.romcontrol.SHORTCUT"/>
             </intent-filter>
         </activity>
@@ -270,7 +264,6 @@
             android:label="@string/installer">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
-
                 <category android:name="com.aokp.romcontrol.SHORTCUT"/>
             </intent-filter>
         </activity>
@@ -284,7 +277,6 @@
             android:theme="@style/Theme.CreateShortCut">
             <intent-filter>
                 <action android:name="android.intent.action.CREATE_SHORTCUT"/>
-
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
