@@ -70,7 +70,8 @@
 
         <CheckBoxPreference
             android:key="advanced_toggle_actions"
-            android:summary="@string/advanced_toggle_summary"
+            android:summaryOff="@string/advanced_toggle_summaryoff"
+			android:summaryOn="@string/advanced_toggle_summaryon"
             android:title="@string/advanced_toggle_title" />
 
         <CheckBoxPreference

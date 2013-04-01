@@ -120,7 +120,7 @@ public class StatusBarToggles extends AOKPPreferenceFragment implements
     String[] mActions;
     String[] mActionCodes;
     private int mPendingToggle = -1;
-    private ImageButton mAddButton,mResetButton,mSaveButton;
+    private ImageButton mAddButton, mResetButton, mSaveButton;
     private ShortcutPickerHelper mPicker;
 
     static Bundle sToggles;
@@ -155,6 +155,9 @@ public class StatusBarToggles extends AOKPPreferenceFragment implements
         for (int i = 0; i < actionqty; i++) {
             mActions[i] = AwesomeConstants.getProperName(mContext, mActionCodes[i]);
         }
+
+        boolean isAdvanced = Settings.System.getBoolean(getContentResolver(),
+			Settings.System.CUSTOM_TOGGLE_ADVANCED, false);
 
         mEnabledToggles = findPreference(PREF_ENABLE_TOGGLES);
 
@@ -215,6 +218,9 @@ public class StatusBarToggles extends AOKPPreferenceFragment implements
         }
         if (Integer.parseInt(mTogglesStyle.getValue()) > 1) {
             mFastToggle.setEnabled(false);
+        }
+        if (!isAdvanced) {
+			mMatchAction.setEnabled(false);
         }
         refreshSettings();
     }
@@ -349,20 +355,38 @@ public class StatusBarToggles extends AOKPPreferenceFragment implements
             boolean val = (Boolean) newValue;
             Settings.System.putBoolean(mContentRes,
                     Settings.System.CUSTOM_TOGGLE_ADVANCED, val);
-            mContentRes.notifyChange(Settings.System.getUriFor(Settings.System.CUSTOM_TOGGLE_ADVANCED), null);
+            mContentRes.notifyChange(
+                    Settings.System.getUriFor(Settings.System.CUSTOM_TOGGLE_ADVANCED), null);
+            AlertDialog.Builder ad = new AlertDialog.Builder(getActivity());
+            ad.setTitle(getResources().getString(R.string.custom_toggle_action));
+            ad.setMessage(getResources().getString(R.string.custom_toggle_desc));
+            ad.setPositiveButton(
+                    getResources().getString(R.string.custom_toggle_okay),
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+            ad.show();
+            mMatchAction.setEnabled(val == false ? false : true);
             refreshSettings();
             return true;
         } else if (preference == mBootState) {
             boolean val = (Boolean) newValue;
             Settings.System.putBoolean(mContentRes,
                     Settings.System.CUSTOM_TOGGLE_REVERT, val);
-            mContentRes.notifyChange(Settings.System.getUriFor(Settings.System.CUSTOM_TOGGLE_REVERT), null);
+            mContentRes.notifyChange(
+                Settings.System.getUriFor(
+                    Settings.System.CUSTOM_TOGGLE_REVERT), null);
             return true;
         } else if (preference == mMatchAction) {
             boolean val = (Boolean) newValue;
             Settings.System.putBoolean(mContentRes,
                     Settings.System.MATCH_ACTION_ICON, val);
-            mContentRes.notifyChange(Settings.System.getUriFor(Settings.System.MATCH_ACTION_ICON), null);
+            mContentRes.notifyChange(
+                Settings.System.getUriFor(Settings.System.MATCH_ACTION_ICON),
+                null);
             return true;
         } else if (preference == mCollapseShade) {
             int val = Integer.parseInt((String) newValue);
@@ -485,7 +509,7 @@ public class StatusBarToggles extends AOKPPreferenceFragment implements
         refreshButtons();
     }
 
-    public void setupToggleViews (LinearLayout container) {
+    public void setupToggleViews(LinearLayout container) {
        mResetButton = (ImageButton) container.findViewById(R.id.reset_button);
        mResetButton.setOnClickListener(mCommandButtons);
        mAddButton = (ImageButton) container.findViewById(R.id.add_button);
@@ -498,7 +522,7 @@ public class StatusBarToggles extends AOKPPreferenceFragment implements
            ImageButton ib = (ImageButton) llbuttons.getChildAt(i);
            mButtonViews.add(ib);
        }
-       if (mButtons.size() == 0){
+       if (mButtons.size() == 0) {
            loadButtons();
        }
        refreshButtons();
@@ -516,7 +540,7 @@ public class StatusBarToggles extends AOKPPreferenceFragment implements
     };
 
     private void loadButtons() {
-        mNumberofToggles =  Settings.System.getInt(mContentRes,
+        mNumberofToggles = Settings.System.getInt(mContentRes,
                 Settings.System.CUSTOM_TOGGLE_QTY, 3);
         mButtons.clear();
         for (int i = 0; i < mNumberofToggles; i++) {
@@ -541,13 +565,13 @@ public class StatusBarToggles extends AOKPPreferenceFragment implements
             ib.setOnClickListener(mToggleClickListener);
             ib.setVisibility(View.VISIBLE);
         }
-        for (int i = mNumberofToggles; i < mButtonViews.size(); i++){
+        for (int i = mNumberofToggles; i < mButtonViews.size(); i++) {
             ImageButton ib = mButtonViews.get(i);
             ib.setVisibility(View.GONE);
         }
     }
 
-    private void saveButtons(){
+    private void saveButtons() {
         Settings.System.putInt(mContentRes,Settings.System.CUSTOM_TOGGLE_QTY,
                 mNumberofToggles);
         for (int i = 0; i < mNumberofToggles; i++) {
@@ -569,8 +593,8 @@ public class StatusBarToggles extends AOKPPreferenceFragment implements
             public void onClick(DialogInterface dialog, int item) {
                 onDialogClick(button, item);
                 dialog.dismiss();
-                }
-            };
+            }
+        };
 
         boolean isAdvanced = Settings.System.getBoolean(getContentResolver(),
                 Settings.System.CUSTOM_TOGGLE_ADVANCED, false);
@@ -582,22 +606,26 @@ public class StatusBarToggles extends AOKPPreferenceFragment implements
         String longpress = mResources.getString(R.string.navbar_longpress_menu);
         longpress = String.format(longpress, button.getLongName());
         action = String.format(action, button.getClickName());
-        String[] items = {action,longpress,
+        String[] items = {
+                    action, longpress,
                     mResources.getString(R.string.navbar_icon_menu),
-                    mResources.getString(R.string.navbar_delete_menu)};
-        String[] basicitems = {action,
+                    mResources.getString(R.string.navbar_delete_menu)
+        };
+        String[] basicitems = {
+                    action,
                     mResources.getString(R.string.navbar_icon_menu),
-                    mResources.getString(R.string.navbar_delete_menu)};
+                    mResources.getString(R.string.navbar_delete_menu)
+        };
         if (isAdvanced) {
             final AlertDialog dialog = new AlertDialog.Builder(mContext)
                     .setTitle(mResources.getString(R.string.navbar_title_menu))
-                    .setSingleChoiceItems(items, -1, l)
+                    .setItems(items, l)
                     .create();
             dialog.show();
         } else {
             final AlertDialog dialog = new AlertDialog.Builder(mContext)
                     .setTitle(mResources.getString(R.string.navbar_title_menu))
-                    .setSingleChoiceItems(basicitems, -1, l)
+                    .setItems(basicitems, l)
                     .create();
             dialog.show();
         }
@@ -609,18 +637,18 @@ public class StatusBarToggles extends AOKPPreferenceFragment implements
             public void onClick(DialogInterface dialog, int item) {
                 onActionDialogClick(button, item);
                 dialog.dismiss();
-                }
-            };
+            }
+        };
 
         final AlertDialog dialog = new AlertDialog.Builder(mContext)
                 .setTitle(mResources.getString(R.string.navbar_title_menu))
-                .setSingleChoiceItems(mActions, -1, l)
+                .setItems(mActions, l)
                 .create();
 
         dialog.show();
     }
 
-    private void onDialogClick(ToggleButton button, int command){
+    private void onDialogClick(ToggleButton button, int command) {
         boolean isAdvanced = Settings.System.getBoolean(getContentResolver(),
                 Settings.System.CUSTOM_TOGGLE_ADVANCED, false);
         if (isAdvanced) {
@@ -647,7 +675,7 @@ public class StatusBarToggles extends AOKPPreferenceFragment implements
                     intent.putExtra(MediaStore.EXTRA_OUTPUT, getTempFileUri());
                     intent.putExtra("outputFormat", Bitmap.CompressFormat.PNG.toString());
                     Log.i(TAG, "started for result, should output to: " + getTempFileUri());
-                    startActivityForResult(intent,REQUEST_PICK_CUSTOM_ICON);
+                    startActivityForResult(intent, REQUEST_PICK_CUSTOM_ICON);
                     break;
                 case 3: // Delete Button
                     mButtons.remove(mPendingToggle);
@@ -674,7 +702,7 @@ public class StatusBarToggles extends AOKPPreferenceFragment implements
                     intent.putExtra(MediaStore.EXTRA_OUTPUT, getTempFileUri());
                     intent.putExtra("outputFormat", Bitmap.CompressFormat.PNG.toString());
                     Log.i(TAG, "started for result, should output to: " + getTempFileUri());
-                    startActivityForResult(intent,REQUEST_PICK_CUSTOM_ICON);
+                    startActivityForResult(intent, REQUEST_PICK_CUSTOM_ICON);
                     break;
                 case 2: // Delete Button
                     mButtons.remove(mPendingToggle);
@@ -685,10 +713,10 @@ public class StatusBarToggles extends AOKPPreferenceFragment implements
         refreshButtons();
     }
 
-    private void onActionDialogClick(ToggleButton button, int command){
+    private void onActionDialogClick(ToggleButton button, int command) {
         if (command == mActions.length -1) {
             // This is the last action - should be **app**
-                mPicker.pickShortcut();
+            mPicker.pickShortcut();
         } else { // This should be any other defined action.
             if (button.getPickLongPress()) {
                 button.setLongPress(AwesomeConstants.AwesomeActions()[command]);
@@ -710,7 +738,7 @@ public class StatusBarToggles extends AOKPPreferenceFragment implements
                     break;
                 case R.id.add_button:
                     if (mNumberofToggles < 5) { // Maximum Toggles is 5
-                        mButtons.add(new ToggleButton("**null**","**null**",""));
+                        mButtons.add(new ToggleButton("**null**", "**null**", ""));
                         mNumberofToggles++;
                     }
                     break;
@@ -794,7 +822,7 @@ public class StatusBarToggles extends AOKPPreferenceFragment implements
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Log.i(TAG, "RequestCode:"+resultCode);
+        Log.i(TAG, "RequestCode:" + resultCode);
         if (resultCode == Activity.RESULT_OK) {
             if (requestCode == ShortcutPickerHelper.REQUEST_PICK_SHORTCUT
                     || requestCode == ShortcutPickerHelper.REQUEST_PICK_APPLICATION
@@ -820,7 +848,7 @@ public class StatusBarToggles extends AOKPPreferenceFragment implements
                     return;
                 }
                 mButtons.get(mPendingToggle).setIconURI(Uri.fromFile(
-                                new File(mContext.getFilesDir(), iconName)).getPath());
+                        new File(mContext.getFilesDir(), iconName)).getPath());
 
                 File f = new File(selectedImageUri.getPath());
                 if (f.exists())
@@ -904,7 +932,7 @@ public class StatusBarToggles extends AOKPPreferenceFragment implements
             }
             return userEnabledToggles;
         } catch (Exception e) {
-            if(sToggles != null && sToggles.containsKey("default_toggles")) {
+            if (sToggles != null && sToggles.containsKey("default_toggles")) {
                 return sToggles.getStringArrayList("default_toggles");
             }
         }
@@ -951,52 +979,62 @@ public class StatusBarToggles extends AOKPPreferenceFragment implements
         Drawable mIcon;
         boolean mPickingLongPress;
 
-        public ToggleButton(String clickaction, String longpress, String iconuri ) {
+        public ToggleButton(String clickaction, String longpress, String iconuri) {
             mClickAction = clickaction;
             mLongPressAction = longpress;
             mIconURI = iconuri;
             mClickFriendlyName = getProperSummary(mClickAction);
-            mLongPressFriendlyName = getProperSummary (mLongPressAction);
+            mLongPressFriendlyName = getProperSummary(mLongPressAction);
             mIcon = setIcon(mIconURI,mClickAction);
         }
 
         public void setClickAction(String click) {
             mClickAction = click;
             mClickFriendlyName = getProperSummary(mClickAction);
-            // ClickAction was reset - so we should default to stock Icon for now
+            // ClickAction was reset - so we should default to stock Icon for
+            // now
             mIconURI = "";
-            mIcon = setIcon(mIconURI,mClickAction);
+            mIcon = setIcon(mIconURI, mClickAction);
         }
 
         public void setLongPress(String action) {
             mLongPressAction = action;
             mLongPressFriendlyName = getProperSummary (mLongPressAction);
         }
+
         public void setPickLongPress(boolean pick) {
             mPickingLongPress = pick;
         }
+
         public boolean getPickLongPress() {
             return mPickingLongPress;
         }
+
         public void setIconURI (String uri) {
             mIconURI = uri;
-            mIcon = setIcon(mIconURI,mClickAction);
+            mIcon = setIcon(mIconURI, mClickAction);
         }
+
         public String getClickName() {
             return mClickFriendlyName;
         }
+
         public String getLongName() {
             return mLongPressFriendlyName;
         }
+
         public Drawable getIcon() {
             return mIcon;
         }
+
         public String getClickAction() {
             return mClickAction;
         }
+
         public String getLongAction() {
             return mLongPressAction;
         }
+
         public String getIconURI() {
             return mIconURI;
         }
