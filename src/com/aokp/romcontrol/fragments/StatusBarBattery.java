@@ -94,7 +94,7 @@ public class StatusBarBattery extends AOKPPreferenceFragment implements
 				findPreference("battery_charge_text_only_color");
         mBatteryChargeTextColor.setOnPreferenceChangeListener(this);
         defaultColor = getResources().getColor(
-                com.android.internal.R.color.holo_blue_light);
+                com.android.internal.R.color.holo_green_light);
         intColor = Settings.System.getInt(mContentRes,
                     Settings.System.STATUSBAR_BATTERY_CHARGE_TEXT_COLOR, defaultColor);
         hexColor = String.format("#%08x", (0xffffffff & intColor));
@@ -116,7 +116,7 @@ public class StatusBarBattery extends AOKPPreferenceFragment implements
                 findPreference("battery_cmcircle_ring_color_charge");
         mCmCirleRingColorCharge.setOnPreferenceChangeListener(this);
         defaultColor = getResources().getColor(
-                com.android.internal.R.color.holo_blue_light);
+                com.android.internal.R.color.holo_green_light);
         intColor = Settings.System.getInt(mContentRes,
                     Settings.System.STATUSBAR_CMCIRLE_RING_COLOR_CHARGE, defaultColor);
         hexColor = String.format("#%08x", (0xffffffff & intColor));

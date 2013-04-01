@@ -36,7 +36,7 @@
         <net.margaritov.preference.colorpicker.ColorPickerPreference
             android:key="battery_cmcircle_ring_color_charge"
             android:title="@string/battery_cm_circle_ring_color_charge"
-            android:defaultValue="0xff33b5e5"
+            android:defaultValue="0xff99cc00"
             android:persistent="true" />
 
     </PreferenceCategory>
