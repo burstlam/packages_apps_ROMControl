@@ -94,7 +94,6 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
     public final String TAG = getClass().getSimpleName();
     private static final boolean DEBUG = false;
 
-    private static final CharSequence PREF_180 = "rotate_180";
     private static final CharSequence PREF_STATUS_BAR_NOTIF_COUNT = "status_bar_notif_count";
     private static final CharSequence PREF_NOTIFICATION_WALLPAPER = "notification_wallpaper";
     private static final CharSequence PREF_NOTIFICATION_WALLPAPER_ALPHA = "notification_wallpaper_alpha";
@@ -107,7 +106,7 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
     private static final CharSequence PREF_HIDE_EXTRAS = "hide_extras";
     public static final CharSequence STATUS_BAR_MAX_NOTIF = "status_bar_max_notifications";
     private static final CharSequence PREF_NOTIFICATION_ALPHA = "notification_alpha";
-    private static final CharSequence STATUSBAR_HIDDEN = "statusbar_hidden";
+    private static final CharSequence PREF_STATUSBAR_HIDDEN = "statusbar_hidden";
 
 	private static final CharSequence PREF_SHOW_OVERFLOW = "show_overflow";
 	private static final CharSequence PREF_FORCE_DUAL_PANEL = "force_dualpanel";
@@ -124,6 +123,7 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
     private static final CharSequence PREF_NOTIFICATION_VIBRATE = "notification";
     private static final CharSequence PREF_NAVBAR = "navbar";
     private static final CharSequence PREF_MISC = "misc";
+    private static final CharSequence PREF_DISPLAY = "display";
 
     private static final int REQUEST_PICK_WALLPAPER = 201;
     // private static final int REQUEST_PICK_CUSTOM_ICON = 202; // unused
@@ -133,8 +133,6 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
     private static final String BOOTANIMATION_USER_PATH = "/data/local/bootanimation.zip";
     private static final String BOOTANIMATION_SYSTEM_PATH = "/system/media/bootanimation.zip";
 
-
-    CheckBoxPreference mAllow180Rotation;
     CheckBoxPreference mDisableBootAnimation;
     CheckBoxPreference mStatusBarNotifCount;
     ListPreference mNotificationBackground;
@@ -240,19 +238,6 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
         mStatusBarBrightnessChangedObserver = new StatusBarBrightnessChangedObserver(new Handler());
         mStatusBarBrightnessChangedObserver.startObserving();
 
-        mAllow180Rotation = (CheckBoxPreference) findPreference(PREF_180);
-        mUserRotationAngles = Settings.System.getInt(mContentResolver,
-                Settings.System.ACCELEROMETER_ROTATION_ANGLES, -1);
-        if (mUserRotationAngles < 0) {
-            // Not set by user so use these defaults
-            boolean mAllowAllRotations = mContext.getResources().getBoolean(
-                            com.android.internal.R.bool.config_allowAllRotations) ? true : false;
-            mUserRotationAngles = mAllowAllRotations  ?
-                (1 | 2 | 4 | 8) : // All angles
-                (1 | 2 | 8); // All except 180
-        }
-        mAllow180Rotation.setChecked(mUserRotationAngles == (1 | 2 | 4 | 8));
-
         mStatusBarNotifCount = (CheckBoxPreference) findPreference(PREF_STATUS_BAR_NOTIF_COUNT);
         mStatusBarNotifCount.setChecked(Settings.System.getBoolean(mContentResolver, 
             Settings.System.STATUSBAR_NOTIF_COUNT, false));
@@ -339,7 +324,7 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
         // hide option if device is already set to never wake up
         if(!mContext.getResources().getBoolean(
                 com.android.internal.R.bool.config_unplugTurnsOnScreen)) {
-            ((PreferenceGroup) findPreference("PREF_MISC")).removePreference(mWakeUpWhenPluggedOrUnplugged);
+            ((PreferenceGroup) findPreference(PREF_DISPLAY)).removePreference(mWakeUpWhenPluggedOrUnplugged);
         }
 
         mNotificationShadeDim = (CheckBoxPreference) findPreference(NOTIFICATION_SHADE_DIM);
@@ -357,7 +342,7 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
                 getPreferenceScreen().removePreference(mNotificationShadeDim);
         }
 
-        mStatusBarHide = (CheckBoxPreference) findPreference(STATUSBAR_HIDDEN);
+        mStatusBarHide = (CheckBoxPreference) findPreference(PREF_STATUSBAR_HIDDEN);
         mStatusBarHide.setChecked(Settings.System.getBoolean(mContentResolver,
                 Settings.System.STATUSBAR_HIDDEN, false));
 
@@ -365,10 +350,17 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
         int iconOpacity = Settings.System.getInt(mContentResolver,
                 Settings.System.STATUS_BAR_NOTIF_ICON_OPACITY, 140);
         mStatusBarIconOpacity.setValue(String.valueOf(iconOpacity));
-        mStatusBarIconOpacity.setOnPreferenceChangeListener(this); 
+        mStatusBarIconOpacity.setOnPreferenceChangeListener(this);
+
+        if (isTablet(mContext)) {
+            Preference mTransparency = findPreference("transparency_dialog");
+            mStatusBarHide.setEnabled(false);
+            mTransparency.setEnabled(false);
+        }
 
         setHasOptionsMenu(true);
         resetBootAnimation();
+        mStatusBarHide = (CheckBoxPreference) findPreference(PREF_STATUSBAR_HIDDEN);
         updateCustomBackgroundSummary();
         updateStatusBarBrightnessControl();
     }
@@ -494,13 +486,7 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
     @Override
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen,
             Preference preference) {
-        if (preference == mAllow180Rotation) {
-            boolean checked = ((TwoStatePreference) preference).isChecked();
-            Settings.System.putInt(mContext.getContentResolver(),
-                    Settings.System.ACCELEROMETER_ROTATION_ANGLES,
-                    checked ? (1 | 2 | 4 | 8) : (1 | 2 | 8));
-            return true;
-        } else if (preference == mStatusBarNotifCount) {
+        if (preference == mStatusBarNotifCount) {
             Settings.System.putBoolean(mContentResolver,
                     Settings.System.STATUSBAR_NOTIF_COUNT,
                     ((TwoStatePreference) preference).isChecked());
@@ -795,6 +781,12 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
                     @Override
                     public void run() {
                         mContext.deleteFile(WALLPAPER_NAME);
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                findWallpaperStatus();
+                            }
+                        });
                         Helpers.restartSystemUI();
                     }
                 }).start();
@@ -809,6 +801,11 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
         File dir = mContext.getExternalCacheDir();
         File wallpaper = new File(dir, WALLPAPER_NAME);
         return Uri.fromFile(wallpaper);
+    }
+
+    public void findWallpaperStatus() {
+        File wallpaper = new File(mContext.getFilesDir(), WALLPAPER_NAME);
+        mWallpaperAlpha.setEnabled(wallpaper.exists() ? true : false);
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -834,6 +831,7 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
                         // let it go
                     }
                 }
+                findWallpaperStatus();
                 Helpers.restartSystemUI();
             } else if (requestCode == REQUEST_PICK_BOOT_ANIMATION) {
 

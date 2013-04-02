@@ -84,6 +84,12 @@
             android:title="@string/vibrate_notif_expand_title"
             android:summary="@string/vibrate_notif_expand_summary" />
 
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="recents"
+        android:title="@string/recents_cat">
+
         <CheckBoxPreference
             android:key="recent_kill_all"
             android:title="@string/recent_kill_all"
@@ -136,48 +142,17 @@
             android:summary="@string/show_overflow_summary"
             android:defaultValue="false" />
 
-<!--        <PreferenceScreen
-            android:key="system_dpi"
-            android:fragment="com.aokp.romcontrol.fragments.DpiPreferences"
-            android:title="@string/system_dpi_title"
-            android:summary="@string/system_dpi_summary" />-->
-
     </PreferenceCategory>
 
      <PreferenceCategory
-            android:key="misc"
-            android:title="@string/misc_short">
-
-    <!--    <CheckBoxPreference
-            android:key="kill_app_longpress_back"
-            android:title="@string/kill_app_longpress_back"
-            android:summary="@string/kill_app_longpress_back_summary" /> -->
-
-         <CheckBoxPreference
-            android:key="rotate_180"
-            android:title="@string/rotate_180_title"
-            android:summary="@string/rotate_180_summary" />
+        android:key="display"
+        android:title="@string/display_cat">
 
         <CheckBoxPreference
             android:key="wakeup_when_plugged_unplugged"
             android:title="@string/wakeup_when_plugged_unplugged_title"
             android:summary="@string/wakeup_when_plugged_unplugged_summary"
             android:defaultValue="true" />
-
-    </PreferenceCategory>
-
-    <PreferenceCategory
-        android:key="bootani"
-        android:title="@string/bootani_cat">
-
-        <Preference
-            android:key="custom_bootanimation"
-            android:title="@string/custom_bootanimation_title"
-            android:summary="@string/custom_bootanimation_summary" />
-
-        <CheckBoxPreference
-            android:key="disable_bootanimation"
-            android:title="@string/disable_bootanimation_title" />
 
         <CheckBoxPreference
             android:key="system_power_crt_screen_off"
@@ -199,6 +174,25 @@
             android:entries="@array/pref_low_battery_warning_policy_entries"
             android:entryValues="@array/pref_low_battery_warning_policy_values"
             android:defaultValue="0" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="bootani"
+        android:title="@string/bootani_cat">
+
+        <Preference
+            android:key="custom_bootanimation"
+            android:title="@string/custom_bootanimation_title"
+            android:summary="@string/custom_bootanimation_summary" />
+
+        <CheckBoxPreference
+            android:key="disable_bootanimation"
+            android:title="@string/disable_bootanimation_title" />
+    </PreferenceCategory>
+
+     <PreferenceCategory
+            android:key="misc"
+            android:title="@string/misc_short">
 
     </PreferenceCategory>
 

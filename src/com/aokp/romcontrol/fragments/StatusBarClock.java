@@ -126,7 +126,6 @@ public class StatusBarClock extends AOKPPreferenceFragment implements
         mClockDoubleClick.setOnPreferenceChangeListener(this);
         mClockDoubleClick.setSummary(getProperSummary(mClockDoubleClick));
 
-
         boolean mClockDateToggle = Settings.System.getInt(mContentRes,
                     Settings.System.STATUSBAR_CLOCK_DATE_DISPLAY, 0) != 0;
         if (!mClockDateToggle) {

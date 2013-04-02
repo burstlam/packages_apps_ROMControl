@@ -73,6 +73,13 @@ public class StatusBarSignal extends AOKPPreferenceFragment implements
         mAltSignal.setChecked(Settings.System.getBoolean(mContentRes,
                 Settings.System.STATUSBAR_SIGNAL_CLUSTER_ALT,false));
 
+        if (Integer.parseInt(mDbmStyletyle.getValue()) == 0) {
+            mColorPicker.setEnabled(false);
+        }
+
+        if (Integer.parseInt(mWifiStyle.getValue()) == 0) {
+            mWifiColorPicker.setEnabled(false);
+        }
     }
 
     @Override
@@ -81,7 +88,6 @@ public class StatusBarSignal extends AOKPPreferenceFragment implements
         if (preference == mHideSignal) {
             Settings.System.putBoolean(mContentRes,
                     Settings.System.STATUSBAR_HIDE_SIGNAL_BARS, mHideSignal.isChecked());
-
             return true;
         } else if (preference == mAltSignal) {
             Settings.System.putBoolean(mContentRes,
@@ -94,27 +100,24 @@ public class StatusBarSignal extends AOKPPreferenceFragment implements
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
         if (preference == mDbmStyletyle) {
-
             int val = Integer.parseInt((String) newValue);
             Settings.System.putInt(mContentRes,
                     Settings.System.STATUSBAR_SIGNAL_TEXT, val);
+            mColorPicker.setEnabled(val == 0 ? false : true);
             return true;
-
         } else if (preference == mColorPicker) {
             String hex = ColorPickerPreference.convertToARGB(Integer.valueOf(String
                     .valueOf(newValue)));
             preference.setSummary(hex);
-
             int intHex = ColorPickerPreference.convertToColorInt(hex);
             Settings.System.putInt(mContentRes,
                     Settings.System.STATUSBAR_SIGNAL_TEXT_COLOR, intHex);
-
             return true;
         } else if (preference == mWifiStyle) {
-
             int val = Integer.parseInt((String) newValue);
             Settings.System.putInt(mContentRes,
                     Settings.System.STATUSBAR_WIFI_SIGNAL_TEXT, val);
+            mWifiColorPicker.setEnabled(val == 0 ? false : true);
             return true;
         } else if (preference == mWifiColorPicker) {
             String hex = ColorPickerPreference.convertToARGB(Integer.valueOf(String
@@ -124,7 +127,6 @@ public class StatusBarSignal extends AOKPPreferenceFragment implements
             int intHex = ColorPickerPreference.convertToColorInt(hex);
             Settings.System.putInt(mContentRes,
                     Settings.System.STATUSBAR_WIFI_SIGNAL_TEXT_COLOR, intHex);
-
             return true;
         }
         return false;

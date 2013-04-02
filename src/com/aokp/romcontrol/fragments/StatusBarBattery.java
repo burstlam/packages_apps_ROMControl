@@ -121,7 +121,14 @@ public class StatusBarBattery extends AOKPPreferenceFragment implements
                     Settings.System.STATUSBAR_CMCIRLE_RING_COLOR_CHARGE, defaultColor);
         hexColor = String.format("#%08x", (0xffffffff & intColor));
         mCmCirleRingColorCharge.setSummary(hexColor);
-        mCmCirleRingColorCharge.setNewPreviewColor(intColor);		
+        mCmCirleRingColorCharge.setNewPreviewColor(intColor);
+
+        if (Integer.parseInt(mBatteryBar.getValue()) == 0) {
+            mBatteryBarStyle.setEnabled(false);
+            mBatteryBarColor.setEnabled(false);
+            mBatteryBarChargingAnimation.setEnabled(false);
+            mBatteryBarThickness.setEnabled(false);
+        }
     }
 
     @Override
@@ -157,9 +164,20 @@ public class StatusBarBattery extends AOKPPreferenceFragment implements
         } else if (preference == mBatteryBar) {
 
             int val = Integer.parseInt((String) newValue);
-            return Settings.System.putInt(mContentRes,
+            Settings.System.putInt(mContentRes,
                     Settings.System.STATUSBAR_BATTERY_BAR, val);
-
+            if (val == 0) {
+                mBatteryBarStyle.setEnabled(false);
+                mBatteryBarColor.setEnabled(false);
+                mBatteryBarChargingAnimation.setEnabled(false);
+                mBatteryBarThickness.setEnabled(false);
+            } else {
+                mBatteryBarStyle.setEnabled(true);
+                mBatteryBarColor.setEnabled(true);
+                mBatteryBarChargingAnimation.setEnabled(true);
+                mBatteryBarThickness.setEnabled(true);
+            }
+            return true;
         } else if (preference == mBatteryBarStyle) {
 
             int val = Integer.parseInt((String) newValue);
