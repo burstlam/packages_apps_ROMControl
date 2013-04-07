@@ -35,6 +35,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.util.ExtendedPropertiesUtils;
 
 import com.aokp.romcontrol.R;
 import com.aokp.romcontrol.AOKPPreferenceFragment;
@@ -46,6 +47,9 @@ import java.io.*;
 import java.util.*;
 
 public class Applications {
+
+    protected static final String PREFS_NAME = "custom_dpi_groups_preference";
+    protected static final String PROPERTY_AUTO_BACKUP = "auto_backup";
 
     public static class BeerbongAppInfo {
         public String name = "";
@@ -79,18 +83,59 @@ public class Applications {
         addApplication(mContext, findAppInfo(mContext, packageName), mLastDpi);
     }
     
-    public static void addApplication(Context mContext, BeerbongAppInfo app, int dpi) {
+    public static void addApplication(Context mContext, BeerbongAppInfo app,
+            int dpi) {
     
         if (!mount("rw")) {
             throw new RuntimeException("Could not remount /system rw");
         }
         try {
             if (propExists(app.pack + ".dpi")) {
-                cmd.su.runWaitFor(String.format(REPLACE_CMD, app.pack + ".dpi", String.valueOf(dpi)));
+                cmd.su.runWaitFor(String.format(REPLACE_CMD, app.pack + ".dpi",
+                        String.valueOf(dpi)));
             } else {
-                cmd.su.runWaitFor(String.format(APPEND_CMD, app.pack + ".dpi", String.valueOf(dpi)));
+                cmd.su.runWaitFor(String.format(APPEND_CMD, app.pack + ".dpi",
+                        String.valueOf(dpi)));
             }
             if (app.pack.equals("com.android.systemui")) {
+                Utils.setContext(mContext);
+                Utils.restartUI();
+            } else {
+                try {
+                    IActivityManager am = ActivityManagerNative.getDefault();
+                    am.forceStopPackage(app.pack, UserHandle.myUserId());
+                } catch (android.os.RemoteException ex) {
+                    // ignore
+                }
+            }
+        } finally {
+            mount("ro");
+        }
+        checkAutoBackup(mContext);
+    }
+
+    public static void addApplicationLayout(Context mContext,
+            String packageName, int layout) {
+        addApplicationLayout(mContext, findAppInfo(mContext, packageName),
+                layout);
+    }
+
+    public static void addApplicationLayout(Context mContext,
+            BeerbongAppInfo app, int layout) {
+
+        if (!mount("rw")) {
+            throw new RuntimeException("Could not remount /system rw");
+        }
+        try {
+            if (propExists(app.pack + ".layout")) {
+                cmd.su.runWaitFor(String.format(REPLACE_CMD, app.pack
+                        + ".layout", String.valueOf(layout)));
+            } else {
+                cmd.su.runWaitFor(String.format(APPEND_CMD, app.pack
+                        + ".layout", String.valueOf(layout)));
+            }
+            if (app.pack.equals("com.android.systemui")) {
+                Utils.setContext(mContext);
                 Utils.restartUI();
             } else {
                 try {
@@ -106,15 +151,118 @@ public class Applications {
         checkAutoBackup(mContext);
     }
     
+    public static void addSystem(Context mContext, int dpi) {
+
+        if (!mount("rw")) {
+            throw new RuntimeException("Could not remount /system rw");
+        }
+        try {
+            if (propExists("android.dpi")) {
+                cmd.su.runWaitFor(String.format(REPLACE_CMD, "android.dpi",
+                        String.valueOf(dpi)));
+            } else {
+                cmd.su.runWaitFor(String.format(APPEND_CMD, "android.dpi",
+                        String.valueOf(dpi)));
+            }
+            if (propExists("com.android.systemui.dpi")) {
+                cmd.su.runWaitFor(String.format(REPLACE_CMD,
+                        "com.android.systemui.dpi", String.valueOf(dpi)));
+            } else {
+                cmd.su.runWaitFor(String.format(APPEND_CMD,
+                        "com.android.systemui.dpi", String.valueOf(dpi)));
+            }
+            ExtendedPropertiesUtils.refreshProperties();
+            Utils.setContext(mContext);
+            Utils.restartUI();
+        } finally {
+            mount("ro");
+        }
+        checkAutoBackup(mContext);
+    }
+
+    public static void addSystemLayout(Context mContext, String layout) {
+
+        if (!mount("rw")) {
+            throw new RuntimeException("Could not remount /system rw");
+        }
+        try {
+            if (propExists("android.layout")) {
+                cmd.su.runWaitFor(String.format(REPLACE_CMD, "android.layout",
+                        layout));
+            } else {
+                cmd.su.runWaitFor(String.format(APPEND_CMD, "android.layout",
+                        layout));
+            }
+            if (propExists("com.android.systemui.layout")) {
+                cmd.su.runWaitFor(String.format(REPLACE_CMD,
+                        "com.android.systemui.layout", layout));
+            } else {
+                cmd.su.runWaitFor(String.format(APPEND_CMD,
+                        "com.android.systemui.layout", layout));
+            }
+            ExtendedPropertiesUtils.refreshProperties();
+            Utils.setContext(mContext);
+            Utils.restartUI();
+        } finally {
+            mount("ro");
+        }
+        checkAutoBackup(mContext);
+    }
+
+    public static void addAppsLayout(Context mContext, String layout) {
+
+        if (!mount("rw")) {
+            throw new RuntimeException("Could not remount /system rw");
+        }
+        try {
+            if (propExists("%user_default_layout")) {
+                cmd.su.runWaitFor(String.format(REPLACE_CMD,
+                        "%user_default_layout", layout));
+            } else {
+                cmd.su.runWaitFor(String.format(APPEND_CMD,
+                        "%user_default_layout", layout));
+            }
+            ExtendedPropertiesUtils.refreshProperties();
+        } finally {
+            mount("ro");
+        }
+        checkAutoBackup(mContext);
+    }
+
+    public static void addProperty(Context mContext, String property,
+            int value, boolean restartui) {
+
+        if (!mount("rw")) {
+            throw new RuntimeException("Could not remount /system rw");
+        }
+        try {
+            if (propExists(property)) {
+                cmd.su.runWaitFor(String.format(REPLACE_CMD, property, value));
+            } else {
+                cmd.su.runWaitFor(String.format(APPEND_CMD, property, value));
+            }
+            ExtendedPropertiesUtils.refreshProperties();
+            if (restartui) {
+                Utils.setContext(mContext);
+                Utils.restartUI();
+            }
+        } finally {
+            mount("ro");
+        }
+        checkAutoBackup(mContext);
+    }
+
     public static void removeApplication(Context mContext, String packageName) {
         if (!mount("rw")) {
             throw new RuntimeException("Could not remount /system rw");
         }
         try {
             if (propExists(packageName)) {
-                cmd.su.runWaitFor(String.format(REPLACE_CMD, packageName + ".dpi", "0"));
+                cmd.su.runWaitFor(String.format(REPLACE_CMD, packageName
+                        + ".dpi", "0"));
             }
             if (packageName.equals("com.android.systemui")) {
+                Utils.setContext(mContext);
                 Utils.restartUI();
             } else {
                 try {
@@ -129,141 +277,144 @@ public class Applications {
         }
         checkAutoBackup(mContext);
     }
-    
+
+    public static boolean isPartOfSystem(String packageName) {
+        return packageName.startsWith(ExtendedPropertiesUtils.BEERBONG_PREFIX)
+                || packageName.startsWith("com.android.systemui.statusbar.")
+                || packageName.startsWith("com.android.systemui.navbar.")
+                || packageName.endsWith(".layout");
+    }
+
     public static BeerbongAppInfo[] getApplicationList(Context mContext, int dpi) {
-    
+
         mLastDpi = dpi;
-    
+
         Properties properties = null;
-    
+
         try {
             properties = new Properties();
-            properties.load(new FileInputStream("/system/etc/burstlam/properties.conf"));
+            properties.load(new FileInputStream(
+                    "/system/etc/burstlam/properties.conf"));
         } catch (Throwable t) {
             throw new RuntimeException(t);
         }
-        
+
         String sdpi = String.valueOf(dpi);
-        
-        List<BeerbongAppInfo> items = new ArrayList();
-        
+
+        List<BeerbongAppInfo> items = new ArrayList<BeerbongAppInfo>();
+
         Iterator it = properties.keySet().iterator();
         while (it.hasNext()) {
-            String packageName = (String)it.next();
+            String packageName = (String) it.next();
             String currentdpi = properties.getProperty(packageName);
             if (packageName.endsWith(".dpi") && sdpi.equals(currentdpi)) {
                 BeerbongAppInfo bAppInfo = findAppInfo(mContext, packageName);
 
                 if (bAppInfo == null) {
-                    removeApplication(mContext, packageName.substring(0, packageName.lastIndexOf(".dpi")));
+                    removeApplication(
+                            mContext,
+                            packageName.substring(0,
+                                    packageName.lastIndexOf(".dpi")));
                 } else {
                     items.add(bAppInfo);
                 }
             }
         }
-        
+
         Collections.sort(items, new AppComparator());
-        
+
         return items.toArray(new BeerbongAppInfo[items.size()]);
     }
-    
+
     public static BeerbongAppInfo[] getApplicationList(Context mContext) {
-    
+
         Properties properties = null;
-    
+
         try {
             properties = new Properties();
-            properties.load(new FileInputStream("/system/etc/burstlam/properties.conf"));
+            properties.load(new FileInputStream(
+                    "/system/etc/burstlam/properties.conf"));
         } catch (Throwable t) {
             throw new RuntimeException(t);
         }
-        
+
         PackageManager pm = mContext.getPackageManager();
 
         List<ApplicationInfo> mPackageList = pm.getInstalledApplications(0);
-        BeerbongAppInfo[] items = new BeerbongAppInfo[mPackageList == null ? 0 : mPackageList.size()];
-        
+        BeerbongAppInfo[] items = new BeerbongAppInfo[mPackageList == null ? 0
+                : mPackageList.size()];
+
         appList.clear();
 
-        for(int i=0; mPackageList != null && i<mPackageList.size(); i++) {
+        for (int i = 0; mPackageList != null && i < mPackageList.size(); i++) {
             ApplicationInfo app = mPackageList.get(i);
             items[i] = new BeerbongAppInfo();
-            items[i].name = (String)pm.getApplicationLabel(app);
+            items[i].name = (String) pm.getApplicationLabel(app);
             items[i].icon = pm.getApplicationIcon(app);
             items[i].pack = app.packageName;
             items[i].info = app;
-            items[i].dpi = properties.getProperty(app.packageName) == null ? 0 : Integer.parseInt(properties.getProperty(app.packageName));
+            items[i].dpi = properties.getProperty(app.packageName) == null ? 0
+                    : Integer.parseInt(properties.getProperty(app.packageName));
             appList.add(items[i]);
         }
         Arrays.sort(items, new AppComparator());
         return items;
     }
-    
+
     public static void backup(Context mContext) {
-        Utils.execute(new String[] {
-            "cd /data/data/com.aokp.romcontrol",
-            "mkdir files",
-            "chmod 777 files",
-            "cp /system/etc/burstlam/properties.conf " + BACKUP,
-            "chmod 644 " + BACKUP
-        }, 0);
-        Toast.makeText(mContext, R.string.dpi_groups_backup_done, Toast.LENGTH_SHORT).show();
+        Utils.execute(new String[] { "cd /data/data/com.aokp.romcontrol",
+                "mkdir files", "chmod 777 files",
+                "cp /system/etc/burstlam/properties.conf " + BACKUP,
+                "chmod 644 " + BACKUP }, 0);
+        Toast.makeText(mContext, R.string.dpi_groups_backup_done,
+                Toast.LENGTH_SHORT).show();
     }
-    
+
     public static void restore(Context mContext) {
-        Utils.execute(new String[] {
-            Utils.MOUNT_SYSTEM_RW,
-            "cp " + BACKUP + " /system/etc/burstlam/properties.conf",
-            "chmod 644 /system/etc/burstlam/properties.conf",
-            Utils.MOUNT_SYSTEM_RO
-        }, 0);
-        Toast.makeText(mContext, R.string.dpi_groups_restore_done, Toast.LENGTH_SHORT).show();
+        Utils.execute(new String[] { Utils.MOUNT_SYSTEM_RW,
+                "cp " + BACKUP + " /system/etc/burstlam/properties.conf",
+                "chmod 644 /system/etc/burstlam/properties.conf",
+                Utils.MOUNT_SYSTEM_RO }, 0);
+        Toast.makeText(mContext, R.string.dpi_groups_restore_done,
+                Toast.LENGTH_SHORT).show();
     }
-    
+
     public static boolean backupExists() {
         return new File(BACKUP).exists();
     }
-    
+
     private static void checkAutoBackup(Context mContext) {
-        boolean isAutoBackup = mContext.getSharedPreferences(DpiGroups.PREFS_NAME, 0).getBoolean(DpiGroups.PROPERTY_AUTO_BACKUP, false);
+        boolean isAutoBackup = mContext.getSharedPreferences(PREFS_NAME, 0)
+                .getBoolean(PROPERTY_AUTO_BACKUP, false);
         if (isAutoBackup) {
             backup(mContext);
         }
     }
+
     private static boolean mount(String read_value) {
-        return cmd.su.runWaitFor(String.format(REMOUNT_CMD, read_value)).success();
+        return cmd.su.runWaitFor(String.format(REMOUNT_CMD, read_value))
+                .success();
     }
+
     private static boolean propExists(String prop) {
-        return cmd.su.runWaitFor(String.format(PROP_EXISTS_CMD, prop)).success();
+        return cmd.su.runWaitFor(String.format(PROP_EXISTS_CMD, prop))
+                .success();
     }
-    private static BeerbongAppInfo findAppInfo(Context mContext, String packageName) {
+
+    private static BeerbongAppInfo findAppInfo(Context mContext,
+            String packageName) {
         if (packageName.endsWith(".dpi")) {
-            packageName = packageName.substring(0, packageName.lastIndexOf(".dpi"));
+            packageName = packageName.substring(0,
+                    packageName.lastIndexOf(".dpi"));
         }
         if (appList.size() == 0) {
             getApplicationList(mContext);
         }
-        for (int i=0;i<appList.size();i++) {
+        for (int i = 0; i < appList.size(); i++) {
             BeerbongAppInfo app = appList.get(i);
-            if (app.pack.equals(packageName)) return app;
+            if (app.pack.equals(packageName))
+                return app;
         }
         return null;
-    }
-    private static String read() throws Exception {
-        StringBuffer sb = new StringBuffer();
-
-        FileInputStream fstream = new FileInputStream("/system/etc/burstlam/properties.conf");
-
-        DataInputStream in = new DataInputStream(fstream);
-        BufferedReader br = new BufferedReader(new InputStreamReader(in));
-        String line = br.readLine();
-
-        while (line != null) {
-
-            sb.append(line + "\n");
-            line = br.readLine();
-
-        }
-        return sb.toString();
     }
 }

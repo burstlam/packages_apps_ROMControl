@@ -61,6 +61,9 @@
                 <category android:name="com.aokp.romcontrol.SHORTCUT"/>
             </intent-filter>
         </activity>
+
+        <activity android:name=".fragments.HybridSettings" />
+
         <activity
             android:name=".fragments.DpiGroups"
             android:label="@string/dpi_groups_title">

@@ -20,7 +20,7 @@ public class CustomDpiGroupPreference extends SeekBarDialogPreference implements
     private SeekBar mSeekBar;
     private TextView mText;
     private Context mContext;
-    
+
     private ArrayList<Integer> mGroupsList;
 
     private int mCustomDpi = -1;
@@ -29,11 +29,11 @@ public class CustomDpiGroupPreference extends SeekBarDialogPreference implements
 
     public CustomDpiGroupPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
-        
+
         mContext = context;
 
         setDialogLayoutResource(R.layout.preference_dialog_dpigroup);
-        
+
         loadGroups();
     }
 
@@ -46,22 +46,25 @@ public class CustomDpiGroupPreference extends SeekBarDialogPreference implements
         mSeekBar.setProgress(213 - 120);
 
         mSeekBar.setOnSeekBarChangeListener(this);
-        
-        mText = (TextView)view.findViewById(R.id.text_dpi);
+
+        mText = (TextView) view.findViewById(R.id.text_dpi);
         mText.setText(mContext.getResources().getString(R.string.custom_dpi) + " 213");
     }
-    
+
     public void onProgressChanged(SeekBar seekBar, int progress,
             boolean fromTouch) {
         mCustomDpi = mSeekBar.getProgress() + 120;
         mText.setText(mContext.getResources().getString(R.string.custom_dpi) + " " + mCustomDpi);
     }
+
     public void onStartTrackingTouch(SeekBar seekBar) {
         // NA
     }
+
     public void onStopTrackingTouch(SeekBar seekBar) {
         // NA
     }
+
     @Override
     protected void onDialogClosed(boolean positiveResult) {
         super.onDialogClosed(positiveResult);
@@ -77,32 +80,35 @@ public class CustomDpiGroupPreference extends SeekBarDialogPreference implements
             }
         }
     }
+
     public void setDpiGroups(DpiGroups dpiGroups) {
         mDpiGroups = dpiGroups;
     }
-    
+
     private void loadGroups() {
-        String list = mContext.getSharedPreferences(DpiGroups.PREFS_NAME, 0).getString(DpiGroups.PROPERTY_CUSTOM_DPI_LIST, DpiGroups.DEFAULT_GROUPS);
+        String list = mContext.getSharedPreferences(Applications.PREFS_NAME, 0).getString(
+                DpiGroups.PROPERTY_CUSTOM_DPI_LIST, DpiGroups.DEFAULT_GROUPS);
         String[] groupsStringArray = list.split("\\|");
         mGroupsList = new ArrayList<Integer>();
         for (String s : groupsStringArray) {
-            if(s != null && s != "") {
+            if (s != null && !s.equals("")) {
                 mGroupsList.add(Integer.parseInt(s));
             }
         }
     }
+
     private void saveGroups() {
-    
+
         String groups = "";
-    
+
         for (int s : mGroupsList)
             groups += s + "|";
-            
-        SharedPreferences settings = mContext.getSharedPreferences(DpiGroups.PREFS_NAME, 0);
+
+        SharedPreferences settings = mContext.getSharedPreferences(Applications.PREFS_NAME, 0);
         SharedPreferences.Editor editor = settings.edit();
         editor.putString(DpiGroups.PROPERTY_CUSTOM_DPI_LIST, groups);
         editor.commit();
-        
+
         mDpiGroups.updateGroups();
     }
 }

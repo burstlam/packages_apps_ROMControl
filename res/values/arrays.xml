@@ -1462,4 +1462,17 @@
         <item>242</item>
         <item>255</item>
     </string-array>
+
+    <!-- Per App UI-->
+    <string-array name="uimode_entries">
+        <item>@string/uimode_phone</item>
+        <item>@string/uimode_phablet</item>
+        <item>@string/uimode_tablet</item>
+    </string-array>
+
+    <string-array name="uimode_values" translatable="false">
+        <item>360</item>
+        <item>600</item>
+        <item>1000</item>
+    </string-array>
 </resources>

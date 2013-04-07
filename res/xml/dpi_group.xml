@@ -32,4 +32,10 @@
 
     </PreferenceCategory>
 
+    <PreferenceCategory
+        android:key="app_list"
+        android:title="@string/dpi_group_app_list">
+
+    </PreferenceCategory>
+
 </PreferenceScreen>

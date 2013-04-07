@@ -102,14 +102,10 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
     private static final CharSequence PREF_RECENT_KILL_ALL = "recent_kill_all";
     private static final CharSequence PREF_RAM_USAGE_BAR = "ram_usage_bar";
     private static final CharSequence STATUS_BAR_BRIGHTNESS_CONTROL = "status_bar_brightness_control";
-    private static final CharSequence PREF_USER_MODE_UI = "user_mode_ui";
-    private static final CharSequence PREF_HIDE_EXTRAS = "hide_extras";
     public static final CharSequence STATUS_BAR_MAX_NOTIF = "status_bar_max_notifications";
     private static final CharSequence PREF_NOTIFICATION_ALPHA = "notification_alpha";
     private static final CharSequence PREF_STATUSBAR_HIDDEN = "statusbar_hidden";
 
-	private static final CharSequence PREF_SHOW_OVERFLOW = "show_overflow";
-	private static final CharSequence PREF_FORCE_DUAL_PANEL = "force_dualpanel";
     private static final CharSequence PREF_WAKEUP_WHEN_PLUGGED_UNPLUGGED = "wakeup_when_plugged_unplugged";
     private static final CharSequence NOTIFICATION_SHADE_DIM = "notification_shade_dim";
     private static final CharSequence KEY_POWER_CRT_MODE = "system_power_crt_mode";
@@ -144,12 +140,7 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
     CheckBoxPreference mVibrateOnExpand;
     CheckBoxPreference mRecentKillAll;
     CheckBoxPreference mRamBar;
-	CheckBoxPreference mShowActionOverflow;
-	CheckBoxPreference mDualpane;
-	Preference mLcdDensity;
     CheckBoxPreference mStatusBarBrightnessControl;
-    ListPreference mUserModeUI;
-    CheckBoxPreference mHideExtras;
     ListPreference mStatusBarMaxNotif;
     AlertDialog mCustomBootAnimationDialog;
     SeekBarPreference mNotifAlpha;
@@ -181,9 +172,6 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
     private int mSeekbarProgress;
     String mCustomLabelText = null;
     int mUserRotationAngles = -1;
-
-	int newDensityValue;
-	DensityChanger densityFragment;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -246,16 +234,6 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
 
         mCustomBootAnimation = findPreference(PREF_CUSTOM_BOOTANIM);
 
-		mLcdDensity = findPreference("lcd_density_setup");
-        String currentProperty = SystemProperties.get("ro.sf.lcd_density");
-        try {
-            newDensityValue = Integer.parseInt(currentProperty);
-        } catch (Exception e) {
-            getPreferenceScreen().removePreference(mLcdDensity);
-        }
-
-        mLcdDensity.setSummary(getResources().getString(R.string.current_lcd_density) + currentProperty);
-
         mCustomLabel = findPreference(PREF_CUSTOM_CARRIER_LABEL);
         updateCustomLabelTextSummary();
 
@@ -280,30 +258,11 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
         mRamBar.setChecked(Settings.System.getBoolean(mContentResolver,
                 Settings.System.RAM_USAGE_BAR, false));
 
-		mShowActionOverflow = (CheckBoxPreference) findPreference(PREF_SHOW_OVERFLOW);
-        mShowActionOverflow.setChecked(Settings.System.getBoolean(mContentResolver,
-                        Settings.System.UI_FORCE_OVERFLOW_BUTTON, false));
-
-		mDualpane = (CheckBoxPreference) findPreference(PREF_FORCE_DUAL_PANEL);
-        mDualpane.setChecked(Settings.System.getBoolean(mContentResolver,
-                        Settings.System.FORCE_DUAL_PANEL, getResources().getBoolean(
-                        com.android.internal.R.bool.preferences_prefer_dual_pane)));
-
         mStatusBarMaxNotif = (ListPreference) findPreference(STATUS_BAR_MAX_NOTIF);
         int maxNotIcons = Settings.System.getInt(mContentResolver,
                 Settings.System.MAX_NOTIFICATION_ICONS, 2);
         mStatusBarMaxNotif.setValue(String.valueOf(maxNotIcons));
         mStatusBarMaxNotif.setOnPreferenceChangeListener(this);
-
-        mHideExtras = (CheckBoxPreference) findPreference(PREF_HIDE_EXTRAS);
-        mHideExtras.setChecked(Settings.System.getBoolean(mContentResolver,
-                        Settings.System.HIDE_EXTRAS_SYSTEM_BAR, false));
-
-        mUserModeUI = (ListPreference) findPreference(PREF_USER_MODE_UI);
-        int uiMode = Settings.System.getInt(mContentResolver, Settings.System.CURRENT_UI_MODE, 0);
-        mUserModeUI.setValue(Integer.toString(Settings.System.getInt(mContentResolver,
-                Settings.System.USER_UI_MODE, uiMode)));
-        mUserModeUI.setOnPreferenceChangeListener(this);
 
         float notifTransparency;
         try{
@@ -356,6 +315,7 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
             Preference mTransparency = findPreference("transparency_dialog");
             mStatusBarHide.setEnabled(false);
             mTransparency.setEnabled(false);
+            mStatusBarBrightnessControl.setEnabled(false);
         }
 
         setHasOptionsMenu(true);
@@ -491,31 +451,8 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
                     Settings.System.STATUSBAR_NOTIF_COUNT,
                     ((TwoStatePreference) preference).isChecked());
             return true;
-        } else if (preference == mShowActionOverflow) {
-            boolean enabled = mShowActionOverflow.isChecked();
-            Settings.System.putBoolean(mContentResolver, Settings.System.UI_FORCE_OVERFLOW_BUTTON,
-                    enabled);
-            // Show toast appropriately
-            if (enabled) {
-                Toast.makeText(getActivity(), R.string.show_overflow_toast_enable,
-                        Toast.LENGTH_LONG).show();
-            } else {
-                Toast.makeText(getActivity(), R.string.show_overflow_toast_disable,
-                        Toast.LENGTH_LONG).show();
-            }
-            return true;
-		} else if (preference == mDualpane) {
-            Settings.System.putBoolean(mContentResolver,
-                    Settings.System.FORCE_DUAL_PANEL,
-                    ((TwoStatePreference) preference).isChecked());
-            return true;
         } else if (preference == mDisableBootAnimation) {
             DisableBootAnimation();
-            return true;
-        } else if (preference == mHideExtras) {
-            Settings.System.putBoolean(mContentResolver,
-                    Settings.System.HIDE_EXTRAS_SYSTEM_BAR,
-                    ((TwoStatePreference) preference).isChecked());
             return true;
         } else if (preference == mCustomBootAnimation) {
             openBootAnimationDialog();
@@ -614,10 +551,6 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
             Settings.System.putBoolean(mContentResolver,
                     Settings.System.RAM_USAGE_BAR, checked);
             return true;
-		} else if (preference == mLcdDensity) {
-            ((PreferenceActivity) getActivity())
-                    .startPreferenceFragment(new DensityChanger(), true);
-            return true;
         } else if (preference == mWakeUpWhenPluggedOrUnplugged) {
             Settings.System.putBoolean(mContentResolver,
                     Settings.System.WAKEUP_WHEN_PLUGGED_UNPLUGGED,
@@ -714,11 +647,6 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
                     updateCustomBackgroundSummary();
                     break;
             }
-            Helpers.restartSystemUI();
-            return true;
-        } else if (preference == mUserModeUI) {
-            Settings.System.putInt(mContentResolver,
-                    Settings.System.USER_UI_MODE, Integer.parseInt((String) newValue));
             Helpers.restartSystemUI();
             return true;
         } else if (preference == mStatusBarMaxNotif) {
