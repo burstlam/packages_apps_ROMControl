@@ -163,9 +163,6 @@ public class StatusBarToggles extends AOKPPreferenceFragment implements
             mActions[i] = AwesomeConstants.getProperName(mContext, mActionCodes[i]);
         }
 
-        boolean isAdvanced = Settings.System.getBoolean(getContentResolver(),
-			Settings.System.CUSTOM_TOGGLE_ADVANCED, false);
-
         mEnabledToggles = findPreference(PREF_ENABLE_TOGGLES);
 
         mTogglesPerRow = (ListPreference) findPreference(PREF_TOGGLES_PER_ROW);
@@ -228,10 +225,11 @@ public class StatusBarToggles extends AOKPPreferenceFragment implements
         }
         if (Integer.parseInt(mTogglesStyle.getValue()) > 1) {
             mFastToggle.setEnabled(false);
+            mTogglesPerRow.setEnabled(false);
         }
-        if (!isAdvanced) {
-			mMatchAction.setEnabled(false);
-        }
+        
+        mMatchAction.setEnabled(mAdvancedStates.isChecked());
+
         new SettingsObserver(new Handler()).observe();
         refreshSettings();
     }
@@ -347,6 +345,7 @@ public class StatusBarToggles extends AOKPPreferenceFragment implements
                     Settings.System.TOGGLES_STYLE, val);
             mTogglesStyle.setValue((String) newValue);
             mFastToggle.setEnabled(val > 1 ? false : true);
+            mTogglesPerRow.setEnabled(val > 1 ? false : true);
             Helpers.restartSystemUI();
         } else if (preference == mScreenshotDelay) {
             int val = Integer.parseInt((String) newValue);
@@ -595,8 +594,7 @@ public class StatusBarToggles extends AOKPPreferenceFragment implements
             }
         };
 
-        boolean isAdvanced = Settings.System.getBoolean(getContentResolver(),
-                Settings.System.CUSTOM_TOGGLE_ADVANCED, false);
+        boolean isAdvanced = mAdvancedStates.isChecked();
 
         String action = mResources.getString(R.string.navbar_actiontitle_menu);
         if (!isAdvanced) {
@@ -648,8 +646,8 @@ public class StatusBarToggles extends AOKPPreferenceFragment implements
     }
 
     private void onDialogClick(ToggleButton button, int command) {
-        boolean isAdvanced = Settings.System.getBoolean(getContentResolver(),
-                Settings.System.CUSTOM_TOGGLE_ADVANCED, false);
+        boolean isAdvanced = mAdvancedStates.isChecked();
+
         if (isAdvanced) {
             switch (command) {
                 case 0: // Set Click Action
@@ -1071,6 +1069,7 @@ public class StatusBarToggles extends AOKPPreferenceFragment implements
             if (mCustomCat != null && mCustomButtons != null) {
                 boolean enabled = currentToggles.contains("CUSTOM");
                 mCustomCat.setEnabled(enabled);
+                mMatchAction.setEnabled(mAdvancedStates.isChecked());
                 mCustomButtons.setEnabled(enabled);
             }
         }
