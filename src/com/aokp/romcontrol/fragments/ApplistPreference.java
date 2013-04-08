@@ -20,23 +20,23 @@ import java.io.*;
 
 public class ApplistPreference extends AOKPPreferenceFragment {
 
-   	private PreferenceCategory mAppList;
-   	private Context mContext;
+    private PreferenceCategory mAppList;
+    private Context mContext;
    
-   	@Override
-   	public void onCreate(Bundle savedInstanceState) {
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-   		mContext = getActivity();
+        mContext = getActivity();
 
-		Utils.setContext(mContext);
+        Utils.setContext(mContext);
 
-      	addPreferencesFromResource(R.xml.dpi_group_app_list);
+        addPreferencesFromResource(R.xml.dpi_group_app_list);
 
         final PreferenceScreen prefSet = getPreferenceScreen();
-      	
-      	mAppList = (PreferenceCategory)prefSet.findPreference("dpi_group_app_list");
-      	
-      	Applications.BeerbongAppInfo[] items = Applications.getApplicationList(mContext);
+        
+        mAppList = (PreferenceCategory)prefSet.findPreference("dpi_group_app_list");
+        
+        Applications.BeerbongAppInfo[] items = Applications.getApplicationList(mContext);
 
         mAppList.removeAll();
         
@@ -59,6 +59,6 @@ public class ApplistPreference extends AOKPPreferenceFragment {
             mAppList.addPreference(pref);
         }
       
-   	}
+    }
 
 }

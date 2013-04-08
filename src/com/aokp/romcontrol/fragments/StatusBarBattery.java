@@ -29,9 +29,9 @@ public class StatusBarBattery extends AOKPPreferenceFragment implements
     ListPreference mBatteryBarThickness;
     CheckBoxPreference mBatteryBarChargingAnimation;
     ColorPickerPreference mBatteryBarColor;
-	ColorPickerPreference mBatteryTextColor;
+    ColorPickerPreference mBatteryTextColor;
     ColorPickerPreference mBatteryChargeTextColor;
-	ColorPickerPreference mCmCirleRingColor;
+    ColorPickerPreference mCmCirleRingColor;
     ColorPickerPreference mCmCirleRingColorCharge;
 
     @Override
@@ -80,7 +80,7 @@ public class StatusBarBattery extends AOKPPreferenceFragment implements
                 Settings.System.STATUSBAR_BATTERY_BAR_THICKNESS, 1)) + "");
 
         mBatteryTextColor = (ColorPickerPreference)
-				findPreference("battery_text_only_color");
+                findPreference("battery_text_only_color");
         mBatteryTextColor.setOnPreferenceChangeListener(this);
         defaultColor = getResources().getColor(
                 com.android.internal.R.color.holo_blue_light);
@@ -90,8 +90,8 @@ public class StatusBarBattery extends AOKPPreferenceFragment implements
         mBatteryTextColor.setSummary(hexColor);
         mBatteryTextColor.setNewPreviewColor(intColor);
 
-		mBatteryChargeTextColor = (ColorPickerPreference)
-				findPreference("battery_charge_text_only_color");
+        mBatteryChargeTextColor = (ColorPickerPreference)
+                findPreference("battery_charge_text_only_color");
         mBatteryChargeTextColor.setOnPreferenceChangeListener(this);
         defaultColor = getResources().getColor(
                 com.android.internal.R.color.holo_green_light);
@@ -101,7 +101,7 @@ public class StatusBarBattery extends AOKPPreferenceFragment implements
         mBatteryChargeTextColor.setSummary(hexColor);
         mBatteryChargeTextColor.setNewPreviewColor(intColor);
 
-		mCmCirleRingColor = (ColorPickerPreference)
+        mCmCirleRingColor = (ColorPickerPreference)
                 findPreference("battery_cmcircle_ring_color");
         mCmCirleRingColor.setOnPreferenceChangeListener(this);
         defaultColor = getResources().getColor(

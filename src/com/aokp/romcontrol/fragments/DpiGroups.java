@@ -31,20 +31,20 @@ public class DpiGroups extends AOKPPreferenceFragment {
     private CustomDpiGroupPreference mCustomDpi;
     private Preference mRestoreDefault;
     
-   	private Context mContext;
+    private Context mContext;
 
     private Properties properties;
     
     private String mGroupsString;
    
-   	@Override
-   	public void onCreate(Bundle savedInstanceState) {
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-   		mContext = getActivity();
+        mContext = getActivity();
 
-		Utils.setContext(mContext);
+        Utils.setContext(mContext);
 
-      	addPreferencesFromResource(R.xml.dpi_groups_settings);
+        addPreferencesFromResource(R.xml.dpi_groups_settings);
 
         PreferenceScreen prefSet = getPreferenceScreen();
         mCategory = (PreferenceCategory) prefSet
@@ -54,9 +54,9 @@ public class DpiGroups extends AOKPPreferenceFragment {
         mRestoreDefault = prefSet.findPreference("dpi_groups_restore_default");
 
         mCustomDpi.setDpiGroups(this);
-   	}
-   	
-   	@Override
+    }
+    
+    @Override
     public void onResume() {
         super.onResume();
         updateGroups();

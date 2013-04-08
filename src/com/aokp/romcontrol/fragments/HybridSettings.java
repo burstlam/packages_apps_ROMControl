@@ -31,7 +31,7 @@ import com.aokp.romcontrol.util.Helpers;
 public class HybridSettings extends AOKPPreferenceFragment implements
         OnPreferenceChangeListener {
 
-	private static final CharSequence PREF_FORCE_DUAL_PANEL = "force_dualpanel";
+    private static final CharSequence PREF_FORCE_DUAL_PANEL = "force_dualpanel";
     private static final CharSequence PREF_USER_MODE_UI = "user_mode_ui";
     private static final CharSequence PREF_HIDE_EXTRAS = "hide_extras";
     private static final CharSequence PREF_SHOW_OVERFLOW = "show_overflow";
@@ -44,18 +44,18 @@ public class HybridSettings extends AOKPPreferenceFragment implements
     Preference mAppsDpi;
     ListPreference mAppsUimode;
     ListPreference mUimode;
-	CheckBoxPreference mDualpane;
+    CheckBoxPreference mDualpane;
     ListPreference mUserModeUI;
     CheckBoxPreference mHideExtras;
-	CheckBoxPreference mShowActionOverflow;
-	Preference mLcdDensity;
+    CheckBoxPreference mShowActionOverflow;
+    Preference mLcdDensity;
 
     private Context mContext;
     private int mAppDpiProgress; 
     private static ContentResolver mContentResolver;
 
-	int newDensityValue;
-	DensityChanger densityFragment;
+    int newDensityValue;
+    DensityChanger densityFragment;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -69,7 +69,7 @@ public class HybridSettings extends AOKPPreferenceFragment implements
 
         mAppsDpi = findPreference("apps_dpi");
 
-		mLcdDensity = findPreference("lcd_density_setup");
+        mLcdDensity = findPreference("lcd_density_setup");
         String currentProperty = SystemProperties.get("ro.sf.lcd_density");
         try {
             newDensityValue = Integer.parseInt(currentProperty);
@@ -102,7 +102,7 @@ public class HybridSettings extends AOKPPreferenceFragment implements
 
         mRestore.setEnabled(Applications.backupExists());
 
-		mDualpane = (CheckBoxPreference) findPreference(PREF_FORCE_DUAL_PANEL);
+        mDualpane = (CheckBoxPreference) findPreference(PREF_FORCE_DUAL_PANEL);
         mDualpane.setChecked(Settings.System.getBoolean(mContentResolver,
                         Settings.System.FORCE_DUAL_PANEL, getResources().getBoolean(
                         com.android.internal.R.bool.preferences_prefer_dual_pane)));
@@ -117,7 +117,7 @@ public class HybridSettings extends AOKPPreferenceFragment implements
                 Settings.System.USER_UI_MODE, uiMode)));
         mUserModeUI.setOnPreferenceChangeListener(this);
 
-		mShowActionOverflow = (CheckBoxPreference) findPreference(PREF_SHOW_OVERFLOW);
+        mShowActionOverflow = (CheckBoxPreference) findPreference(PREF_SHOW_OVERFLOW);
         mShowActionOverflow.setChecked(Settings.System.getBoolean(mContentResolver,
                         Settings.System.UI_FORCE_OVERFLOW_BUTTON, false));
 
@@ -164,7 +164,7 @@ public class HybridSettings extends AOKPPreferenceFragment implements
             return true;
         } else if (preference == mAppsDpi) {
             showAppsDpiDialog();
-		} else if (preference == mLcdDensity) {
+        } else if (preference == mLcdDensity) {
             ((PreferenceActivity) getActivity())
                     .startPreferenceFragment(new DensityChanger(), true);
             return true;

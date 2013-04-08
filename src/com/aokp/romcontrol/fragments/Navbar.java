@@ -197,7 +197,7 @@ public class Navbar extends AOKPPreferenceFragment implements
                 Settings.System.DRAG_HANDLE_OPACITY,50);
         mDragHandleOpacity = (SeekBarPreference) findPreference(DRAG_HANDLE_OPACITY);
         mDragHandleOpacity.setInitValue((int) (defaultDragOpacity));
-			        mDragHandleOpacity.setOnPreferenceChangeListener(this);
+                    mDragHandleOpacity.setOnPreferenceChangeListener(this);
         final int defaultDragWidth = Settings.System.getInt(mContentRes,
                 Settings.System.DRAG_HANDLE_WEIGHT, 0);
         mDragHandleWidth = (SeekBarPreference) findPreference(DRAG_HANDLE_WIDTH);

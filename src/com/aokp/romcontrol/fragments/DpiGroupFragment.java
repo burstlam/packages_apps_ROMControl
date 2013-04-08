@@ -18,25 +18,25 @@ import java.util.*;
 public class DpiGroupFragment extends AOKPPreferenceFragment {
 
     private PreferenceCategory mAppList;
-   	private Context mContext;
-   	
-   	private int mDpi = -1;
-   	
-   	public DpiGroupFragment() {
-   	
-   	}
+    private Context mContext;
+    
+    private int mDpi = -1;
+    
+    public DpiGroupFragment() {
+    
+    }
    
-   	@Override
-   	public void onCreate(Bundle savedInstanceState) {
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         
         //mDpi = getArguments().getInt("dpi");
         
-   		mContext = getActivity();
+        mContext = getActivity();
 
-		Utils.setContext(mContext);
+        Utils.setContext(mContext);
 
-      	addPreferencesFromResource(R.xml.dpi_group);
+        addPreferencesFromResource(R.xml.dpi_group);
 
         PreferenceScreen prefSet = getPreferenceScreen();
 
@@ -46,7 +46,7 @@ public class DpiGroupFragment extends AOKPPreferenceFragment {
         mAppList = (PreferenceCategory)prefSet.findPreference("app_list");
 
         updateList();
-   	}
+    }
 
     public int getDpi() {
         return mDpi;

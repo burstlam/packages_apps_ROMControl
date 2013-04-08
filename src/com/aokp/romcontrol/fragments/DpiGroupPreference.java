@@ -36,7 +36,7 @@ public class DpiGroupPreference extends Preference {
         View layout = super.onCreateView(parent);
         
         layout.setOnClickListener(new OnClickListener() {
-   		    public void onClick(View v) {
+            public void onClick(View v) {
             
                 FragmentTransaction ft = mDpiGroups.getFragmentManager().beginTransaction();
                 DpiGroupFragment fragment = new DpiGroupFragment();
@@ -44,15 +44,15 @@ public class DpiGroupPreference extends Preference {
                 ft.addToBackStack("dpi_group");
                 ft.replace(mDpiGroups.getId(), fragment);
                 ft.commit();
-   		    }
-   		});
+            }
+        });
         
         layout.setOnLongClickListener(new OnLongClickListener() {
-   		    public boolean onLongClick(View v) {
-   		    
-   		        final int dpi = DpiGroupPreference.this.getDpi();
-   		        
-   		        AlertDialog.Builder alert = new AlertDialog.Builder(mContext);
+            public boolean onLongClick(View v) {
+            
+                final int dpi = DpiGroupPreference.this.getDpi();
+                
+                AlertDialog.Builder alert = new AlertDialog.Builder(mContext);
                 alert.setTitle(R.string.dpi_groups_delete_title);
                 alert.setMessage(R.string.dpi_groups_delete_summary);
 
@@ -84,9 +84,9 @@ public class DpiGroupPreference extends Preference {
 
                 alert.show();
             
-   		        return true;
-   		    }
-   		});
+                return true;
+            }
+        });
         
         return layout;
     }

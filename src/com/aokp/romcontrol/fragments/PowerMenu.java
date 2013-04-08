@@ -24,11 +24,11 @@ public class PowerMenu extends AOKPPreferenceFragment implements
     private static final String PREF_TORCH_TOGGLE = "show_torch_toggle";
     private static final String PREF_AIRPLANE_TOGGLE = "show_airplane_toggle";
     private static final String PREF_NAVBAR_HIDE = "show_navbar_hide";
-	private static final String PREF_EXPANDED_DESKTOP_TOGGLE = "power_menu_expanded_desktop";
-	private static final String EXPANDED_DESKTOP_STYLE = "expanded_desktop_style";
+    private static final String PREF_EXPANDED_DESKTOP_TOGGLE = "power_menu_expanded_desktop";
+    private static final String EXPANDED_DESKTOP_STYLE = "expanded_desktop_style";
     private static final String PIE_RESTART = "pie_restart_launcher";
     private static final String PREF_VOLUME_STATE_TOGGLE = "show_volume_state_toggle";
-	private static final String PREF_REBOOT_KEYGUARD = "show_reboot_keyguard";
+    private static final String PREF_REBOOT_KEYGUARD = "show_reboot_keyguard";
 
     //CheckBoxPreference mShowPowerSaver;
     CheckBoxPreference mShowPowerOff;
@@ -36,11 +36,11 @@ public class PowerMenu extends AOKPPreferenceFragment implements
     CheckBoxPreference mShowTorchToggle;
     CheckBoxPreference mShowAirplaneToggle;
     CheckBoxPreference mShowNavBarHide;
-	CheckBoxPreference mExpandedDesktopPref;
+    CheckBoxPreference mExpandedDesktopPref;
     ListPreference mExpandedDesktopSbPref;
     private CheckBoxPreference mPieRestart;
     CheckBoxPreference mShowVolumeStateToggle;
-	CheckBoxPreference mShowRebootKeyguard;
+    CheckBoxPreference mShowRebootKeyguard;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -85,7 +85,7 @@ public class PowerMenu extends AOKPPreferenceFragment implements
         mShowVolumeStateToggle.setChecked(Settings.System.getBoolean(mContentRes,
                 Settings.System.POWER_DIALOG_SHOW_VOLUME_STATE_TOGGLE, true));
 
-		mExpandedDesktopPref = (CheckBoxPreference) findPreference(PREF_EXPANDED_DESKTOP_TOGGLE);
+        mExpandedDesktopPref = (CheckBoxPreference) findPreference(PREF_EXPANDED_DESKTOP_TOGGLE);
         mExpandedDesktopPref.setChecked(Settings.System.getInt(getActivity()
                 .getContentResolver(), Settings.System.POWER_DIALOG_SHOW_EXPANDED_DESKTOP_TOGGLE, 
                 0) == 1);
@@ -101,7 +101,7 @@ public class PowerMenu extends AOKPPreferenceFragment implements
         mPieRestart.setChecked(Settings.System.getInt(mContext.getContentResolver(),
                 Settings.System.EXPANDED_DESKTOP_RESTART_LAUNCHER, 0) == 1);
 
-		mShowRebootKeyguard = (CheckBoxPreference) findPreference(PREF_REBOOT_KEYGUARD);
+        mShowRebootKeyguard = (CheckBoxPreference) findPreference(PREF_REBOOT_KEYGUARD);
         mShowRebootKeyguard.setChecked(Settings.System.getBoolean(getActivity()
                 .getContentResolver(), Settings.System.POWER_DIALOG_SHOW_REBOOT_KEYGUARD, true));
 
@@ -157,7 +157,7 @@ public class PowerMenu extends AOKPPreferenceFragment implements
                     Settings.System.POWER_DIALOG_SHOW_VOLUME_STATE_TOGGLE,
                     ((CheckBoxPreference)preference).isChecked());
             return true;
-		} else if (preference == mExpandedDesktopPref) {
+        } else if (preference == mExpandedDesktopPref) {
             Settings.System.putInt(mContentRes,
                     Settings.System.POWER_DIALOG_SHOW_EXPANDED_DESKTOP_TOGGLE,
                     ((CheckBoxPreference)preference).isChecked() ? 1 : 0);
@@ -167,7 +167,7 @@ public class PowerMenu extends AOKPPreferenceFragment implements
                     Settings.System.EXPANDED_DESKTOP_RESTART_LAUNCHER, 
                     ((CheckBoxPreference)preference).isChecked() ? 1 : 0);
             return true;
-		} else if (preference == mShowRebootKeyguard) {
+        } else if (preference == mShowRebootKeyguard) {
             Settings.System.putBoolean(mContentRes,
                     Settings.System.POWER_DIALOG_SHOW_REBOOT_KEYGUARD,
                     ((CheckBoxPreference)preference).isChecked());
