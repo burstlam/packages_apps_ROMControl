@@ -62,6 +62,12 @@
             android:title="@string/dpi_groups_title"
             android:summary="@string/dpi_groups_summary" />
 
+        <PreferenceScreen
+            android:key="widgets"
+            android:fragment="com.aokp.romcontrol.fragments.Widgets"
+            android:title="@string/widgets_title"
+            android:summary="@string/widgets_summary" />
+
     </PreferenceCategory>
 
     <PreferenceCategory
