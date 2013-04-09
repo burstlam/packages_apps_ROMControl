@@ -120,6 +120,7 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
     private static final CharSequence PREF_NAVBAR = "navbar";
     private static final CharSequence PREF_MISC = "misc";
     private static final CharSequence PREF_DISPLAY = "display";
+    private static final String STATUS_BAR_TRAFFIC = "status_bar_traffic";
 
     private static final int REQUEST_PICK_WALLPAPER = 201;
     // private static final int REQUEST_PICK_CUSTOM_ICON = 202; // unused
@@ -142,6 +143,7 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
     CheckBoxPreference mRamBar;
     CheckBoxPreference mStatusBarBrightnessControl;
     ListPreference mStatusBarMaxNotif;
+    CheckBoxPreference mStatusBarTraffic;
     AlertDialog mCustomBootAnimationDialog;
     SeekBarPreference mNotifAlpha;
     CheckBoxPreference mWakeUpWhenPluggedOrUnplugged;
@@ -219,7 +221,7 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
         mLowBatteryWarning.setOnPreferenceChangeListener(this);
 
         mStatusBarBrightnessControl = (CheckBoxPreference) findPreference(STATUS_BAR_BRIGHTNESS_CONTROL);
-        mStatusBarBrightnessControl.setChecked((Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
+        mStatusBarBrightnessControl.setChecked((Settings.System.getInt(mContentResolver,
                             Settings.System.STATUS_BAR_BRIGHTNESS_CONTROL, 0) == 1));
 
         // Start observing for changes on auto brightness
@@ -311,11 +313,16 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
         mStatusBarIconOpacity.setValue(String.valueOf(iconOpacity));
         mStatusBarIconOpacity.setOnPreferenceChangeListener(this);
 
+        mStatusBarTraffic = (CheckBoxPreference) findPreference(STATUS_BAR_TRAFFIC);
+        mStatusBarTraffic.setChecked((Settings.System.getInt(mContentResolver,
+                Settings.System.STATUS_BAR_TRAFFIC, 1) == 1));
+
         if (isTablet(mContext)) {
             Preference mTransparency = findPreference("transparency_dialog");
             mStatusBarHide.setEnabled(false);
             mTransparency.setEnabled(false);
             mStatusBarBrightnessControl.setEnabled(false);
+            mStatusBarTraffic.setEnabled(false);
         }
 
         setHasOptionsMenu(true);
@@ -577,6 +584,11 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
             return true;
         } else if ("transparency_dialog".equals(preference.getKey())) {
             openTransparencyDialog();
+            return true;
+        } else if (preference == mStatusBarTraffic) {
+            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
+                Settings.System.STATUS_BAR_TRAFFIC,
+                mStatusBarTraffic.isChecked() ? 1 : 0);
             return true;
         }
         return super.onPreferenceTreeClick(preferenceScreen, preference);

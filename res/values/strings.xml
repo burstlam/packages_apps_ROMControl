@@ -1548,4 +1548,8 @@
     <string name="low_battery_warning_policy_sound">Sound only</string>
     <string name="low_battery_warning_policy_disabled">Disabled</string>
 
+    <!-- show network speed -->
+    <string name="show_network_speed_title">Network speed</string>
+    <string name="show_network_speed_summary">Show network speed in statusbar</string>
+
 </resources>
