@@ -18,12 +18,17 @@ import com.aokp.romcontrol.util.Helpers;
 public class StatusBarSignal extends AOKPPreferenceFragment implements
         OnPreferenceChangeListener {
 
+    private static final String STATUS_BAR_TRAFFIC = "status_bar_traffic";
+    private static final String STATUS_BAR_TRAFFIC_COLOR = "status_bar_traffic_color";
+
     ListPreference mDbmStyletyle;
     ListPreference mWifiStyle;
     ColorPickerPreference mColorPicker;
     ColorPickerPreference mWifiColorPicker;
     CheckBoxPreference mHideSignal;
     CheckBoxPreference mAltSignal;
+    CheckBoxPreference mStatusBarTraffic;
+    ColorPickerPreference mTrafficColorPicker;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -74,6 +79,24 @@ public class StatusBarSignal extends AOKPPreferenceFragment implements
         mAltSignal.setChecked(Settings.System.getBoolean(mContentRes,
                 Settings.System.STATUSBAR_SIGNAL_CLUSTER_ALT,false));
 
+        mStatusBarTraffic = (CheckBoxPreference) findPreference(STATUS_BAR_TRAFFIC);
+        mStatusBarTraffic.setChecked((Settings.System.getInt(mContentRes,
+                Settings.System.STATUS_BAR_TRAFFIC, 1) == 1));
+
+        mTrafficColorPicker = (ColorPickerPreference) findPreference("status_bar_traffic_color");
+        mTrafficColorPicker.setOnPreferenceChangeListener(this);
+        defaultColor = getResources().getColor(
+                com.android.internal.R.color.holo_blue_light);
+        intColor = Settings.System.getInt(getActivity().getContentResolver(),
+                    Settings.System.STATUS_BAR_TRAFFIC_COLOR, defaultColor);
+        hexColor = String.format("#%08x", (0xffffffff & intColor));
+        mTrafficColorPicker.setSummary(hexColor);
+        mTrafficColorPicker.setNewPreviewColor(intColor);
+
+        if (isTablet(mContext)) {
+            mStatusBarTraffic.setEnabled(false);
+        }
+
         if (Integer.parseInt(mDbmStyletyle.getValue()) == 0) {
             mColorPicker.setEnabled(false);
         }
@@ -93,6 +116,11 @@ public class StatusBarSignal extends AOKPPreferenceFragment implements
         } else if (preference == mAltSignal) {
             Settings.System.putBoolean(mContentRes,
                     Settings.System.STATUSBAR_SIGNAL_CLUSTER_ALT,mAltSignal.isChecked());
+            return true;
+        } else if (preference == mStatusBarTraffic) {
+            Settings.System.putInt(mContentRes,
+                Settings.System.STATUS_BAR_TRAFFIC,
+                mStatusBarTraffic.isChecked() ? 1 : 0);
             return true;
         }
         return super.onPreferenceTreeClick(preferenceScreen, preference);
@@ -130,6 +158,16 @@ public class StatusBarSignal extends AOKPPreferenceFragment implements
             int intHex = ColorPickerPreference.convertToColorInt(hex);
             Settings.System.putInt(mContentRes,
                     Settings.System.STATUSBAR_WIFI_SIGNAL_TEXT_COLOR, intHex);
+            return true;
+        } else if (preference == mTrafficColorPicker) {
+            String hex = ColorPickerPreference.convertToARGB(Integer.valueOf(String
+                    .valueOf(newValue)));
+            preference.setSummary(hex);
+
+            int intHex = ColorPickerPreference.convertToColorInt(hex);
+            Settings.System.putInt(mContentRes,
+                    Settings.System.STATUS_BAR_TRAFFIC_COLOR, intHex);
+            Helpers.restartSystemUI();
             return true;
         }
         return false;

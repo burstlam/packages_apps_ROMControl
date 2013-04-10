@@ -1561,5 +1561,6 @@
     <!-- show network speed -->
     <string name="show_network_speed_title">Network speed</string>
     <string name="show_network_speed_summary">Show network speed in statusbar</string>
+    <string name="status_bar_traffic_color_title">Network speed Custom Color</string>
 
 </resources>
