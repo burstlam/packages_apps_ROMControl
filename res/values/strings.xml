@@ -46,6 +46,7 @@
     <string name="title_weather">Weather Settings</string>
     <string name="title_performance">Performance Settings</string>
     <string name="title_clipboard_share">Share to Clipboard</string>
+    <string name="mgerrit_activity_name">mGerrit</string>
     <string name="ribbon_settings_title">Ribbon options</string>
 
     <!-- Header Summaries -->
