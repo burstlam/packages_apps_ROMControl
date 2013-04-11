@@ -73,7 +73,7 @@ public class PieControl extends AOKPPreferenceFragment
 
         mPieGravity = (ListPreference) prefSet.findPreference(PIE_GRAVITY);
         int pieGravity = Settings.System.getInt(mContext.getContentResolver(),
-                Settings.System.PIE_GRAVITY, 3);
+                Settings.System.PIE_GRAVITY, 2);
         mPieGravity.setValue(String.valueOf(pieGravity));
         mPieGravity.setOnPreferenceChangeListener(this);
 
