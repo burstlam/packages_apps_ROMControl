@@ -386,19 +386,21 @@ public class Navbar extends AOKPPreferenceFragment implements
                     ((CheckBoxPreference) preference).isChecked() ? 1 : 0);
             Helpers.restartSystemUI();
             return true;
+        } else if (preference == mColorizeAllIcons) {
+            Settings.System.putBoolean(mContentRes,
+                    Settings.System.NAVIGATION_BAR_ALLCOLOR,
+                    ((CheckBoxPreference) preference).isChecked() ? true : false);
+            return true;
         } else if (preference == mNavBarHideEnable) {
             Settings.System.putBoolean(mContentRes,
                     Settings.System.NAV_HIDE_ENABLE,
                     ((CheckBoxPreference) preference).isChecked());
-            Settings.System.putBoolean(mContentRes,
-                    Settings.System.NAVIGATION_BAR_SHOW_NOW, !((CheckBoxPreference) preference).isChecked());
-            mDragHandleOpacity.setInitValue(Settings.System.getInt(mContentRes,
+            mDragHandleOpacity.setInitValue(Settings.System.getInt(getActivity().getContentResolver(),
                     Settings.System.DRAG_HANDLE_OPACITY,50));
-            mDragHandleWidth.setInitValue(Settings.System.getInt(mContentRes,
+            mDragHandleWidth.setInitValue(Settings.System.getInt(getActivity().getContentResolver(),
                     Settings.System.DRAG_HANDLE_WEIGHT,5));
-            mNavBarHideTimeout.setValue(Settings.System.getInt(mContentRes,
+            mNavBarHideTimeout.setValue(Settings.System.getInt(getActivity().getContentResolver(),
                     Settings.System.NAV_HIDE_TIMEOUT, 3000) + "");
-            Helpers.restartSystemUI();
             refreshSettings();
             return true;
         } else if (preference == mConfigureWidgets) {
@@ -532,11 +534,6 @@ public class Navbar extends AOKPPreferenceFragment implements
             Settings.System.putFloat(mContentRes,
                     Settings.System.NAVIGATION_BAR_WIDTH_LAND,
                     val * 0.4f);
-            return true;
-        } else if (preference == mColorizeAllIcons) {
-            Settings.System.putBoolean(mContentRes,
-                    Settings.System.NAVIGATION_BAR_ALLCOLOR,
-                    ((CheckBoxPreference) preference).isChecked() ? true : false);
             return true;
         }
         return false;
