@@ -189,7 +189,7 @@ public class Navbar extends AOKPPreferenceFragment implements
         mNavBarMenuDisplay.setValue(Settings.System.getInt(mContentRes,
                 Settings.System.MENU_VISIBILITY, 0) + "");
 
-        mNavBarHideEnable = (CheckBoxPreference) findPreference(ENABLE_NAVIGATION_BAR);
+        mNavBarHideEnable = (CheckBoxPreference) findPreference(NAVBAR_HIDE_ENABLE);
         mNavBarHideEnable.setChecked(Settings.System.getBoolean(mContentRes,
                 Settings.System.NAV_HIDE_ENABLE, false));
 
