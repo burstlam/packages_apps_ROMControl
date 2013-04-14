@@ -312,9 +312,7 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
         mStatusBarIconOpacity.setOnPreferenceChangeListener(this);
 
         if (isTablet(mContext)) {
-            Preference mTransparency = findPreference("transparency_dialog");
             mStatusBarHide.setEnabled(false);
-            mTransparency.setEnabled(false);
             mStatusBarBrightnessControl.setEnabled(false);
         }
 
