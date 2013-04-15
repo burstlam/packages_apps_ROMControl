@@ -29,7 +29,8 @@
 
     <Preference
         android:key="apps_dpi2"
-        android:title="@string/apps_dpi_title2" />
+        android:title="@string/apps_dpi_title2"
+        android:fragment="com.aokp.romcontrol.fragments.HybridSettings"/>
 
 	<ListPreference
 		android:entries="@array/lcd_density_entries"
