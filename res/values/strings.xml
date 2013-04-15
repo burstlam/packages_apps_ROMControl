@@ -239,7 +239,7 @@
     <string name="open_market_title">4. Open Market and hit accept</string>
     <string name="open_market_summary">Press back when done to return here.</string>
     <string name="open_market_summary_could_not_open">"Couldn't open the market! If you're sure it's installed, open it yourself from the launcher."</string>
-    <string name="custom_density_title">5. Change density to whatever you like!</string>
+    <string name="custom_density_title">6. Change density to whatever you like!</string>
     <string name="custom_density_summary">If you ever have compatibility issues with the market, be sure to return here and repeat the process.</string>
     <string name="custom_density_summary_invalid">"INVALID DENSITY!"</string>
     <string name="custom_density">custom</string>
@@ -1320,11 +1320,13 @@
 
     <!-- Per Apps UI Mode-->
     <string name="appsuimode_title">Apps UIMode</string>
+    <string name="appsuimode_summary">Force Apps UI Layout Mode : Phone or Phablet or Tablet</string>
     <string name="uimode_phone">Phone</string>
     <string name="uimode_phablet">Phablet</string>
     <string name="uimode_tablet">Tablet</string>
     <string name="apps_dpi_title">Apps density</string>
     <string name="apps_dpi_summary">Current apps density:</string>
+    <string name="apps_dpi_title2">5.Apps density</string>
     <string name="apps_dpi_custom_title">Specify density</string>
     <string name="apps_dpi_custom_hint">120 to 480</string>
     <string name="apps_dpi_custom_summary">Select a density from 120 to 480</string>

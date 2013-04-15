@@ -27,6 +27,10 @@
 		android:title="@string/open_market_title"
 		android:summary="@string/open_market_summary" />
 
+    <Preference
+        android:key="apps_dpi2"
+        android:title="@string/apps_dpi_title2" />
+
 	<ListPreference
 		android:entries="@array/lcd_density_entries"
 		android:entryValues="@array/lcd_density_entries"
