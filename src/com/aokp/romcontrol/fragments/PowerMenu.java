@@ -103,7 +103,6 @@ public class PowerMenu extends AOKPPreferenceFragment implements
         int expandedDesktopValue = Settings.System.getInt(mContentRes,
                 Settings.System.EXPANDED_DESKTOP_STYLE, 0);
         mExpandedDesktopSbPref.setValue(String.valueOf(expandedDesktopValue));
-        updateExpandedDesktopSummary(expandedDesktopValue);
 
         mPieRestart = (SwitchPreference) prefSet.findPreference(PIE_RESTART);
         mPieRestart.setChecked(Settings.System.getBoolean(mContentRes,
@@ -172,23 +171,20 @@ public class PowerMenu extends AOKPPreferenceFragment implements
             return true;
         } else if (preference == mExpandedDesktopSbPref) {
             int expandedDesktopValue = Integer.valueOf((String) value);
+            int index = mExpandedDesktopSbPref.findIndexOfValue((String) value); 
+            if (expandedDesktopValue == 0) {
+                Settings.System.putInt(getContentResolver(),
+                        Settings.System.EXPANDED_DESKTOP_STATE, 0);
+            } else {
+                Settings.System.putInt(getContentResolver(),
+                        Settings.System.EXPANDED_DESKTOP_STATE, 1);
+            }
             Settings.System.putInt(getContentResolver(),
                     Settings.System.EXPANDED_DESKTOP_STYLE, expandedDesktopValue);
-            updateExpandedDesktopSummary(expandedDesktopValue);
-            return true;
+            mExpandedDesktopPref.setSummary(mExpandedDesktopSbPref.getEntries()[index]);
+            return true; 
         }
         return false;
     }
 
-    private void updateExpandedDesktopSummary(int value) {
-        Resources res = getResources();
-
-        if (value == 1) {
-            String statusBarPresent = res.getString(R.string.expanded_desktop_summary_status_bar);
-            mExpandedDesktopPref.setSummary(res.getString(R.string.summary_expanded_desktop, statusBarPresent));
-        } else if (value == 2) {
-            String statusBarPresent = res.getString(R.string.expanded_desktop_summary_no_status_bar);
-            mExpandedDesktopPref.setSummary(res.getString(R.string.summary_expanded_desktop, statusBarPresent));
-        }
-    }
 }

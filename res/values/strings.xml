@@ -89,10 +89,11 @@
     <!--Expanded Desktop Enhancement: Status Bar Switch -->
     <string name="expanded_desktop_status_bar_state">Expanded desktop statusbar state</string>
     <string name="summary_expanded_desktop">%1$s</string>
-    <string name="expanded_desktop_summary_status_bar">With status bar</string>
-    <string name="expanded_desktop_summary_no_status_bar">Without status bar</string>
-    <string name="expanded_desktop_staus_bar">With status bar</string>
-    <string name="expanded_desktop_no_staus_bar">Without status bar</string>
+    <string name="expanded_desktop_summary">Show or change expanded desktop mode</string>
+    <string name="expanded_desktop_disabled">Off</string>
+    <string name="expanded_desktop_only_nav_bar">Hide navigation bar</string>
+    <string name="expanded_desktop_only_status_bar">Hide status bar</string>
+    <string name="expanded_desktop_both_hidden">Hide navigation and status bar</string> 
 
     <!-- S Pen -->
     <string name="spen_left_title">Action on swipe left</string>
