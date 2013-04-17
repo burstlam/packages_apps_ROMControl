@@ -132,6 +132,15 @@
                 <category android:name="com.aokp.romcontrol.SHORTCUT" />
             </intent-filter>
         </activity>
+         <activity
+            android:name=".fragments.PieControl"
+            android:label="@string/title_navbar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="com.aokp.romcontrol.SHORTCUT"/>
+            </intent-filter>
+        </activity>
         <activity
             android:name=".fragments.LEDControl"
             android:label="@string/title_led">
