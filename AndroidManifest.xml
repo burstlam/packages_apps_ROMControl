@@ -115,24 +115,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".fragments.PieControl"
-            android:label="@string/pie_controls_title">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="com.aokp.romcontrol.SHORTCUT"/>
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".fragments.PieColor"
-            android:label="PieColorEMERGERD">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-
-                <category android:name="com.aokp.romcontrol.SHORTCUT"/>
-            </intent-filter>
-        </activity>
-        <activity
             android:name=".fragments.NavRingTargets"
             android:label="@string/title_navring" >
             <intent-filter>

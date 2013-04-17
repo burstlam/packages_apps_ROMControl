@@ -21,9 +21,9 @@
         android:key="show_airplane_toggle"
         android:title="@string/title_show_airplane_toggle" />
 
-    <SwitchPreference
+<!--    <SwitchPreference
         android:key="show_navbar_hide"
-        android:title="@string/title_show_navbar_hide" />
+        android:title="@string/title_show_navbar_hide" /> -->
 
     <SwitchPreference
         android:key="show_reboot_keyguard"
@@ -40,11 +40,6 @@
         android:entries="@array/expanded_desktop_entries"
         android:entryValues="@array/expanded_desktop_values"
         android:dependency="power_menu_expanded_desktop" />
-
-    <SwitchPreference
-        android:key="pie_restart_launcher"
-        android:title="@string/pie_restart_launcher_title"
-        android:summary="@string/pie_restart_launcher_summary" />
 
     <SwitchPreference
 			android:key="show_volume_state_toggle"

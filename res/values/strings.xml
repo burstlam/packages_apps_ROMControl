@@ -1211,68 +1211,6 @@
     <string name="icon_picker_system_icons_title">System icons</string>
     <string name="icon_picker_gallery_title">Gallery</string>
 
-    <!-- Pie controls -->
-    <string name="pie_controls_title">Pie controls</string>
-    <string name="pie_controls_summary">Allows navigation and status report on expanded desktop mode</string>
-    <string name="pie_gravity_title">Pie gravity</string>
-    <string name="pie_gravity_summary">Select the location where the pie will be placed at</string>
-    <string name="pie_gravity_top">Top</string>
-    <string name="pie_gravity_bottom">Bottom</string>
-    <string name="pie_gravity_right">Right</string>
-    <string name="pie_gravity_left">Left</string>
-    <string name="pie_mode_title">Pie style</string>
-    <string name="pie_mode_summary">Manage how animations and status additions will be handled</string>
-    <string name="pie_mode_bare">Bare</string>
-    <string name="pie_mode_quick">Quick</string>
-    <string name="pie_mode_default">Default</string>
-    <string name="pie_mode_slow">Slow</string>
-    <string name="pie_size_title">Pie size</string>
-    <string name="pie_size_summary">Define pie controls size</string>
-    <string name="pie_size_small">Small</string>
-    <string name="pie_size_default">@string/pie_mode_default</string>
-    <string name="pie_size_large">Large</string>
-    <string name="pie_size_gigantic">Gigantic</string>
-    <string name="pie_menu_title">Show menu button always</string>
-    <string name="pie_menu_summary">Whether or not the menu button will appear when unneeded</string>
-    <string name="pie_search_title">Show search button</string>
-    <string name="pie_search_summary">Access to Google Now via Pie</string>
-    <string name="pie_lastapp_title">Last App button</string>
-    <string name="pie_lastapp_summary">Enable last app button on Pie</string>
-    <string name="pie_center_title">Center pie</string>
-    <string name="pie_center_summary">Center Pie on the trigger edge</string>
-    <string name="pie_stick_title">Prevent rotation</string>
-    <string name="pie_stick_summary">If checked Pie will stay in place no matter which orientation</string>
-    <string name="pie_restart_launcher_title">Restart Launcher</string>
-    <string name="pie_restart_launcher_summary">Changing screensize can have adverse effects. This option allows your launcher to regain sanity, the cost is a slight blackout (recommended)</string>
-
-    <!-- Pie Color Settings -->
-    <string name="pie_color_title">Pie color settings</string>
-    <string name="pie_color_style_title">Pie color style</string>
-    <string name="pie_background_title">Background color</string>
-    <string name="pie_select_title">Selection color</string>
-    <string name="pie_outlines_title">Outlines color</string>
-    <string name="pie_status_clock_title">Clock color</string>
-    <string name="pie_status_title">Status color</string>
-    <string name="pie_chevron_left_title">Left chevron color</string>
-    <string name="pie_chevron_right_title">Right chevron color</string>
-    <string name="all_color">Colors Everywhere!</string>
-    <string name="stock_color">Stock Color</string>
-    <string name="pie_juice_title">Battery juice color</string>
-
-    <!-- Pie Gap-->
-    <string name="pie_gap_title">Pie gap</string>
-    <string name="pie_gap_summary">Adjust the gap in between pie elements</string>
-    <string name="pie_gap_closed">Closed</string>
-    <string name="pie_gap_small">Small (default)</string>
-    <string name="pie_gap_big">Big</string>
-    <string name="pie_gap_huge">Huge</string>
-    <string name="pie_trigger_title">Trigger size</string>
-    <string name="pie_trigger_summary">Determine the size of the triggering area that will start pie controls</string>
-    <string name="pie_trigger_small">Small</string>
-    <string name="pie_trigger_normal">Normal (Default)</string>
-    <string name="pie_trigger_big">Big</string>
-    <string name="pie_trigger_huge">Huge</string>
-
     <!-- Hybrid -->
     <string name="hybrid_settings_title">Hybrid settings</string>
     <string name="dpi_settings_title">System density</string>
