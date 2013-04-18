@@ -112,7 +112,6 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
     private static final CharSequence PREF_POWER_CRT_SCREEN_OFF = "system_power_crt_screen_off";
     private static final CharSequence PREF_LOW_BATTERY_WARNING_POLICY = "pref_low_battery_warning_policy";
     private static final CharSequence PREF_NOTIFICATION_BEHAVIOUR = "notifications_behaviour";
-    private static final CharSequence PREF_NOTIFICATION_EXSHADE = "notification_exshade"; 
     private static final CharSequence KEY_STATUS_BAR_ICON_OPACITY = "status_bar_icon_opacity"; 
 
     private static final CharSequence PREF_DISABLE_BOOTANIM = "disable_bootanimation";
@@ -147,7 +146,6 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
     SeekBarPreference mNotifAlpha;
     CheckBoxPreference mWakeUpWhenPluggedOrUnplugged;
     CheckBoxPreference mNotificationShadeDim;
-    CheckBoxPreference mNotificationExShade;
     CheckBoxPreference mStatusBarAutoHide;
     CheckBoxPreference mCrtOff;
     ListPreference mCrtMode;
@@ -302,10 +300,6 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
         if (Helpers.isTablet(getActivity())) {
                 getPreferenceScreen().removePreference(mNotificationShadeDim);
         }
-
-        mNotificationExShade = (CheckBoxPreference) findPreference(PREF_NOTIFICATION_EXSHADE);
-        mNotificationExShade.setChecked((Settings.System.getInt(mContentResolver,
-                Settings.System.TOGGLE_NOTIFICATION_SHADE, 0)== 1));
 
         mStatusBarAutoHide = (CheckBoxPreference) findPreference(PREF_STATUSBAR_AUTOHIDE);
         mStatusBarAutoHide.setChecked((Settings.System.getInt(mContentResolver,
@@ -567,11 +561,6 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
             Settings.System.putInt(mContentResolver,
                     Settings.System.AUTO_HIDE_STATUSBAR,
                     mStatusBarAutoHide.isChecked() ? 1 :0);
-            return true;
-        } else if (preference == mNotificationExShade) {
-            Settings.System.putInt(mContentResolver,
-                    Settings.System.TOGGLE_NOTIFICATION_SHADE,
-                    mNotificationExShade.isChecked() ? 1 :0);
             return true;
         } else if (preference == mStatusBarBrightnessControl) {
             boolean value = mStatusBarBrightnessControl.isChecked();

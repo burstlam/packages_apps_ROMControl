@@ -1093,8 +1093,6 @@
     <!-- Notification shade dimming -->
     <string name="notification_shade_dim_title">Dim notification shade</string>
     <string name="notification_shade_dim_summary">Toggle the dimming effect when pulling down the notification shade</string>
-    <string name="notification_exshade_title">Notification Shade Stays Forevert</string>
-    <string name="notification_exshade_summary">Notification shade will stay even in full screen mode</string>
 
     <!-- Notification behavior -->
     <string name="notification_behaviour_title">Notification behavior</string>
