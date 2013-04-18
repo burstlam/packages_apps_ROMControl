@@ -104,14 +104,14 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
     private static final CharSequence STATUS_BAR_BRIGHTNESS_CONTROL = "status_bar_brightness_control";
     public static final CharSequence STATUS_BAR_MAX_NOTIF = "status_bar_max_notifications";
     private static final CharSequence PREF_NOTIFICATION_ALPHA = "notification_alpha";
-    private static final CharSequence PREF_STATUSBAR_HIDDEN = "statusbar_hidden";
+    private static final String PREF_STATUSBAR_AUTOHIDE = "statusbar_autohide";
 
     private static final CharSequence PREF_WAKEUP_WHEN_PLUGGED_UNPLUGGED = "wakeup_when_plugged_unplugged";
     private static final CharSequence NOTIFICATION_SHADE_DIM = "notification_shade_dim";
     private static final CharSequence KEY_POWER_CRT_MODE = "system_power_crt_mode";
     private static final CharSequence PREF_POWER_CRT_SCREEN_OFF = "system_power_crt_screen_off";
     private static final CharSequence PREF_LOW_BATTERY_WARNING_POLICY = "pref_low_battery_warning_policy";
-    private static final CharSequence  PREF_NOTIFICATION_BEHAVIOUR = "notifications_behaviour";
+    private static final CharSequence PREF_NOTIFICATION_BEHAVIOUR = "notifications_behaviour";
     private static final CharSequence KEY_STATUS_BAR_ICON_OPACITY = "status_bar_icon_opacity"; 
 
     private static final CharSequence PREF_DISABLE_BOOTANIM = "disable_bootanimation";
@@ -146,7 +146,7 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
     SeekBarPreference mNotifAlpha;
     CheckBoxPreference mWakeUpWhenPluggedOrUnplugged;
     CheckBoxPreference mNotificationShadeDim;
-    CheckBoxPreference mStatusBarHide;
+    CheckBoxPreference mStatusBarAutoHide;
     CheckBoxPreference mCrtOff;
     ListPreference mCrtMode;
     ListPreference mLowBatteryWarning;
@@ -301,9 +301,9 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
                 getPreferenceScreen().removePreference(mNotificationShadeDim);
         }
 
-        mStatusBarHide = (CheckBoxPreference) findPreference(PREF_STATUSBAR_HIDDEN);
-        mStatusBarHide.setChecked(Settings.System.getBoolean(mContentResolver,
-                Settings.System.STATUSBAR_HIDDEN, false));
+        mStatusBarAutoHide = (CheckBoxPreference) findPreference(PREF_STATUSBAR_AUTOHIDE);
+        mStatusBarAutoHide.setChecked((Settings.System.getInt(mContentResolver,
+                Settings.System.AUTO_HIDE_STATUSBAR, 0)== 1));
 
         mStatusBarIconOpacity = (ListPreference) findPreference(KEY_STATUS_BAR_ICON_OPACITY);
         int iconOpacity = Settings.System.getInt(mContentResolver,
@@ -312,13 +312,12 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
         mStatusBarIconOpacity.setOnPreferenceChangeListener(this);
 
         if (isTablet(mContext)) {
-            mStatusBarHide.setEnabled(false);
+            mStatusBarAutoHide.setEnabled(false);
             mStatusBarBrightnessControl.setEnabled(false);
         }
 
         setHasOptionsMenu(true);
         resetBootAnimation();
-        mStatusBarHide = (CheckBoxPreference) findPreference(PREF_STATUSBAR_HIDDEN);
         updateCustomBackgroundSummary();
         updateStatusBarBrightnessControl();
     }
@@ -558,10 +557,10 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
                     Settings.System.NOTIFICATION_SHADE_DIM,
                     mNotificationShadeDim.isChecked() ? 1 :0);
             return true;
-        } else if (preference == mStatusBarHide) {
-            boolean checked = ((CheckBoxPreference)preference).isChecked();
-            Settings.System.putBoolean(mContentResolver,
-                    Settings.System.STATUSBAR_HIDDEN, checked);
+        } else if (preference == mStatusBarAutoHide) {
+            Settings.System.putInt(mContentResolver,
+                    Settings.System.AUTO_HIDE_STATUSBAR,
+                    mStatusBarAutoHide.isChecked() ? 1 :0);
             return true;
         } else if (preference == mStatusBarBrightnessControl) {
             boolean value = mStatusBarBrightnessControl.isChecked();

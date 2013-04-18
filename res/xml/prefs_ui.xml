@@ -9,9 +9,9 @@
             android:title="@string/transparency_dialog_title" />
     
         <CheckBoxPreference
-            android:key="statusbar_hidden"
-            android:title="@string/statusbar_hide_title"
-            android:summary="@string/statusbar_hide_summary" />
+            android:key="statusbar_autohide"
+            android:title="@string/statusbar_autohide_title"
+            android:summary="@string/statusbar_autohide_summary" />
 
         <ListPreference
             android:key="status_bar_icon_opacity"
