@@ -33,6 +33,10 @@
             android:key="pie_color"
             android:title="@string/pie_color_title" />
 
+    <PreferenceCategory
+        android:key="general_ui"
+        android:title="@string/general_ui" />
+
         <ListPreference
             android:key="pie_gravity"
             android:dialogTitle="@string/pie_gravity_title"
@@ -58,6 +62,10 @@
             android:summary="@string/pie_trigger_summary"
             android:entries="@array/entries_pie_trigger"
             android:entryValues="@array/values_pie_trigger" />
+
+    <PreferenceCategory
+        android:key="toggles_layout_title"
+        android:title="@string/toggles_layout_title" />
 
         <ListPreference
             android:key="pie_mode"

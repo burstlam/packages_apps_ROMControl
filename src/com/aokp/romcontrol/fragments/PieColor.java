@@ -1,47 +1,19 @@
 package com.aokp.romcontrol.fragments;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.content.Intent;
 import android.content.ContentResolver;
 import android.content.Context;
-import android.content.pm.PackageManager.NameNotFoundException;
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnMultiChoiceClickListener;
-import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
-import android.graphics.Rect;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.PowerManager;
-import android.os.SystemProperties;
-import android.preference.CheckBoxPreference;
+import android.preference.SwitchPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
-import android.preference.Preference.OnPreferenceChangeListener;
-import android.preference.PreferenceActivity;
-import android.preference.PreferenceCategory;
 import android.preference.PreferenceScreen;
-import android.provider.MediaStore;
+import android.preference.Preference.OnPreferenceChangeListener;
 import android.provider.Settings;
 import android.provider.Settings.SettingNotFoundException;
-import android.text.Spannable;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View.OnClickListener;
-import android.widget.EditText;
-import android.widget.Toast;
-import android.view.Display;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.Window;
-import android.view.View;
-import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 
@@ -53,7 +25,7 @@ import net.margaritov.preference.colorpicker.ColorPickerPreference;
 
 public class PieColor extends AOKPPreferenceFragment implements OnPreferenceChangeListener {
 
-    private static final String PIE_COLOR_STYLE = "pie_color_style";
+    private static final String PIE_ENABLE_COLOR = "pie_enable_color";
     private static final String PIE_JUICE = "pie_juice";
     private static final String PIE_BACKGROUND = "pie_background";
     private static final String PIE_SELECT = "pie_select";
@@ -64,7 +36,9 @@ public class PieColor extends AOKPPreferenceFragment implements OnPreferenceChan
     private static final String PIE_CHEVRON_RIGHT = "pie_chevron_right";
     private static final String PIE_BUTTON_COLOR = "pie_button_color";
 
-    ListPreference mColorStyle;
+    private Context mContext;
+
+    SwitchPreference mEnableColor;
     ColorPickerPreference mPieBg;
     ColorPickerPreference mJuice;
     ColorPickerPreference mSelect;
@@ -80,9 +54,12 @@ public class PieColor extends AOKPPreferenceFragment implements OnPreferenceChan
         super.onCreate(savedInstanceState);
         // Load the preferences from an XML resource
         addPreferencesFromResource(R.xml.pie_color);
+        mContext = getActivity();
 
-        mColorStyle = (ListPreference) findPreference(PIE_COLOR_STYLE);
-        mColorStyle.setOnPreferenceChangeListener(this);
+        mEnableColor = (SwitchPreference) findPreference(PIE_ENABLE_COLOR);
+        mEnableColor.setChecked(Settings.System.getBoolean(mContentRes,
+                Settings.System.PIE_ENABLE_COLOR, false));
+        mEnableColor.setOnPreferenceChangeListener(this);
 
         mPieBg = (ColorPickerPreference) findPreference(PIE_BACKGROUND);
         mPieBg.setOnPreferenceChangeListener(this);
@@ -111,44 +88,25 @@ public class PieColor extends AOKPPreferenceFragment implements OnPreferenceChan
         mBtnColor = (ColorPickerPreference) findPreference(PIE_BUTTON_COLOR);
         mBtnColor.setOnPreferenceChangeListener(this);
 
-        updateVisibility();
     }
 
-    private void updateVisibility() {
-        int visible = Settings.System.getInt(getActivity().getContentResolver(),
-                    Settings.System.PIE_COLOR_STYLE, 1);
-        if (visible == 1) {
-            mJuice.setEnabled(false);
-            mPieBg.setEnabled(false);
-            mSelect.setEnabled(false);
-            mOutlines.setEnabled(false);
-            mStatusClock.setEnabled(false);
-            mStatus.setEnabled(false);
-            mChevronLeft.setEnabled(false);
-            mChevronRight.setEnabled(false);
-            mBtnColor.setEnabled(false);
-        } else {
-            mJuice.setEnabled(true);
-            mPieBg.setEnabled(true);
-            mSelect.setEnabled(true);
-            mOutlines.setEnabled(true);
-            mStatusClock.setEnabled(true);
-            mStatus.setEnabled(true);
-            mChevronLeft.setEnabled(true);
-            mChevronRight.setEnabled(true);
-            mBtnColor.setEnabled(true);
+    @Override
+    public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
+        if (preference == mEnableColor) {
+            Settings.System.putInt(mContext.getContentResolver(),
+                    Settings.System.PIE_ENABLE_COLOR,
+                    mEnableColor.isChecked() ? 1 : 0);
         }
+        return super.onPreferenceTreeClick(preferenceScreen, preference);
+
     }
 
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
-        if (preference == mColorStyle) {
-            int value = Integer.valueOf((String) newValue);
-            int index = mColorStyle.findIndexOfValue((String) newValue);
-            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
-                    Settings.System.PIE_COLOR_STYLE, value);
-            preference.setSummary(mColorStyle.getEntries()[index]);
-            updateVisibility();
+        if (preference == mEnableColor) {
+            Settings.System.putBoolean(mContext.getContentResolver(),
+                    Settings.System.PIE_ENABLE_COLOR,
+                    (Boolean) newValue);
             return true;
         } else if (preference == mPieBg) {
             String hex = ColorPickerPreference.convertToARGB(Integer.valueOf(String
