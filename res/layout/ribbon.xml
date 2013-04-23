@@ -93,7 +93,7 @@
                 android:padding="4dip"
                 android:gravity="center_horizontal"
                 android:textColor="#FFFFFF"
-                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/ribbon_bottom_warning_title" />
 
             <LinearLayout
@@ -112,7 +112,7 @@
                     android:padding="4dip"
                     android:gravity="left"
                     android:textColor="#FFFFFF"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="@string/ribbon_bottom_enable_title" />
 
                 <Switch
@@ -142,7 +142,7 @@
                     android:padding="4dip"
                     android:gravity="left"
                     android:textColor="#FFFFFF"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="@string/ribbon_left_enable_title" />
 
                 <Switch
@@ -172,7 +172,7 @@
                     android:padding="4dip"
                     android:gravity="left"
                     android:textColor="#FFFFFF"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="@string/ribbon_right_enable_title" />
 
                 <Switch
@@ -202,7 +202,7 @@
                     android:padding="4dip"
                     android:gravity="left"
                     android:textColor="#FFFFFF"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="@string/enable_ribbon_vibrate_title" />
 
                 <Switch
@@ -232,7 +232,7 @@
                     android:padding="4dip"
                     android:gravity="left"
                     android:textColor="#FFFFFF"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="@string/enable_ribbon_text_title" />
 
                 <Switch
@@ -255,7 +255,7 @@
                 android:padding="4dip"
                 android:gravity="center"
                 android:textColor="#FFFFFF"
-                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/ribbon_icon_size_title" />
 
             <Spinner
@@ -276,7 +276,7 @@
                 android:padding="4dip"
                 android:gravity="center"
                 android:textColor="#FFFFFF"
-                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/timeout_spinner_title" />
 
             <Spinner
@@ -297,7 +297,7 @@
                 android:padding="4dip"
                 android:gravity="center"
                 android:textColor="#FFFFFF"
-                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/ribbon_handle_location_title" />
 
             <Spinner
@@ -318,7 +318,7 @@
                 android:padding="4dip"
                 android:gravity="center"
                 android:textColor="#FFFFFF"
-                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/ribbon_icon_location_title" />
 
             <Spinner
@@ -339,7 +339,7 @@
                 android:padding="4dip"
                 android:gravity="center"
                 android:textColor="#FFFFFF"
-                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/drag_handle_opacity_title" />
 
             <SeekBar
@@ -359,7 +359,7 @@
                 android:padding="4dip"
                 android:gravity="center"
                 android:textColor="#FFFFFF"
-                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/ribbon_drag_handle_width_title" />
 
             <SeekBar
@@ -379,7 +379,7 @@
                 android:padding="4dip"
                 android:gravity="center"
                 android:textColor="#FFFFFF"
-                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/ribbon_drag_handle_height_title" />
 
             <SeekBar
@@ -399,7 +399,7 @@
                 android:padding="4dip"
                 android:gravity="center"
                 android:textColor="#FFFFFF"
-                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/ribbon_opacity_title" />
 
             <SeekBar
@@ -425,7 +425,7 @@
                         android:layout_marginStart="4dip"
                         android:gravity="left"
                         android:text="@string/ribbon_color_title"
-                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
                         android:textColor="#FFFFFF" />
 
                     <View
@@ -458,7 +458,7 @@
                         android:layout_marginStart="4dip"
                         android:gravity="left"
                         android:text="@string/text_color_title"
-                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
                         android:textColor="#FFFFFF" />
 
                     <View
