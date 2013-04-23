@@ -21,12 +21,16 @@
         android:key="toolbar_pie_controls"
         android:title="@string/pie_controls_title" />
 
-
         <CheckBoxPreference
             android:key="pie_controls"
             android:title="@string/pie_controls_title"
             android:summary="@string/pie_controls_summary"
             android:defaultValue="false" />
+
+
+    <PreferenceCategory
+        android:key="pie_color"
+        android:title="@string/pie_color_title" />
 
         <Preference
             android:fragment="com.aokp.romcontrol.fragments.PieColor"
@@ -107,4 +111,3 @@
             android:summary="@string/pie_lastapp_summary" />
 
 </PreferenceScreen>
-
