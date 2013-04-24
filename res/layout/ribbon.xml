@@ -232,7 +232,7 @@
                     android:padding="4dip"
                     android:gravity="left"
                     android:textColor="#FFFFFF"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="@string/ribbon_icon_vibrate_title" />
 
                 <Switch
@@ -369,7 +369,7 @@
                 android:padding="4dip"
                 android:gravity="center"
                 android:textColor="#FFFFFF"
-                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/ribbon_icon_space_title" />
 
             <SeekBar
@@ -389,7 +389,7 @@
                 android:padding="4dip"
                 android:gravity="center"
                 android:textColor="#FFFFFF"
-                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/ribbon_icon_space_vertical_title" />
 
             <SeekBar
