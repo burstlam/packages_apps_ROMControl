@@ -39,7 +39,7 @@ import android.util.ExtendedPropertiesUtils;
 
 import com.aokp.romcontrol.R;
 import com.aokp.romcontrol.AOKPPreferenceFragment;
-import com.aokp.romcontrol.util.CMDProcessor;
+import com.aokp.romcontrol.util.CMDProcessor2;
 import com.aokp.romcontrol.util.Helpers;
 import com.aokp.romcontrol.fragments.Utils;
 
@@ -74,7 +74,7 @@ public class Applications {
     private static final String PROP_EXISTS_CMD = "grep -q %s /system/etc/burstlam/properties.conf";
     private static final String REMOUNT_CMD = "busybox mount -o %s,remount -t yaffs2 /dev/block/mtdblock1 /system";
     
-    private static final CMDProcessor cmd = new CMDProcessor();
+    private static final CMDProcessor2 cmd = new CMDProcessor2();
     
     private static List<BeerbongAppInfo> appList = new ArrayList();
     private static int mLastDpi = 0;

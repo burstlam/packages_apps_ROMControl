@@ -29,7 +29,7 @@ import java.util.Comparator;
 
 import com.aokp.romcontrol.R;
 
-import com.aokp.romcontrol.util.CMDProcessor;
+import com.aokp.romcontrol.util.CMDProcessor2;
 import com.aokp.romcontrol.util.Helpers;
 
 public class CPUSettings extends Fragment implements SeekBar.OnSeekBarChangeListener {
@@ -205,7 +205,7 @@ public class CPUSettings extends Fragment implements SeekBar.OnSeekBarChangeList
     @Override
     public void onStopTrackingTouch(SeekBar seekBar) {
         // we have a break now, write the values..
-        CMDProcessor cmd = new CMDProcessor();
+        CMDProcessor2 cmd = new CMDProcessor2();
 
         for (int i = 0; i < mNumOfCpu; i++) {
             cmd.su.runWaitFor("busybox echo " + mMaxFreqSetting + " > " + MAX_FREQ.replace("cpu0", "cpu" + i));
@@ -220,7 +220,7 @@ public class CPUSettings extends Fragment implements SeekBar.OnSeekBarChangeList
     public class GovListener implements OnItemSelectedListener {
         public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
             String selected = parent.getItemAtPosition(pos).toString();
-            CMDProcessor cmd = new CMDProcessor();
+            CMDProcessor2 cmd = new CMDProcessor2();
             
             // do this on all cpu's since MSM can have different governors on each cpu
             //  and it doesn't hurt other devices to do it
@@ -241,7 +241,7 @@ public class CPUSettings extends Fragment implements SeekBar.OnSeekBarChangeList
     public class IOListener implements OnItemSelectedListener {
         public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
             String selected = parent.getItemAtPosition(pos).toString();
-            CMDProcessor cmd = new CMDProcessor();
+            CMDProcessor2 cmd = new CMDProcessor2();
             cmd.su.runWaitFor("busybox echo " + selected + " > " + IO_SCHEDULER);
             final SharedPreferences.Editor editor = preferences.edit();
             editor.putString(IO_PREF, selected);
@@ -277,7 +277,7 @@ public class CPUSettings extends Fragment implements SeekBar.OnSeekBarChangeList
     public void setMaxSpeed(SeekBar seekBar, int progress) {
         String current = "";
         current = availableFrequencies[progress];
-        CMDProcessor cmd = new CMDProcessor();
+        CMDProcessor2 cmd = new CMDProcessor2();
         int minSliderProgress = mMinSlider.getProgress();
         if (progress <= minSliderProgress) {
             mMinSlider.setProgress(progress);
@@ -294,7 +294,7 @@ public class CPUSettings extends Fragment implements SeekBar.OnSeekBarChangeList
     public void setMinSpeed(SeekBar seekBar, int progress) {
         String current = "";
         current = availableFrequencies[progress];
-        CMDProcessor cmd = new CMDProcessor();
+        CMDProcessor2 cmd = new CMDProcessor2();
         int maxSliderProgress = mMaxSlider.getProgress();
         if (progress >= maxSliderProgress) {
             mMaxSlider.setProgress(progress);

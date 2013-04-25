@@ -25,8 +25,8 @@ import android.widget.EditText;
 
 import com.aokp.romcontrol.AOKPPreferenceFragment;
 import com.aokp.romcontrol.R;
-import com.aokp.romcontrol.util.CMDProcessor;
-import com.aokp.romcontrol.util.CommandResult;
+import com.aokp.romcontrol.util.CMDProcessor2;
+import com.aokp.romcontrol.util.CommandResult2;
 import com.aokp.romcontrol.util.Helpers;
 
 public class DensityChanger extends AOKPPreferenceFragment implements
@@ -215,7 +215,7 @@ public class DensityChanger extends AOKPPreferenceFragment implements
 
     private void setLcdDensity(int newDensity) {
         Helpers.getMount("rw");
-        new CMDProcessor().su.runWaitFor("busybox sed -i 's|ro.sf.lcd_density=.*|"
+        new CMDProcessor2().su.runWaitFor("busybox sed -i 's|ro.sf.lcd_density=.*|"
                 + "ro.sf.lcd_density" + "=" + newDensity + "|' " + "/system/build.prop");
         Helpers.getMount("ro");
     }
@@ -229,7 +229,7 @@ public class DensityChanger extends AOKPPreferenceFragment implements
     private class ClearMarketDataTask extends AsyncTask<String, Void, Boolean> {
         protected Boolean doInBackground(String... stuff) {
             String vending = "/data/data/com.android.vending/";
-            CommandResult cr = new CMDProcessor().su.runWaitFor("ls " + vending);
+            CommandResult2 cr = new CMDProcessor2().su.runWaitFor("ls " + vending);
 
             if (cr.stdout == null)
                 return false;
@@ -238,7 +238,7 @@ public class DensityChanger extends AOKPPreferenceFragment implements
                 if (!dir.equals("lib")) {
                     String c = "rm -r " + vending + dir;
                     // Log.i(TAG, c);
-                    if (!new CMDProcessor().su.runWaitFor(c).success())
+                    if (!new CMDProcessor2().su.runWaitFor(c).success())
                         return false;
                 }
             }

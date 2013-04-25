@@ -26,7 +26,7 @@ import com.aokp.romcontrol.performance.DailyRebootScheduleService;
 import com.aokp.romcontrol.performance.OtherSettings;
 import com.aokp.romcontrol.performance.Voltage;
 import com.aokp.romcontrol.performance.VoltageControlSettings;
-import com.aokp.romcontrol.util.CMDProcessor;
+import com.aokp.romcontrol.util.CMDProcessor2;
 import com.aokp.romcontrol.util.Helpers;
 
 public class BootService extends Service {
@@ -58,7 +58,7 @@ public class BootService extends Service {
         @Override
         protected Void doInBackground(Void... args) {
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(c);
-            final CMDProcessor cmd = new CMDProcessor();
+            final CMDProcessor2 cmd = new CMDProcessor2();
 
             if (HeadphoneService.getUserHeadphoneAudioMode(c) != -1
                     || HeadphoneService.getUserBTAudioMode(c) != -1) {

@@ -25,7 +25,7 @@ import android.widget.TimePicker;
 
 import com.aokp.romcontrol.AOKPPreferenceFragment;
 import com.aokp.romcontrol.R;
-import com.aokp.romcontrol.util.CMDProcessor;
+import com.aokp.romcontrol.util.CMDProcessor2;
 import com.aokp.romcontrol.util.Helpers;
 
 import java.util.Calendar;
@@ -124,7 +124,7 @@ public class OtherSettings extends AOKPPreferenceFragment implements
         if (key.equals(KEY_MINFREE)) {
             String values = preferences.getString(key, null);
             if (!values.equals(null))
-                new CMDProcessor().su
+                new CMDProcessor2().su
                         .runWaitFor("busybox echo " + values + " > " + MINFREE);
             mFreeMem.setSummary(getString(R.string.ps_free_memory, getMinFreeValue() + "mb"));
         }

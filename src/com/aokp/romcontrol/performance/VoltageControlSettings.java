@@ -44,7 +44,7 @@ import java.util.List;
 
 import com.aokp.romcontrol.R;
 
-import com.aokp.romcontrol.util.CMDProcessor;
+import com.aokp.romcontrol.util.CMDProcessor2;
 
 public class VoltageControlSettings extends Fragment {
 
@@ -99,21 +99,21 @@ public class VoltageControlSettings extends Fragment {
                 for (final Voltage volt : mVoltages) {
                     sb.append(volt.getSavedMV() + " ");
                 }
-                new CMDProcessor().su.runWaitFor("busybox echo "
+                new CMDProcessor2().su.runWaitFor("busybox echo "
                         + sb.toString() + " > "
                         + MV_TABLE0);
                 if (new File(MV_TABLE1).exists()) {
-                    new CMDProcessor().su.runWaitFor("busybox echo "
+                    new CMDProcessor2().su.runWaitFor("busybox echo "
                             + sb.toString()
                             + " > " + MV_TABLE1);
                 }
                 if (new File(MV_TABLE2).exists()) {
-                    new CMDProcessor().su.runWaitFor("busybox echo "
+                    new CMDProcessor2().su.runWaitFor("busybox echo "
                             + sb.toString()
                             + " > " + MV_TABLE2);
                 }
                 if (new File(MV_TABLE3).exists()) {
-                    new CMDProcessor().su.runWaitFor("busybox echo "
+                    new CMDProcessor2().su.runWaitFor("busybox echo "
                             + sb.toString()
                             + " > " + MV_TABLE3);
                 }
