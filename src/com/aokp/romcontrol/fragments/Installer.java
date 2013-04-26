@@ -48,12 +48,14 @@ public class Installer extends AOKPPreferenceFragment {
     private static final String PREF_PERSIST_ENABLE = "enable_persist";
     private static final String PREF_PERSIST_PROP_DENSITY = "persist_prop_density";
     private static final String PREF_PERSIST_FILE_HOSTS = "persist_file_hosts";
+    private static final String PREF_DPI_CONF = "persist_dpi_conf";
 
     private Preference mPreference;
 
     CheckBoxPreference mPrefPersistEnable;
     CheckBoxPreference mPrefPersistDensity;
     CheckBoxPreference mPrefPersistHosts;
+    CheckBoxPreference mPrefPersistDpi;
 
     boolean mPersistEnable;
     ArrayList<String> mPersistProps;
@@ -190,6 +192,8 @@ public class Installer extends AOKPPreferenceFragment {
         mPrefPersistDensity.setChecked(mPersistProps.contains("ro.sf.lcd_density"));
         mPrefPersistHosts = (CheckBoxPreference)findPreference(PREF_PERSIST_FILE_HOSTS);
         mPrefPersistHosts.setChecked(mPersistFiles.contains("etc/hosts"));
+        mPrefPersistDpi = (CheckBoxPreference)findPreference(PREF_PERSIST_FILE_HOSTS);
+        mPrefPersistDpi.setChecked(mPersistFiles.contains("etc/burstlam/properties.conf"));
     }
 
     @Override
@@ -221,6 +225,18 @@ public class Installer extends AOKPPreferenceFragment {
             }
             else {
                 mPersistFiles.remove("etc/hosts");
+            }
+            savePrefs();
+            return true;
+        }
+        if (preference == mPrefPersistDpi) {
+            if (isChecked) {
+                if (!mPersistFiles.contains("etc/burstlam/properties.conf")) {
+                    mPersistFiles.add("etc/burstlam/properties.conf");
+                }
+            }
+            else {
+                mPersistFiles.remove("etc/burstlam/properties.conf");
             }
             savePrefs();
             return true;

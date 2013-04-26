@@ -13,6 +13,12 @@
             android:summary="@string/persist_prop_density_summary" />
 
         <CheckBoxPreference
+            android:key="persist_dpi_conf"
+            android:dependency="enable_persist"
+            android:title="@string/persist_dpi_conf"
+            android:summary="@string/persist_dpi_conf_summary" />
+
+        <CheckBoxPreference
             android:key="persist_file_hosts"
             android:dependency="enable_persist"
             android:title="@string/persist_file_hosts"

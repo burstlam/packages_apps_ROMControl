@@ -126,6 +126,8 @@
     <string name="persist_prop_density_summary">Persist LCD density</string>
     <string name="persist_file_hosts">Persist Hosts</string>
     <string name="persist_file_hosts_summary">Persist hosts file</string>
+    <string name="persist_dpi_conf">Persist DPI data</string>
+    <string name="persist_dpi_conf_summary">Persist DPI Data from both Per-App/Group</string>
 
     <!-- Power Saving -->
     <string name="title_pref_powersaving_pref_mode">Enable power saver</string>
