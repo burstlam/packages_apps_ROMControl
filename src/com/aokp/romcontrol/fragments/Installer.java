@@ -29,6 +29,7 @@ public class Installer extends AOKPPreferenceFragment {
     private static final String PREF_PERSIST_PROP_DENSITY = "persist_prop_density";
     private static final String PREF_PERSIST_FILE_HOSTS = "persist_file_hosts";
     private static final String PREF_PERSIST_FILE_XPOSED = "persist_file_xposed";
+    private static final String PREF_DPI_CONF = "persist_dpi_conf";
 
     private Preference mPreference;
 
@@ -36,6 +37,7 @@ public class Installer extends AOKPPreferenceFragment {
     CheckBoxPreference mPrefPersistDensity;
     CheckBoxPreference mPrefPersistHosts;
     CheckBoxPreference mPrefPersistXposed;
+    CheckBoxPreference mPrefPersistDpi;
 
     boolean mPersistEnable;
     ArrayList<String> mPersistProps;
@@ -61,6 +63,8 @@ public class Installer extends AOKPPreferenceFragment {
         mPrefPersistHosts.setChecked(mPersistFiles.contains("etc/hosts"));
         mPrefPersistXposed = (CheckBoxPreference) findPreference(PREF_PERSIST_FILE_XPOSED);
         mPrefPersistXposed.setChecked(mPersistFiles.contains("bin/app_process"));
+        mPrefPersistDpi = (CheckBoxPreference)findPreference(PREF_PERSIST_FILE_HOSTS);
+        mPrefPersistDpi.setChecked(mPersistFiles.contains("etc/burstlam/properties.conf"));
 
         setSummaries();
         if (!isAppInstalled("de.robv.android.xposed.installer")) {
@@ -109,6 +113,18 @@ public class Installer extends AOKPPreferenceFragment {
                 }
             } else {
                 mPersistFiles.remove("bin/app_process");
+            }
+            savePrefs();
+            return true;
+        }
+        if (preference == mPrefPersistDpi) {
+            if (isChecked) {
+                if (!mPersistFiles.contains("etc/burstlam/properties.conf")) {
+                    mPersistFiles.add("etc/burstlam/properties.conf");
+                }
+            }
+            else {
+                mPersistFiles.remove("etc/burstlam/properties.conf");
             }
             savePrefs();
             return true;

@@ -151,6 +151,8 @@
     <string name="persist_file_xposed">Persist Xposed</string>
     <string name="persist_file_xposed_summary">Persist file app_process for Xposed framework</string>
     <string name="persist_file_xposed_notinstalled">XposedInstaller is not installed</string>
+    <string name="persist_dpi_conf">Persist DPI data</string>
+    <string name="persist_dpi_conf_summary">Persist DPI Data from both Per-App/Group</string>
 
     <!-- Power Saving -->
     <string name="title_pref_powersaving_pref_mode">Enable power saver</string>
