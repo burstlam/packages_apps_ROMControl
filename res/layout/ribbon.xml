@@ -292,7 +292,7 @@
                     android:padding="4dip"
                     android:gravity="left"
                     android:textColor="#FFFFFF"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="@string/ribbon_button_colorize_title" />
 
                 <Switch
