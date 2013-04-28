@@ -13,6 +13,13 @@
             android:title="@string/statusbar_autohide_title"
             android:summary="@string/statusbar_autohide_summary" />
 
+        <CheckBoxPreference
+            android:key="hidden_statusbar_pulldown"
+            android:title="@string/hidden_statusbar_pulldown_title"
+            android:summary="@string/hidden_statusbar_pulldown_summary"
+            android:dependency="statusbar_autohide"
+            android:defaultValue="false" />
+
          <ListPreference
             android:key="status_bar_fontsize"
             android:title="@string/statusbar_fontsize"
@@ -56,12 +63,12 @@
         android:title="@string/notification_cat">
 
         <ListPreference
-	        android:key="notification_wallpaper"
-	        android:persistent="false"
-	        android:dialogTitle="@string/notification_wallpaper_title"
-	        android:title="@string/notification_wallpaper_title"
-	        android:entries="@array/notification_background_entries"
-	        android:entryValues="@array/notification_background_values" />
+            android:key="notification_wallpaper"
+            android:persistent="false"
+            android:dialogTitle="@string/notification_wallpaper_title"
+            android:title="@string/notification_wallpaper_title"
+            android:entries="@array/notification_background_entries"
+            android:entryValues="@array/notification_background_values" />
 
         <Preference
             android:key="notification_wallpaper_alpha"

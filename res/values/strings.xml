@@ -1563,4 +1563,8 @@
     <string name="show_network_speed_summary">Show network speed in statusbar</string>
     <string name="status_bar_traffic_color_title">Network speed Custom Color</string>
 
+    <!-- Hidden Statusbar Pulldown -->
+    <string name="hidden_statusbar_pulldown_title">Hidden Statusbar Pulldown</string>
+    <string name="hidden_statusbar_pulldown_summary">Allows Statusbar to be pulled down when hidden</string>
+
 </resources>

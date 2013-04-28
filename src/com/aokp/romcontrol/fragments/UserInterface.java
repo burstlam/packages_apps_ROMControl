@@ -111,7 +111,8 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
     private static final CharSequence PREF_POWER_CRT_SCREEN_OFF = "system_power_crt_screen_off";
     private static final CharSequence PREF_LOW_BATTERY_WARNING_POLICY = "pref_low_battery_warning_policy";
     private static final CharSequence PREF_NOTIFICATION_BEHAVIOUR = "notifications_behaviour";
-    private static final CharSequence KEY_STATUS_BAR_ICON_OPACITY = "status_bar_icon_opacity"; 
+    private static final CharSequence KEY_STATUS_BAR_ICON_OPACITY = "status_bar_icon_opacity";
+    private static final String HIDDEN_STATUSBAR_PULLDOWN = "hidden_statusbar_pulldown";
 
     private static final CharSequence PREF_DISABLE_BOOTANIM = "disable_bootanimation";
     private static final CharSequence PREF_CUSTOM_BOOTANIM = "custom_bootanimation";
@@ -153,6 +154,7 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
     ListPreference mNotificationsBehavior;
     ListPreference mStatusBarIconOpacity;
     ListPreference mFontsize;
+    CheckBoxPreference mHiddenStatusbarPulldown;
 
     private StatusBarBrightnessChangedObserver mStatusBarBrightnessChangedObserver;
 
@@ -312,6 +314,10 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
         mFontsize.setOnPreferenceChangeListener(this);
         mFontsize.setValue(Integer.toString(Settings.System.getInt(mContentRes,
                 Settings.System.STATUSBAR_FONT_SIZE, STOCK_FONT_SIZE)));
+
+        mHiddenStatusbarPulldown = (CheckBoxPreference) findPreference(HIDDEN_STATUSBAR_PULLDOWN);
+        mHiddenStatusbarPulldown.setChecked((Settings.System.getInt(mContentRes,
+                Settings.System.HIDDEN_STATUSBAR_PULLDOWN, 0) == 1)); 
 
         if (isTablet(mContext)) {
             mStatusBarAutoHide.setEnabled(false);
@@ -573,6 +579,11 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
             Settings.System.putInt(getActivity().getContentResolver(),
                     Settings.System.SYSTEM_POWER_ENABLE_CRT_OFF,
                     mCrtOff.isChecked() ? 1 : 0);
+            return true;
+        } else if (preference == mHiddenStatusbarPulldown) {
+            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
+                    Settings.System.HIDDEN_STATUSBAR_PULLDOWN,
+                    mHiddenStatusbarPulldown.isChecked() ? 1 : 0);
             return true;
         } else if ("transparency_dialog".equals(preference.getKey())) {
             openTransparencyDialog();
