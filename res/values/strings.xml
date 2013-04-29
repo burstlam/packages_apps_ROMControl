@@ -512,8 +512,8 @@
     <string name="navbar_widgets_delete">Delete widget</string>
     <string name="navigation_bar_menu_arrow_keys_title">Menu arrow keys</string>
     <string name="navigation_bar_menu_arrow_keys_summary">Checking this enables arrow keys in the Navigation Bar while typing</string>
-    <string name="statusbar_autohide_title">AutoHide Statusbar</string>
-    <string name="statusbar_autohide_summary">Statusbar will autohide if there is no notificaitons ongoing</string>
+    <string name="statusbar_hide_title">Hide Statusbar</string>
+    <string name="statusbar_hide_summary">Checking this completely hides the Statusbar</string>
     <string name="navigation_bar_alpha_title">Statusbar and Navigation Bar opacity</string>
     <string name="navbar_hide_enable_title">Hidden NavBar Enable</string>
     <string name="drag_handle_opacity_title">Drag Handle Opacity</string>
@@ -1564,7 +1564,13 @@
     <string name="status_bar_traffic_color_title">Network speed Custom Color</string>
 
     <!-- Hidden Statusbar Pulldown -->
-    <string name="hidden_statusbar_pulldown_title">Hidden Statusbar Pulldown</string>
-    <string name="hidden_statusbar_pulldown_summary">Allows Statusbar to be pulled down when hidden</string>
+
+    <string name="statusbar_auto_expand_hidden_title">Auto-Show Statusbar</string>
+    <string name="statusbar_auto_expand_hidden_summary">Checking this shows hidden statusbar on active notifications except for fullscreen apps</string>
+    <string name="statusbar_swipe_for_fullscreen_title">Statusbar swipe down</string>
+    <string name="statusbar_swipe_for_fullscreen_summary">Checking this allows swiping down the statusbar for fullscreen apps or if hidden</string>
+
+
+
 
 </resources>

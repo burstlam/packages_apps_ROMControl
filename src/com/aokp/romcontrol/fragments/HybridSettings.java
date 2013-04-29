@@ -177,8 +177,31 @@ public class HybridSettings extends AOKPPreferenceFragment implements
     public boolean onPreferenceChange(Preference preference, Object newValue) {
         final String key = preference.getKey();
         if (preference == mUserModeUI) {
+            int val = Integer.valueOf((String) newValue);
             Settings.System.putInt(mContentResolver,
-                    Settings.System.USER_UI_MODE, Integer.parseInt((String) newValue));
+                    Settings.System.USER_UI_MODE, val);
+
+            if (val == 1){
+                Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
+                    Settings.System.STATUS_BAR_BRIGHTNESS_CONTROL, 1);
+            }
+
+            if (val == 1){
+                Settings.System.putBoolean(getActivity().getContentResolver(),
+                    Settings.System.STATUSBAR_HIDDEN_NOW, false);
+            }
+ 
+            if (val == 1){
+                Settings.System.putBoolean(getActivity().getContentResolver(),
+                    Settings.System.STATUSBAR_AUTO_EXPAND_HIDDEN, false);
+            }
+             
+            mHideExtras.setEnabled(val == 1 ? true : false);
+            if (val != 1){
+                mHideExtras.setChecked(false);
+                Settings.System.putBoolean(mContentResolver,
+                    Settings.System.HIDE_EXTRAS_SYSTEM_BAR, false);
+            }
             Helpers.restartSystemUI();
         } else if ("apps_ui_mode".equals(key)) {
             String layout = (String) newValue;

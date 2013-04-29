@@ -103,7 +103,9 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
     private static final CharSequence STATUS_BAR_BRIGHTNESS_CONTROL = "status_bar_brightness_control";
     public static final CharSequence STATUS_BAR_MAX_NOTIF = "status_bar_max_notifications";
     private static final CharSequence PREF_NOTIFICATION_ALPHA = "notification_alpha";
-    private static final String PREF_STATUSBAR_AUTOHIDE = "statusbar_autohide";
+    private static final CharSequence PREF_STATUSBAR_HIDDEN = "statusbar_hidden";
+    private static final CharSequence PREF_STATUSBAR_AUTO_EXPAND_HIDDEN = "statusbar_auto_expand_hidden";
+    private static final CharSequence PREF_STATUSBAR_SWIPE_FOR_FULLSCREEN = "statusbar_swipe_for_fullscreen";
 
     private static final CharSequence PREF_WAKEUP_WHEN_PLUGGED_UNPLUGGED = "wakeup_when_plugged_unplugged";
     private static final CharSequence NOTIFICATION_SHADE_DIM = "notification_shade_dim";
@@ -112,7 +114,6 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
     private static final CharSequence PREF_LOW_BATTERY_WARNING_POLICY = "pref_low_battery_warning_policy";
     private static final CharSequence PREF_NOTIFICATION_BEHAVIOUR = "notifications_behaviour";
     private static final CharSequence KEY_STATUS_BAR_ICON_OPACITY = "status_bar_icon_opacity";
-    private static final String HIDDEN_STATUSBAR_PULLDOWN = "hidden_statusbar_pulldown";
 
     private static final CharSequence PREF_DISABLE_BOOTANIM = "disable_bootanimation";
     private static final CharSequence PREF_CUSTOM_BOOTANIM = "custom_bootanimation";
@@ -147,14 +148,15 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
     SeekBarPreference mNotifAlpha;
     CheckBoxPreference mWakeUpWhenPluggedOrUnplugged;
     CheckBoxPreference mNotificationShadeDim;
-    CheckBoxPreference mStatusBarAutoHide;
+    CheckBoxPreference mStatusBarHide;
+    CheckBoxPreference mStatusBarAutoExpandHidden;
+    CheckBoxPreference mStatusBarSwipeForFullscreen;
     CheckBoxPreference mCrtOff;
     ListPreference mCrtMode;
     ListPreference mLowBatteryWarning;
     ListPreference mNotificationsBehavior;
     ListPreference mStatusBarIconOpacity;
     ListPreference mFontsize;
-    CheckBoxPreference mHiddenStatusbarPulldown;
 
     private StatusBarBrightnessChangedObserver mStatusBarBrightnessChangedObserver;
 
@@ -300,9 +302,17 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
                 getPreferenceScreen().removePreference(mNotificationShadeDim);
         }
 
-        mStatusBarAutoHide = (CheckBoxPreference) findPreference(PREF_STATUSBAR_AUTOHIDE);
-        mStatusBarAutoHide.setChecked((Settings.System.getInt(mContentResolver,
-                Settings.System.AUTO_HIDE_STATUSBAR, 0)== 1));
+        mStatusBarHide = (CheckBoxPreference) findPreference(PREF_STATUSBAR_HIDDEN);
+        mStatusBarHide.setChecked(Settings.System.getBoolean(mContentResolver,
+                Settings.System.STATUSBAR_HIDDEN_NOW, false));
+
+        mStatusBarAutoExpandHidden = (CheckBoxPreference) findPreference(PREF_STATUSBAR_AUTO_EXPAND_HIDDEN);
+        mStatusBarAutoExpandHidden.setChecked(Settings.System.getBoolean(mContentResolver,
+                Settings.System.STATUSBAR_AUTO_EXPAND_HIDDEN, false));
+        
+        mStatusBarSwipeForFullscreen = (CheckBoxPreference) findPreference(PREF_STATUSBAR_SWIPE_FOR_FULLSCREEN);
+        mStatusBarSwipeForFullscreen.setChecked(Settings.System.getBoolean(mContentResolver,
+                Settings.System.STATUSBAR_SWIPE_FOR_FULLSCREEN, false));
 
         mStatusBarIconOpacity = (ListPreference) findPreference(KEY_STATUS_BAR_ICON_OPACITY);
         int iconOpacity = Settings.System.getInt(mContentResolver,
@@ -315,17 +325,16 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
         mFontsize.setValue(Integer.toString(Settings.System.getInt(mContentRes,
                 Settings.System.STATUSBAR_FONT_SIZE, STOCK_FONT_SIZE)));
 
-        mHiddenStatusbarPulldown = (CheckBoxPreference) findPreference(HIDDEN_STATUSBAR_PULLDOWN);
-        mHiddenStatusbarPulldown.setChecked((Settings.System.getInt(mContentRes,
-                Settings.System.HIDDEN_STATUSBAR_PULLDOWN, 0) == 1)); 
-
         if (isTablet(mContext)) {
-            mStatusBarAutoHide.setEnabled(false);
+            mStatusBarHide.setEnabled(false);
+            mStatusBarHide.setEnabled(false);
+            mStatusBarAutoExpandHidden.setEnabled(false);
             mStatusBarBrightnessControl.setEnabled(false);
         }
 
         setHasOptionsMenu(true);
         resetBootAnimation();
+        mStatusBarHide = (CheckBoxPreference) findPreference(PREF_STATUSBAR_HIDDEN);
         updateCustomBackgroundSummary();
         updateStatusBarBrightnessControl();
     }
@@ -565,11 +574,21 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
                     Settings.System.NOTIFICATION_SHADE_DIM,
                     mNotificationShadeDim.isChecked() ? 1 :0);
             return true;
-        } else if (preference == mStatusBarAutoHide) {
-            Settings.System.putInt(mContentResolver,
-                    Settings.System.AUTO_HIDE_STATUSBAR,
-                    mStatusBarAutoHide.isChecked() ? 1 :0);
+        } else if (preference == mStatusBarHide) {
+            boolean checked = ((CheckBoxPreference)preference).isChecked();
+            Settings.System.putBoolean(mContentResolver,
+                    Settings.System.STATUSBAR_HIDDEN_NOW, checked);
             return true;
+        } else if (preference == mStatusBarAutoExpandHidden) {
+            boolean checked = ((CheckBoxPreference)preference).isChecked();
+            Settings.System.putBoolean(getActivity().getContentResolver(),
+                    Settings.System.STATUSBAR_AUTO_EXPAND_HIDDEN, checked);
+            return true;
+        } else if (preference == mStatusBarSwipeForFullscreen) {
+            boolean checked = ((CheckBoxPreference)preference).isChecked();
+            Settings.System.putBoolean(getActivity().getContentResolver(),
+                    Settings.System.STATUSBAR_SWIPE_FOR_FULLSCREEN, checked);
+           return true;
         } else if (preference == mStatusBarBrightnessControl) {
             boolean value = mStatusBarBrightnessControl.isChecked();
             Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
@@ -579,11 +598,6 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
             Settings.System.putInt(getActivity().getContentResolver(),
                     Settings.System.SYSTEM_POWER_ENABLE_CRT_OFF,
                     mCrtOff.isChecked() ? 1 : 0);
-            return true;
-        } else if (preference == mHiddenStatusbarPulldown) {
-            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
-                    Settings.System.HIDDEN_STATUSBAR_PULLDOWN,
-                    mHiddenStatusbarPulldown.isChecked() ? 1 : 0);
             return true;
         } else if ("transparency_dialog".equals(preference.getKey())) {
             openTransparencyDialog();
@@ -698,11 +712,11 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
                     Settings.System.STATUS_BAR_NOTIF_ICON_OPACITY, iconOpacity);
             return true;
         } else if (preference == mFontsize) {
-			int val = Integer.parseInt((String) newValue);
-			Settings.System.putInt(mContentRes,
-			Settings.System.STATUSBAR_FONT_SIZE, val);
-			Helpers.restartSystemUI();
-			return true;
+            int val = Integer.parseInt((String) newValue);
+            Settings.System.putInt(mContentRes,
+            Settings.System.STATUSBAR_FONT_SIZE, val);
+            Helpers.restartSystemUI();
+            return true;
         }
         return false;
     }
