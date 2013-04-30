@@ -23,7 +23,7 @@ public class PowerMenu extends AOKPPreferenceFragment implements
     private static final String PREF_SCREENSHOT = "show_screenshot";
     private static final String PREF_TORCH_TOGGLE = "show_torch_toggle";
     private static final String PREF_AIRPLANE_TOGGLE = "show_airplane_toggle";
-/*    private static final String PREF_NAVBAR_HIDE = "show_navbar_hide";*/
+    private static final String PREF_NAVBAR_HIDE = "show_navbar_hide";
     private static final String PREF_EXPANDED_DESKTOP_TOGGLE = "power_menu_expanded_desktop";
     private static final String EXPANDED_DESKTOP_STYLE = "expanded_desktop_style";
     private static final String PREF_VOLUME_STATE_TOGGLE = "show_volume_state_toggle";
@@ -34,7 +34,7 @@ public class PowerMenu extends AOKPPreferenceFragment implements
     SwitchPreference mShowScreenShot;
     SwitchPreference mShowTorchToggle;
     SwitchPreference mShowAirplaneToggle;
-/*    SwitchPreference mShowNavBarHide;*/
+    SwitchPreference mShowNavBarHide;
     SwitchPreference mExpandedDesktopPref;
     ListPreference mExpandedDesktopSbPref;
     SwitchPreference mShowVolumeStateToggle;
@@ -80,10 +80,10 @@ public class PowerMenu extends AOKPPreferenceFragment implements
                 Settings.System.POWER_DIALOG_SHOW_AIRPLANE_TOGGLE, true));
         mShowAirplaneToggle.setOnPreferenceChangeListener(this);
 
-/*        mShowNavBarHide = (SwitchPreference) findPreference(PREF_NAVBAR_HIDE);
+        mShowNavBarHide = (SwitchPreference) findPreference(PREF_NAVBAR_HIDE);
         mShowNavBarHide.setChecked(Settings.System.getBoolean(mContentRes,
                 Settings.System.POWER_DIALOG_SHOW_NAVBAR_HIDE, true));
-        mShowNavBarHide.setOnPreferenceChangeListener(this);*/
+        mShowNavBarHide.setOnPreferenceChangeListener(this);
 
         mShowVolumeStateToggle = (SwitchPreference) findPreference(PREF_VOLUME_STATE_TOGGLE);
         mShowVolumeStateToggle.setChecked(Settings.System.getBoolean(mContentRes,
@@ -137,12 +137,11 @@ public class PowerMenu extends AOKPPreferenceFragment implements
                     Settings.System.POWER_DIALOG_SHOW_AIRPLANE_TOGGLE,
                     (Boolean) value);
             return true;
-        /*
         } else if (preference == mShowNavBarHide) {
             Settings.System.putBoolean(mContentRes,
                     Settings.System.POWER_DIALOG_SHOW_NAVBAR_HIDE,
                     (Boolean) value);
-            return true;*/
+            return true;
         } else if (preference == mShowVolumeStateToggle) {
             Settings.System.putBoolean(mContentRes,
                     Settings.System.POWER_DIALOG_SHOW_VOLUME_STATE_TOGGLE,

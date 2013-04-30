@@ -21,9 +21,9 @@
         android:key="show_airplane_toggle"
         android:title="@string/title_show_airplane_toggle" />
 
-<!--    <SwitchPreference
+    <SwitchPreference
         android:key="show_navbar_hide"
-        android:title="@string/title_show_navbar_hide" /> -->
+        android:title="@string/title_show_navbar_hide" />
 
     <SwitchPreference
         android:key="show_reboot_keyguard"
