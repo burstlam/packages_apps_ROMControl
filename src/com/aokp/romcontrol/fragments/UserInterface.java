@@ -106,6 +106,7 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
     private static final CharSequence PREF_STATUSBAR_HIDDEN = "statusbar_hidden";
     private static final CharSequence PREF_STATUSBAR_AUTO_EXPAND_HIDDEN = "statusbar_auto_expand_hidden";
     private static final CharSequence PREF_STATUSBAR_SWIPE_FOR_FULLSCREEN = "statusbar_swipe_for_fullscreen";
+    private static final String HIDDEN_STATUSBAR_PULLDOWN_TIMEOUT = "hidden_statusbar_pulldown_timeout";
 
     private static final CharSequence PREF_WAKEUP_WHEN_PLUGGED_UNPLUGGED = "wakeup_when_plugged_unplugged";
     private static final CharSequence NOTIFICATION_SHADE_DIM = "notification_shade_dim";
@@ -157,6 +158,7 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
     ListPreference mNotificationsBehavior;
     ListPreference mStatusBarIconOpacity;
     ListPreference mFontsize;
+    ListPreference mHiddenStatusbarPulldownTimeout;
 
     private StatusBarBrightnessChangedObserver mStatusBarBrightnessChangedObserver;
 
@@ -313,6 +315,13 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
         mStatusBarSwipeForFullscreen = (CheckBoxPreference) findPreference(PREF_STATUSBAR_SWIPE_FOR_FULLSCREEN);
         mStatusBarSwipeForFullscreen.setChecked(Settings.System.getBoolean(mContentResolver,
                 Settings.System.STATUSBAR_SWIPE_FOR_FULLSCREEN, false));
+
+        mHiddenStatusbarPulldownTimeout = (ListPreference) findPreference(HIDDEN_STATUSBAR_PULLDOWN_TIMEOUT);
+        int uiHiddenTimeout = Settings.System.getInt(mContentResolver,
+                Settings.System.HIDDEN_STATUSBAR_PULLDOWN_TIMEOUT, 5000);
+        mHiddenStatusbarPulldownTimeout.setValue(Integer.toString(Settings.System.getInt(mContentResolver,
+                Settings.System.HIDDEN_STATUSBAR_PULLDOWN_TIMEOUT, uiHiddenTimeout)));
+        mHiddenStatusbarPulldownTimeout.setOnPreferenceChangeListener(this);
 
         mStatusBarIconOpacity = (ListPreference) findPreference(KEY_STATUS_BAR_ICON_OPACITY);
         int iconOpacity = Settings.System.getInt(mContentResolver,
@@ -716,6 +725,13 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
             Settings.System.putInt(mContentRes,
             Settings.System.STATUSBAR_FONT_SIZE, val);
             Helpers.restartSystemUI();
+            return true;
+        } else if (preference == mHiddenStatusbarPulldownTimeout) {
+            int hiddenTimeout = Integer.valueOf((String) newValue);
+            int array = mHiddenStatusbarPulldownTimeout.findIndexOfValue((String) newValue);
+            Settings.System.putInt(getActivity().getContentResolver(),
+                    Settings.System.HIDDEN_STATUSBAR_PULLDOWN_TIMEOUT, hiddenTimeout);
+            mHiddenStatusbarPulldownTimeout.setSummary(mHiddenStatusbarPulldownTimeout.getEntries()[array]);
             return true;
         }
         return false;

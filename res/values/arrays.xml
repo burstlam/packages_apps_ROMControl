@@ -1450,7 +1450,6 @@
         <item>**app**</item>
     </string-array>
 
-
     <string-array name="pie_icon_color_mode_entries">
         <item>@string/pie_icon_color_mode_all_icons</item>
         <item>@string/pie_icon_color_mode_system_icons</item>
@@ -1537,4 +1536,18 @@
         <item>16</item>
         <item>48</item>
     </string-array>
+
+    <!-- Hidden Statusbar Pulldown -->
+    <string-array name="hidden_statusbar_pulldown_timeout_entries" translatable="false">
+        <item>@string/pulldown_timeout_1</item>
+        <item>@string/pulldown_timeout_2</item>
+        <item>@string/pulldown_timeout_3</item>
+        <item>@string/pulldown_timeout_4</item>
+    </string-array>
+    <string-array name="hidden_statusbar_pulldown_timeout_values" translatable="false">
+        <item>2500</item>
+        <item>5000</item>
+        <item>7500</item>
+        <item>10000</item>
+    </string-array> 
 </resources>

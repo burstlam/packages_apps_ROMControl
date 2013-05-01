@@ -25,6 +25,14 @@
             android:summary="@string/statusbar_swipe_for_fullscreen_summary"
             android:dependency="statusbar_hidden"/>
 
+        <ListPreference
+            android:key="hidden_statusbar_pulldown_timeout"
+            android:entries="@array/hidden_statusbar_pulldown_timeout_entries"
+            android:entryValues="@array/hidden_statusbar_pulldown_timeout_values"
+            android:title="@string/hidden_statusbar_pulldown_timeout_title"
+            android:summary="@string/hidden_statusbar_pulldown_timeout_summary"
+            android:dependency="statusbar_swipe_for_fullscreen" />
+
          <ListPreference
             android:key="status_bar_fontsize"
             android:title="@string/statusbar_fontsize"
