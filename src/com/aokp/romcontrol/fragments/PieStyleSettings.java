@@ -155,7 +155,7 @@ public class PieStyleSettings extends AOKPPreferenceFragment implements
             controlSize = Settings.System.getFloat(getActivity()
                     .getContentResolver(), Settings.System.PIE_SIZE);
         } catch (Exception e) {
-            controlSize = 0.8f;
+            controlSize = 0.9f;
             Settings.System.putFloat(getActivity().getContentResolver(),
                 Settings.System.PIE_SIZE, controlSize);
         }
