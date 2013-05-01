@@ -25,7 +25,7 @@
         <net.margaritov.preference.colorpicker.ColorPickerPreference
              android:key="pie_button_color"
              android:title="@string/pie_button_color_title"
-             android:defaultValue="0xff0099cc" />
+             android:defaultValue="0xaaff005e" />
 
         <com.aokp.romcontrol.widgets.SeekBarPreference
              android:key="pie_button_alpha"
@@ -34,12 +34,12 @@
         <net.margaritov.preference.colorpicker.ColorPickerPreference
              android:key="pie_button_outline_color"
              android:title="@string/pie_button_outline_color_title"
-             android:defaultValue="0xffffffff" />
+             android:defaultValue="0x55ffffff" />
 
         <net.margaritov.preference.colorpicker.ColorPickerPreference
              android:key="pie_button_pressed_color"
              android:title="@string/pie_button_pressed_color_title"
-             android:defaultValue="0xff33b5e5" />
+             android:defaultValue="0xaadbff00" />
 
         <net.margaritov.preference.colorpicker.ColorPickerPreference
              android:key="pie_button_long_pressed_color"

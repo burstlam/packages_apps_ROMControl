@@ -49,8 +49,8 @@ public class PieStyleSettings extends AOKPPreferenceFragment implements
     private static final String PREF_PIE_BACKGROUND_ALPHA = "pie_background_alpha";
     private static final String PREF_PIE_CONTROL_SIZE = "pie_control_size";
 
-    private static final float PIE_CONTROL_SIZE_MIN = 0.9f;
-    private static final float PIE_CONTROL_SIZE_MAX = 1.5f;
+    private static final float PIE_CONTROL_SIZE_MIN = 0.8f;
+    private static final float PIE_CONTROL_SIZE_MAX = 1.3f;
 
     private boolean mCheckPreferences;
 
@@ -155,7 +155,7 @@ public class PieStyleSettings extends AOKPPreferenceFragment implements
             controlSize = Settings.System.getFloat(getActivity()
                     .getContentResolver(), Settings.System.PIE_SIZE);
         } catch (Exception e) {
-            controlSize = 0.9f;
+            controlSize = 0.8f;
             Settings.System.putFloat(getActivity().getContentResolver(),
                 Settings.System.PIE_SIZE, controlSize);
         }
