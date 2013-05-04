@@ -61,7 +61,6 @@ public class HybridSettings extends AOKPPreferenceFragment implements
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mContext = getActivity();
-        Utils.setContext(mContext);
 
         addPreferencesFromResource(R.xml.hybrid_settings);
 
@@ -131,7 +130,7 @@ public class HybridSettings extends AOKPPreferenceFragment implements
             Applications.backup(mContext);
         } else if (preference == mRestore) {
             Applications.restore(mContext);
-            Utils.reboot();
+            Utils.reboot(mContext);
         } else if (preference == mAutoBackup) {
             SharedPreferences settings = mContext.getSharedPreferences(
                     Applications.PREFS_NAME, 0);

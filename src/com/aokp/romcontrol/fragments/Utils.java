@@ -18,9 +18,6 @@ public class Utils {
 
     private static Context mContext;
 
-    public static void setContext(Context mc) {
-        mContext = mc;
-    }
     public static int mapChosenDpToPixels(int dp) {
         switch (dp) {
             case 48:
@@ -37,12 +34,14 @@ public class Utils {
                 return mContext.getResources().getDimensionPixelSize(R.dimen.navigation_bar_30);
             case 24:
                 return mContext.getResources().getDimensionPixelSize(R.dimen.navigation_bar_24);
+            case 0:
+                return mContext.getResources().getDimensionPixelSize(R.dimen.navigation_bar_0);
         }
         return -1;
     }
 
-    public static Iterator sortedIterator(Iterator it, Comparator comparator) {
-        List list = new ArrayList();
+    public static Iterator<Object> sortedIterator(Iterator<Object> it, Comparator<Object> comparator) {
+        List<Object> list = new ArrayList<Object>();
         while (it.hasNext()) {
             list.add(it.next());
         }
@@ -50,9 +49,11 @@ public class Utils {
         Collections.sort(list, comparator);
         return list.iterator();
     }
+
     public static void setProperty(String property, String value){
     setProperty(property, value, false);
     }
+
     public static void setProperty(String property, String value, boolean toData){
         if(readFile("/system/build.prop").contains(property + "="))
             execute(new String[]{
@@ -89,9 +90,11 @@ public class Utils {
             }
         }
     }
+
     public static String getPropertyFromFile(String prop) {
         return readFile("/system/build.prop", prop);
     }
+
     public static String getProperty(String prop) {
         try {
             String output = null;
@@ -105,28 +108,33 @@ public class Utils {
             return null;
         }
     }
-    public static void restartUI() {
-        //execute(new String[] {"pkill -TERM -f com.android.systemui"}, 0);
-        Settings.System.putInt(mContext.getContentResolver(), Settings.System.USER_INTERFACE_STATE, 1);
+
+    public static void restartUI(Context mc) {
+    // execute(new String[] { "pkill -TERM -f com.android.systemui" }, 0);
+        Settings.System.putInt(mc.getContentResolver(), Settings.System.USER_INTERFACE_STATE, 1);
     }
-    public static void reboot() {
-        AlertDialog.Builder alert = new AlertDialog.Builder(mContext);
+
+    public static void reboot(final Context mc) {
+        AlertDialog.Builder alert = new AlertDialog.Builder(mc);
         alert.setTitle(R.string.alert_reboot);
-        alert.setMessage(mContext.getString(R.string.alert_reboot_message));
-        alert.setPositiveButton(R.string.alert_yes, new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int whichButton) {
-                    dialog.dismiss();
-                    PowerManager pm = (PowerManager) mContext.getSystemService(Context.POWER_SERVICE);
-                    pm.reboot("Settings Triggered Reboot");
-                }
+        alert.setMessage(mc.getString(R.string.alert_reboot_message));
+        alert.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+
+            public void onClick(DialogInterface dialog, int whichButton) {
+                dialog.dismiss();
+                PowerManager pm = (PowerManager) mc.getSystemService(Context.POWER_SERVICE);
+                pm.reboot("Settings Triggered Reboot");
+            }
         });
-        alert.setNegativeButton(R.string.alert_no, new DialogInterface.OnClickListener() {
+        alert.setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
             }
         });
         alert.show();
     }
+
     public static boolean execute(String command){
         return execute(new String[]{
             MOUNT_SYSTEM_RW, 
@@ -134,6 +142,7 @@ public class Utils {
             MOUNT_SYSTEM_RO
         },0);
     }
+
     public static boolean execute(String[] command, int wait) {
         if(wait!=0){
             try {
@@ -161,6 +170,7 @@ public class Utils {
           return false;
         }
     }
+
     public static void writeFile(String filename, String[] lines) {
         try {
             boolean isSystem = filename.indexOf("system/") >= 0;
@@ -185,6 +195,7 @@ public class Utils {
             t.printStackTrace();
         }
     }
+
     public static String readFile(String filename) {
         try {
             BufferedReader reader = new BufferedReader(new FileReader(filename), 256);
@@ -204,6 +215,7 @@ public class Utils {
             return "";
         }
     }
+
     public static String readFile(String filename, String property) {
         try {
             BufferedReader reader = new BufferedReader(new FileReader(filename), 256);

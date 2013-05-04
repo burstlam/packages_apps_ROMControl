@@ -12,45 +12,28 @@ import android.preference.PreferenceScreen;
 import com.aokp.romcontrol.R;
 import com.aokp.romcontrol.AOKPPreferenceFragment;
 
-import java.io.*;
-import java.util.*;
+public class Expand extends AOKPPreferenceFragment {
 
-public class DpiGroupFragment extends AOKPPreferenceFragment {
-
-    private PreferenceCategory mAppList;
+    private PreferenceCategory mExpandList;
     private Context mContext;
-    
-    private int mDpi = -1;
-    
-    public DpiGroupFragment() {
-    
+
+    public Expand() {
+
     }
-   
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        
-        //mDpi = getArguments().getInt("dpi");
-        
+
         mContext = getActivity();
 
-        addPreferencesFromResource(R.xml.dpi_group);
+        addPreferencesFromResource(R.xml.expand);
 
         PreferenceScreen prefSet = getPreferenceScreen();
 
-        PreferenceCategory tit = (PreferenceCategory)prefSet.findPreference("dpi_group_fragment_title");
-        tit.setTitle(getDpi() + " DPI");
-
-        mAppList = (PreferenceCategory)prefSet.findPreference("app_list");
+        mExpandList = (PreferenceCategory) prefSet.findPreference("expand_list");
 
         updateList();
-    }
-
-    public int getDpi() {
-        return mDpi;
-    }
-    public void setDpi(int dpi) {
-        mDpi = dpi;
     }
 
     @Override
@@ -58,14 +41,14 @@ public class DpiGroupFragment extends AOKPPreferenceFragment {
         super.onResume();
         updateList();
     }
-    
-    private void updateList() {
-    
-        Applications.AppInfo[] items = Applications.getApplicationList(mContext, getDpi());
 
-        mAppList.removeAll();
-        
-        for (int i=0;i<items.length;i++) {
+    private void updateList() {
+
+        Applications.AppInfo[] items = Applications.getExpandList(mContext);
+
+        mExpandList.removeAll();
+
+        for (int i = 0; i < items.length; i++) {
             Preference pref = new Preference(mContext);
             Applications.AppInfo bAppInfo = items[i];
 
@@ -73,26 +56,30 @@ public class DpiGroupFragment extends AOKPPreferenceFragment {
             pref.setTitle(bAppInfo.name);
             pref.setIcon(bAppInfo.icon);
             pref.setLayoutResource(R.layout.simple_preference);
-              
+
             pref.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+
                 public boolean onPreferenceClick(final Preference preference) {
                     AlertDialog.Builder alert = new AlertDialog.Builder(mContext);
-                    alert.setTitle(R.string.dpi_groups_alert_remove_app);
+                    alert.setTitle(R.string.expand_alert_remove_application);
 
-                    String title = (String)preference.getTitle();
-                    
-                    String summary = mContext.getResources().getString(R.string.dpi_groups_remove_app, new Object[] {title});
+                    String title = (String) preference.getTitle();
+
+                    String summary = mContext.getResources().getString(R.string.expand_remove_application,
+                            new Object[] { title });
 
                     alert.setMessage(summary);
 
                     alert.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+
                         public void onClick(DialogInterface dialog, int whichButton) {
                             dialog.dismiss();
-                            Applications.removeApplication(mContext, preference.getKey());
+                            Applications.removeExpand(mContext, preference.getKey());
                             updateList();
                         }
                     });
                     alert.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+
                         public void onClick(DialogInterface dialog, int whichButton) {
                             dialog.dismiss();
                         }
@@ -103,7 +90,7 @@ public class DpiGroupFragment extends AOKPPreferenceFragment {
                     return false;
                 }
             });
-            mAppList.addPreference(pref);
+            mExpandList.addPreference(pref);
         }
     }
 }

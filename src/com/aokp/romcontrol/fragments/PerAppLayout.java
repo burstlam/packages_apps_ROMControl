@@ -49,13 +49,13 @@ public class PerAppLayout extends AOKPPreferenceFragment {
             @Override
             public void run() {
 
-                Applications.BeerbongAppInfo[] items = Applications
+                Applications.AppInfo[] items = Applications
                         .getApplicationList(mContext);
 
                 for (int i = 0; i < items.length; i++) {
 
                     Preference pref = new Preference(mContext);
-                    Applications.BeerbongAppInfo bAppInfo = items[i];
+                    Applications.AppInfo bAppInfo = items[i];
 
                     pref.setKey(bAppInfo.pack);
                     pref.setTitle(bAppInfo.name);
