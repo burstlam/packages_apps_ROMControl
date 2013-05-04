@@ -52,6 +52,12 @@
             android:title="@string/widgets_title"
             android:summary="@string/widgets_summary" />
 
+        <PreferenceScreen
+            android:key="expand"
+            android:fragment="com.aokp.romcontrol.fragments.Expand"
+            android:title="@string/expanded_title"
+            android:summary="@string/expanded_summary" />
+
     </PreferenceCategory>
 
      <PreferenceCategory
