@@ -334,6 +334,7 @@
         <item>@string/screen_off</item>
         <item>@string/google_now</item>
         <item>@string/select_application</item>
+        <item>@string/quicksettings</item>
     </string-array>
     <string-array name="navring_dialog_values" translatable="false">
         <item>**null**</item>
@@ -346,6 +347,7 @@
         <item>**power**</item>
         <item>**assist**</item>
         <item>**app**</item>
+        <item>**quicksettings**</item>
     </string-array>
     <string-array name="ribbon_dialog_entries" translatable="false">
         <item>@string/navring_short</item>
@@ -1350,6 +1352,7 @@
         <item>@string/nav_widgets</item>
         <item>@string/kill_app</item>
         <item>@string/power</item>
+        <item>@string/quicksettings</item>
         <item>@string/notifications</item>
         <item>@string/custom_app</item>
         <item>@string/blank</item>
@@ -1366,6 +1369,7 @@
         <item>**widgets**</item>
         <item>**kill**</item>
         <item>**power**</item>
+        <item>**quicksettings**</item>
         <item>**notifications**</item>
         <item>**app**</item>
         <item>**null**</item>
@@ -1546,6 +1550,7 @@
         <item>@string/pie_action_ime</item>
         <item>@string/pie_action_recents</item>
         <item>@string/pie_action_power</item>
+        <item>@string/pie_action_quicksettings</item>
         <item>@string/pie_action_screenshot</item>
         <item>@string/pie_action_search</item>
    <!-- <item>@string/pie_action_widgets</item>-->
@@ -1563,6 +1568,7 @@
         <item>**ime**</item>
         <item>**recents**</item>
         <item>**power**</item>
+        <item>**quicksettings**</item>
         <item>**screenshot**</item>
         <item>**search**</item>
     <!--<item>**widgets**</item>-->

@@ -609,6 +609,9 @@ public class NavRingTargets extends AOKPPreferenceFragment implements
         case ACTION_LAST_APP:
                 newSummary = getResources().getString(R.string.lastapp);
                 break;
+        case ACTION_QS:
+                newSummary = getResources().getString(R.string.quicksettings);
+                break;
         case ACTION_POWER:
                 newSummary = getResources().getString(R.string.screen_off);
                 break;

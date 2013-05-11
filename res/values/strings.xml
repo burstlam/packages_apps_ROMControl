@@ -538,6 +538,7 @@
     <string name="navbar_delete_menu">Delete button</string>
     <string name="navbar_action_ime">Open IME Switcher</string>
     <string name="navbar_action_lastapp">Last app</string>
+    <string name="navbar_action_quicksettings">Quicksettings panel</string>
 
     <!-- Nav Ring Targets -->
     <string name="navbar_ring_cat">Navigation Ring Targets</string>
@@ -956,6 +957,7 @@
     <string name="open_ime_switcher">Open IME Switcher</string>
     <string name="kill_app">Kill app</string>
     <string name="lastapp">Last app</string>
+    <string name="quicksettings">Quicksettings panel</string>
     <string name="power">Power</string>
     <string name="notifications">Notifications</string>
     <string name="recents_gb">Recents(GB style)</string>
@@ -1619,6 +1621,7 @@
 <!-- <string name="pie_action_widgets">Widgets viewpager</string> -->
     <string name="pie_action_power">Screen Off</string>
     <string name="pie_action_notifications">Notifications</string>
+    <string name="pie_action_quicksettings">Quicksettings panel</string>
     <string name="pie_action_none">None</string>
     <string name="color_default">Default</string>
 
