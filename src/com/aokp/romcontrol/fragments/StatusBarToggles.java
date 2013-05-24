@@ -78,6 +78,7 @@ public class StatusBarToggles extends AOKPPreferenceFragment implements
     private static final String TAG = "TogglesLayout";
 
     private static final String PREF_ENABLE_TOGGLES = "enabled_toggles";
+    private static final String PREF_COLLAPSE_ALL = "collapse_shade_all";
     private static final String PREF_TOGGLES_PER_ROW = "toggles_per_row";
     private static final String PREF_TOGGLES_STYLE = "toggles_style";
     private static final String PREF_TOGGLE_FAV_CONTACT = "toggle_fav_contact";
@@ -103,6 +104,7 @@ public class StatusBarToggles extends AOKPPreferenceFragment implements
 
     Preference mEnabledToggles;
     Preference mLayout;
+	CheckBoxPreference mCollapseAll;
     ListPreference mTogglesPerRow;
     ListPreference mTogglesStyle;
     Preference mFavContact;
@@ -165,6 +167,9 @@ public class StatusBarToggles extends AOKPPreferenceFragment implements
         }
 
         mEnabledToggles = findPreference(PREF_ENABLE_TOGGLES);
+
+        mCollapseAll = (CheckBoxPreference) findPreference(PREF_COLLAPSE_ALL);
+        mCollapseAll.setOnPreferenceChangeListener(this);
 
         mTogglesPerRow = (ListPreference) findPreference(PREF_TOGGLES_PER_ROW);
         mTogglesPerRow.setOnPreferenceChangeListener(this);
@@ -277,6 +282,12 @@ public class StatusBarToggles extends AOKPPreferenceFragment implements
             Settings.System.putInt(mContentRes,
                     Settings.System.FAST_TOGGLE, statusFastToggle);
             updateFastToggleSummary(statusFastToggle);
+            return true;
+        } else if (preference == mCollapseAll) {
+            boolean val = (Boolean) newValue;
+            Settings.System.putBoolean(mContentRes,
+                    Settings.System.SHADE_COLLAPSE_ALL, val);
+            mContentRes.notifyChange(Settings.System.getUriFor(Settings.System.SHADE_COLLAPSE_ALL), null);
             return true;
         } else if (preference == mTogglesStyle) {
             int val = Integer.parseInt((String) newValue);
