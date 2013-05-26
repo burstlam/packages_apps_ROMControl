@@ -81,8 +81,10 @@ public class Lockscreens extends AOKPPreferenceFragment implements
     private View mLockscreenOptions;
     private boolean mIsLandscape;
 
+    private Switch mGlowTorchSwitch;
     private Switch mLongPressStatus;
 
+    private TextView mGlowTorchText;
     private TextView mLongPressText;
 
     private ShortcutPickerHelper mPicker;
@@ -180,6 +182,24 @@ public class Lockscreens extends AOKPPreferenceFragment implements
         textColor = Settings.System.getInt(mContext.getContentResolver(),
                 Settings.System.LOCKSCREEN_CUSTOM_TEXT_COLOR, defaultColor);
 
+        if (!hasTorch) {
+            mGlowTorchText.setVisibility(View.GONE);
+            mGlowTorchSwitch.setVisibility(View.GONE);
+        }
+
+        mGlowTorchText = ((TextView) getActivity()
+                .findViewById(R.id.lockscreen_glow_torch_id));
+        mGlowTorchText.setOnClickListener(mGlowTorchTextListener);
+        mGlowTorchSwitch = (Switch) getActivity().findViewById(R.id.glow_torch_switch);
+        mGlowTorchSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton v, boolean checked) {
+                Settings.System.putBoolean(cr, Settings.System.LOCKSCREEN_GLOW_TORCH,
+                        checked);
+                updateDrawables();
+            }
+        });
+
         mLongPressText = ((TextView) getActivity()
                 .findViewById(R.id.lockscreen_target_longpress_id));
         mLongPressText.setOnClickListener(mLongPressTextListener);
@@ -194,6 +214,14 @@ public class Lockscreens extends AOKPPreferenceFragment implements
         });
         updateDrawables();
     }
+
+    private TextView.OnClickListener mGlowTorchTextListener = new TextView.OnClickListener() {
+        public void onClick(View v) {
+            createMessage(
+                    getResources().getString(R.string.lockscreen_glow_torch_text),
+                    getResources().getString(R.string.lockscreen_glow_torch_summary));
+        }
+    };
 
     private TextView.OnClickListener mLongPressTextListener = new TextView.OnClickListener() {
         public void onClick(View v) {
@@ -606,10 +634,14 @@ public class Lockscreens extends AOKPPreferenceFragment implements
 
     private void updateVisiblity(boolean visible) {
         if (visible) {
+            mGlowTorchText.setVisibility(View.VISIBLE);
+			mGlowTorchSwitch.setVisibility(View.VISIBLE);
             mLongPressStatus.setVisibility(View.VISIBLE);
             mLongPressText.setVisibility(View.VISIBLE);
             mHelperText.setText(getResources().getString(R.string.lockscreen_options_info));
         } else {
+            mGlowTorchText.setVisibility(View.GONE);
+			mGlowTorchSwitch.setVisibility(View.GONE);
             mLongPressStatus.setVisibility(View.GONE);
             mLongPressText.setVisibility(View.GONE);
             mHelperText.setText(getResources().getString(R.string.lockscreen_target_info));
