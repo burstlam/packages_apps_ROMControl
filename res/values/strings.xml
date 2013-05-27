@@ -1644,10 +1644,23 @@
 
     <!-- Gesture Navigation -->
     <string name="edge_swipe_title">Gesture navigation</string>
-    <string name="edge_swipe_right_title">Zone 3 Action</string>
     <string name="edge_swipe_left_title">Zone 1 Action</string>
+    <string name="edge_swipe_left_size_title">Zone 1 Size - White</string>
+    <string name="edge_swipe_size_summary">Start and end points as percentage of screen size</string>
+    <string name="edge_swipe_left_type_title">Zone 1 Type</string>
     <string name="edge_swipe_top_title">Zone 2 Action</string>
+    <string name="edge_swipe_top_size_title">Zone 2 Size - Red</string>
+    <string name="edge_swipe_top_type_title">Zone 2 Type</string>
+    <string name="edge_swipe_right_title">Zone 3 Action</string>
+    <string name="edge_swipe_right_size_title">Zone 3 Size - Green</string>
+    <string name="edge_swipe_right_type_title">Zone 3 Type</string>
     <string name="edge_swipe_bottom_title">Zone 4 Action</string>
+    <string name="edge_swipe_bottom_size_title">Zone 4 Size - Blue</string>
+    <string name="edge_swipe_bottom_type_title">Zone 4 Type</string>
+    <string name="picker_x_start">X start</string>
+    <string name="picker_x_end">X End</string>
+    <string name="picker_y_start">Y start</string>
+    <string name="picker_y_end">Y End</string>
     <string name="edge_swipe_move_title">Capture touch events</string>
     <string name="edge_swipe_move_summary">Stop touches in zones from reaching the application</string>
     <string name="edge_swipe_none">No action</string>
