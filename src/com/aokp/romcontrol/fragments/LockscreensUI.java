@@ -94,6 +94,7 @@ public class LockscreensUI extends AOKPPreferenceFragment implements OnPreferenc
     private static final String KEY_LOCKSCREEN_BACKGROUND_ALPHA = "lockscreen_background_alpha";
     public static final String KEY_BACKGROUND_PREF = "lockscreen_background";
     private static final String LOCKSCREEN_TRANSPARENT_PREF = "pref_lockscreen_transparent";
+    public static final String LOCKSCREEN_GLOW_TORCH = "lockscreen_glow_torch";
 
     private File mWallpaperImage;
     private File mWallpaperTemporary;
@@ -114,6 +115,7 @@ public class LockscreensUI extends AOKPPreferenceFragment implements OnPreferenc
     CheckBoxPreference mMaximizeWidgets;
     CheckBoxPreference mLockscreenUseCarousel;
     CheckBoxPreference mCameraWidget;
+    CheckBoxPreference mLockScreenGlowTorch;
 
     private boolean mIsScreenLarge;
     private Activity mActivity;
@@ -189,6 +191,10 @@ public class LockscreensUI extends AOKPPreferenceFragment implements OnPreferenc
         mLockTransparent = (CheckBoxPreference) findPreference(LOCKSCREEN_TRANSPARENT_PREF);
         mLockTransparent.setChecked(Settings.System.getBoolean(mContentRes,
                 Settings.System.LOCKSCREEN_TRANSPARENT, false));
+
+        mLockScreenGlowTorch = (CheckBoxPreference) findPreference(LOCKSCREEN_GLOW_TORCH);
+        mLockScreenGlowTorch.setChecked(Settings.System.getBoolean(mContentRes,
+                Settings.System.LOCKSCREEN_GLOW_TORCH, false));
 
         setHasOptionsMenu(true);
     }
@@ -334,6 +340,11 @@ public class LockscreensUI extends AOKPPreferenceFragment implements OnPreferenc
             Settings.System.putBoolean(mContentRes,
                     Settings.System.LOCKSCREEN_TRANSPARENT,
                     ((CheckBoxPreference)preference).isChecked());
+            return true;
+        } else if (preference == mLockScreenGlowTorch) {
+            Settings.System.putBoolean(mContentRes,
+                    Settings.System.LOCKSCREEN_GLOW_TORCH,
+                    ((CheckBoxPreference) preference).isChecked());
             return true;
         }
         return super.onPreferenceTreeClick(preferenceScreen, preference);
