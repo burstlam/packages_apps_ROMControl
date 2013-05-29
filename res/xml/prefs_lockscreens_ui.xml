@@ -34,6 +34,10 @@
         android:key="layout"
         android:title="@string/lockscreen_layout_cat">
 
+    <CheckBoxPreference
+        android:key="pref_lockscreen_transparent"
+        android:title="@string/pref_lockscreen_transparent"/>
+
     <ListPreference
         android:key="lockscreen_background"
         android:persistent="false"

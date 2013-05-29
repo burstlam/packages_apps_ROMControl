@@ -93,12 +93,14 @@ public class LockscreensUI extends AOKPPreferenceFragment implements OnPreferenc
     private static final String KEY_LOCKSCREEN_MAXIMIZE_WIDGETS = "lockscreen_maximize_widgets";
     private static final String KEY_LOCKSCREEN_BACKGROUND_ALPHA = "lockscreen_background_alpha";
     public static final String KEY_BACKGROUND_PREF = "lockscreen_background";
+    private static final String LOCKSCREEN_TRANSPARENT_PREF = "pref_lockscreen_transparent";
     public static final String LOCKSCREEN_GLOW_TORCH = "lockscreen_glow_torch";
 
     private File mWallpaperImage;
     private File mWallpaperTemporary;
     private ListPreference mCustomBackground;
     private Preference mWallpaperAlpha;
+    CheckBoxPreference mLockTransparent;
 
     Preference mLockscreens;
 
@@ -185,6 +187,10 @@ public class LockscreensUI extends AOKPPreferenceFragment implements OnPreferenc
         mWallpaperTemporary = new File(getActivity().getCacheDir() + "/lockwallpaper.tmp");
 
         mWallpaperAlpha = (Preference) findPreference(KEY_LOCKSCREEN_BACKGROUND_ALPHA);
+
+        mLockTransparent = (CheckBoxPreference) findPreference(LOCKSCREEN_TRANSPARENT_PREF);
+        mLockTransparent.setChecked(Settings.System.getBoolean(mContentRes,
+                Settings.System.LOCKSCREEN_TRANSPARENT, false));
 
         mLockScreenGlowTorch = (CheckBoxPreference) findPreference(LOCKSCREEN_GLOW_TORCH);
         mLockScreenGlowTorch.setChecked(Settings.System.getBoolean(mContentRes,
@@ -329,6 +335,11 @@ public class LockscreensUI extends AOKPPreferenceFragment implements OnPreferenc
             })
             .create()
             .show();
+            return true;
+        } else if (preference == mLockTransparent) {
+            Settings.System.putBoolean(mContentRes,
+                    Settings.System.LOCKSCREEN_TRANSPARENT,
+                    ((CheckBoxPreference)preference).isChecked());
             return true;
         } else if (preference == mLockScreenGlowTorch) {
             Settings.System.putBoolean(mContentRes,
