@@ -34,7 +34,7 @@ public class HybridSettings extends AOKPPreferenceFragment implements
     private static final CharSequence PREF_FORCE_DUAL_PANEL = "force_dualpanel";
     private static final CharSequence PREF_USER_MODE_UI = "user_mode_ui";
     private static final CharSequence PREF_HIDE_EXTRAS = "hide_extras";
-    private static final CharSequence PREF_SHOW_OVERFLOW = "show_overflow";
+    //private static final CharSequence PREF_SHOW_OVERFLOW = "show_overflow";
 
     // PER APP DPI
     PreferenceScreen mDpiScreen;
@@ -47,7 +47,7 @@ public class HybridSettings extends AOKPPreferenceFragment implements
     CheckBoxPreference mDualpane;
     ListPreference mUserModeUI;
     CheckBoxPreference mHideExtras;
-    CheckBoxPreference mShowActionOverflow;
+    //CheckBoxPreference mShowActionOverflow;
     Preference mLcdDensity;
 
     private Context mContext;
@@ -116,9 +116,9 @@ public class HybridSettings extends AOKPPreferenceFragment implements
                 Settings.System.USER_UI_MODE, uiMode)));
         mUserModeUI.setOnPreferenceChangeListener(this);
 
-        mShowActionOverflow = (CheckBoxPreference) findPreference(PREF_SHOW_OVERFLOW);
-        mShowActionOverflow.setChecked(Settings.System.getBoolean(mContentResolver,
-                        Settings.System.UI_FORCE_OVERFLOW_BUTTON, false));
+        //mShowActionOverflow = (CheckBoxPreference) findPreference(PREF_SHOW_OVERFLOW);
+        //mShowActionOverflow.setChecked(Settings.System.getBoolean(mContentResolver,
+        //                Settings.System.UI_FORCE_OVERFLOW_BUTTON, false));
 
         updateSummaries();
     }
@@ -148,19 +148,19 @@ public class HybridSettings extends AOKPPreferenceFragment implements
                     Settings.System.HIDE_EXTRAS_SYSTEM_BAR,
                     ((TwoStatePreference) preference).isChecked());
             return true;
-        } else if (preference == mShowActionOverflow) {
-            boolean enabled = mShowActionOverflow.isChecked();
-            Settings.System.putBoolean(mContentResolver, Settings.System.UI_FORCE_OVERFLOW_BUTTON,
-                    enabled);
+        //} else if (preference == mShowActionOverflow) {
+        //    boolean enabled = mShowActionOverflow.isChecked();
+        //    Settings.System.putBoolean(mContentResolver, Settings.System.UI_FORCE_OVERFLOW_BUTTON,
+        //            enabled);
             // Show toast appropriately
-            if (enabled) {
-                Toast.makeText(getActivity(), R.string.show_overflow_toast_enable,
-                        Toast.LENGTH_LONG).show();
-            } else {
-                Toast.makeText(getActivity(), R.string.show_overflow_toast_disable,
-                        Toast.LENGTH_LONG).show();
-            }
-            return true;
+        //    if (enabled) {
+        //        Toast.makeText(getActivity(), R.string.show_overflow_toast_enable,
+        //                Toast.LENGTH_LONG).show();
+        //    } else {
+        //        Toast.makeText(getActivity(), R.string.show_overflow_toast_disable,
+        //                Toast.LENGTH_LONG).show();
+        //    }
+        //    return true;
         } else if (preference == mAppsDpi) {
             showAppsDpiDialog();
         } else if (preference == mLcdDensity) {
