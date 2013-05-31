@@ -106,11 +106,6 @@
             android:title="@string/misc_short">
 
             <CheckBoxPreference
-                android:key="lockscreen_glow_torch"
-                android:title="@string/lockscreen_glow_torch_text"
-                android:summary="@string/lockscreen_glow_torch_summary" />
-
-            <CheckBoxPreference
                 android:key="lockscreen_auto_rotate"
                 android:title="@string/lockscreen_auto_rotate_title"
                 android:summary="@string/lockscreen_auto_rotate_summary" />
