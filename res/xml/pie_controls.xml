@@ -114,6 +114,12 @@
             android:summary="@string/pie_search_summary" />
 
         <CheckBoxPreference
+            android:key="pie_power"
+            android:title="@string/pie_power_title"
+            android:summary="@string/pie_power_summary"
+            android:dependency="pie_controls" />
+
+        <CheckBoxPreference
             android:key="pie_lastapp"
             android:title="@string/pie_lastapp_title"
             android:summary="@string/pie_lastapp_summary" />

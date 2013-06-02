@@ -31,6 +31,7 @@ public class PieControl extends AOKPPreferenceFragment
     private static final String PIE_TRIGGER = "pie_trigger";
     private static final String PIE_ANGLE = "pie_angle";
     private static final String PIE_GAP = "pie_gap";
+    private static final String PIE_POWER = "pie_power";
     private static final String PIE_MENU = "pie_menu";
     private static final String PIE_SEARCH = "pie_search";
     private static final String PIE_LASTAPP = "pie_lastapp";
@@ -47,6 +48,7 @@ public class PieControl extends AOKPPreferenceFragment
     private ListPreference mPieAngle;
     private ListPreference mPieGap;
     private CheckBoxPreference mPieMenu;
+    private CheckBoxPreference mPiePower;
     private CheckBoxPreference mPieSearch;
     private CheckBoxPreference mPieLastApp;
 
@@ -122,6 +124,10 @@ public class PieControl extends AOKPPreferenceFragment
         mPieSearch.setChecked(Settings.System.getInt(mContext.getContentResolver(),
                 Settings.System.PIE_SEARCH, 1) == 1);
 
+        mPiePower = (CheckBoxPreference) prefSet.findPreference(PIE_POWER);
+        mPiePower.setChecked(Settings.System.getInt(getActivity().getContentResolver(),
+                Settings.System.PIE_POWER, 0) == 1);
+
         mPieLastApp = (CheckBoxPreference) prefSet.findPreference(PIE_LASTAPP);
         mPieLastApp.setChecked(Settings.System.getInt(mContext.getContentResolver(),
                 Settings.System.PIE_LAST_APP, 0) == 1);
@@ -155,6 +161,10 @@ public class PieControl extends AOKPPreferenceFragment
             Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
                     Settings.System.PIE_SEARCH, 
                     mPieSearch.isChecked() ? 1 : 0);
+        } else if (preference == mPiePower) {
+            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
+                    Settings.System.PIE_POWER,
+                    mPiePower.isChecked() ? 1 : 0);
         } else if (preference == mPieLastApp) {
             Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
                     Settings.System.PIE_LAST_APP,
