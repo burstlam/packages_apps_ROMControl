@@ -94,7 +94,7 @@ public class StatusBarSignal extends AOKPPreferenceFragment implements
         mTrafficColorPicker.setSummary(hexColor);
         mTrafficColorPicker.setNewPreviewColor(intColor);
 
-        if (isTablet(mContext)) {
+        if (isTabletUI(mContext)) {
             mStatusBarTraffic.setEnabled(false);
         }
 
