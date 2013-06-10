@@ -115,7 +115,7 @@ public class LockscreensUI extends AOKPPreferenceFragment implements OnPreferenc
     CheckBoxPreference mMaximizeWidgets;
     CheckBoxPreference mLockscreenUseCarousel;
     CheckBoxPreference mCameraWidget;
-    CheckBoxPreference mLockScreenGlowTorch;
+    ListPreference mLockScreenGlowTorch;
 
     private boolean mIsScreenLarge;
     private Activity mActivity;
@@ -192,9 +192,11 @@ public class LockscreensUI extends AOKPPreferenceFragment implements OnPreferenc
         mLockTransparent.setChecked(Settings.System.getBoolean(mContentRes,
                 Settings.System.LOCKSCREEN_TRANSPARENT, false));
 
-        mLockScreenGlowTorch = (CheckBoxPreference) findPreference(LOCKSCREEN_GLOW_TORCH);
-        mLockScreenGlowTorch.setChecked(Settings.System.getBoolean(mContentRes,
-                Settings.System.LOCKSCREEN_GLOW_TORCH, false));
+        mLockScreenGlowTorch = (ListPreference) findPreference(LOCKSCREEN_GLOW_TORCH);
+        int glowValue = Settings.System.getInt(mContentRes, 
+                    Settings.System.LOCKSCREEN_GLOW_TORCH, 0);
+        mLockScreenGlowTorch.setValue(String.valueOf(glowValue));
+        mLockScreenGlowTorch.setOnPreferenceChangeListener(this);
 
         setHasOptionsMenu(true);
     }
@@ -341,11 +343,6 @@ public class LockscreensUI extends AOKPPreferenceFragment implements OnPreferenc
                     Settings.System.LOCKSCREEN_TRANSPARENT,
                     ((CheckBoxPreference)preference).isChecked());
             return true;
-        } else if (preference == mLockScreenGlowTorch) {
-            Settings.System.putBoolean(mContentRes,
-                    Settings.System.LOCKSCREEN_GLOW_TORCH,
-                    ((CheckBoxPreference) preference).isChecked());
-            return true;
         }
         return super.onPreferenceTreeClick(preferenceScreen, preference);
     }
@@ -367,6 +364,11 @@ public class LockscreensUI extends AOKPPreferenceFragment implements OnPreferenc
             boolean value = (Boolean) newValue;
             Settings.System.putInt(mContentRes,
                     Settings.System.LOCKSCREEN_MAXIMIZE_WIDGETS, value ? 1 : 0);
+            return true;
+        } else if (preference == mLockScreenGlowTorch) {
+            int glowValue= Integer.valueOf((String) newValue);
+            Settings.System.putInt(mContentRes,
+                    Settings.System.LOCKSCREEN_GLOW_TORCH, glowValue);
             return true;
         }
         return false;

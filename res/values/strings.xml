@@ -733,7 +733,10 @@
     <string name="lockscreen_target_longpress_text">Longpress status</string>
     <string name="lockscreen_target_longpress_summary">Enables long press options for lock screen targets</string>
     <string name="lockscreen_glow_torch_text">Glowpad torch</string>
-    <string name="lockscreen_glow_torch_summary">Longpressing the lockcircle without launching a target wil initiate the torch</string>
+    <string name="lockscreen_glow_torch_summary">Longpressing the center of the lock circle or navigation ring will turn torch on.  Release finger to turn torch off.</string>
+    <string name="lockscreen_torch_off">Off</string>
+    <string name="lockscreen_torch_lockcircle">LockRing</string>
+    <string name="lockscreen_torch_navring">NavRing</string>
     <string name="lockscreen_camera">Camera</string>
     <string name="lockscreen_unlock">Unlock</string>
     <string name="save_error">Could not save targets! You must have at least one unlock target!</string>
