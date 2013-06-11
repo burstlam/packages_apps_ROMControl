@@ -17,13 +17,13 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
         android:title="@string/pie_controls_title">
 
-    <PreferenceScreen
+<!--    <PreferenceScreen
         android:key="halo"
         android:title="@string/halo_settings_title">
         <intent 
             android:action="android.intent.action.MAIN"
             android:fragment="com.android.settings.paranoid.Halo" />
-    </PreferenceScreen>
+    </PreferenceScreen>-->
 
     <PreferenceCategory
         android:key="toolbar_pie_controls"
