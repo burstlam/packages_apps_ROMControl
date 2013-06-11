@@ -123,6 +123,7 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
     private static final CharSequence PREF_MISC = "misc";
     private static final CharSequence PREF_DISPLAY = "display";
 
+    private static int STOCK_FONT_SIZE = 16;
     private static final int REQUEST_PICK_WALLPAPER = 201;
     // private static final int REQUEST_PICK_CUSTOM_ICON = 202; // unused
     private static final int REQUEST_PICK_BOOT_ANIMATION = 203;
@@ -155,7 +156,8 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
     ListPreference mCrtMode;
     ListPreference mLowBatteryWarning;
     ListPreference mNotificationsBehavior;
-    ListPreference mStatusBarIconOpacity; 
+    ListPreference mStatusBarIconOpacity;
+    ListPreference mFontsize;
     ListPreference mHiddenStatusbarPulldownTimeout;
 
     private StatusBarBrightnessChangedObserver mStatusBarBrightnessChangedObserver;
@@ -327,7 +329,13 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
         mStatusBarIconOpacity.setValue(String.valueOf(iconOpacity));
         mStatusBarIconOpacity.setOnPreferenceChangeListener(this);
 
+        mFontsize = (ListPreference) findPreference("status_bar_fontsize");
+        mFontsize.setOnPreferenceChangeListener(this);
+        mFontsize.setValue(Integer.toString(Settings.System.getInt(mContentRes,
+                Settings.System.STATUSBAR_FONT_SIZE, STOCK_FONT_SIZE)));
+
         if (isTabletUI(mContext)) {
+            mStatusBarHide.setEnabled(false);
             mStatusBarHide.setEnabled(false);
             mStatusBarAutoExpandHidden.setEnabled(false);
             mStatusBarBrightnessControl.setEnabled(false);
@@ -711,6 +719,12 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
             int iconOpacity = Integer.valueOf((String) newValue);
             Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
                     Settings.System.STATUS_BAR_NOTIF_ICON_OPACITY, iconOpacity);
+            return true;
+        } else if (preference == mFontsize) {
+            int val = Integer.parseInt((String) newValue);
+            Settings.System.putInt(mContentRes,
+            Settings.System.STATUSBAR_FONT_SIZE, val);
+            Helpers.restartSystemUI();
             return true;
         } else if (preference == mHiddenStatusbarPulldownTimeout) {
             int hiddenTimeout = Integer.valueOf((String) newValue);
