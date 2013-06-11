@@ -1660,4 +1660,7 @@
     <!-- Section title for list of downloaded apps [CHAR LIMIT=30] -->
     <string name="user_market_apps_heading">Installed apps</string>
 
+    <!--HALO-->
+    <string name="halo_settings_title">HALO</string>
+
 </resources>

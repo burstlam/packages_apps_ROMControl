@@ -330,6 +330,8 @@
                 android:resource="@id/slim_notification_shortcuts" />
         </activity>
 
+        <activity android:name="com.andorid.settings.paranoid.Halo" />
+
         <activity android:name="net.margaritov.preference.colorpicker"/>
 
         <receiver
