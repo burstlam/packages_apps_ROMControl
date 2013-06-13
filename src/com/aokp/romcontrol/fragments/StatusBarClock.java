@@ -27,7 +27,7 @@ import com.aokp.romcontrol.util.ShortcutPickerHelper;
 import net.margaritov.preference.colorpicker.ColorPickerPreference;
 
 public class StatusBarClock extends AOKPPreferenceFragment implements
-                ShortcutPickerHelper.OnPickListener, OnPreferenceChangeListener {
+        ShortcutPickerHelper.OnPickListener, OnPreferenceChangeListener {
 
     private static final String PREF_ENABLE = "clock_style";
     private static final String PREF_AM_PM_STYLE = "clock_am_pm_style";
@@ -255,9 +255,10 @@ public class StatusBarClock extends AOKPPreferenceFragment implements
         }
         return result;
     }
+
     public void shortcutPicked(String uri, String friendlyName, Bitmap bmp, boolean isApplication) {
-          mPreference.setSummary(friendlyName);
-          Settings.System.putString(mContentRes, mString, (String) uri);
+        mPreference.setSummary(friendlyName);
+        Settings.System.putString(mContentRes, mString, (String) uri);
     }
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == Activity.RESULT_OK) {
@@ -282,28 +283,29 @@ public class StatusBarClock extends AOKPPreferenceFragment implements
         String uri = Settings.System.getString(mContentRes, mString);
         String empty = "";
 
-        if (uri == null)
+        if (uri == null) {
             return empty;
+        }
 
         if (uri.startsWith("**")) {
-            if (uri.equals("**alarm**"))
+            if (uri.equals("**alarm**")) {
                 return getResources().getString(R.string.alarm);
-            else if (uri.equals("**event**"))
+            } else if (uri.equals("**event**")) {
                 return getResources().getString(R.string.event);
-            else if (uri.equals("**voiceassist**"))
+            } else if (uri.equals("**voiceassist**")) {
                 return getResources().getString(R.string.voiceassist);
-            else if (uri.equals("**clockoptions**"))
+            } else if (uri.equals("**clockoptions**")) {
                 return getResources().getString(R.string.clock_options);
-            else if (uri.equals("**today**"))
+            } else if (uri.equals("**today**")) {
                 return getResources().getString(R.string.today);
-            else if (uri.equals("**null**"))
+            } else if (uri.equals("**null**")) {
                 return getResources().getString(R.string.nothing);
+            }
         } else {
             return mPicker.getFriendlyNameForUri(uri);
         }
         return null;
     }
-
 
     private void parseClockDateFormats() {
         // Parse and repopulate mClockDateFormats's entries based on current date.

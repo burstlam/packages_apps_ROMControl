@@ -1,18 +1,10 @@
 package com.aokp.romcontrol.fragments;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.net.URISyntaxException;
-import java.util.ArrayList;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.FragmentTransaction;
-import android.app.ListFragment;
-import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -32,11 +24,9 @@ import android.graphics.drawable.StateListDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.os.PowerManager;
 import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
-import android.preference.PreferenceActivity;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceGroup;
 import android.preference.PreferenceScreen;
@@ -46,12 +36,10 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.util.StateSet;
 import android.util.TypedValue;
-import android.view.HapticFeedbackConstants;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -61,7 +49,6 @@ import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -72,11 +59,15 @@ import com.android.internal.util.aokp.NavBarHelpers;
 import com.aokp.romcontrol.AOKPPreferenceFragment;
 import com.aokp.romcontrol.R;
 import com.aokp.romcontrol.util.Helpers;
-import com.aokp.romcontrol.ROMControlActivity;
 import com.aokp.romcontrol.util.ShortcutPickerHelper;
 import com.aokp.romcontrol.widgets.AlphaSeekBar;
 import com.aokp.romcontrol.widgets.SeekBarPreference;
-import com.aokp.romcontrol.fragments.NavRingTargets;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.net.URISyntaxException;
+import java.util.ArrayList;
 
 import net.margaritov.preference.colorpicker.ColorPickerPreference;
 
@@ -138,7 +129,7 @@ public class Navbar extends AOKPPreferenceFragment implements
     // NavBar Buttons Stuff
     Resources mResources;
     private ImageView mLeftMenu, mRightMenu;
-    private ImageButton mResetButton, mAddButton,mSaveButton;
+    private ImageButton mResetButton, mAddButton, mSaveButton;
     private LinearLayout mNavBarContainer;
     private LinearLayout mNavButtonsContainer;
     private int mNumberofButtons = 0;
@@ -176,7 +167,7 @@ public class Navbar extends AOKPPreferenceFragment implements
         mActionCodes = NavBarHelpers.getNavBarActions();
         mActions = new String[mActionCodes.length];
         int actionqty = mActions.length;
-                    for (int i = 0; i < actionqty; i++) {
+        for (int i = 0; i < actionqty; i++) {
             mActions[i] = AwesomeConstants.getProperName(mContext, mActionCodes[i]);
         }
 
@@ -195,7 +186,7 @@ public class Navbar extends AOKPPreferenceFragment implements
                 Settings.System.NAV_HIDE_ENABLE, false));
 
         final int defaultDragOpacity = Settings.System.getInt(mContentRes,
-                Settings.System.DRAG_HANDLE_OPACITY,50);
+                Settings.System.DRAG_HANDLE_OPACITY, 50);
         mDragHandleOpacity = (SeekBarPreference) findPreference(DRAG_HANDLE_OPACITY);
         mDragHandleOpacity.setInitValue((int) (defaultDragOpacity));
                     mDragHandleOpacity.setOnPreferenceChangeListener(this);
@@ -255,7 +246,8 @@ public class Navbar extends AOKPPreferenceFragment implements
         mNavigationBarHeight = (ListPreference) findPreference("navigation_bar_height");
         mNavigationBarHeight.setOnPreferenceChangeListener(this);
 
-        mNavigationBarHeightLandscape = (ListPreference) findPreference("navigation_bar_height_landscape");
+        mNavigationBarHeightLandscape = 
+                (ListPreference) findPreference("navigation_bar_height_landscape");
         mNavigationBarHeightLandscape.setOnPreferenceChangeListener(this);
 
         mNavigationBarWidth = (ListPreference) findPreference("navigation_bar_width");
@@ -301,28 +293,29 @@ public class Navbar extends AOKPPreferenceFragment implements
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater,ViewGroup container, Bundle savedinstanceState){
-       View ll = inflater.inflate(R.layout.navbar, container, false);
-       mResetButton = (ImageButton) ll.findViewById(R.id.reset_button);
-       mResetButton.setOnClickListener(mCommandButtons);
-       mAddButton = (ImageButton) ll.findViewById(R.id.add_button);
-       mAddButton.setOnClickListener(mCommandButtons);
-       mSaveButton = (ImageButton) ll.findViewById(R.id.save_button);
-       mSaveButton.setOnClickListener(mCommandButtons);
-       mLeftMenu = (ImageView) ll.findViewById(R.id.left_menu);
-       mNavBarContainer = (LinearLayout) ll.findViewById(R.id.navbar_container);
-       mNavButtonsContainer = (LinearLayout) ll.findViewById(R.id.button_container);
-       mButtonViews.clear();
-       for (int i = 0; i < mNavButtonsContainer.getChildCount(); i++) {
-           ImageButton ib = (ImageButton) mNavButtonsContainer.getChildAt(i);
-           mButtonViews.add(ib);
-       }
-       mRightMenu = (ImageView) ll.findViewById(R.id.right_menu);
-       if (mButtons.size() == 0){
-           loadButtons();
-       }
-       refreshButtons();
-       return ll;
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedinstanceState) {
+        View ll = inflater.inflate(R.layout.navbar, container, false);
+        mResetButton = (ImageButton) ll.findViewById(R.id.reset_button);
+        mResetButton.setOnClickListener(mCommandButtons);
+        mAddButton = (ImageButton) ll.findViewById(R.id.add_button);
+        mAddButton.setOnClickListener(mCommandButtons);
+        mSaveButton = (ImageButton) ll.findViewById(R.id.save_button);
+        mSaveButton.setOnClickListener(mCommandButtons);
+        mLeftMenu = (ImageView) ll.findViewById(R.id.left_menu);
+        mNavBarContainer = (LinearLayout) ll.findViewById(R.id.navbar_container);
+        mNavButtonsContainer = (LinearLayout) ll.findViewById(R.id.button_container);
+        mButtonViews.clear();
+        for (int i = 0; i < mNavButtonsContainer.getChildCount(); i++) {
+            ImageButton ib = (ImageButton) mNavButtonsContainer.getChildAt(i);
+            mButtonViews.add(ib);
+        }
+        mRightMenu = (ImageView) ll.findViewById(R.id.right_menu);
+        if (mButtons.size() == 0) {
+            loadButtons();
+        }
+        refreshButtons();
+        return ll;
     }
 
     @Override
@@ -379,7 +372,7 @@ public class Navbar extends AOKPPreferenceFragment implements
 
     @Override
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen,
-            Preference preference) {
+                                         Preference preference) {
         if (preference == mEnableNavigationBar) {
 
             Settings.System.putInt(mContentRes,
@@ -396,10 +389,11 @@ public class Navbar extends AOKPPreferenceFragment implements
             Settings.System.putBoolean(mContentRes,
                     Settings.System.NAV_HIDE_ENABLE,
                     ((CheckBoxPreference) preference).isChecked());
-            mDragHandleOpacity.setInitValue(Settings.System.getInt(getActivity().getContentResolver(),
-                    Settings.System.DRAG_HANDLE_OPACITY,50));
+            mDragHandleOpacity
+                    .setInitValue(Settings.System.getInt(getActivity().getContentResolver(),
+                            Settings.System.DRAG_HANDLE_OPACITY, 50));
             mDragHandleWidth.setInitValue(Settings.System.getInt(getActivity().getContentResolver(),
-                    Settings.System.DRAG_HANDLE_WEIGHT,5));
+                    Settings.System.DRAG_HANDLE_WEIGHT, 5));
             mNavBarHideTimeout.setValue(Settings.System.getInt(getActivity().getContentResolver(),
                     Settings.System.NAV_HIDE_TIMEOUT, 3000) + "");
             refreshSettings();
@@ -625,7 +619,7 @@ public class Navbar extends AOKPPreferenceFragment implements
         }
     };
 
-    private void loadButtons(){
+    private void loadButtons() {
         mNumberofButtons = Settings.System.getInt(mContentRes,
                 Settings.System.NAVIGATION_BAR_BUTTONS_QTY, 3);
         mButtons.clear();
@@ -661,7 +655,8 @@ public class Navbar extends AOKPPreferenceFragment implements
             BarAlpha = Float.parseFloat(alphas[0]) / 255;
         }
         int a = Math.round(BarAlpha * 255);
-        Drawable mBackground = AwesomeConstants.getSystemUIDrawable(mContext, "com.android.systemui:drawable/nav_bar_bg");
+        Drawable mBackground = AwesomeConstants
+                 .getSystemUIDrawable(mContext, "com.android.systemui:drawable/nav_bar_bg");
         if (mBackground instanceof ColorDrawable) {
             BackgroundAlphaColorDrawable bacd = new BackgroundAlphaColorDrawable(
                     navBarColor > 0 ? navBarColor : ((ColorDrawable) mBackground).getColor());
@@ -682,11 +677,11 @@ public class Navbar extends AOKPPreferenceFragment implements
             ib.setVisibility(View.VISIBLE);
             ib.setAlpha(navButtonAlpha);
             StateListDrawable sld = new StateListDrawable();
-            sld.addState(new int[] { android.R.attr.state_pressed }, new ColorDrawable(glowColor));
+            sld.addState(new int[]{android.R.attr.state_pressed}, new ColorDrawable(glowColor));
             sld.addState(StateSet.WILD_CARD, mNavBarContainer.getBackground());
             ib.setBackground(sld);
         }
-        for (int i = mNumberofButtons; i < mButtonViews.size(); i++){
+        for (int i = mNumberofButtons; i < mButtonViews.size(); i++) {
             ImageButton ib = mButtonViews.get(i);
             ib.setVisibility(View.GONE);
         }
@@ -716,15 +711,16 @@ public class Navbar extends AOKPPreferenceFragment implements
         }
     }
 
-    private void saveButtons(){
+    private void saveButtons() {
         Settings.System.putInt(mContentRes,Settings.System.NAVIGATION_BAR_BUTTONS_QTY,
                 mNumberofButtons);
         for (int i = 0; i < mNumberofButtons; i++) {
             NavBarButton button = mButtons.get(i);
             Settings.System.putString(mContentRes, Settings.System.NAVIGATION_CUSTOM_ACTIVITIES[i],
                     button.getClickAction());
-            Settings.System.putString(mContentRes, Settings.System.NAVIGATION_LONGPRESS_ACTIVITIES[i],
-                    button.getLongAction());
+            Settings.System
+                    .putString(mContentRes, Settings.System.NAVIGATION_LONGPRESS_ACTIVITIES[i],
+                            button.getLongAction());
             Settings.System.putString(mContentRes, Settings.System.NAVIGATION_CUSTOM_APP_ICONS[i],
                     button.getIconURI());
         }
@@ -736,8 +732,8 @@ public class Navbar extends AOKPPreferenceFragment implements
             public void onClick(DialogInterface dialog, int item) {
                 onDialogClick(button, item);
                 dialog.dismiss();
-                }
-            };
+            }
+        };
 
         String action = mResources.getString(R.string.navbar_actiontitle_menu);
         action = String.format(action, button.getClickName());
@@ -760,8 +756,8 @@ public class Navbar extends AOKPPreferenceFragment implements
             public void onClick(DialogInterface dialog, int item) {
                 onActionDialogClick(button, item);
                 dialog.dismiss();
-                }
-            };
+            }
+        };
 
         final AlertDialog dialog = new AlertDialog.Builder(mContext)
                 .setTitle(mResources.getString(R.string.navbar_title_menu))
@@ -771,7 +767,7 @@ public class Navbar extends AOKPPreferenceFragment implements
         dialog.show();
     }
 
-    private void onDialogClick(NavBarButton button, int command){
+    private void onDialogClick(NavBarButton button, int command) {
         switch (command) {
             case 0: // Set Click Action
                 button.setPickLongPress(false);
@@ -795,7 +791,7 @@ public class Navbar extends AOKPPreferenceFragment implements
                 intent.putExtra(MediaStore.EXTRA_OUTPUT, getTempFileUri());
                 intent.putExtra("outputFormat", Bitmap.CompressFormat.PNG.toString());
                 Log.i(TAG, "started for result, should output to: " + getTempFileUri());
-                startActivityForResult(intent,REQUEST_PICK_CUSTOM_ICON);
+                startActivityForResult(intent, REQUEST_PICK_CUSTOM_ICON);
                 break;
             case 3: // Delete Button
                 mButtons.remove(mPendingButton);
@@ -805,10 +801,10 @@ public class Navbar extends AOKPPreferenceFragment implements
         refreshButtons();
     }
 
-    private void onActionDialogClick(NavBarButton button, int command){
+    private void onActionDialogClick(NavBarButton button, int command) {
         if (command == mActions.length -1) {
             // This is the last action - should be **app**
-                mPicker.pickShortcut();
+            mPicker.pickShortcut();
         } else { // This should be any other defined action.
             if (button.getPickLongPress()) {
                 button.setLongPress(mActionCodes[command]);
@@ -830,7 +826,7 @@ public class Navbar extends AOKPPreferenceFragment implements
                     break;
                 case R.id.add_button:
                     if (mNumberofButtons < 7) { // Maximum buttons is 7
-                        mButtons.add(new NavBarButton("**null**","**null**",""));
+                        mButtons.add(new NavBarButton("**null**", "**null**", ""));
                         mNumberofButtons++;
                     }
                     break;
@@ -845,16 +841,18 @@ public class Navbar extends AOKPPreferenceFragment implements
     private Drawable setIcon(String uri, String action) {
         if (uri != null && uri.length() > 0) {
             File f = new File(Uri.parse(uri).getPath());
-            if (f.exists())
+            if (f.exists()) {
                 return resize(new BitmapDrawable(mResources, f.getAbsolutePath()));
+            }
         }
         if (uri != null && !uri.equals("")
                 && uri.startsWith("file")) {
             // it's an icon the user chose from the gallery here
             File icon = new File(Uri.parse(uri).getPath());
-            if (icon.exists())
+            if (icon.exists()) {
                 return resize(new BitmapDrawable(mResources, icon
                         .getAbsolutePath()));
+            }
 
         } else if (uri != null && !uri.equals("")) {
             // here they chose another app icon
@@ -871,8 +869,9 @@ public class Navbar extends AOKPPreferenceFragment implements
     }
 
     private Drawable getNavbarIconImage(String uri) {
-        if (uri == null)
+        if (uri == null) {
             uri = AwesomeConstant.ACTION_NULL.value();
+        }
         if (uri.startsWith("**")) {
             return AwesomeConstants.getActionIcon(mContext, uri);
         } else {
@@ -914,7 +913,7 @@ public class Navbar extends AOKPPreferenceFragment implements
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Log.i(TAG, "RequestCode:"+resultCode);
+        Log.i(TAG, "RequestCode:" + resultCode);
         if (resultCode == Activity.RESULT_OK) {
             if (requestCode == ShortcutPickerHelper.REQUEST_PICK_SHORTCUT
                     || requestCode == ShortcutPickerHelper.REQUEST_PICK_APPLICATION
@@ -940,11 +939,12 @@ public class Navbar extends AOKPPreferenceFragment implements
                     return;
                 }
                 mButtons.get(mPendingButton).setIconURI(Uri.fromFile(
-                                new File(mContext.getFilesDir(), iconName)).getPath());
+                        new File(mContext.getFilesDir(), iconName)).getPath());
 
                 File f = new File(selectedImageUri.getPath());
-                if (f.exists())
+                if (f.exists()) {
                     f.delete();
+                }
                 refreshButtons();
             }
         }
@@ -952,8 +952,9 @@ public class Navbar extends AOKPPreferenceFragment implements
     }
 
     private String getProperSummary(String uri) {
-        if (uri == null)
+        if (uri == null) {
             return AwesomeConstants.getProperName(mContext, "**null**");
+        }
         if (uri.startsWith("**")) {
             return AwesomeConstants.getProperName(mContext, uri);
         } else {
@@ -984,12 +985,12 @@ public class Navbar extends AOKPPreferenceFragment implements
         Drawable mIcon;
         boolean mPickingLongPress;
 
-        public NavBarButton(String clickaction, String longpress, String iconuri ) {
+        public NavBarButton(String clickaction, String longpress, String iconuri) {
             mClickAction = clickaction;
             mLongPressAction = longpress;
             mIconURI = iconuri;
             mClickFriendlyName = getProperSummary(mClickAction);
-            mLongPressFriendlyName = getProperSummary (mLongPressAction);
+            mLongPressFriendlyName = getProperSummary(mLongPressAction);
             mIcon = setIcon(mIconURI,mClickAction);
         }
 
@@ -998,38 +999,47 @@ public class Navbar extends AOKPPreferenceFragment implements
             mClickFriendlyName = getProperSummary(mClickAction);
             // ClickAction was reset - so we should default to stock Icon for now
             mIconURI = "";
-            mIcon = setIcon(mIconURI,mClickAction);
+            mIcon = setIcon(mIconURI, mClickAction);
         }
 
         public void setLongPress(String action) {
             mLongPressAction = action;
-            mLongPressFriendlyName = getProperSummary (mLongPressAction);
+            mLongPressFriendlyName = getProperSummary(mLongPressAction);
         }
+
         public void setPickLongPress(boolean pick) {
             mPickingLongPress = pick;
         }
+
         public boolean getPickLongPress() {
             return mPickingLongPress;
         }
+
         public void setIconURI (String uri) {
             mIconURI = uri;
-            mIcon = setIcon(mIconURI,mClickAction);
+            mIcon = setIcon(mIconURI, mClickAction);
         }
+
         public String getClickName() {
             return mClickFriendlyName;
         }
+
         public String getLongName() {
             return mLongPressFriendlyName;
         }
+
         public Drawable getIcon() {
             return mIcon;
         }
+
         public String getClickAction() {
             return mClickAction;
         }
+
         public String getLongAction() {
             return mLongPressAction;
         }
+
         public String getIconURI() {
             return mIconURI;
         }
@@ -1138,7 +1148,7 @@ public class Navbar extends AOKPPreferenceFragment implements
                     Settings.System.putInt(mContentResolver,
                             Settings.System.LOCKSCREEN_ALPHA_CONFIG,
                             mSeekBars[LOCKSCREEN_ALPHA].getCurrentAlpha());
-        			// update keyguard alpha
+                    // update keyguard alpha
                     if (!mSeekBars[STATUSBAR_KG_ALPHA].isEnabled()) {
                         mSeekBars[STATUSBAR_KG_ALPHA].setCurrentAlpha(
                             mSeekBars[LOCKSCREEN_ALPHA].getCurrentAlpha());
@@ -1178,7 +1188,7 @@ public class Navbar extends AOKPPreferenceFragment implements
             Settings.System.putString(getActivity().getContentResolver(),
                     Settings.System.NAVIGATION_BAR_ALPHA_CONFIG, null);
             Settings.System.putInt(getActivity().getContentResolver(),
-        			Settings.System.LOCKSCREEN_ALPHA_CONFIG, KEYGUARD_ALPHA);
+                    Settings.System.LOCKSCREEN_ALPHA_CONFIG, KEYGUARD_ALPHA);
         }
 
         private void updateToggleState() {

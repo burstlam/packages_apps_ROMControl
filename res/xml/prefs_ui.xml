@@ -176,8 +176,8 @@
     </PreferenceCategory>
 
      <PreferenceCategory
-            android:key="misc"
-            android:title="@string/misc_short">
+        android:key="misc"
+        android:title="@string/misc_short">
 
     </PreferenceCategory>
 
