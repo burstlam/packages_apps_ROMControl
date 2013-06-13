@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:prvandroid="http://schemas.android.com/apk/prv/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center_horizontal" >
+                xmlns:prvandroid="http://schemas.android.com/apk/prv/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_horizontal">
 
     <LinearLayout
         android:id="@+id/lockscreen_options"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical" >
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/helper_text"
@@ -22,12 +22,13 @@
             android:padding="4dip"
             android:text="@string/lockscreen_options_info"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="#FFFFFF" />
+            android:textColor="#FFFFFF"
+            />
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical" >
+            android:gravity="center_vertical">
 
             <TextView
                 android:id="@+id/lockscreen_target_longpress_id"
@@ -42,7 +43,8 @@
                 android:singleLine="true"
                 android:text="@string/lockscreen_target_longpress_text"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="#FFFFFF" />
+                android:textColor="#FFFFFF"
+                />
 
             <Switch
                 android:id="@+id/longpress_switch"
@@ -50,7 +52,8 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_marginEnd="4dip"
-                android:padding="4dip" />
+                android:padding="4dip"
+                />
         </RelativeLayout>
     </LinearLayout>
 
@@ -77,6 +80,7 @@
         prvandroid:snapMargin="@*android:dimen/glowpadview_snap_margin"
         prvandroid:targetDescriptions="@*android:array/lockscreen_target_descriptions_unlock_only"
         prvandroid:targetDrawables="@*android:array/lockscreen_targets_unlock_only"
-        prvandroid:vibrationDuration="20" />
+        prvandroid:vibrationDuration="20"
+        />
 
 </RelativeLayout>

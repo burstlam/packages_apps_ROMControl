@@ -66,8 +66,9 @@ public class BootService extends Service {
             }
 
             if (FlipService.getUserFlipAudioMode(c) != -1
-                    || FlipService.getUserCallSilent(c) != 0)
+                    || FlipService.getUserCallSilent(c) != 0) {
                 c.startService(new Intent(c, FlipService.class));
+            }
 
             if (preferences.getBoolean("cpu_boot", false)) {
                 final String max = preferences.getString(

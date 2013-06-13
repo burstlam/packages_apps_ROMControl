@@ -1,4 +1,3 @@
-
 package com.aokp.romcontrol.util;
 
 import android.content.Context;
@@ -77,7 +76,7 @@ public class Helpers {
      * Checks device for network connectivity
      *
      * @return If the device has data connectivity
-    */
+     */
     public static boolean isNetworkAvailable(Context context) {
         boolean state = false;
         if (context != null) {
@@ -150,7 +149,8 @@ public class Helpers {
             String device = mounts[0];
             String path = mounts[1];
             String point = mounts[2];
-            String preferredMountCmd = new String("mount -o " + mount + ",remount -t " + point + ' ' + device + ' ' + path);
+            String preferredMountCmd = new String(
+                    "mount -o " + mount + ",remount -t " + point + ' ' + device + ' ' + path);
             if (CMDProcessor.runSuCommand(preferredMountCmd).success()) {
                 return true;
             }
@@ -287,7 +287,7 @@ public class Helpers {
      * Long toast message
      *
      * @param context Application Context
-     * @param msg Message to send
+     * @param msg     Message to send
      */
     public static void msgLong(Context context, String msg) {
         if (context != null && msg != null) {
@@ -299,7 +299,7 @@ public class Helpers {
      * Short toast message
      *
      * @param context Application Context
-     * @param msg Message to send
+     * @param msg     Message to send
      */
     public static void msgShort(Context context, String msg) {
         if (context != null && msg != null) {
@@ -311,7 +311,7 @@ public class Helpers {
      * Long toast message
      *
      * @param context Application Context
-     * @param msg Message to send
+     * @param msg     Message to send
      */
     public static void sendMsg(Context context, String msg) {
         if (context != null && msg != null) {
