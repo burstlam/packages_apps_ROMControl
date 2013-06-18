@@ -26,6 +26,7 @@ public class PowerMenu extends AOKPPreferenceFragment implements OnPreferenceCha
     private static final String PREF_VOLUME_STATE_TOGGLE = "show_volume_state_toggle";
     private static final String PREF_REBOOT_KEYGUARD = "show_reboot_keyguard";
     private static final String KEY_EXPANDED_DESKTOP = "power_menu_expanded_desktop";
+    private static final String KEY_PROFILES = "power_menu_profiles";
 
     //SwitchPreference mShowPowerSaver;
     SwitchPreference mShowScreenShot;
@@ -35,6 +36,7 @@ public class PowerMenu extends AOKPPreferenceFragment implements OnPreferenceCha
     SwitchPreference mShowVolumeStateToggle;
     SwitchPreference mShowRebootKeyguard;
     ListPreference mExpandedDesktopPref;
+    ListPreference mProfilesPref;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -95,6 +97,18 @@ public class PowerMenu extends AOKPPreferenceFragment implements OnPreferenceCha
                         Settings.System.EXPANDED_DESKTOP_MODE, 0);
         mExpandedDesktopPref.setValue(String.valueOf(expandedDesktopValue));
         mExpandedDesktopPref.setSummary(mExpandedDesktopPref.getEntries()[expandedDesktopValue]);
+
+        mProfilesPref = (ListPreference) findPreference(KEY_PROFILES);
+        mProfilesPref.setOnPreferenceChangeListener(this);
+        int mProfileShow = Settings.System.getInt(getContentResolver(),
+                Settings.System.POWER_MENU_PROFILES_ENABLED, 1);
+        mProfilesPref.setValue(String.valueOf(mProfileShow));
+        mProfilesPref.setSummary(mProfilesPref.getEntries()[mProfileShow]);
+
+        // Only enable if System Profiles are also enabled
+        boolean enabled = Settings.System.getInt(getContentResolver(),
+                Settings.System.SYSTEM_PROFILES_ENABLED, 1) == 1;
+        mProfilesPref.setEnabled(enabled);
 
         // Hide no-op "Status bar visible" mode on devices without navbar
         // WindowManager already respects the default config value and the
@@ -168,6 +182,13 @@ public class PowerMenu extends AOKPPreferenceFragment implements OnPreferenceCha
                     Settings.System.POWER_DIALOG_SHOW_REBOOT_KEYGUARD,
                     (Boolean) value);
             return true;
+        } else if (preference == mProfilesPref) {
+                int mProfileShow = Integer.valueOf((String) value);
+                int index = mProfilesPref.findIndexOfValue((String) value);
+                Settings.System.putInt(getContentResolver(),
+                        Settings.System.POWER_MENU_PROFILES_ENABLED, mProfileShow);
+                mProfilesPref.setSummary(mProfilesPref.getEntries()[index]);
+                return true;
         }
 
         return false;

@@ -28,6 +28,10 @@
     <string name="expanded_desktop_only_nav_bar">Hide navigation bar</string>
     <string name="expanded_desktop_only_status_bar">Hide status bar</string>
     <string name="expanded_desktop_both_hidden">Hide navigation and status bar</string>
+    <string name="power_menu_profiles_title">Profile switcher</string>
+    <string name="power_menu_profiles_disabled">Disabled</string>
+    <string name="power_menu_profiles_lock">Disabled on lockscreen</string>
+    <string name="power_menu_profiles_all">Always show</string>
 
     <!-- Swipe Back Layout -->
     <string name="title_swipe_back_layout">Swipe Back Gesture</string>
