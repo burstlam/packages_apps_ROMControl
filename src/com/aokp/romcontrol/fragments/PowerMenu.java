@@ -31,6 +31,7 @@ public class PowerMenu extends AOKPPreferenceFragment implements
     private static final String KEY_EXPANDED_DESKTOP = "power_menu_expanded_desktop";
     private static final String PREF_VOLUME_STATE_TOGGLE = "show_volume_state_toggle";
     private static final String PREF_REBOOT_KEYGUARD = "show_reboot_keyguard";
+    private static final String KEY_PROFILES = "power_menu_profiles";
 
     //SwitchPreference mShowPowerSaver;
     SwitchPreference mShowPowerOff;
@@ -41,6 +42,7 @@ public class PowerMenu extends AOKPPreferenceFragment implements
     ListPreference mExpandedDesktopPref;
     SwitchPreference mShowVolumeStateToggle;
     SwitchPreference mShowRebootKeyguard;
+    private ListPreference mProfilesPref;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -116,6 +118,18 @@ public class PowerMenu extends AOKPPreferenceFragment implements
                 Settings.System.POWER_DIALOG_SHOW_REBOOT_KEYGUARD, true));
         mShowRebootKeyguard.setOnPreferenceChangeListener(this);
 
+        mProfilesPref = (ListPreference) findPreference(KEY_PROFILES);
+        mProfilesPref.setOnPreferenceChangeListener(this);
+        int mProfileShow = Settings.System.getInt(getContentResolver(),
+                Settings.System.POWER_MENU_PROFILES_ENABLED, 1);
+        mProfilesPref.setValue(String.valueOf(mProfileShow));
+        mProfilesPref.setSummary(mProfilesPref.getEntries()[mProfileShow]);
+
+        // Only enable if System Profiles are also enabled
+        boolean enabled = Settings.System.getInt(getContentResolver(),
+                Settings.System.SYSTEM_PROFILES_ENABLED, 1) == 1;
+        mProfilesPref.setEnabled(enabled);
+
     }
 
     @Override
@@ -178,6 +192,13 @@ public class PowerMenu extends AOKPPreferenceFragment implements
                     Settings.System.EXPANDED_DESKTOP_STYLE, expandedDesktopValue);
             mExpandedDesktopPref.setSummary(mExpandedDesktopPref.getEntries()[index]);
             return true;
+            } else if (preference == mProfilesPref) {
+                int mProfileShow = Integer.valueOf((String) value);
+                int index = mProfilesPref.findIndexOfValue((String) value);
+                Settings.System.putInt(getContentResolver(),
+                        Settings.System.POWER_MENU_PROFILES_ENABLED, mProfileShow);
+                mProfilesPref.setSummary(mProfilesPref.getEntries()[index]);
+                return true;
         }
         return false;
     }
