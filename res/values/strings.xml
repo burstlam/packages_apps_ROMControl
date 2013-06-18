@@ -99,6 +99,10 @@
     <string name="title_show_volume_state_toggle">Volume states</string>
     <string name="title_show_reboot_keyguard">Reboot on lockscreen</string>
     <string name="summary_show_reboot_keyguard">Enabling this will show reboot options while on lockscreen</string>
+    <string name="power_menu_profiles_title">Profile switcher</string>
+    <string name="power_menu_profiles_disabled">Disabled</string>
+    <string name="power_menu_profiles_lock">Disabled on lockscreen</string>
+    <string name="power_menu_profiles_all">Always show</string>
 
     <!--Expanded Desktop Enhancement: Status Bar Switch -->
     <string name="expanded_desktop_status_bar_state">Expanded desktop statusbar state</string>
