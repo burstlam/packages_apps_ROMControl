@@ -20,18 +20,18 @@
             android:dependency="statusbar_hidden"/>
 
         <CheckBoxPreference
-            android:key="statusbar_swipe_for_fullscreen"
-            android:title="@string/statusbar_swipe_for_fullscreen_title"
-            android:summary="@string/statusbar_swipe_for_fullscreen_summary"
+            android:key="statusbar_swipe_enable"
+            android:title="@string/statusbar_swipe_enable_title"
+            android:summary="@string/statusbar_swipe_enable_summary"
             android:dependency="statusbar_hidden"/>
 
         <ListPreference
-            android:key="hidden_statusbar_pulldown_timeout"
+            android:key="statusbar_swipe_timeout"
             android:entries="@array/hidden_statusbar_pulldown_timeout_entries"
             android:entryValues="@array/hidden_statusbar_pulldown_timeout_values"
             android:title="@string/hidden_statusbar_pulldown_timeout_title"
             android:summary="@string/hidden_statusbar_pulldown_timeout_summary"
-            android:dependency="statusbar_swipe_for_fullscreen" />
+            android:dependency="statusbar_swipe_enable" />
 
          <ListPreference
             android:key="status_bar_fontsize"
