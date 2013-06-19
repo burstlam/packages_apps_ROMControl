@@ -1729,9 +1729,8 @@
 
     <string name="statusbar_auto_expand_hidden_title">Auto-Show Statusbar</string>
     <string name="statusbar_auto_expand_hidden_summary">Checking this shows hidden statusbar on active notifications except for fullscreen apps</string>
-    <string name="statusbar_swipe_for_fullscreen_title">Statusbar swipe down</string>
-    <string name="statusbar_swipe_for_fullscreen_summary">Checking this allows swiping down the statusbar for fullscreen apps or if hidden</string>
-
+    <string name="statusbar_swipe_enable_title">Statusbar swipe down</string>
+    <string name="statusbar_swipe_enable_summary">Checking this allows swiping down the statusbar for fullscreen apps or if hidden</string>
     <string name="hidden_statusbar_pulldown_timeout_title">Hidden Statusbar Pulldown Timeout</string>
     <string name="hidden_statusbar_pulldown_timeout_summary">Timeout for hidden Statusbar window</string>
     <string name="pulldown_timeout_1">2.5 seconds</string>
