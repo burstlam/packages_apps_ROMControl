@@ -99,7 +99,7 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
             "notification_wallpaper_alpha";
     private static final CharSequence PREF_CUSTOM_CARRIER_LABEL = "custom_carrier_label";
     private static final CharSequence PREF_VIBRATE_NOTIF_EXPAND = "vibrate_notif_expand";
-    private static final CharSequence PREF_RECENT_KILL_ALL = "recent_kill_all";
+    private static final String PREF_RECENTS_STYLE = "pref_recents_style";
     private static final CharSequence PREF_RAM_USAGE_BAR = "ram_usage_bar";
     private static final CharSequence STATUS_BAR_BRIGHTNESS_CONTROL = "status_bar_brightness_control";
     public static final CharSequence STATUS_BAR_MAX_NOTIF = "status_bar_max_notifications";
@@ -143,7 +143,7 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
     ImageView mView;
     TextView mError;
     CheckBoxPreference mVibrateOnExpand;
-    CheckBoxPreference mRecentKillAll;
+    ListPreference mRecentStyle;
     CheckBoxPreference mRamBar;
     CheckBoxPreference mStatusBarBrightnessControl;
     ListPreference mStatusBarMaxNotif;
@@ -256,9 +256,12 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
                     .removePreference(mVibrateOnExpand);
         }
 
-        mRecentKillAll = (CheckBoxPreference) findPreference(PREF_RECENT_KILL_ALL);
-        mRecentKillAll.setChecked(Settings.System.getBoolean(mContentResolver,
-                Settings.System.RECENT_KILL_ALL_BUTTON, false));
+        mRecentStyle = (ListPreference) findPreference(PREF_RECENTS_STYLE);
+        int RecentStyle = Settings.System.getInt(getActivity().getContentResolver(),
+                Settings.System.RECENTS_STYLE, 0);
+        mRecentStyle.setValue(String.valueOf(RecentStyle));
+        mRecentStyle.setSummary(mRecentStyle.getEntry());
+        mRecentStyle.setOnPreferenceChangeListener(this);
 
         mRamBar = (CheckBoxPreference) findPreference(PREF_RAM_USAGE_BAR);
         mRamBar.setChecked(Settings.System.getBoolean(mContentResolver,
@@ -572,11 +575,6 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
                     ((TwoStatePreference) preference).isChecked());
             Helpers.restartSystemUI();
             return true;
-        } else if (preference == mRecentKillAll) {
-            boolean checked = ((TwoStatePreference) preference).isChecked();
-            Settings.System.putBoolean(mContentResolver,
-                    Settings.System.RECENT_KILL_ALL_BUTTON, checked);
-            return true;
         } else if (preference == mRamBar) {
             boolean checked = ((TwoStatePreference) preference).isChecked();
             Settings.System.putBoolean(mContentResolver,
@@ -709,6 +707,13 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
             Settings.System.putInt(getActivity().getContentResolver(),
                     Settings.System.SYSTEM_POWER_CRT_MODE, crtMode);
             mCrtMode.setSummary(mCrtMode.getEntries()[index]);
+            return true;
+        } else if (preference == mRecentStyle) {
+            int recentstyle = Integer.valueOf((String) newValue);
+            int index = mRecentStyle.findIndexOfValue((String) newValue);
+            Settings.System.putInt(getActivity().getContentResolver(),
+                    Settings.System.RECENTS_STYLE, recentstyle);
+            mRecentStyle.setSummary(mRecentStyle.getEntries()[index]);
             return true;
         } else if (preference == mLowBatteryWarning) {
             int lowBatteryWarning = Integer.valueOf((String) newValue);
