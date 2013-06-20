@@ -281,6 +281,11 @@
         <item>@string/cm_circle_with_percent</item>
         <item>@string/rb_battery</item>
         <item>@string/rb_battery_square</item>
+        <item>@string/rb_battery_brick</item>
+        <item>@string/rb_battery_gauge</item>
+        <item>@string/rb_battery_planet</item>
+        <item>@string/rb_battery_racing</item>
+        <item>@string/rb_battery_slider</item>
         <item>@string/battery_hide</item>
     </string-array>
     <string-array name="battery_icon_values" translatable="false">
@@ -294,6 +299,11 @@
         <item>7</item>
         <item>8</item>
         <item>9</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+        <item>13</item>
+        <item>14</item>
     </string-array>
 
     <!-- NavBar -->
