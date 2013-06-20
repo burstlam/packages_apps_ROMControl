@@ -35,6 +35,8 @@ public class PieControl extends AOKPPreferenceFragment
     private static final String PIE_MENU = "pie_menu";
     private static final String PIE_SEARCH = "pie_search";
     private static final String PIE_LASTAPP = "pie_lastapp";
+    private static final String PIE_KILLTASK = "pie_killtask";
+    private static final String PIE_APPWINDOW = "pie_appwindow";
     private static final String PIE_CENTER = "pie_center";
     private static final String PIE_STICK = "pie_stick";
 
@@ -51,6 +53,8 @@ public class PieControl extends AOKPPreferenceFragment
     private CheckBoxPreference mPiePower;
     private CheckBoxPreference mPieSearch;
     private CheckBoxPreference mPieLastApp;
+    private CheckBoxPreference mPieKillTask;
+    private CheckBoxPreference mPieAppWindow;
 
     private Context mContext;
     private int mAllowedLocations;
@@ -132,6 +136,14 @@ public class PieControl extends AOKPPreferenceFragment
         mPieLastApp.setChecked(Settings.System.getInt(mContext.getContentResolver(),
                 Settings.System.PIE_LAST_APP, 0) == 1);
 
+        mPieKillTask = (CheckBoxPreference) prefSet.findPreference(PIE_KILLTASK);
+        mPieKillTask.setChecked(Settings.System.getInt(mContext.getContentResolver(),
+                Settings.System.PIE_KILL_TASK, 0) == 1);
+
+        mPieAppWindow = (CheckBoxPreference) prefSet.findPreference(PIE_APPWINDOW);
+        mPieAppWindow.setChecked(Settings.System.getInt(mContext.getContentResolver(),
+                Settings.System.PIE_APP_WINDOW, 0) == 1);
+
     }
 
     private void checkControls() {
@@ -169,6 +181,12 @@ public class PieControl extends AOKPPreferenceFragment
             Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
                     Settings.System.PIE_LAST_APP,
                     mPieLastApp.isChecked() ? 1 : 0);
+        } else if (preference == mPieKillTask) {
+            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
+                    Settings.System.PIE_KILL_TASK, mPieKillTask.isChecked() ? 1 : 0);
+        } else if (preference == mPieAppWindow) {
+            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
+                    Settings.System.PIE_APP_WINDOW, mPieAppWindow.isChecked() ? 1 : 0);
         } else if (preference == mPieCenter) {
             Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
                     Settings.System.PIE_CENTER, mPieCenter.isChecked() ? 1 : 0);
