@@ -229,8 +229,6 @@
     <string name="lefty_mode_summary">Swap NavBar location (requires UI restart)</string>
     <string name="rotate_180_title">Allow 180-degree rotation</string>
     <string name="rotate_180_summary">Checking this allows your device to rotate upside down!</string>
-    <string name="recent_kill_all">Enable kill-All button</string>
-    <string name="recent_kill_all_summary">Displays a button that kills all apps in the Recents Apps window</string>
     <string name="ram_bar">Recents RAM Bar</string>
     <string name="ram_bar_summary">Shows RAM usage in the recents menu</string>
     <string name="kill_app_longpress_back">Hold back to kill</string>
@@ -1806,5 +1804,14 @@
 
     <!-- Section title for list of downloaded apps [CHAR LIMIT=30] -->
     <string name="user_market_apps_heading">Installed apps</string>
+
+    <!-- Recents -->
+    <string name="recent_kill_all">Recents Style</string>
+    <string name="recent_kill_all_summary">Enable kill-all button in Recent Apps window and select position</string>
+    <string name="recents_disable">Disable</string>
+    <string name="recents_bottom_right">Bottom Right</string>
+    <string name="recents_bottom_left">Bottom Left</string>
+    <string name="recents_top_right">Top Right</string>
+    <string name="recents_top_left">Top Left</string>
 
 </resources>
