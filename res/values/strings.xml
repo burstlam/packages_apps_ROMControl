@@ -1787,26 +1787,4 @@
     <string name="recents_top_right">Top Right</string>
     <string name="recents_top_left">Top Left</string>
 
-        <!-- Lockscreen Settings -->
-        <!--  Style -->
-    <string name="pref_lockscreen_style_title">Lockscreen style</string>
-    <string name="pref_lockscreen_style_summary">Choose your style of lockscreen</string>
-    <string name="pref_lockscreen_style_ics_style">ICS lockscreen options</string>
-    <string name="pref_lockscreen_multiwaveview_3way_title">Tri-State</string>
-    <string name="pref_lockscreen_multiwaveview_3way_summary">Adds a third option to the lockscreen</string>
-    <string name="pref_lockscreen_multiwaveview_silentmode_title">Silentmode toggle</string>
-    <string name="pref_lockscreen_multiwaveview_silentmode_summary">Toggle silentmode instead of opening the camera app</string>
-    <string name="pref_lockscreen_custom_app_title">Select a custom app to launch</string>
-    <string name="select_custom_app_title">Select custom application</string>
-    <string name="group_applications">Applications</string>
-
-    <string name="pref_lockscreen_style_unavailable">This style is unavailable for this device!\nPlease choose another style.</string>
-    <string name="pref_lockscreen_style_custom_app_sound">Sound toggle</string>
-    <string name="pref_lockscreen_style_custom_app_unlock">Unlock switch</string>
-    <string name="pref_lockscreen_style_custom_app_pick">Click here to pick a shortcut!</string>
-    <string name="pref_lockscreen_category_custom_app_one_title">Custom mapping (Right)</string>
-    <string name="pref_lockscreen_category_custom_app_two_title">Custom mapping (Top)</string>
-    <string name="pref_lockscreen_category_custom_app_three_title">Custom mapping (Left)</string>
-    <string name="pref_lockscreen_category_custom_app_unlock_toast">Operation Aborted!\n\nAn unlock is necessary, please set a target to unlock before continuing!</string>
-
 </resources>

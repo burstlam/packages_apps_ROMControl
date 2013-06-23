@@ -38,7 +38,6 @@ import android.provider.Settings.SettingNotFoundException;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Display;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -56,7 +55,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 
 import com.aokp.romcontrol.AOKPPreferenceFragment;
@@ -98,38 +96,6 @@ public class LockscreensUI extends AOKPPreferenceFragment implements OnPreferenc
     private static final String LOCKSCREEN_TRANSPARENT_PREF = "pref_lockscreen_transparent";
     public static final String LOCKSCREEN_GLOW_TORCH = "lockscreen_glow_torch";
 
-    //lockscreen Style
-    private static final String LOCKSCREEN_STYLE_PREF = "pref_lockscreen_picker";
-    private static final String LOCKSCREEN_CUSTOM_APP_ONE = "pref_lockscreen_custom_app_one";
-    private static final String LOCKSCREEN_CUSTOM_APP_TWO = "pref_lockscreen_custom_app_two";
-    private static final String LOCKSCREEN_CUSTOM_APP_THREE = "pref_lockscreen_custom_app_three";
-
-    private static final String CATEGORY_ICS = "pref_category_ics_style";
-    private static final String CATEGORY_CUSTOM_APP_ONE = "pref_lockscreen_category_custom_app_one";
-    private static final String CATEGORY_CUSTOM_APP_TWO = "pref_lockscreen_category_custom_app_two";
-    private static final String CATEGORY_CUSTOM_APP_THREE = "pref_lockscreen_category_custom_app_three";
-
-    private static final int LOCK_STYLE_JB = 0;
-    private static final int LOCK_STYLE_ICS = 1;
-    private static final int LOCK_STYLE_GB = 2;
-    private static final int LOCK_STYLE_ECLAIR = 3;
-
-    private static final int LOCK_STYLE_DEFAULT = LOCK_STYLE_JB;
-
-    private ListPreference mLockscreenStyle;
-    private PreferenceCategory mCatIcs;
-    private PreferenceScreen mPrefSet;
-
-    private PreferenceCategory mCatAppOne;
-    private PreferenceCategory mCatAppTwo;
-    private PreferenceCategory mCatAppThree;
-    private ListPreference[] mCustApp;
-    private int mWhichApp = -1;
-
-    private int mMaxCustomApps;
-
-    private int mCurrLockscreen;
-
     private File mWallpaperImage;
     private File mWallpaperTemporary;
     private ListPreference mCustomBackground;
@@ -166,40 +132,6 @@ public class LockscreensUI extends AOKPPreferenceFragment implements OnPreferenc
 
         // Load the preferences from an XML resource
         addPreferencesFromResource(R.xml.prefs_lockscreens_ui);
-        mPrefSet = getPreferenceScreen();
-
-        mCatIcs = (PreferenceCategory) mPrefSet.findPreference(CATEGORY_ICS);
-
-        mCurrLockscreen = Settings.System.getInt(mResolver,
-                Settings.System.LOCKSCREEN_STYLE , LOCK_STYLE_DEFAULT);
-
-        mCatAppOne = (PreferenceCategory) mPrefSet.findPreference(
-                CATEGORY_CUSTOM_APP_ONE);
-        mCatAppTwo = (PreferenceCategory) mPrefSet.findPreference(
-                CATEGORY_CUSTOM_APP_TWO);
-        mCatAppThree = (PreferenceCategory) mPrefSet.findPreference(
-                CATEGORY_CUSTOM_APP_THREE);
-
-        mCustApp = new ListPreference[3];
-        mCustApp[0] = (ListPreference) mPrefSet.findPreference(
-                LOCKSCREEN_CUSTOM_APP_ONE);
-        mCustApp[0].setOnPreferenceChangeListener(this);
-        mCustApp[0].setLayoutResource(R.layout.app_preference);
-
-        mCustApp[1] = (ListPreference) mPrefSet.findPreference(
-                LOCKSCREEN_CUSTOM_APP_TWO);
-        mCustApp[1].setOnPreferenceChangeListener(this);
-        mCustApp[1].setLayoutResource(R.layout.app_preference);
-
-        mCustApp[2] = (ListPreference) mPrefSet.findPreference(
-                LOCKSCREEN_CUSTOM_APP_THREE);
-        mCustApp[2].setOnPreferenceChangeListener(this);
-        mCustApp[2].setLayoutResource(R.layout.app_preference);
-
-        mPrefSet.removePreference(mCatIcs);
-        mPrefSet.removePreference(mCatAppOne);
-        mPrefSet.removePreference(mCatAppTwo);
-        mPrefSet.removePreference(mCatAppThree);
 
         mMaximizeWidgets = (CheckBoxPreference)findPreference(KEY_LOCKSCREEN_MAXIMIZE_WIDGETS);
         if (Helpers.isTablet(getActivity())) {
@@ -438,39 +370,6 @@ public class LockscreensUI extends AOKPPreferenceFragment implements OnPreferenc
             Settings.System.putInt(mContentRes,
                     Settings.System.LOCKSCREEN_GLOW_TORCH, glowValue);
             return true;
-        } else if (preference == mLockscreenStyle) {
-            int value = Integer.parseInt((String) newValue);
-            switch (value) {
-                //case LOCK_STYLE_ICS:
-                // mPrefSet.removePreference(mCatAppTwo);
-                // mPrefSet.addPreference(mCatIcs);
-                // mPrefSet.addPreference(mCatAppOne);
-                // mPrefSet.addPreference(mCatAppThree);
-                // break;
-                case LOCK_STYLE_ECLAIR:
-                    //fallthrough
-                case LOCK_STYLE_GB:
-                    if (getResources().getBoolean(R.bool.config_disableOldLocks)) {
-                        Toast.makeText(mActivity, getResources().getString(R.string.
-                            pref_lockscreen_style_unavailable), Toast.LENGTH_LONG).show();
-                        return true;
-                    }
-                default:
-                    //mPrefSet.removePreference(mCatIcs);
-                    //mPrefSet.removePreference(mCatAppOne);
-                    //mPrefSet.removePreference(mCatAppTwo);
-                    //mPrefSet.removePreference(mCatAppThree);
-            }
-            Settings.System.putInt(mContentRes, 
-                    Settings.System.LOCKSCREEN_STYLE, value);
-            mCurrLockscreen = value;
-            return true;
-        //} else if (preference == mCustApp[0]) {
-        // return processPick(0, newValue);
-        //} else if (preference == mCustApp[1]) {
-        // return processPick(1, newValue);
-        //} else if (preference == mCustApp[2]) {
-        // return processPick(2, newValue);
         }
         return false;
     }

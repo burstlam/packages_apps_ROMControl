@@ -2,45 +2,6 @@
 <PreferenceScreen
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <ListPreference 
-        android:key="LockScreen Style"
-        android:title="string/pref_lockscreen_style_title"
-        android:entries="@array/lockscreen_style_entries"
-        android:entryValues="@array/lockscreen_style_values" />
-
-    <!-- Ics style options -->
-    <PreferenceCategory android:key="pref_category_ics_style"
-        android:title="@string/pref_lockscreen_style_ics_style">
-
-    </PreferenceCategory>
-
-    <PreferenceCategory android:key="pref_lockscreen_category_custom_app_one"
-        android:title="@string/pref_lockscreen_category_custom_app_one_title">
-
-        <ListPreference android:key="pref_lockscreen_custom_app_one"
-            android:entries="@array/lockscreen_custom_app_entries"
-            android:entryValues="@array/lockscreen_custom_app_values" />
-
-    </PreferenceCategory>
-
-    <PreferenceCategory android:key="pref_lockscreen_category_custom_app_two"
-        android:title="@string/pref_lockscreen_category_custom_app_two_title">
-
-        <ListPreference android:key="pref_lockscreen_custom_app_two"
-            android:entries="@array/lockscreen_custom_app_entries"
-            android:entryValues="@array/lockscreen_custom_app_values" />
-
-    </PreferenceCategory>
-
-    <PreferenceCategory android:key="pref_lockscreen_category_custom_app_three"
-        android:title="@string/pref_lockscreen_category_custom_app_three_title">
-
-        <ListPreference android:key="pref_lockscreen_custom_app_three"
-            android:entries="@array/lockscreen_custom_app_entries"
-            android:entryValues="@array/lockscreen_custom_app_values" />
-
-    </PreferenceCategory>
-
     <PreferenceScreen
          android:key="security"
          android:title="@string/lockscreen_security_cat" >
