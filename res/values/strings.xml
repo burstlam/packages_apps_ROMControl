@@ -1058,6 +1058,7 @@
     <string name="rb_battery_gauge">RootBox Gauge Mod</string>
     <string name="rb_battery_planet">RootBox Planet Mod</string>
     <string name="rb_battery_racing">RootBox Racing Mod</string>
+    <string name="rb_battery_rush">RootBox Rush Mod</string>
     <string name="rb_battery_slider">RootBox Slider Mod</string>
     <string name="battery_hide">Hide</string>
 
