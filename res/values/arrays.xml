@@ -1597,4 +1597,30 @@
         <item>3</item>
         <item>4</item>
     </string-array>
+
+    <string-array name="lockscreen_style_entries" translatable="false">
+        <item>Jellybean</item>
+        <item>Ice Cream Sandwich</item>
+        <item>Gingerbread</item>
+        <item>Eclair</item>
+    </string-array>
+
+    <string-array name="lockscreen_style_values" translatable="false">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+
+    <string-array name="lockscreen_custom_app_entries">
+        <item>App shortcut</item>
+        <item>Unlock toggle</item>
+        <item>Sound toggle</item>
+    </string-array>
+
+    <string-array name="lockscreen_custom_app_values" translatable="false">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
 </resources>

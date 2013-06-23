@@ -26,4 +26,6 @@
 
     <!-- Whether device has led charging feature -->
     <bool name="has_led_charging_feature">false</bool>
+
+    <bool name="config_disableOldLocks" translatable="false">false</bool>
 </resources>
