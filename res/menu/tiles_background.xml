@@ -1,0 +1,5 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/reset_background_color"
+        android:title="@string/menu_tile_background_reset" />
+</menu>
