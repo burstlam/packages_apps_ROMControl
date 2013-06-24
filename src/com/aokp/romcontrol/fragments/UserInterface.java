@@ -100,6 +100,7 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
     private static final CharSequence PREF_CUSTOM_CARRIER_LABEL = "custom_carrier_label";
     private static final CharSequence PREF_VIBRATE_NOTIF_EXPAND = "vibrate_notif_expand";
     private static final String PREF_RECENTS_STYLE = "pref_recents_style";
+    private static final String PREF_RECENTS_CLEAR = "pref_recents_clear";
     private static final CharSequence PREF_RAM_USAGE_BAR = "ram_usage_bar";
     private static final CharSequence STATUS_BAR_BRIGHTNESS_CONTROL = "status_bar_brightness_control";
     public static final CharSequence STATUS_BAR_MAX_NOTIF = "status_bar_max_notifications";
@@ -143,6 +144,7 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
     TextView mError;
     CheckBoxPreference mVibrateOnExpand;
     ListPreference mRecentStyle;
+    ListPreference mRecentClear;
     CheckBoxPreference mRamBar;
     CheckBoxPreference mStatusBarBrightnessControl;
     ListPreference mStatusBarMaxNotif;
@@ -253,6 +255,13 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
             ((PreferenceGroup) findPreference(PREF_NOTIFICATION_VIBRATE))
                     .removePreference(mVibrateOnExpand);
         }
+
+        mRecentClear = (ListPreference) findPreference(PREF_RECENTS_CLEAR);
+        int RecentClear = Settings.System.getInt(getActivity().getContentResolver(),
+                Settings.System.RECENTS_CLEAR, 0);
+        mRecentClear.setValue(String.valueOf(RecentClear));
+        mRecentClear.setSummary(mRecentClear.getEntry());
+        mRecentClear.setOnPreferenceChangeListener(this);
 
         mRecentStyle = (ListPreference) findPreference(PREF_RECENTS_STYLE);
         int RecentStyle = Settings.System.getInt(getActivity().getContentResolver(),
@@ -699,6 +708,13 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
             Settings.System.putInt(getActivity().getContentResolver(),
                     Settings.System.SYSTEM_POWER_CRT_MODE, crtMode);
             mCrtMode.setSummary(mCrtMode.getEntries()[index]);
+            return true;
+        } else if (preference == mRecentClear) {
+            int recentclear = Integer.valueOf((String) newValue);
+            int index = mRecentClear.findIndexOfValue((String) newValue);
+            Settings.System.putInt(getActivity().getContentResolver(),
+                    Settings.System.RECENTS_CLEAR, recentclear);
+            mRecentClear.setSummary(mRecentClear.getEntries()[index]);
             return true;
         } else if (preference == mRecentStyle) {
             int recentstyle = Integer.valueOf((String) newValue);
