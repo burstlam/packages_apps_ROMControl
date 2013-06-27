@@ -2,6 +2,7 @@ package com.aokp.romcontrol.fragments;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.FragmentTransaction;
 import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -56,6 +57,8 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import net.margaritov.preference.colorpicker.ColorPickerPreference;
+import net.margaritov.preference.colorpicker.ColorPickerView;
 
 public class StatusBarToggles extends AOKPPreferenceFragment implements
         OnPreferenceChangeListener, ShortcutPickerHelper.OnPickListener {
@@ -77,6 +80,11 @@ public class StatusBarToggles extends AOKPPreferenceFragment implements
     private static final String PREF_SCREENSHOT_DELAY = "screenshot_delay";
     private static final String PREF_CUSTOM_CAT = "custom_toggle";
     private static final String PREF_CUSTOM_BUTTONS = "custom_buttons";
+    private static final String PREF_TILE_BACKGROUND_STYLE = "tile_background_style";
+    private static final String PREF_TILE_BACKGROUND_COLOR = "tile_background_color";
+    private static final String PREF_TILE_BACKGROUND_PRESSED_COLOR = "tile_background_pressed_color";
+    private static final String PREF_TILE_TEXT_COLOR = "tile_text_color";
+    private static final String PREF_RANDOM_COLORS = "random_colors";
 
     private final int PICK_CONTACT = 1;
 
@@ -104,6 +112,11 @@ public class StatusBarToggles extends AOKPPreferenceFragment implements
     ListPreference mScreenshotDelay;
     PreferenceGroup mCustomCat;
     PreferenceGroup mCustomButtons;
+    ListPreference mTileBgStyle;
+    ColorPickerPreference mTileBgColor;
+    ColorPickerPreference mTileBgPresColor;
+    ColorPickerPreference mTileTextColor;
+    Preference mRandomColors;
 
     BroadcastReceiver mReceiver;
     ArrayList<String> mToggles;
@@ -208,6 +221,20 @@ public class StatusBarToggles extends AOKPPreferenceFragment implements
 
         mCustomCat = (PreferenceGroup) findPreference(PREF_CUSTOM_CAT);
         mCustomButtons = (PreferenceGroup) findPreference(PREF_CUSTOM_BUTTONS);
+
+        mRandomColors = (Preference) findPreference(PREF_RANDOM_COLORS);
+
+        mTileBgStyle = (ListPreference) findPreference(PREF_TILE_BACKGROUND_STYLE);
+        mTileBgStyle.setOnPreferenceChangeListener(this);
+
+        mTileBgColor = (ColorPickerPreference) findPreference(PREF_TILE_BACKGROUND_COLOR);
+        mTileBgColor.setOnPreferenceChangeListener(this);
+
+        mTileBgPresColor = (ColorPickerPreference) findPreference(PREF_TILE_BACKGROUND_PRESSED_COLOR);
+        mTileBgPresColor.setOnPreferenceChangeListener(this);
+
+        mTileTextColor = (ColorPickerPreference) findPreference(PREF_TILE_TEXT_COLOR);
+        mTileTextColor.setOnPreferenceChangeListener(this);
 
         if (isSW600DPScreen(mContext) || isTabletUI(mContext)) {
             getPreferenceScreen().removePreference(mFastToggle);
@@ -321,6 +348,38 @@ public class StatusBarToggles extends AOKPPreferenceFragment implements
             Settings.System.putInt(mContentRes,
                     Settings.System.DCLICK_TOGGLE_REVERT, val);
             return true;
+        } else if (preference == mTileBgColor) {
+            String hex = ColorPickerPreference.convertToARGB(Integer.valueOf(String.valueOf(newValue)));
+            preference.setSummary(hex);
+            int intHex = ColorPickerPreference.convertToColorInt(hex);
+            Settings.System.putInt(mContentRes,
+                    Settings.System.QUICK_SETTINGS_BACKGROUND_COLOR, intHex);
+            Helpers.restartSystemUI();
+            return true;
+        } else if (preference == mTileBgPresColor) {
+            String hex = ColorPickerPreference.convertToARGB(Integer.valueOf(String.valueOf(newValue)));
+            preference.setSummary(hex);
+            int intHex = ColorPickerPreference.convertToColorInt(hex);
+            Settings.System.putInt(mContentRes,
+                    Settings.System.QUICK_SETTINGS_BACKGROUND_PRESSED_COLOR, intHex);
+            Helpers.restartSystemUI();
+            return true;
+        } else if (preference == mTileTextColor) {
+            String hex = ColorPickerPreference.convertToARGB(Integer.valueOf(String.valueOf(newValue)));
+            preference.setSummary(hex);
+            int intHex = ColorPickerPreference.convertToColorInt(hex);
+            Settings.System.putInt(mContentRes,
+                    Settings.System.QUICK_SETTINGS_TEXT_COLOR, intHex);
+            Helpers.restartSystemUI();
+            return true;
+        } else if (preference == mTileBgStyle) {
+            int val = Integer.valueOf((String) newValue);
+            int index = mTileBgStyle.findIndexOfValue((String) newValue);
+            Settings.System.putInt(mContentAppRes,
+                    Settings.System.QUICK_SETTINGS_BACKGROUND_STYLE, val);
+            updateVisibility();
+            Helpers.restartSystemUI();
+            return true;
         }
         return true;
     }
@@ -417,6 +476,13 @@ public class StatusBarToggles extends AOKPPreferenceFragment implements
                         }
                     });
             ad.show();
+       } else if (preference == mRandomColors) {
+            FragmentTransaction ft = getFragmentManager().beginTransaction();
+            RandomColors fragment = new RandomColors();
+            ft.addToBackStack("pick_random_colors");
+            ft.replace(this.getId(), fragment);
+            ft.commit();
+            return true;
         }
         return super.onPreferenceTreeClick(preferenceScreen, preference);
 
@@ -434,6 +500,24 @@ public class StatusBarToggles extends AOKPPreferenceFragment implements
                     ? R.string.fast_toggle_left
                     : R.string.fast_toggle_right);
             mFastToggle.setSummary(res.getString(R.string.toggle_enable_fasttoggle_summary, direction));
+        }
+    }
+
+    private void updateVisibility() {
+        int visible = Settings.System.getInt(mContentRes,
+                    Settings.System.QUICK_SETTINGS_BACKGROUND_STYLE, 2);
+        if (visible == 2) {
+            mRandomColors.setEnabled(false);
+            mTileBgColor.setEnabled(false);
+            mTileBgPresColor.setEnabled(false);
+        } else if (visible == 1) {
+            mRandomColors.setEnabled(false);
+            mTileBgColor.setEnabled(true);
+            mTileBgPresColor.setEnabled(true);
+        } else {
+            mRandomColors.setEnabled(true);
+            mTileBgColor.setEnabled(false);
+            mTileBgPresColor.setEnabled(true);
         }
     }
 
