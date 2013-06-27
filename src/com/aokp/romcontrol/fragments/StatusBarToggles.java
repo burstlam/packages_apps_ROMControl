@@ -152,7 +152,7 @@ public class StatusBarToggles extends AOKPPreferenceFragment implements
         setTitle(R.string.title_statusbar_toggles);
         // Load the preferences from an XML resource
         addPreferencesFromResource(R.xml.prefs_statusbar_toggles);
-        PreferenceScreen prefs = getPreferenceScreen();
+
         mPicker = new ShortcutPickerHelper(this, this);
         mPackMan = getPackageManager();
         mResources = mContext.getResources();
@@ -224,11 +224,26 @@ public class StatusBarToggles extends AOKPPreferenceFragment implements
 
 
         mQuickTilesBgColor = (ColorPickerPreference) findPreference(PREF_QUICK_TILES_BG_COLOR);
+        mQuickTilesBgColor.setNewPreviewColor(DEFAULT_QUICK_TILES_BG_COLOR);
         mQuickTilesBgColor.setOnPreferenceChangeListener(this);
-
+        int intColor = Settings.System.getInt(getActivity().getContentResolver(),
+                    Settings.System.QUICK_TILES_BG_COLOR, -2);
+        if (intColor == -2) {
+            mQuickTilesBgColor.setSummary(getResources().getString(R.string.none));
+        } else {
+            mQuickTilesBgColor.setNewPreviewColor(intColor);
+        }
 
         mQuickTilesBgPressedColor = (ColorPickerPreference) findPreference(PREF_QUICK_TILES_BG_PRESSED_COLOR);
+        mQuickTilesBgPressedColor.setNewPreviewColor(DEFAULT_QUICK_TILES_BG_PRESSED_COLOR);
         mQuickTilesBgPressedColor.setOnPreferenceChangeListener(this);
+        intColor = Settings.System.getInt(getActivity().getContentResolver(),
+                    Settings.System.QUICK_TILES_BG_PRESSED_COLOR, -2);
+        if (intColor == -2) {
+            mQuickTilesBgPressedColor.setSummary(getResources().getString(R.string.none));
+        } else {
+            mQuickTilesBgPressedColor.setNewPreviewColor(intColor);
+        }
 
         if (isSW600DPScreen(mContext) || isTabletUI(mContext)) {
             getPreferenceScreen().removePreference(mFastToggle);
@@ -262,7 +277,6 @@ public class StatusBarToggles extends AOKPPreferenceFragment implements
         super.onResume();
         requestAvailableToggles();
         refreshSettings();
-        updateStyleValues();
     }
 
     @Override
@@ -285,11 +299,12 @@ public class StatusBarToggles extends AOKPPreferenceFragment implements
         switch (item.getItemId()) {
             case R.id.reset_background_color:
                 Settings.System.putInt(getActivity().getContentResolver(),
-                        Settings.System.QUICK_TILES_BG_COLOR, DEFAULT_QUICK_TILES_BG_COLOR);
+                        Settings.System.QUICK_TILES_BG_COLOR, -2);
                 Settings.System.putInt(getActivity().getContentResolver(),
-                        Settings.System.QUICK_TILES_BG_PRESSED_COLOR, DEFAULT_QUICK_TILES_BG_PRESSED_COLOR);
+                        Settings.System.QUICK_TILES_BG_PRESSED_COLOR, -2);
 
-                updateStyleValues();
+                refreshSettings();
+                Helpers.restartSystemUI();
                 return true;
              default:
                 return super.onContextItemSelected(item);
@@ -385,8 +400,7 @@ public class StatusBarToggles extends AOKPPreferenceFragment implements
                    intHex);
            return true;
         }
-        updateStyleValues();
-        return false;
+        return true;
     }
 
 
@@ -1022,33 +1036,6 @@ public class StatusBarToggles extends AOKPPreferenceFragment implements
         public void onChange(boolean selfChange) {
             updateSettings();
         }
-    }
-
-
-    private void updateStyleValues() {
-        String hexColor;
-        int intColor;
-
-        intColor = Settings.System.getInt(getActivity().getContentResolver(),
-                   Settings.System.QUICK_TILES_BG_COLOR, -2);
-        if (intColor == -2) {
-            mQuickTilesBgColor.setSummary(getResources().getString(R.string.none));
-        } else {
-            hexColor = String.format("#%08x", (0xffffffff & intColor));
-            mQuickTilesBgColor.setSummary(hexColor);
-        }
-        mQuickTilesBgColor.setNewPreviewColor(intColor);
-
-        intColor = Settings.System.getInt(getActivity().getContentResolver(),
-                    Settings.System.QUICK_TILES_BG_PRESSED_COLOR, -2);
-        if (intColor == -2) {
-            mQuickTilesBgPressedColor.setSummary(getResources().getString(R.string.none));
-        } else {
-            hexColor = String.format("#%08x", (0xffffffff & intColor));
-            mQuickTilesBgPressedColor.setSummary(hexColor);
-        }
-        mQuickTilesBgPressedColor.setNewPreviewColor(intColor);
-
     }
 
     private void updateSettings() {
