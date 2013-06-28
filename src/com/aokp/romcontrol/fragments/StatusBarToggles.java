@@ -36,9 +36,6 @@ import android.provider.Settings;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
@@ -60,8 +57,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import net.margaritov.preference.colorpicker.ColorPickerPreference;
-
 public class StatusBarToggles extends AOKPPreferenceFragment implements
         OnPreferenceChangeListener, ShortcutPickerHelper.OnPickListener {
 
@@ -82,11 +77,6 @@ public class StatusBarToggles extends AOKPPreferenceFragment implements
     private static final String PREF_SCREENSHOT_DELAY = "screenshot_delay";
     private static final String PREF_CUSTOM_CAT = "custom_toggle";
     private static final String PREF_CUSTOM_BUTTONS = "custom_buttons";
-    private static final String PREF_QUICK_TILES_BG_COLOR = "quick_tiles_bg_color";
-    private static final String PREF_QUICK_TILES_BG_PRESSED_COLOR = "quick_tiles_bg_pressed_color";
-
-    private static final int DEFAULT_QUICK_TILES_BG_COLOR = 0xff161616;
-    private static final int DEFAULT_QUICK_TILES_BG_PRESSED_COLOR = 0xff212121;
 
     private final int PICK_CONTACT = 1;
 
@@ -114,9 +104,6 @@ public class StatusBarToggles extends AOKPPreferenceFragment implements
     ListPreference mScreenshotDelay;
     PreferenceGroup mCustomCat;
     PreferenceGroup mCustomButtons;
-
-    ColorPickerPreference mQuickTilesBgColor;
-    ColorPickerPreference mQuickTilesBgPressedColor;
 
     BroadcastReceiver mReceiver;
     ArrayList<String> mToggles;
@@ -222,29 +209,6 @@ public class StatusBarToggles extends AOKPPreferenceFragment implements
         mCustomCat = (PreferenceGroup) findPreference(PREF_CUSTOM_CAT);
         mCustomButtons = (PreferenceGroup) findPreference(PREF_CUSTOM_BUTTONS);
 
-
-        mQuickTilesBgColor = (ColorPickerPreference) findPreference(PREF_QUICK_TILES_BG_COLOR);
-        mQuickTilesBgColor.setNewPreviewColor(DEFAULT_QUICK_TILES_BG_COLOR);
-        mQuickTilesBgColor.setOnPreferenceChangeListener(this);
-        int intColor = Settings.System.getInt(getActivity().getContentResolver(),
-                    Settings.System.QUICK_TILES_BG_COLOR, -2);
-        if (intColor == -2) {
-            mQuickTilesBgColor.setSummary(getResources().getString(R.string.none));
-        } else {
-            mQuickTilesBgColor.setNewPreviewColor(intColor);
-        }
-
-        mQuickTilesBgPressedColor = (ColorPickerPreference) findPreference(PREF_QUICK_TILES_BG_PRESSED_COLOR);
-        mQuickTilesBgPressedColor.setNewPreviewColor(DEFAULT_QUICK_TILES_BG_PRESSED_COLOR);
-        mQuickTilesBgPressedColor.setOnPreferenceChangeListener(this);
-        intColor = Settings.System.getInt(getActivity().getContentResolver(),
-                    Settings.System.QUICK_TILES_BG_PRESSED_COLOR, -2);
-        if (intColor == -2) {
-            mQuickTilesBgPressedColor.setSummary(getResources().getString(R.string.none));
-        } else {
-            mQuickTilesBgPressedColor.setNewPreviewColor(intColor);
-        }
-
         if (isSW600DPScreen(mContext) || isTabletUI(mContext)) {
             getPreferenceScreen().removePreference(mFastToggle);
         }
@@ -255,7 +219,6 @@ public class StatusBarToggles extends AOKPPreferenceFragment implements
 
         new SettingsObserver(new Handler()).observe();
         refreshSettings();
-        setHasOptionsMenu(true);
     }
 
     static ArrayList<EasyPair<String, String>> buildToggleMap(Bundle toggleInfo) {
@@ -286,29 +249,6 @@ public class StatusBarToggles extends AOKPPreferenceFragment implements
             mReceiver = null;
         }
         super.onDestroy();
-    }
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.tiles_background, menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.reset_background_color:
-                Settings.System.putInt(getActivity().getContentResolver(),
-                        Settings.System.QUICK_TILES_BG_COLOR, -2);
-                Settings.System.putInt(getActivity().getContentResolver(),
-                        Settings.System.QUICK_TILES_BG_PRESSED_COLOR, -2);
-
-                refreshSettings();
-                Helpers.restartSystemUI();
-                return true;
-             default:
-                return super.onContextItemSelected(item);
-        }
     }
 
     private void requestAvailableToggles() {
@@ -381,24 +321,6 @@ public class StatusBarToggles extends AOKPPreferenceFragment implements
             Settings.System.putInt(mContentRes,
                     Settings.System.DCLICK_TOGGLE_REVERT, val);
             return true;
-        } else if (preference == mQuickTilesBgColor) {
-            String hex = ColorPickerPreference.convertToARGB(
-                    Integer.valueOf(String.valueOf(newValue)));
-            preference.setSummary(hex);
-            int intHex = ColorPickerPreference.convertToColorInt(hex);
-            Settings.System.putInt(getContentResolver(),
-                   Settings.System.QUICK_TILES_BG_COLOR,
-                   intHex);
-           return true;
-        } else if (preference == mQuickTilesBgPressedColor) {
-            String hex = ColorPickerPreference.convertToARGB(
-                    Integer.valueOf(String.valueOf(newValue)));
-            preference.setSummary(hex);
-            int intHex = ColorPickerPreference.convertToColorInt(hex);
-            Settings.System.putInt(getContentResolver(),
-                   Settings.System.QUICK_TILES_BG_PRESSED_COLOR, 
-                   intHex);
-           return true;
         }
         return true;
     }
