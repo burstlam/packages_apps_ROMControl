@@ -287,6 +287,7 @@
         <item>@string/rb_battery_racing</item>
         <item>@string/rb_battery_slider</item>
         <item>@string/rb_battery_rush</item>
+        <item>@string/carbon_battery</item>
         <item>@string/battery_hide</item>
     </string-array>
     <string-array name="battery_icon_values" translatable="false">
@@ -306,6 +307,7 @@
         <item>13</item>
         <item>14</item>
         <item>15</item>
+        <item>16</item>
     </string-array>
 
     <!-- NavBar -->
