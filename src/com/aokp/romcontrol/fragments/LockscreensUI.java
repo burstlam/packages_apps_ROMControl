@@ -95,6 +95,7 @@ public class LockscreensUI extends AOKPPreferenceFragment implements OnPreferenc
     public static final String KEY_BACKGROUND_PREF = "lockscreen_background";
     private static final String LOCKSCREEN_TRANSPARENT_PREF = "pref_lockscreen_transparent";
     public static final String LOCKSCREEN_GLOW_TORCH = "lockscreen_glow_torch";
+    private static final String KEY_LOCKSCREEN_MUSIC_CONTROLS = "lockscreen_music_controls";
 
     private File mWallpaperImage;
     private File mWallpaperTemporary;
@@ -116,6 +117,7 @@ public class LockscreensUI extends AOKPPreferenceFragment implements OnPreferenc
     CheckBoxPreference mLockscreenUseCarousel;
     CheckBoxPreference mCameraWidget;
     ListPreference mLockScreenGlowTorch;
+    CheckBoxPreference mMusicControls;
 
     private boolean mIsScreenLarge;
     private Activity mActivity;
@@ -197,6 +199,14 @@ public class LockscreensUI extends AOKPPreferenceFragment implements OnPreferenc
                     Settings.System.LOCKSCREEN_GLOW_TORCH, 0);
         mLockScreenGlowTorch.setValue(String.valueOf(glowValue));
         mLockScreenGlowTorch.setOnPreferenceChangeListener(this);
+
+        mMusicControls = (CheckBoxPreference) findPreference(KEY_LOCKSCREEN_MUSIC_CONTROLS);
+            mMusicControls.setOnPreferenceChangeListener(this);
+
+        if (mMusicControls != null) {
+            mMusicControls.setChecked(Settings.System.getInt(mContentRes,
+                Settings.System.LOCKSCREEN_MUSIC_CONTROLS, 1) == 1);
+        }
 
         setHasOptionsMenu(true);
     }
@@ -369,6 +379,11 @@ public class LockscreensUI extends AOKPPreferenceFragment implements OnPreferenc
             int glowValue= Integer.valueOf((String) newValue);
             Settings.System.putInt(mContentRes,
                     Settings.System.LOCKSCREEN_GLOW_TORCH, glowValue);
+            return true;
+        } else if (preference == mMusicControls) {
+            boolean value = (Boolean) newValue;
+            Settings.System.putInt(mContentRes,
+                    Settings.System.LOCKSCREEN_MUSIC_CONTROLS, value ? 1 : 0);
             return true;
         }
         return false;
