@@ -43,13 +43,6 @@
         android:summary="@string/header_summary_navigation_bar" />
 
     <header
-        android:id="@+id/softkey"
-        android:fragment="com.aokp.romcontrol.fragments.SoftKeyOptions"
-        android:title="@string/softkey_options"
-        android:icon="@drawable/ic_rom_control_softkey"
-        android:summary="@string/header_summary_softkey" />
-
-    <header
         android:id="@+id/nav_ring"
         android:fragment="com.aokp.romcontrol.fragments.NavRingTargets"
         android:icon="@drawable/ic_rom_control_navigation_ring"
@@ -121,6 +114,14 @@
             android:targetClass="com.aokp.romcontrol.performance.Performance"
             android:targetPackage="com.aokp.romcontrol" />
     </header>
+
+    <header
+        android:id="@+id/softkey"
+        android:fragment="com.aokp.romcontrol.fragments.SoftKeyOptions"
+        android:title="@string/softkey_options"
+        android:icon="@drawable/ic_rom_control_softkey"
+        android:summary="@string/header_summary_softkey" />
+
 
     <header
         android:id="@+id/led"
