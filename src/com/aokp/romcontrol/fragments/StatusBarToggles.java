@@ -85,7 +85,6 @@ public class StatusBarToggles extends AOKPPreferenceFragment implements
     private static final String PREF_TILE_BACKGROUND_PRESSED_COLOR = "tile_background_pressed_color";
     private static final String PREF_TILE_TEXT_COLOR = "tile_text_color";
     private static final String PREF_RANDOM_COLORS = "random_colors";
-    private static final String PREF_FLIP_QS_TILES = "flip_qs_tiles";
 
     private final int PICK_CONTACT = 1;
 
@@ -118,7 +117,6 @@ public class StatusBarToggles extends AOKPPreferenceFragment implements
     ColorPickerPreference mTileBgPresColor;
     ColorPickerPreference mTileTextColor;
     Preference mRandomColors;
-    CheckBoxPreference mFlipQsTiles;
 
     BroadcastReceiver mReceiver;
     ArrayList<String> mToggles;
@@ -237,10 +235,6 @@ public class StatusBarToggles extends AOKPPreferenceFragment implements
 
         mTileTextColor = (ColorPickerPreference) findPreference(PREF_TILE_TEXT_COLOR);
         mTileTextColor.setOnPreferenceChangeListener(this);
-
-        mFlipQsTiles = (CheckBoxPreference) findPreference(PREF_FLIP_QS_TILES);
-        mFlipQsTiles.setChecked(Settings.System.getInt(mContentRes,
-                Settings.System.QUICK_SETTINGS_TILES_FLIP, 1) == 1);
 
         if (isSW600DPScreen(mContext) || isTabletUI(mContext)) {
             getPreferenceScreen().removePreference(mFastToggle);
@@ -482,18 +476,13 @@ public class StatusBarToggles extends AOKPPreferenceFragment implements
                         }
                     });
             ad.show();
-        } else if (preference == mRandomColors) {
+       } else if (preference == mRandomColors) {
             FragmentTransaction ft = getFragmentManager().beginTransaction();
             RandomColors fragment = new RandomColors();
             ft.addToBackStack("pick_random_colors");
             ft.replace(this.getId(), fragment);
             ft.commit();
             return true;
-        } else if (preference == mFlipQsTiles) {
-            Settings.System.putInt(mContentRes,
-                    Settings.System.QUICK_SETTINGS_TILES_FLIP,
-                    ((CheckBoxPreference) preference).isChecked() ? 1 : 0);
-            return true;  
         }
         return super.onPreferenceTreeClick(preferenceScreen, preference);
 

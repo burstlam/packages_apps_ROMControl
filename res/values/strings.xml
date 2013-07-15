@@ -1858,8 +1858,4 @@
     <string name="color_four">Color four</string>
     <string name="color_five">Color five</string>
     <string name="color_six">Color six</string>
-
-    <!-- Toggle Flip animation -->
-    <string name="flip_qs_tiles_title">Flip tiles</string>
-    <string name="flip_qs_tiles_summary">Flips the tiles on touch</string> 
 </resources>
