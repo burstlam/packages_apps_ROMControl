@@ -102,6 +102,11 @@
         android:title="@string/tile_text_color_title"
         android:defaultValue="0xffffffff" />
 
+    <CheckBoxPreference
+        android:key="flip_qs_tiles"
+        android:title="@string/flip_qs_tiles_title"
+        android:summary="@string/flip_qs_tiles_summary" />
+
     </PreferenceCategory>
 
     <PreferenceCategory
