@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.aokp.romcontrol.fragments;
+package com.aokp.romcontrol.slim;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -123,7 +123,7 @@ public class PieButtonSettings extends AOKPPreferenceFragment implements
         switch (item.getItemId()) {
             case R.id.reset:
                 Settings.System.putInt(getActivity().getContentResolver(),
-                        Settings.System.PIE_LONG_PRESS_ENABLE, 0);
+                        Settings.System.SPIE_LONG_PRESS_ENABLE, 0);
                 resetPie(3);
                 return true;
             default:
@@ -161,7 +161,7 @@ public class PieButtonSettings extends AOKPPreferenceFragment implements
             Preference preference) {
         if (preference == mEnablePieLong) {
             Settings.System.putInt(getActivity().getContentResolver(),
-                    Settings.System.PIE_LONG_PRESS_ENABLE,
+                    Settings.System.SPIE_LONG_PRESS_ENABLE,
                     ((CheckBoxPreference) preference).isChecked() ? 1 : 0);
 
             refreshSettings();
@@ -288,7 +288,7 @@ public class PieButtonSettings extends AOKPPreferenceFragment implements
         mPieButtonQty.setValue(mPieQnty + "");
 
         int pieLong = Settings.System.getInt(mContext.getContentResolver(),
-                     Settings.System.PIE_LONG_PRESS_ENABLE, 0);
+                     Settings.System.SPIE_LONG_PRESS_ENABLE, 0);
 
         mEnablePieLong = (CheckBoxPreference) findPreference(PREF_PIE_ENABLE_LONG);
         mEnablePieLong.setChecked(pieLong == 1);
@@ -554,7 +554,7 @@ public class PieButtonSettings extends AOKPPreferenceFragment implements
         int counter = 0;
         int buttonNumber = 0;
         String pieConfig = Settings.System.getString(getActivity().getContentResolver(),
-                    Settings.System.PIE_BUTTONS_CONFIG);
+                    Settings.System.SPIE_BUTTONS_CONFIG);
 
         if (pieConfig == null) {
             pieConfig = mPieConfigDefault;
@@ -593,7 +593,7 @@ public class PieButtonSettings extends AOKPPreferenceFragment implements
                                + mPortraitIcons[i];
         }
         Settings.System.putString(getActivity().getContentResolver(),
-                    Settings.System.PIE_BUTTONS_CONFIG, finalPieConfig);
+                    Settings.System.SPIE_BUTTONS_CONFIG, finalPieConfig);
     }
 
     @Override

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+     <Preference
+        android:key="slim_pie"
+        android:title="@string/quick_launch_shortcuts_title"
+        android:summary="@string/quick_launch_shortcuts_summary"
+        android:fragment="com.aokp.romcontrol.slim.PieControl" />
+
+     <Preference
+        android:key="paranoid_pie"
+        android:title="@string/pie_title"
+        android:summary="@string/pie_summary"
+        android:fragment="com.aokp.romcontrol.pa.PieControl" />
+
+</PreferenceScreen>
+

@@ -120,15 +120,15 @@ public class PieTriggerSettings extends AOKPPreferenceFragment
         switch (item.getItemId()) {
             case R.id.reset:
                 Settings.System.putFloat(getActivity().getContentResolver(),
-                    Settings.System.PIE_TRIGGER_THICKNESS,
+                    Settings.System.SPIE_TRIGGER_THICKNESS,
                     mSystemUiResources.getDimension(
-                    mSystemUiResources.getIdentifier("pie_trigger_thickness",
+                    mSystemUiResources.getIdentifier("pies_trigger_thickness",
                     "dimen", "com.android.systemui")));
                 Settings.System.putFloat(getActivity().getContentResolver(),
-                    Settings.System.PIE_TRIGGER_HEIGHT, 0.8f);
+                    Settings.System.SPIE_TRIGGER_HEIGHT, 0.8f);
 
                 Settings.System.putInt(getActivity().getContentResolver(),
-                    Settings.System.PIE_TRIGGER_GRAVITY_LEFT_RIGHT, 16);
+                    Settings.System.SPIE_TRIGGER_GRAVITY_LEFT_RIGHT, 16);
                     updatePieTriggers();
                 return true;
              default:
@@ -143,7 +143,7 @@ public class PieTriggerSettings extends AOKPPreferenceFragment
             float value = (val * ((mMaxTriggerThickness - mMinTriggerThickness)
                     / 100)) + mMinTriggerThickness;
             Settings.System.putFloat(getActivity().getContentResolver(),
-                    Settings.System.PIE_TRIGGER_THICKNESS,
+                    Settings.System.SPIE_TRIGGER_THICKNESS,
                     value);
             return true;
         } else if (preference == mPieTriggerHeight) {
@@ -151,20 +151,20 @@ public class PieTriggerSettings extends AOKPPreferenceFragment
             float value = (val * ((PIE_TRIGGER_HEIGHT_MAX - PIE_TRIGGER_HEIGHT_MIN)
                     / 100)) + PIE_TRIGGER_HEIGHT_MIN;
             Settings.System.putFloat(getActivity().getContentResolver(),
-                    Settings.System.PIE_TRIGGER_HEIGHT,
+                    Settings.System.SPIE_TRIGGER_HEIGHT,
                     value);
             return true;
         } else if (preference == mPieTriggerGravityLeftRight) {
             int index = mPieTriggerGravityLeftRight.findIndexOfValue((String) newValue);
             int value = Integer.valueOf((String) newValue);
             Settings.System.putInt(getContentResolver(),
-                    Settings.System.PIE_TRIGGER_GRAVITY_LEFT_RIGHT,
+                    Settings.System.SPIE_TRIGGER_GRAVITY_LEFT_RIGHT,
                     value);
             mPieTriggerGravityLeftRight.setSummary(
                 mPieTriggerGravityLeftRight.getEntries()[index]);
         } else if (preference == mDisableImeTriggers) {
             Settings.System.putInt(getContentResolver(),
-                    Settings.System.PIE_ADJUST_TRIGGER_FOR_IME,
+                    Settings.System.SPIE_ADJUST_TRIGGER_FOR_IME,
                     (Boolean) newValue ? 1 : 0);
         } else {
             int triggerSlots = 0;
@@ -176,7 +176,7 @@ public class PieTriggerSettings extends AOKPPreferenceFragment
                 }
             }
             Settings.System.putInt(getContentResolver(),
-                    Settings.System.PIE_GRAVITY, triggerSlots);
+                    Settings.System.SPIE_GRAVITY, triggerSlots);
         }
         updatePieTriggers();
         return true;
@@ -187,11 +187,11 @@ public class PieTriggerSettings extends AOKPPreferenceFragment
         super.onResume();
 
         Settings.System.putInt(getActivity().getContentResolver(),
-                Settings.System.PIE_TRIGGER_SHOW,
+                Settings.System.SPIE_TRIGGER_SHOW,
                 1);
 
         getContentResolver().registerContentObserver(
-                Settings.System.getUriFor(Settings.System.PIE_GRAVITY), true,
+                Settings.System.getUriFor(Settings.System.SPIE_GRAVITY), true,
                 mPieTriggerObserver);
 
         updatePieTriggers();
@@ -201,14 +201,14 @@ public class PieTriggerSettings extends AOKPPreferenceFragment
     public void onPause() {
         super.onPause();
         Settings.System.putInt(getActivity().getContentResolver(),
-                Settings.System.PIE_TRIGGER_SHOW,
+                Settings.System.SPIE_TRIGGER_SHOW,
                 0);
         getContentResolver().unregisterContentObserver(mPieTriggerObserver);
     }
 
     private void updatePieTriggers() {
         int triggerSlots = Settings.System.getInt(getContentResolver(),
-                Settings.System.PIE_GRAVITY, DEFAULT_POSITION);
+                Settings.System.SPIE_GRAVITY, DEFAULT_POSITION);
 
         for (int i = 0; i < mTrigger.length; i++) {
             if ((triggerSlots & (0x01 << i)) != 0) {
@@ -219,32 +219,32 @@ public class PieTriggerSettings extends AOKPPreferenceFragment
         }
 
         mDisableImeTriggers.setChecked(Settings.System.getInt(getContentResolver(),
-                Settings.System.PIE_ADJUST_TRIGGER_FOR_IME, 1) == 1);
+                Settings.System.SPIE_ADJUST_TRIGGER_FOR_IME, 1) == 1);
 
         // default value is Gravity.CENTER_VERTICAL = 16
         // see AOSP docu
         mPieTriggerGravityLeftRight.setValue(String.valueOf(
                 Settings.System.getInt(getContentResolver(),
-                Settings.System.PIE_TRIGGER_GRAVITY_LEFT_RIGHT, 16)));
+                Settings.System.SPIE_TRIGGER_GRAVITY_LEFT_RIGHT, 16)));
         mPieTriggerGravityLeftRight.setSummary(
                 mPieTriggerGravityLeftRight.getEntry());
 
         float triggerThickness;
         try{
             triggerThickness = Settings.System.getFloat(getActivity()
-                    .getContentResolver(), Settings.System.PIE_TRIGGER_THICKNESS);
+                    .getContentResolver(), Settings.System.SPIE_TRIGGER_THICKNESS);
         } catch (Exception e) {
             triggerThickness = mSystemUiResources.getDimension(
-                    mSystemUiResources.getIdentifier("pie_trigger_thickness",
+                    mSystemUiResources.getIdentifier("pies_trigger_thickness",
                     "dimen", "com.android.systemui"));
             Settings.System.putFloat(getActivity().getContentResolver(),
-                Settings.System.PIE_TRIGGER_THICKNESS, triggerThickness);
+                Settings.System.SPIE_TRIGGER_THICKNESS, triggerThickness);
         }
         mMaxTriggerThickness = mSystemUiResources.getDimension(
-                    mSystemUiResources.getIdentifier("pie_trigger_max_thickness",
+                    mSystemUiResources.getIdentifier("pies_trigger_max_thickness",
                     "dimen", "com.android.systemui"));
         mMinTriggerThickness = mSystemUiResources.getDimension(
-                    mSystemUiResources.getIdentifier("pie_trigger_min_thickness",
+                    mSystemUiResources.getIdentifier("pies_trigger_min_thickness",
                     "dimen", "com.android.systemui"));
         float triggerThicknessValue = ((triggerThickness - mMinTriggerThickness) /
                 ((mMaxTriggerThickness - mMinTriggerThickness) / 100)) / 100;
@@ -254,11 +254,11 @@ public class PieTriggerSettings extends AOKPPreferenceFragment
         float triggerHeight;
         try{
             triggerHeight = Settings.System.getFloat(getActivity()
-                    .getContentResolver(), Settings.System.PIE_TRIGGER_HEIGHT);
+                    .getContentResolver(), Settings.System.SPIE_TRIGGER_HEIGHT);
         } catch (Exception e) {
             triggerHeight = 0.8f;
             Settings.System.putFloat(getActivity().getContentResolver(),
-                Settings.System.PIE_TRIGGER_HEIGHT, triggerHeight);
+                Settings.System.SPIE_TRIGGER_HEIGHT, triggerHeight);
         }
         float triggerHeightValue = ((triggerHeight - PIE_TRIGGER_HEIGHT_MIN) /
                 ((PIE_TRIGGER_HEIGHT_MAX - PIE_TRIGGER_HEIGHT_MIN) / 100)) / 100;

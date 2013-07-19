@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.aokp.romcontrol.fragments;
+package com.aokp.romcontrol.slim;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -127,7 +127,7 @@ public class PieButtonSecondLayerSettings extends AOKPPreferenceFragment impleme
         switch (item.getItemId()) {
             case R.id.reset:
                 Settings.System.putInt(getActivity().getContentResolver(),
-                        Settings.System.PIE_LONG_PRESS_ENABLE_SECOND_LAYER, 0);
+                        Settings.System.SPIE_LONG_PRESS_ENABLE_SECOND_LAYER, 0);
                 resetPie(5);
                 return true;
             default:
@@ -169,7 +169,7 @@ public class PieButtonSecondLayerSettings extends AOKPPreferenceFragment impleme
             Preference preference) {
         if (preference == mEnablePieLong) {
             Settings.System.putInt(getActivity().getContentResolver(),
-                    Settings.System.PIE_LONG_PRESS_ENABLE_SECOND_LAYER,
+                    Settings.System.SPIE_LONG_PRESS_ENABLE_SECOND_LAYER,
                     ((CheckBoxPreference) preference).isChecked() ? 1 : 0);
 
             refreshSettings();
@@ -296,7 +296,7 @@ public class PieButtonSecondLayerSettings extends AOKPPreferenceFragment impleme
         mPieButtonQty.setValue(mPieQnty + "");
 
         int pieLong = Settings.System.getInt(mContext.getContentResolver(),
-                     Settings.System.PIE_LONG_PRESS_ENABLE_SECOND_LAYER, 0);
+                     Settings.System.SPIE_LONG_PRESS_ENABLE_SECOND_LAYER, 0);
 
         mEnablePieLong = (CheckBoxPreference) findPreference(PREF_PIE_ENABLE_LONG);
         mEnablePieLong.setChecked(pieLong == 1);
@@ -562,7 +562,7 @@ public class PieButtonSecondLayerSettings extends AOKPPreferenceFragment impleme
         int counter = 0;
         int buttonNumber = 0;
         String pieConfig = Settings.System.getString(getActivity().getContentResolver(),
-                    Settings.System.PIE_BUTTONS_CONFIG_SECOND_LAYER);
+                    Settings.System.SPIE_BUTTONS_CONFIG_SECOND_LAYER);
 
         if (pieConfig == null) {
             pieConfig = mPieSecondLayerConfigDefault;
@@ -601,7 +601,7 @@ public class PieButtonSecondLayerSettings extends AOKPPreferenceFragment impleme
                                + mPortraitIcons[i];
         }
         Settings.System.putString(getActivity().getContentResolver(),
-                    Settings.System.PIE_BUTTONS_CONFIG_SECOND_LAYER, finalPieConfig);
+                    Settings.System.SPIE_BUTTONS_CONFIG_SECOND_LAYER, finalPieConfig);
     }
 
     @Override
