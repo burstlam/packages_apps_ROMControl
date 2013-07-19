@@ -1,4 +1,4 @@
-package com.aokp.romcontrol.fragments;
+package com.aokp.romcontrol.pa;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -63,7 +63,7 @@ public class PieControl extends AOKPPreferenceFragment
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        addPreferencesFromResource(R.xml.pie_controls);
+        addPreferencesFromResource(R.xml.pa_pie_controls);
         PreferenceScreen prefSet = getPreferenceScreen();
         mContext = getActivity();
 

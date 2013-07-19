@@ -17,14 +17,6 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
         android:title="@string/pie_controls_title">
 
-<!--    <PreferenceScreen
-        android:key="halo"
-        android:title="@string/halo_settings_title">
-        <intent 
-            android:action="android.intent.action.MAIN"
-            android:fragment="com.android.settings.paranoid.Halo" />
-    </PreferenceScreen>-->
-
     <PreferenceCategory
         android:key="toolbar_pie_controls"
         android:title="@string/pie_controls_title" />
@@ -41,7 +33,7 @@
         android:title="@string/pie_color_title" />
 
         <Preference
-            android:fragment="com.aokp.romcontrol.fragments.PieColor"
+            android:fragment="com.aokp.romcontrol.pa.PieColor"
             android:key="pie_color"
             android:title="@string/pie_color_title" />
 
