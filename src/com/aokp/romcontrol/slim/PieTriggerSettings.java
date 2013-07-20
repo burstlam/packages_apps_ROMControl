@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.aokp.romcontrol.fragments;
+package com.aokp.romcontrol.slim;
 
 import android.content.ContentResolver;
 import android.content.pm.PackageManager;
