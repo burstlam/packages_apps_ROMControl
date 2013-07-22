@@ -155,6 +155,15 @@
                 <category android:name="com.aokp.romcontrol.SHORTCUT"/>
             </intent-filter>
         </activity>
+         <activity
+            android:name=".fragments.Halo"
+            android:label="@string/halo_settings_title">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="com.aokp.romcontrol.SHORTCUT"/>
+            </intent-filter>
+        </activity>
         <activity
             android:name=".fragments.NavRingTargets"
             android:label="@string/title_navring" >
@@ -353,8 +362,6 @@
             <meta-data android:name="com.aokp.romcontrol.TOP_LEVEL_HEADER_ID"
                 android:resource="@id/slim_notification_shortcuts" />
         </activity>
-
-        <activity android:name="com.andorid.settings.paranoid.Halo" />
 
         <activity android:name="net.margaritov.preference.colorpicker"/>
 
