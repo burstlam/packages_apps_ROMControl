@@ -236,6 +236,17 @@
                 <category android:name="com.aokp.romcontrol.SHORTCUT"/>
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".fragments.Halo"
+            android:label="@string/halo_options_title">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="com.aokp.romcontrol.SHORTCUT"/>
+            </intent-filter>
+        </activity>
+
         <provider
             android:name=".vibrations.VibrationsProvider"
             android:authorities="com.aokp.romcontrol.Vibrations"
