@@ -17,6 +17,13 @@
         android:summary="@string/header_summary_general_ui" />
 
     <header
+        android:id="@+id/pref_interface_app_sidebar"
+        android:fragment="com.aokp.romcontrol.fragments.InterfaceAppSidebar"
+        android:title="@string/pref_interface_app_sidebar_title"
+        android:icon="@drawable/ic_interface_app_sidebar"
+        android:summary="@string/pref_interface_app_sidebar_summary" />
+
+    <header
         android:id="@+id/hybrid_settings"
         android:title="@string/hybrid_settings_title"
         android:icon="@drawable/ic_rb_dpi"
@@ -34,6 +41,8 @@
         android:title="@string/power_menu"
         android:icon="@drawable/ic_rom_control_power_menu"
         android:summary="@string/header_summary_power_menu" />
+
+    <header android:title="@string/header_control" />
 
     <header
         android:id="@+id/nav_bar"

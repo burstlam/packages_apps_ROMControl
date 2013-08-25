@@ -62,6 +62,16 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".fragments.InterfaceAppSidebar"
+            android:label="@string/app_sidebar_enable_title">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="com.aokp.romcontrol.SHORTCUT"/>
+            </intent-filter>
+        </activity>
+
         <activity android:name=".fragments.HybridSettings" />
         <activity android:name=".fragments.WidgetListPreference" />
 
