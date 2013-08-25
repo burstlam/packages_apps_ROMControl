@@ -31,6 +31,8 @@ xmlns:android="http://schemas.android.com/apk/res/android">
         android:icon="@drawable/ic_rom_control_power_menu"
         android:summary="@string/header_summary_power_menu" />
 
+    <header android:title="@string/header_control" />
+
     <header
         android:id="@+id/nav_bar"
         android:fragment="com.aokp.romcontrol.fragments.Navbar"
@@ -64,8 +66,14 @@ xmlns:android="http://schemas.android.com/apk/res/android">
         android:fragment="com.aokp.romcontrol.fragments.ActiveDisplaySettings"
         android:icon="@drawable/ic_rom_control_active_display"
         android:title="@string/active_display"
-        android:summary="@string/header_summary_activedisplay"
-/>
+        android:summary="@string/header_summary_activedisplay" />
+
+    <header
+        android:id="@+id/pref_interface_app_sidebar"
+        android:fragment="com.aokp.romcontrol.fragments.InterfaceAppSidebar"
+        android:title="@string/pref_interface_app_sidebar_title"
+        android:icon="@drawable/ic_interface_app_sidebar"
+        android:summary="@string/pref_interface_app_sidebar_summary" />
 
     <header
         android:id="@+id/statusbar"
