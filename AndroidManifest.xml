@@ -249,6 +249,15 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".fragments.Weather"
+            android:label="Weather Settings" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="com.aokp.romcontrol.SHORTCUT" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".fragments.About"
             android:label="@string/title_about">
             <intent-filter>
@@ -409,6 +418,16 @@
         <service android:name=".service.FlipService"/>
         <service android:name=".service.ExternalCommandService"
             android:exported="false"/>
+
+        <receiver
+            android:name=".weather.WeatherReceiver"
+            android:enabled="true" >
+            <intent-filter>
+                <action android:name="com.aokp.romcontrol.INTENT_WEATHER_REQUEST" />
+            </intent-filter>
+        </receiver>
+        <service android:name=".weather.WeatherRefreshService" />
+        <service android:name=".weather.WeatherService" />
 
         <!-- mGerrit, embedded Gerrit instance viewer -->
         <activity
