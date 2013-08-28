@@ -18,6 +18,7 @@ public class StatusBarSignal extends AOKPPreferenceFragment implements
 
     private static final String STATUS_BAR_TRAFFIC = "status_bar_traffic";
     private static final String STATUS_BAR_TRAFFIC_COLOR = "status_bar_traffic_color";
+    private static final String STATUS_BAR_TRAFFIC_AUTOHIDE = "status_bar_traffic_autohide"; 
 
     ListPreference mDbmStyletyle;
     ListPreference mWifiStyle;
@@ -26,7 +27,9 @@ public class StatusBarSignal extends AOKPPreferenceFragment implements
     CheckBoxPreference mHideSignal;
     CheckBoxPreference mAltSignal;
     CheckBoxPreference mStatusBarTraffic;
+    CheckBoxPreference mStatusBarTraffic_autohide;
     ColorPickerPreference mTrafficColorPicker;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -81,6 +84,10 @@ public class StatusBarSignal extends AOKPPreferenceFragment implements
         mStatusBarTraffic.setChecked((Settings.System.getInt(mContentRes,
                 Settings.System.STATUS_BAR_TRAFFIC, 1) == 1));
 
+        mStatusBarTraffic_autohide = (CheckBoxPreference) findPreference(STATUS_BAR_TRAFFIC_AUTOHIDE);
+        mStatusBarTraffic_autohide.setChecked((Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
+                Settings.System.STATUS_BAR_TRAFFIC_AUTOHIDE, 1) == 1));
+
         mTrafficColorPicker = (ColorPickerPreference) findPreference("status_bar_traffic_color");
         mTrafficColorPicker.setOnPreferenceChangeListener(this);
         defaultColor = getResources().getColor(
@@ -120,6 +127,11 @@ public class StatusBarSignal extends AOKPPreferenceFragment implements
             Settings.System.putInt(mContentRes,
                 Settings.System.STATUS_BAR_TRAFFIC,
                 mStatusBarTraffic.isChecked() ? 1 : 0);
+            return true;
+        } else if (preference == mStatusBarTraffic_autohide) {
+            Settings.System.putInt(mContentRes,
+                Settings.System.STATUS_BAR_TRAFFIC_AUTOHIDE,
+                mStatusBarTraffic_autohide.isChecked() ? 1 : 0);
             return true;
         }
         return super.onPreferenceTreeClick(preferenceScreen, preference);
