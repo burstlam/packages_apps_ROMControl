@@ -12,6 +12,7 @@ import android.preference.SwitchPreference;
 import android.provider.Settings;
 
 import com.aokp.romcontrol.R;
+import com.aokp.romcontrol.util.Helpers;
 import com.aokp.romcontrol.widgets.SeekBarPreferenceExt;
 import com.aokp.romcontrol.AOKPPreferenceFragment;
 
@@ -105,6 +106,7 @@ public class InterfaceAppSidebar extends AOKPPreferenceFragment implements
         } else if (preference == mPositionPref) {
             int position = Integer.valueOf((String) newValue);
             updatePositionSummary(position);
+            Helpers.restartSystemUI();
             return true;
         } else if (preference == mEnabledPref) {
             boolean value = ((Boolean)newValue).booleanValue();
