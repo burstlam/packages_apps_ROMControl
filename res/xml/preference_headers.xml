@@ -36,13 +36,6 @@
         android:icon="@drawable/ic_rom_control_lockscreens" />
 
     <header
-        android:id="@+id/weather"
-        android:fragment="com.aokp.romcontrol.fragments.Weather"
-        android:title="@string/weather"
-        android:summary="@string/header_summary_weather"
-        android:icon="@drawable/ic_rom_control_weather" />
-
-    <header
         android:id="@+id/power_menu"
         android:fragment="com.aokp.romcontrol.fragments.PowerMenu"
         android:title="@string/power_menu"

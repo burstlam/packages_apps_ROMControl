@@ -33,8 +33,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
-import com.aokp.romcontrol.service.BootService;
-
 public class ROMControlActivity extends PreferenceActivity implements ButtonBarHandler {
 
     private static final String TAG = "ROM_Control";
@@ -116,11 +114,6 @@ public class ROMControlActivity extends PreferenceActivity implements ButtonBarH
                 return;
             } catch (ClassCastException e) {
             }
-
-            if (!BootService.servicesStarted) {
-            getApplicationContext().startService(
-                    new Intent(getApplicationContext(), BootService.class));
-        }
         }
         ActionBar actionBar = getActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
