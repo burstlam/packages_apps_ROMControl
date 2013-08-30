@@ -136,4 +136,9 @@
             android:title="@string/pie_appwindow_title"
             android:summary="@string/pie_appwindow_summary" />
 
+        <CheckBoxPreference
+            android:key="pie_screenshot"
+            android:title="@string/pie_screenshot_title"
+            android:summary="@string/pie_screenshot_summary" />
+
 </PreferenceScreen>

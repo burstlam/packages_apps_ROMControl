@@ -37,6 +37,7 @@ public class PieControl extends AOKPPreferenceFragment
     private static final String PIE_LASTAPP = "pie_lastapp";
     private static final String PIE_KILLTASK = "pie_killtask";
     private static final String PIE_APPWINDOW = "pie_appwindow";
+    private static final String PIE_SCREENSHOT = "pie_screenshot";
     private static final String PIE_CENTER = "pie_center";
     private static final String PIE_STICK = "pie_stick";
 
@@ -55,6 +56,7 @@ public class PieControl extends AOKPPreferenceFragment
     private CheckBoxPreference mPieLastApp;
     private CheckBoxPreference mPieKillTask;
     private CheckBoxPreference mPieAppWindow;
+    private CheckBoxPreference mPieScreenShot;
 
     private Context mContext;
     private int mAllowedLocations;
@@ -144,6 +146,10 @@ public class PieControl extends AOKPPreferenceFragment
         mPieAppWindow.setChecked(Settings.System.getInt(mContext.getContentResolver(),
                 Settings.System.PIE_APP_WINDOW, 0) == 1);
 
+        mPieScreenShot = (CheckBoxPreference) prefSet.findPreference(PIE_SCREENSHOT);
+        mPieScreenShot.setChecked(Settings.System.getInt(mContext.getContentResolver(),
+                Settings.System.PIE_SCREENSHOT, 0) == 1);
+
     }
 
     private void checkControls() {
@@ -187,6 +193,9 @@ public class PieControl extends AOKPPreferenceFragment
         } else if (preference == mPieAppWindow) {
             Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
                     Settings.System.PIE_APP_WINDOW, mPieAppWindow.isChecked() ? 1 : 0);
+        } else if (preference == mPieScreenShot) {
+            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
+                    Settings.System.PIE_SCREENSHOT, mPieScreenShot.isChecked() ? 1 : 0);
         } else if (preference == mPieCenter) {
             Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
                     Settings.System.PIE_CENTER, mPieCenter.isChecked() ? 1 : 0);
