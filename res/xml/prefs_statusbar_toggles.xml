@@ -67,6 +67,13 @@
         android:entries="@array/fast_toggle_entries"
         android:entryValues="@array/fast_toggle_values" />
 
+    <ListPreference
+        android:key="no_notifications_pulldown"
+        android:title="@string/title_no_notifications_pulldown"
+        android:entries="@array/no_notifications_pulldown_entries"
+        android:entryValues="@array/no_notifications_pulldown_values"
+        android:persistent="false" />
+
     </PreferenceCategory>
 
     <PreferenceCategory

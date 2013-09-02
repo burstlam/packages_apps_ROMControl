@@ -341,6 +341,12 @@
     <string name="fast_toggle_right">Right</string>
     <string name="fast_toggle_always">Always</string>
     <string name="fast_toggle_always_summary">Pull down Quick Settings when there are no active notifications</string>
+    <string name="title_no_notifications_pulldown">Quick pulldown without notifications</string>
+    <string name="no_notifications_pulldown_summary_nonperm">Pulldown quick settings if no non-permanent notifications are present</string>
+    <string name="no_notifications_pulldown_summary_all">Pulldown quick settings if no notifications are present</string>
+    <string name="no_notifications_pulldown_off">Off</string>
+    <string name="no_notifications_pulldown_nonperm">Non-permanent only</string>
+    <string name="no_notifications_pulldown_all">All Notifications</string>
     <string name="toggle_dialog_arrange_title">Toggle setup</string>
     <string name="toggle_dialog_add_toggles">Select toggles to add</string>
     <string name="toggle_style_tile">Tiles</string>

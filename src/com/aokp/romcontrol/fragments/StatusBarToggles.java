@@ -71,6 +71,7 @@ public class StatusBarToggles extends AOKPPreferenceFragment implements
     private static final String PREF_TOGGLES_STYLE = "toggles_style";
     private static final String PREF_TOGGLE_FAV_CONTACT = "toggle_fav_contact";
     private static final String PREF_ENABLE_FASTTOGGLE = "enable_fast_toggle";
+    private static final String NO_NOTIFICATIONS_PULLDOWN = "no_notifications_pulldown";
     private static final String PREF_NOTIFICATION_SHOW_WIFI_SSID = "notification_show_wifi_ssid";
     private static final String PREF_SET_BOOT_ACTION = "set_boot_action";
     private static final String PREF_MATCH_ICON_ACTION = "match_icon_action";
@@ -117,6 +118,7 @@ public class StatusBarToggles extends AOKPPreferenceFragment implements
     ColorPickerPreference mTileBgPresColor;
     ColorPickerPreference mTileTextColor;
     Preference mRandomColors;
+    ListPreference mNoNotificationsPulldown;
 
     BroadcastReceiver mReceiver;
     ArrayList<String> mToggles;
@@ -190,6 +192,13 @@ public class StatusBarToggles extends AOKPPreferenceFragment implements
             Settings.System.FAST_TOGGLE, 0);
         mFastToggle.setValue(String.valueOf(statusFastToggle));
         updateFastToggleSummary(statusFastToggle);
+
+        mNoNotificationsPulldown = (ListPreference) findPreference(NO_NOTIFICATIONS_PULLDOWN);
+        mNoNotificationsPulldown.setOnPreferenceChangeListener(this);
+        int noNotificationsPulldownValue = Settings.System.getInt(mContentRes,
+            Settings.System.QS_NO_NOTIFICATION_PULLDOWN, 0);
+        mNoNotificationsPulldown.setValue(String.valueOf(noNotificationsPulldownValue));
+        updateNoNotificationsPulldownSummary(noNotificationsPulldownValue);
 
         mScreenshotDelay = (ListPreference) findPreference(PREF_SCREENSHOT_DELAY);
         mScreenshotDelay.setOnPreferenceChangeListener(this);
@@ -321,6 +330,12 @@ public class StatusBarToggles extends AOKPPreferenceFragment implements
             Settings.System.putBoolean(mContentRes,
                     Settings.System.FAST_TOGGLE, val);
             mContentRes.notifyChange(Settings.System.getUriFor(Settings.System.FAST_TOGGLE), null);
+            return true;
+        } else if (preference == mNoNotificationsPulldown) {
+            int noNotificationsPulldownValue = Integer.valueOf((String) newValue);
+            Settings.System.putInt(mContentRes,
+                    Settings.System.QS_NO_NOTIFICATION_PULLDOWN, noNotificationsPulldownValue);
+            updateNoNotificationsPulldownSummary(noNotificationsPulldownValue);
             return true;
         } else if (preference == mBootState) {
             boolean val = (Boolean) newValue;
@@ -492,16 +507,26 @@ public class StatusBarToggles extends AOKPPreferenceFragment implements
         Resources res = getResources();
 
         if (value == 0) {
-            mFastToggle.setSummary(res.getString(R.string.fast_toggle_off));
-        } else if (value == 3) {
-            mFastToggle.setSummary(res.getString(R.string.fast_toggle_always_summary));
+            mFastToggle.setSummary(getResources().getString(R.string.fast_toggle_off));
         } else {
             String direction = res.getString(value == 2
                     ? R.string.fast_toggle_left
                     : R.string.fast_toggle_right);
-            mFastToggle.setSummary(res.getString(R.string.toggle_enable_fasttoggle_summary, direction));
+            mFastToggle.setSummary(getResources().getString(R.string.toggle_enable_fasttoggle_summary, direction));
         }
     }
+
+    private void updateNoNotificationsPulldownSummary(int value) {
+
+        if (value == 0) {
+            /* No Notifications Pulldown deactivated */
+            mNoNotificationsPulldown.setSummary(getResources().getString(R.string.no_notifications_pulldown_off));
+        } else {
+            mNoNotificationsPulldown.setSummary(getResources().getString(value == 1
+                    ? R.string.no_notifications_pulldown_summary_nonperm
+                    : R.string.no_notifications_pulldown_summary_all));
+         }
+     }
 
     private void updateVisibility() {
         int visible = Settings.System.getInt(mContentRes,
