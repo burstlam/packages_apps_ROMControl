@@ -1858,18 +1858,4 @@
         <item>2.0</item>
     </string-array>
     <!-- Interface : App sidebar **END** -->
-
-    <array name="lockscreen_style_picker_captions" translatable="false">
-        <item>@string/pref_lockscreen_style_picker_caption_jellybean</item>
-        <item>@string/pref_lockscreen_style_picker_caption_ics</item>
-        <item>@string/pref_lockscreen_style_picker_caption_gingerbread</item>
-        <item>@string/pref_lockscreen_style_picker_caption_eclair</item>
-    </array>
-
-    <array name="lockscreen_style_picker_drawables" translatable="false">
-        <item>@drawable/lock_jb</item>
-        <item>@drawable/lock_ics</item>
-        <item>@drawable/lock_gingerbread</item>
-        <item>@drawable/lock_eclair</item>
-    </array>
 </resources>

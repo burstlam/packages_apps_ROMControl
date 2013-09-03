@@ -49,9 +49,4 @@
         <attr name="unitsLeft" format="string" />
         <attr name="unitsRight" format="string" />
     </declare-styleable>
-
-    <declare-styleable name="GalleryPickerPreference">
-        <attr name="entryDrawables" format="string"/>
-        <attr name="entryCaptions" format="string"/>
-    </declare-styleable>
 </resources>

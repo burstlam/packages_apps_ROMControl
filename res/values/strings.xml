@@ -2014,15 +2014,4 @@ Paranoid PIE control is wavely based on simple navigation to expanded desktop. S
     <string name="trigger_top_summary">Adjust the vertical postion of the trigger area</string>
     <string name="trigger_bottom_title">Trigger height</string>
     <string name="trigger_bottom_summary">Adjust the height of the trigger area</string>
-
-    <!-- Lockscreen -->
-    <string name="lockscreen_style_title">Style</string>
-    <!-- GalleryPickerPreference -->
-    <string name="item_count">%1$d/%2$d</string>
-    <!-- Lockscreen >> Styles-->
-    <string name="pref_lockscreen_style_picker_unavailable">This style is unavailable for this device!\nPlease choose another style.</string>
-    <string name="pref_lockscreen_style_picker_caption_jellybean">Jellybean</string>
-    <string name="pref_lockscreen_style_picker_caption_ics">Ice Cream Sandwich</string>
-    <string name="pref_lockscreen_style_picker_caption_gingerbread">Gingerbread</string>
-    <string name="pref_lockscreen_style_picker_caption_eclair">Eclair</string>
 </resources>

@@ -249,15 +249,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".fragments.LockscreenStyle"
-            android:label="@string/lockscreen_style_title">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-
-                <category android:name="com.aokp.romcontrol.SHORTCUT"/>
-            </intent-filter>
-        </activity>
-        <activity
             android:name=".fragments.About"
             android:label="@string/title_about">
             <intent-filter>

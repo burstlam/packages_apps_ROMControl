@@ -10,10 +10,6 @@
                 android:targetClass="com.android.settings.SecuritySettings" />
     </PreferenceScreen>
 
-    <Preference
-         android:title="@string/lockscreen_style_title"
-         android:fragment="com.aokp.romcontrol.fragments.LockscreenStyle" />
-
     <!-- Lock clock -->
     <PreferenceScreen
         android:key="lock_clock"
