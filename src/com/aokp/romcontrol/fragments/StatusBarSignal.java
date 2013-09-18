@@ -127,11 +127,13 @@ public class StatusBarSignal extends AOKPPreferenceFragment implements
             Settings.System.putInt(mContentRes,
                 Settings.System.STATUS_BAR_TRAFFIC,
                 mStatusBarTraffic.isChecked() ? 1 : 0);
+            Helpers.restartSystemUI();
             return true;
         } else if (preference == mStatusBarTraffic_autohide) {
             Settings.System.putInt(mContentRes,
                 Settings.System.STATUS_BAR_TRAFFIC_AUTOHIDE,
                 mStatusBarTraffic_autohide.isChecked() ? 1 : 0);
+            Helpers.restartSystemUI();
             return true;
         }
         return super.onPreferenceTreeClick(preferenceScreen, preference);
