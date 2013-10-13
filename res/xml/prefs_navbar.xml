@@ -129,4 +129,13 @@
             android:key="navigation_bar_widgets"
             android:title="@string/navbar_widgets_title" />
     </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="swipe_back_layout_settings"
+        android:title="@string/title_swipe_back_layout">
+        <PreferenceScreen
+            android:fragment="com.aokp.romcontrol.fragments.swipe.SwipeBackLayout"
+            android:title="@string/title_swipe_back_layout" />
+    </PreferenceCategory>
+
 </PreferenceScreen>

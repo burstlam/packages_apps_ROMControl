@@ -46,4 +46,19 @@
         <item>2</item>
     </string-array>
 
+    <!-- Swipe Back Layout -->
+    <string-array name="entries_swipe_back_layout_edge">
+        <item>@string/swipe_back_layout_edge_left</item>
+        <item>@string/swipe_back_layout_edge_right</item>
+        <item>@string/swipe_back_layout_edge_bottom</item>
+        <item>@string/swipe_back_layout_edge_all</item>
+    </string-array>
+
+    <string-array name="values_swipe_back_layout_edge" translatable="false">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+
 </resources>
