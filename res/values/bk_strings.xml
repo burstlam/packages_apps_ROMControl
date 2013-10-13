@@ -71,4 +71,9 @@
     <string name="trigger_bottom_title">Trigger height</string>
     <string name="trigger_bottom_summary">Adjust the height of the trigger area</string>
     <string name="header_control">Control</string>
+
+    <!-- show carrier label -->
+    <string name="show_carrier_label_title">carrier label</string>
+    <string name="show_carrier_label_summary">Show Carrier label in statsbar</string>
+    <string name="status_bar_carrier_color">Select Statusbar Carrier Label Color</string>
 </resources>
