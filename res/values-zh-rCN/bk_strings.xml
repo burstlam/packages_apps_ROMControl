@@ -28,6 +28,10 @@
     <string name="swipe_back_layout_edge_left">左边</string>
     <string name="swipe_back_layout_edge_right">右边</string>
     <string name="swipe_back_layout_edge_bottom">底边</string>
-    <string name="swipe_back_layout_edge_all">全部</string> 
+    <string name="swipe_back_layout_edge_all">全部</string>
+
+    <!-- Traffic -->
+    <string name="statusbar_show_traffic_title">显示网速</string>
+    <string name="statusbar_show_traffic_summary">在状态栏上显示网速状态.</string>
 
 </resources>

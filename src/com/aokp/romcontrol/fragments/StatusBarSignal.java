@@ -15,6 +15,10 @@ import net.margaritov.preference.colorpicker.ColorPickerPreference;
 public class StatusBarSignal extends AOKPPreferenceFragment implements
         OnPreferenceChangeListener {
 
+    private static final String STATUS_BAR_SHOW_TRAFFIC = "status_bar_show_traffic";
+    private static final String STATUS_BAR_TRAFFIC_COLOR = "status_bar_traffic_color";
+    private static final String STATUS_BAR_TRAFFIC_AUTOHIDE = "status_bar_traffic_autohide";
+
     ListPreference mDbmStyletyle;
     ListPreference mWifiStyle;
     ColorPickerPreference mColorPicker;
@@ -22,6 +26,9 @@ public class StatusBarSignal extends AOKPPreferenceFragment implements
     CheckBoxPreference mHideSignal;
     CheckBoxPreference mAltSignal;
     CheckBoxPreference mShow4gForLte;
+    CheckBoxPreference mStatusBarShowTraffic;
+    CheckBoxPreference mStatusBarTraffic_autohide;
+    ColorPickerPreference mTrafficColorPicker; 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -31,6 +38,9 @@ public class StatusBarSignal extends AOKPPreferenceFragment implements
         addPreferencesFromResource(R.xml.prefs_statusbar_signal);
 
         PreferenceScreen prefs = getPreferenceScreen();
+        int defaultColor;
+        int intColor;
+        String hexColor;
 
         mDbmStyletyle = (ListPreference) findPreference("signal_style");
         mDbmStyletyle.setOnPreferenceChangeListener(this);
@@ -62,6 +72,24 @@ public class StatusBarSignal extends AOKPPreferenceFragment implements
         mShow4gForLte.setChecked(Settings.System.getBoolean(mContentRes,
                 Settings.System.STATUSBAR_SIGNAL_SHOW_4G_FOR_LTE, check4gByDefault));
 
+        mStatusBarShowTraffic = (CheckBoxPreference) findPreference(STATUS_BAR_SHOW_TRAFFIC);
+        mStatusBarShowTraffic.setChecked((Settings.System.getInt(mContentRes,
+                            Settings.System.STATUS_BAR_SHOW_TRAFFIC, 0) == 1));
+
+        mStatusBarTraffic_autohide = (CheckBoxPreference) findPreference(STATUS_BAR_TRAFFIC_AUTOHIDE);
+        mStatusBarTraffic_autohide.setChecked((Settings.System.getInt(mContentRes,
+                Settings.System.STATUS_BAR_TRAFFIC_AUTOHIDE, 0) == 1));
+
+        mTrafficColorPicker = (ColorPickerPreference) findPreference(STATUS_BAR_TRAFFIC_COLOR);
+        mTrafficColorPicker.setOnPreferenceChangeListener(this);
+        defaultColor = getResources().getColor(
+                com.android.internal.R.color.holo_blue_light);
+        intColor = Settings.System.getInt(getActivity().getContentResolver(),
+                    Settings.System.STATUS_BAR_TRAFFIC_COLOR, defaultColor);
+        hexColor = String.format("#%08x", (0xffffffff & intColor));
+        mTrafficColorPicker.setSummary(hexColor);
+        mTrafficColorPicker.setNewPreviewColor(intColor);
+
         if (Integer.parseInt(mDbmStyletyle.getValue()) == 0) {
             mColorPicker.setEnabled(false);
             mColorPicker.setSummary(R.string.enable_signal_text);
@@ -84,6 +112,7 @@ public class StatusBarSignal extends AOKPPreferenceFragment implements
     @Override
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen,
                                          Preference preference) {
+        boolean value;
         if (preference == mHideSignal) {
             Settings.System.putBoolean(mContentRes,
                     Settings.System.STATUSBAR_HIDE_SIGNAL_BARS, mHideSignal.isChecked());
@@ -96,6 +125,16 @@ public class StatusBarSignal extends AOKPPreferenceFragment implements
         } else if (preference == mShow4gForLte) {
             Settings.System.putBoolean(mContentRes,
                     Settings.System.STATUSBAR_SIGNAL_SHOW_4G_FOR_LTE, mShow4gForLte.isChecked());
+            return true;
+        } else if (preference == mStatusBarShowTraffic) {
+            value = mStatusBarShowTraffic.isChecked();
+            Settings.System.putInt(mContentRes,
+                    Settings.System.STATUS_BAR_SHOW_TRAFFIC, value ? 1 : 0);
+            return true;
+        } else if (preference == mStatusBarTraffic_autohide) {
+            value = mStatusBarTraffic_autohide.isChecked();
+            Settings.System.putInt(mContentRes,
+                Settings.System.STATUS_BAR_TRAFFIC_AUTOHIDE, value ? 1 : 0);
             return true;
         }
         return super.onPreferenceTreeClick(preferenceScreen, preference);
@@ -146,6 +185,14 @@ public class StatusBarSignal extends AOKPPreferenceFragment implements
             int intHex = ColorPickerPreference.convertToColorInt(hex);
             Settings.System.putInt(mContentRes,
                     Settings.System.STATUSBAR_WIFI_SIGNAL_TEXT_COLOR, intHex);
+            return true;
+        } else if (preference == mTrafficColorPicker) {
+            String hex = ColorPickerPreference.convertToARGB(Integer.valueOf(String
+                    .valueOf(newValue)));
+            preference.setSummary(hex);
+            int intHex = ColorPickerPreference.convertToColorInt(hex);
+            Settings.System.putInt(mContentRes,
+                    Settings.System.STATUS_BAR_TRAFFIC_COLOR, intHex);
             return true;
         }
         return false;
