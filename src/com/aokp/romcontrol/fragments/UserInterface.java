@@ -56,6 +56,8 @@ import com.aokp.romcontrol.util.CMDProcessor;
 import com.aokp.romcontrol.util.Helpers;
 import com.aokp.romcontrol.widgets.AlphaSeekBar;
 
+import net.margaritov.preference.colorpicker.ColorPickerPreference;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -114,6 +116,8 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
     private static final String WALLPAPER_NAME = "notification_wallpaper.jpg";
     private static final String BOOTANIMATION_USER_PATH = "/data/local/bootanimation.zip";
     private static final String BOOTANIMATION_SYSTEM_PATH = "/system/media/bootanimation.zip";
+    private static final String STATUS_BAR_CARRIER_LABEL = "status_bar_carrier_label";
+    private static final String STATUS_BAR_CARRIER_COLOR = "status_bar_carrier_color";
 
     CheckBoxPreference mAllow180Rotation;
     CheckBoxPreference mAllow270Rotation;
@@ -142,6 +146,9 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
     CheckBoxPreference mStatusBarHide;
     CheckBoxPreference mDarkUI;
 
+    CheckBoxPreference mStatusBarCarrierLabel;
+    ColorPickerPreference mCarrierColorPicker;
+
     private AnimationDrawable mAnimationPart1;
     private AnimationDrawable mAnimationPart2;
     private String mErrormsg;
@@ -164,6 +171,10 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
         setTitle(R.string.title_ui);
         // Load the preferences from an XML resource
         addPreferencesFromResource(R.xml.prefs_ui);
+
+        int defaultColor;
+        int intColor;
+        String hexColor;
 
         mContentResolver = getContentResolver();
         PreferenceScreen prefs = getPreferenceScreen();
@@ -284,6 +295,20 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
             ((PreferenceGroup) findPreference(PREF_DISPLAY))
                     .removePreference(mWakeUpWhenPluggedOrUnplugged);
         }
+
+        mStatusBarCarrierLabel = (CheckBoxPreference) findPreference(STATUS_BAR_CARRIER_LABEL);
+        mStatusBarCarrierLabel.setChecked(Settings.System.getBoolean(mContentResolver,
+                Settings.System.STATUS_BAR_CARRIER, false));
+
+        mCarrierColorPicker = (ColorPickerPreference) findPreference(STATUS_BAR_CARRIER_COLOR);
+        mCarrierColorPicker.setOnPreferenceChangeListener(this);
+        defaultColor = getResources().getColor(
+                com.android.internal.R.color.holo_blue_light);
+        intColor = Settings.System.getInt(getActivity().getContentResolver(),
+                    Settings.System.STATUS_BAR_CARRIER_COLOR, defaultColor);
+        hexColor = String.format("#%08x", (0xffffffff & intColor));
+        mCarrierColorPicker.setSummary(hexColor);
+        mCarrierColorPicker.setNewPreviewColor(intColor);
 
         mUiMode = Settings.System.getInt(mContext.getContentResolver(),
                 Settings.System.CURRENT_UI_MODE, 0);
@@ -565,6 +590,11 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
             boolean checked = ((CheckBoxPreference) preference).isChecked();
             Settings.System.putBoolean(getActivity().getContentResolver(),
                     Settings.System.STATUSBAR_HIDDEN, checked ? true : false);
+            return true;
+        } else if (preference == mStatusBarCarrierLabel) {
+            boolean checked = mStatusBarCarrierLabel.isChecked();
+            Settings.System.putBoolean(getActivity().getContentResolver(),
+                    Settings.System.STATUS_BAR_CARRIER, checked ? true : false);
             return true;
         } else if (preference == mDarkUI) {
             boolean checked = ((CheckBoxPreference) preference).isChecked();
@@ -1090,6 +1120,13 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
             Settings.System.putInt(getActivity().getContentResolver(),
                     Settings.System.SYSTEM_POWER_CRT_MODE, crtMode);
             mCrtMode.setSummary(mCrtMode.getEntries()[index]);
+            return true;
+        } else if (preference == mCarrierColorPicker) {
+            String hex = ColorPickerPreference.convertToARGB(Integer.valueOf(String.valueOf(newValue)));
+            preference.setSummary(hex);
+            int intHex = ColorPickerPreference.convertToColorInt(hex);
+            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
+                    Settings.System.STATUS_BAR_CARRIER_COLOR, intHex);
             return true;
         }
         return false;
