@@ -1,16 +1,23 @@
 package com.aokp.romcontrol.fragments;
 
 import android.os.Bundle;
+import android.os.RemoteException;
+import android.content.res.Resources;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceScreen;
+import android.preference.ListPreference;
 import android.preference.SwitchPreference;
 import android.provider.Settings;
+import android.provider.Settings.SettingNotFoundException;
+import android.util.Log;
+import android.view.WindowManagerGlobal;
 import com.aokp.romcontrol.AOKPPreferenceFragment;
 import com.aokp.romcontrol.R;
 
 public class PowerMenu extends AOKPPreferenceFragment implements OnPreferenceChangeListener {
 
+    private static final String TAG = "PowerMenu";
     //private static final String PREF_POWER_SAVER = "show_power_saver";
     private static final String PREF_SCREENSHOT = "show_screenshot";
     private static final String PREF_TORCH_TOGGLE = "show_torch_toggle";
@@ -18,6 +25,7 @@ public class PowerMenu extends AOKPPreferenceFragment implements OnPreferenceCha
     private static final String PREF_NAVBAR_HIDE = "show_navbar_hide";
     private static final String PREF_VOLUME_STATE_TOGGLE = "show_volume_state_toggle";
     private static final String PREF_REBOOT_KEYGUARD = "show_reboot_keyguard";
+    private static final String KEY_EXPANDED_DESKTOP = "power_menu_expanded_desktop";
 
     //SwitchPreference mShowPowerSaver;
     SwitchPreference mShowScreenShot;
@@ -26,6 +34,7 @@ public class PowerMenu extends AOKPPreferenceFragment implements OnPreferenceCha
     SwitchPreference mShowNavBarHide;
     SwitchPreference mShowVolumeStateToggle;
     SwitchPreference mShowRebootKeyguard;
+    ListPreference mExpandedDesktopPref;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -33,6 +42,8 @@ public class PowerMenu extends AOKPPreferenceFragment implements OnPreferenceCha
 
         // Load the preferences from an XML resource
         addPreferencesFromResource(R.xml.prefs_powermenu);
+
+        PreferenceScreen prefSet = getPreferenceScreen();
         /*
         mShowPowerSaver = (SwitchPreference) findPreference(PREF_POWER_SAVER);
         int powerSaverVal = 0;
@@ -78,6 +89,25 @@ public class PowerMenu extends AOKPPreferenceFragment implements OnPreferenceCha
                 Settings.System.POWER_DIALOG_SHOW_REBOOT_KEYGUARD, true));
         mShowRebootKeyguard.setOnPreferenceChangeListener(this);
 
+        mExpandedDesktopPref = (ListPreference) prefSet.findPreference(KEY_EXPANDED_DESKTOP);
+        mExpandedDesktopPref.setOnPreferenceChangeListener(this);
+        int expandedDesktopValue = Settings.System.getInt(getContentResolver(),
+                        Settings.System.EXPANDED_DESKTOP_MODE, 0);
+        mExpandedDesktopPref.setValue(String.valueOf(expandedDesktopValue));
+        mExpandedDesktopPref.setSummary(mExpandedDesktopPref.getEntries()[expandedDesktopValue]);
+
+        // Hide no-op "Status bar visible" mode on devices without navbar
+        // WindowManager already respects the default config value and the
+        // show NavBar mod from us
+        try {
+            if (!WindowManagerGlobal.getWindowManagerService().hasNavigationBar()) {
+                mExpandedDesktopPref.setEntries(R.array.expanded_desktop_entries_no_navbar);
+                mExpandedDesktopPref.setEntryValues(R.array.expanded_desktop_values_no_navbar);
+            }
+        } catch (RemoteException e) {
+            Log.e(TAG, "Error getting navigation bar status");
+        }
+
         if (!hasTorch) {
             getPreferenceScreen().removePreference(mShowTorchToggle);
         }
@@ -115,6 +145,23 @@ public class PowerMenu extends AOKPPreferenceFragment implements OnPreferenceCha
             Settings.System.putBoolean(mContentRes,
                     Settings.System.POWER_DIALOG_SHOW_VOLUME_STATE_TOGGLE,
                     (Boolean) value);
+            return true;
+        } else if (preference == mExpandedDesktopPref) {
+            int expandedDesktopValue = Integer.valueOf((String) value);
+            int index = mExpandedDesktopPref.findIndexOfValue((String) value);
+            if (expandedDesktopValue == 0) {
+                Settings.System.putInt(getContentResolver(),
+                        Settings.System.POWER_MENU_EXPANDED_DESKTOP_ENABLED, 0);
+            // Disable expanded desktop if enabled
+                Settings.System.putInt(getContentResolver(),
+                        Settings.System.EXPANDED_DESKTOP_STATE, 0);
+            } else {
+                Settings.System.putInt(getContentResolver(),
+                        Settings.System.POWER_MENU_EXPANDED_DESKTOP_ENABLED, 1);
+            }
+            Settings.System.putInt(getContentResolver(),
+                    Settings.System.EXPANDED_DESKTOP_MODE, expandedDesktopValue);
+            mExpandedDesktopPref.setSummary(mExpandedDesktopPref.getEntries()[index]);
             return true;
         } else if (preference == mShowRebootKeyguard) {
             Settings.System.putBoolean(mContentRes,
