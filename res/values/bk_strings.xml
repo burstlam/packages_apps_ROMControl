@@ -29,4 +29,14 @@
     <string name="expanded_desktop_only_status_bar">Hide status bar</string>
     <string name="expanded_desktop_both_hidden">Hide navigation and status bar</string>
 
+    <!-- Swipe Back Layout -->
+    <string name="title_swipe_back_layout">Swipe Back Gesture</string>
+    <string name="swipe_back_layout_enable_title">Enable Swipe Back Gesture</string>
+    <string name="swipe_back_layout_enable_summary">Enable or disable the Swipe Back Gesture</string>
+    <string name="swipe_back_layout_edge_title">Track Edge</string>
+    <string name="swipe_back_layout_edge_summary">Select an edge to track for swipe back gesture</string>
+    <string name="swipe_back_layout_edge_left">Left</string>
+    <string name="swipe_back_layout_edge_right">Right</string>
+    <string name="swipe_back_layout_edge_bottom">Bottom</string>
+    <string name="swipe_back_layout_edge_all">All</string>
 </resources>
