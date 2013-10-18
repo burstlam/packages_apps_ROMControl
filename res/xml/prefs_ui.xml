@@ -75,12 +75,6 @@
             android:title="@string/statusbar_hide_title"
             android:summary="@string/statusbar_hide_summary" />
 
-        <CheckBoxPreference
-            android:key="ime_switcher"
-            android:title="@string/ime_switcher_title"
-            android:summary="@string/ime_switcher_summary"
-            android:defaultValue="true" />
-
     </PreferenceCategory>
 
     <PreferenceCategory
@@ -117,17 +111,6 @@
             android:title="@string/show_overflow_title"
             android:summary="@string/show_overflow_summary"
             android:defaultValue="false" />
-
-        <CheckBoxPreference
-            android:key="rotate_180"
-            android:title="@string/rotate_180_title"
-            android:summary="@string/rotate_180_summary" />
-
-        <CheckBoxPreference
-            android:key="rotate_270"
-            android:title="@string/rotate_270_title"
-            android:summary="@string/rotate_270_summary"
-            android:defaultValue="true" />
 
         <CheckBoxPreference
             android:key="wakeup_when_plugged_unplugged"
