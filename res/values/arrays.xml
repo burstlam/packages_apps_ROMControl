@@ -223,12 +223,20 @@
     </string-array>
 
     <!-- Battery styles -->
+    <!-- Battery styles -->
     <string-array name="battery_icon_entries" translatable="false">
         <item>@string/icon_only</item>
         <item>@string/text_only</item>
         <item>@string/icon_with_text</item>
         <item>@string/icon_with_centered_text</item>
-        <item>@string/circlemod</item>
+        <item>@string/circle_battery</item>
+        <item>@string/circle_battery_w_percent</item>
+        <item>@string/circle_dotted_w_percent</item>
+        <item>@string/speed_battery</item>
+        <item>@string/square_battery</item>
+        <item>@string/gear_battery</item>
+        <item>@string/cm_battery</item>
+        <item>@string/rb_battery9</item>
         <item>@string/dont_show</item>
     </string-array>
     <string-array name="battery_icon_values" translatable="false">
@@ -237,6 +245,26 @@
         <item>2</item>
         <item>3</item>
         <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+    </string-array>
+
+        <string-array name="circle_battery_animation_speed_entries" >
+        <item>@string/circle_battery_animation_speed_none</item>
+        <item>@string/circle_battery_animation_speed_slow</item>
+        <item>@string/circle_battery_animation_speed_stock</item>
+        <item>@string/circle_battery_animation_speed_fast</item>
+    </string-array>
+    <string-array name="circle_battery_animation_speed_values" translatable="false">
+        <item>0</item>
+        <item>1</item>
+        <item>3</item>
         <item>5</item>
     </string-array>
 
