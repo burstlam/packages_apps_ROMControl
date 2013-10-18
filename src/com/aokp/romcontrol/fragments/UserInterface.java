@@ -79,8 +79,6 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
     public final String TAG = getClass().getSimpleName();
     private static final boolean DEBUG = false;
 
-    private static final CharSequence PREF_180 = "rotate_180";
-    private static final CharSequence PREF_270 = "rotate_270";
     private static final CharSequence PREF_STATUS_BAR_NOTIF_COUNT = "status_bar_notif_count";
     private static final CharSequence PREF_NOTIFICATION_WALLPAPER = "notification_wallpaper";
     private static final CharSequence PREF_NOTIFICATION_WALLPAPER_ALPHA =
@@ -91,7 +89,6 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
     private static final CharSequence PREF_RECENT_KILL_ALL = "recent_kill_all";
     private static final CharSequence PREF_RECENT_GOOGLE_ASSIST = "recent_google_assist";
     private static final CharSequence PREF_RAM_USAGE_BAR = "ram_usage_bar";
-    private static final CharSequence PREF_IME_SWITCHER = "ime_switcher";
     private static final CharSequence PREF_STATUSBAR_BRIGHTNESS = "statusbar_brightness_slider";
     private static final CharSequence PREF_USER_MODE_UI = "user_mode_ui";
     private static final CharSequence PREF_HIDE_EXTRAS = "hide_extras";
@@ -119,8 +116,6 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
     private static final String STATUS_BAR_CARRIER_LABEL = "status_bar_carrier_label";
     private static final String STATUS_BAR_CARRIER_COLOR = "status_bar_carrier_color";
 
-    CheckBoxPreference mAllow180Rotation;
-    CheckBoxPreference mAllow270Rotation;
     CheckBoxPreference mDisableBootAnimation;
     CheckBoxPreference mStatusBarNotifCount;
     Preference mNotificationWallpaper;
@@ -134,7 +129,6 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
     CheckBoxPreference mRecentKillAll;
     CheckBoxPreference mRecentGoog;
     CheckBoxPreference mRamBar;
-    CheckBoxPreference mShowImeSwitcher;
     CheckBoxPreference mStatusbarSliderPreference;
     AlertDialog mCustomBootAnimationDialog;
     ListPreference mUserModeUI;
@@ -181,21 +175,6 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
         mInsults = mContext.getResources().getStringArray(
                 R.array.disable_bootanimation_insults);
 
-        mAllow180Rotation = (CheckBoxPreference) findPreference(PREF_180);
-        mAllow270Rotation = (CheckBoxPreference) findPreference(PREF_270);
-        mUserRotationAngles = Settings.System.getInt(mContentResolver,
-                Settings.System.ACCELEROMETER_ROTATION_ANGLES, -1);
-        if (mUserRotationAngles < 0) {
-            // Not set by user so use these defaults
-            boolean mAllowAllRotations = mContext.getResources().getBoolean(
-                    com.android.internal.R.bool.config_allowAllRotations) ? true : false;
-            mUserRotationAngles = mAllowAllRotations ?
-                    (1 | 2 | 4 | 8) : // All angles
-                    (1 | 2 | 8); // All except 180
-        }
-        mAllow180Rotation.setChecked((mUserRotationAngles & 4) != 0);
-        mAllow270Rotation.setChecked((mUserRotationAngles & 8) != 0);
-
         mStatusBarNotifCount = (CheckBoxPreference) findPreference(PREF_STATUS_BAR_NOTIF_COUNT);
         mStatusBarNotifCount.setChecked(Settings.System.getBoolean(mContentResolver,
                 Settings.System.STATUSBAR_NOTIF_COUNT, false));
@@ -206,10 +185,6 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
 
         mCustomLabel = findPreference(PREF_CUSTOM_CARRIER_LABEL);
         updateCustomLabelTextSummary();
-
-        mShowImeSwitcher = (CheckBoxPreference) findPreference(PREF_IME_SWITCHER);
-        mShowImeSwitcher.setChecked(Settings.System.getBoolean(mContentResolver,
-                Settings.System.SHOW_STATUSBAR_IME_SWITCHER, true));
 
         mStatusbarSliderPreference = (CheckBoxPreference) findPreference(PREF_STATUSBAR_BRIGHTNESS);
         mStatusbarSliderPreference.setChecked(Settings.System.getBoolean(mContentResolver,
@@ -400,20 +375,7 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
     @Override
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen,
                                          Preference preference) {
-        if (preference == mAllow180Rotation || preference == mAllow270Rotation) {
-            boolean checked180 = ((CheckBoxPreference) mAllow180Rotation).isChecked();
-            boolean checked270 = ((CheckBoxPreference) mAllow270Rotation).isChecked();
-            int result = (1 | 2);
-            if (checked180) {
-                result |= 4;
-            }
-            if (checked270) {
-                result |= 8;
-            }
-            Settings.System.putInt(mContentResolver,
-                    Settings.System.ACCELEROMETER_ROTATION_ANGLES, result);
-            return true;
-        } else if (preference == mStatusBarNotifCount) {
+        if (preference == mStatusBarNotifCount) {
             Settings.System.putBoolean(mContentResolver,
                     Settings.System.STATUSBAR_NOTIF_COUNT,
                     ((TwoStatePreference) preference).isChecked());
@@ -504,11 +466,6 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
                     })
                     .create()
                     .show();
-            return true;
-        } else if (preference == mShowImeSwitcher) {
-            Settings.System.putBoolean(mContentResolver,
-                    Settings.System.SHOW_STATUSBAR_IME_SWITCHER,
-                    isCheckBoxPrefernceChecked(preference));
             return true;
         } else if (preference == mStatusbarSliderPreference) {
             Settings.System.putBoolean(mContentResolver,
