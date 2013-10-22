@@ -247,6 +247,25 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".pa.PieControl"
+            android:label="@string/pie_controls_title">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="com.aokp.romcontrol.SHORTCUT" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".pa.PieColor">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="com.aokp.romcontrol.SHORTCUT" />
+            </intent-filter>
+        </activity>
+
         <!-- Notification Shortcuts -->
         <activity android:name="Settings$NotificationShortcutsSettingsActivity"
                 android:label="@string/notification_shortcuts_settings_title"
