@@ -265,6 +265,25 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".pa.PieControl"
+            android:label="@string/pie_controls_title">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="com.aokp.romcontrol.SHORTCUT" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".pa.PieColor">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="com.aokp.romcontrol.SHORTCUT" />
+            </intent-filter>
+        </activity>
+
         <provider
             android:name=".vibrations.VibrationsProvider"
             android:authorities="com.aokp.romcontrol.Vibrations"
