@@ -155,11 +155,11 @@
             android:summary="@string/pie_actnotif_summary"
             android:dependency="pie_controls" />
 
-        <CheckBoxPreference
+        <!--<CheckBoxPreference
             android:key="pie_actqs"
             android:title="@string/pie_actqs_title"
             android:summary="@string/pie_actqs_summary"
-            android:dependency="pie_controls" />
+            android:dependency="pie_controls" />-->
 
     </PreferenceCategory>
 

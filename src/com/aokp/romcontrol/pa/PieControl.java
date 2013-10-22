@@ -61,7 +61,7 @@ public class PieControl extends AOKPPreferenceFragment
     private static final String PIE_KILLTASK = "pie_killtask";
     private static final String PIE_APPWINDOW = "pie_appwindow";
     private static final String PIE_ACTNOTIF = "pie_actnotif";
-    private static final String PIE_ACTQS = "pie_actqs";
+    //private static final String PIE_ACTQS = "pie_actqs";
     private static final String PIE_MENU = "pie_menu";
     private static final String PIE_SEARCH = "pie_search";
     private static final String PIE_RESTART = "pie_restart_launcher";
@@ -78,7 +78,7 @@ public class PieControl extends AOKPPreferenceFragment
     private CheckBoxPreference mPieKillTask;
     private CheckBoxPreference mPieAppWindow;
     private CheckBoxPreference mPieActNotif;
-    private CheckBoxPreference mPieActQs;
+    //private CheckBoxPreference mPieActQs;
     private CheckBoxPreference mPieMenu;
     private CheckBoxPreference mPieSearch;
     private CheckBoxPreference mPieStick;
@@ -180,9 +180,9 @@ public class PieControl extends AOKPPreferenceFragment
         mPieActNotif.setChecked(Settings.System.getInt(mContext.getContentResolver(),
                 Settings.System.PIE_ACT_NOTIF, 0) == 1);
 
-        mPieActQs = (CheckBoxPreference) prefSet.findPreference(PIE_ACTQS);
-        mPieActQs.setChecked(Settings.System.getInt(mContext.getContentResolver(),
-                Settings.System.PIE_ACT_QS, 0) == 1);
+        //mPieActQs = (CheckBoxPreference) prefSet.findPreference(PIE_ACTQS);
+        //mPieActQs.setChecked(Settings.System.getInt(mContext.getContentResolver(),
+        //        Settings.System.PIE_ACT_QS, 0) == 1);
 
         mPieMenu = (CheckBoxPreference) prefSet.findPreference(PIE_MENU);
         mPieMenu.setChecked(Settings.System.getInt(mContext.getContentResolver(),
@@ -211,9 +211,9 @@ public class PieControl extends AOKPPreferenceFragment
         } else if (preference == mPieActNotif) {
             Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
                     Settings.System.PIE_ACT_NOTIF, mPieActNotif.isChecked() ? 1 : 0);
-        } else if (preference == mPieActQs) {
-            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
-                    Settings.System.PIE_ACT_QS, mPieActQs.isChecked() ? 1 : 0);
+        //} else if (preference == mPieActQs) {
+        //    Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
+        //            Settings.System.PIE_ACT_QS, mPieActQs.isChecked() ? 1 : 0);
         } else if (preference == mPieMenu) {
             Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
                     Settings.System.PIE_MENU, mPieMenu.isChecked() ? 1 : 0);
