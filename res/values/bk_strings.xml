@@ -646,4 +646,8 @@ Paranoid PIE control is wavely based on simple navigation to expanded desktop. S
 
     <!-- Hosts File Manager -->
     <string name="hosts_title">Hosts Switcher</string>
+
+    <!-- Hide All Signal-->
+    <string name="hide_all_signal_title">Hide signal and WiFi bars</string>
+    <string name="hide_all_signal_summary">Checking this hides signal and WiFi bar indicators</string>
 </resources>
