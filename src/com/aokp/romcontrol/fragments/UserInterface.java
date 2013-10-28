@@ -294,7 +294,7 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
 
         mStatusBarCarrierLabel = (CheckBoxPreference) findPreference(STATUS_BAR_CARRIER_LABEL);
         mStatusBarCarrierLabel.setChecked(Settings.System.getBoolean(mContentResolver,
-                Settings.System.STATUS_BAR_CARRIER, false));
+                Settings.System.STATUS_BAR_CARRIER, true));
 
         mCarrierColorPicker = (ColorPickerPreference) findPreference(STATUS_BAR_CARRIER_COLOR);
         mCarrierColorPicker.setOnPreferenceChangeListener(this);
