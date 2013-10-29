@@ -296,6 +296,14 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".fragments.WakeLockBlocker"
+            android:label="@string/wakelock_blocker" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
+
         <provider
             android:name=".vibrations.VibrationsProvider"
             android:authorities="com.aokp.romcontrol.Vibrations"
