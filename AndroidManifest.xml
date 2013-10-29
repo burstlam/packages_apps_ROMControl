@@ -288,6 +288,14 @@
 
         <activity android:name=".chameleonos.gestureanywhere.GestureAnywhereCreateGestureActivity" />
 
+        <activity
+            android:name="fragments.maxwen.ScreenStateToggles"
+            android:label="@string/screen_state_toggles_title" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />    
+            </intent-filter>
+        </activity>
+
         <provider
             android:name=".vibrations.VibrationsProvider"
             android:authorities="com.aokp.romcontrol.Vibrations"
