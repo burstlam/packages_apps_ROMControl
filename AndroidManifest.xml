@@ -270,6 +270,14 @@
 
         <activity android:name=".chameleonos.gestureanywhere.GestureAnywhereCreateGestureActivity" />
 
+        <activity
+            android:name="fragments.maxwen.ScreenStateToggles"
+            android:label="@string/screen_state_toggles_title" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />    
+            </intent-filter>
+        </activity>
+
         <!-- Notification Shortcuts -->
         <activity android:name="Settings$NotificationShortcutsSettingsActivity"
                 android:label="@string/notification_shortcuts_settings_title"
