@@ -252,4 +252,7 @@
     <string name="notification_shortcuts_icon_picker_terminal">Terminal</string>
     <string name="notification_shortcuts_icon_picker_twitter">Twitter</string>
     <string name="notification_shortcuts_icon_picker_unlock">Unlock</string>
+
+    <!--Notification ROW Transparency-->
+    <string name="notif_alpha_title">Notification Rows transparency</string>
 </resources>

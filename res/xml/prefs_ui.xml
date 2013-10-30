@@ -60,6 +60,10 @@
             android:key="notification_wallpaper_alpha"
             android:title="@string/notif_wallpaper_alpha_title" />
 
+        <com.aokp.romcontrol.widgets.SeekBarPreference
+            android:key="notification_alpha"
+            android:title="@string/notif_alpha_title" />
+
         <CheckBoxPreference
             android:key="status_bar_notif_count"
             android:title="@string/status_bar_notif_count_title"
