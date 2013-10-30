@@ -55,6 +55,7 @@ import com.aokp.romcontrol.util.AbstractAsyncSuCMDProcessor;
 import com.aokp.romcontrol.util.CMDProcessor;
 import com.aokp.romcontrol.util.Helpers;
 import com.aokp.romcontrol.widgets.AlphaSeekBar;
+import com.aokp.romcontrol.widgets.SeekBarPreference;
 
 import net.margaritov.preference.colorpicker.ColorPickerPreference;
 
@@ -118,6 +119,7 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
     private static final CharSequence  PREF_NOTIFICATION_BEHAVIOUR = "notifications_behaviour";
     private static final CharSequence KEY_STATUS_BAR_ICON_OPACITY = "status_bar_icon_opacity";
     private static final CharSequence PREF_LOW_BATTERY_WARNING_POLICY = "pref_low_battery_warning_policy";
+    private static final String PREF_NOTIFICATION_ALPHA = "notification_alpha";
 
     CheckBoxPreference mDisableBootAnimation;
     CheckBoxPreference mStatusBarNotifCount;
@@ -148,6 +150,7 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
     ListPreference mNotificationsBehavior;
     ListPreference mStatusBarIconOpacity;
     ListPreference mLowBatteryWarning;
+    SeekBarPreference mNotifAlpha;
 
     private AnimationDrawable mAnimationPart1;
     private AnimationDrawable mAnimationPart2;
@@ -310,6 +313,18 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
         hexColor = String.format("#%08x", (0xffffffff & intColor));
         mCarrierColorPicker.setSummary(hexColor);
         mCarrierColorPicker.setNewPreviewColor(intColor);
+
+        float notifTransparency;
+        try{
+            notifTransparency = Settings.System.getFloat(getActivity().getContentResolver(), Settings.System.NOTIF_ALPHA);
+        }catch (Exception e) {
+            notifTransparency = 0;
+            Settings.System.putFloat(getActivity().getContentResolver(), Settings.System.NOTIF_ALPHA, 0);
+        }
+        mNotifAlpha = (SeekBarPreference) findPreference(PREF_NOTIFICATION_ALPHA);
+        mNotifAlpha.setInitValue((int) (notifTransparency * 100));
+        mNotifAlpha.setProperty(Settings.System.NOTIF_ALPHA);
+        mNotifAlpha.setOnPreferenceChangeListener(this);
 
         mUiMode = Settings.System.getInt(mContext.getContentResolver(),
                 Settings.System.CURRENT_UI_MODE, 0);
@@ -1131,6 +1146,11 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
             Settings.System.putInt(getActivity().getContentResolver(),
                     Settings.System.POWER_UI_LOW_BATTERY_WARNING_POLICY, lowBatteryWarning);
             mLowBatteryWarning.setSummary(mLowBatteryWarning.getEntries()[index]);
+            return true;
+        } else if (preference == mNotifAlpha) {
+            float valNav = Float.parseFloat((String) newValue);
+            Settings.System.putFloat(getActivity().getContentResolver(),
+                    Settings.System.NOTIF_ALPHA, valNav / 100);
             return true;
         }
         return false;
