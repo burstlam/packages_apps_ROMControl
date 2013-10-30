@@ -87,6 +87,13 @@ xmlns:android="http://schemas.android.com/apk/res/android">
         android:icon="@drawable/ic_interface_app_sidebar"
         android:summary="@string/pref_interface_app_sidebar_summary" />
 
+    <!-- Gesture Anywhere -->
+    <header
+        android:id="@+id/gesture_anywhere"
+        android:fragment="com.aokp.romcontrol.chameleonos.gestureanywhere.GestureAnywhereSettings"
+        android:icon="@drawable/ic_settings_gesture_anywhere"
+        android:title="@string/gesture_anywhere_title" />
+
     <header
         android:id="@+id/statusbar"
         android:title="@string/header_statusbar" />

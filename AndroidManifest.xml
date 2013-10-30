@@ -284,6 +284,10 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".chameleonos.gestureanywhere.GestureAnywhereBuilderActivity" />
+
+        <activity android:name=".chameleonos.gestureanywhere.GestureAnywhereCreateGestureActivity" />
+
         <provider
             android:name=".vibrations.VibrationsProvider"
             android:authorities="com.aokp.romcontrol.Vibrations"
