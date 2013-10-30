@@ -105,7 +105,7 @@ public class GestureAnywhereBuilderActivity extends ListActivity
         if (sStore == null) {
             if(!mStoreFile.exists()) {
                 CMDProcessor.runSuCommand("touch /data/system/ga_gestures");
-                CMDProcessor.runSuCommand("chmod 666 /data/system/ga_gestures");
+                CMDProcessor.runSuCommand("chmod 777 /data/system/ga_gestures");
             }
             sStore = GestureLibraries.fromFile(mStoreFile);
         }
