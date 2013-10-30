@@ -266,6 +266,10 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".chameleonos.gestureanywhere.GestureAnywhereBuilderActivity" />
+
+        <activity android:name=".chameleonos.gestureanywhere.GestureAnywhereCreateGestureActivity" />
+
         <!-- Notification Shortcuts -->
         <activity android:name="Settings$NotificationShortcutsSettingsActivity"
                 android:label="@string/notification_shortcuts_settings_title"
