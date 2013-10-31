@@ -104,7 +104,7 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
     private static final CharSequence PREF_DISPLAY = "display";
     private static final CharSequence PREF_POWER_CRT_MODE = "system_power_crt_mode";
     private static final CharSequence PREF_POWER_CRT_SCREEN_OFF = "system_power_crt_screen_off";
-    private static final CharSequence PREF_STATUSBAR_HIDDEN = "statusbar_hidden";
+    //private static final CharSequence PREF_STATUSBAR_HIDDEN = "statusbar_hidden";
     private static final CharSequence PREF_DARK_UI = "ui_inverted_mode";
 
     private static final int REQUEST_PICK_WALLPAPER = 201;
@@ -119,6 +119,8 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
     private static final CharSequence  PREF_NOTIFICATION_BEHAVIOUR = "notifications_behaviour";
     private static final CharSequence PREF_LOW_BATTERY_WARNING_POLICY = "pref_low_battery_warning_policy";
     private static final String PREF_NOTIFICATION_ALPHA = "notification_alpha";
+    private static final CharSequence STATUS_BAR_BEHAVIOR = "status_bar_behavior";
+    private static final String STATUS_BAR_QUICK_PEEK = "status_bar_quick_peek";
 
     CheckBoxPreference mDisableBootAnimation;
     CheckBoxPreference mStatusBarNotifCount;
@@ -141,7 +143,7 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
     CheckBoxPreference mDualpane;
     ListPreference mCrtMode;
     CheckBoxPreference mCrtOff;
-    CheckBoxPreference mStatusBarHide;
+    //CheckBoxPreference mStatusBarHide;
     CheckBoxPreference mDarkUI;
 
     CheckBoxPreference mStatusBarCarrierLabel;
@@ -149,6 +151,10 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
     ListPreference mNotificationsBehavior;
     ListPreference mLowBatteryWarning;
     SeekBarPreference mNotifAlpha;
+    ListPreference mStatusBarBeh;
+    CheckBoxPreference mStatusBarQuickPeek;
+
+    private static int mBarBehavior;
 
     private AnimationDrawable mAnimationPart1;
     private AnimationDrawable mAnimationPart2;
@@ -243,9 +249,21 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
         mShowActionOverflow.setChecked(Settings.System.getBoolean(mContentResolver,
                 Settings.System.UI_FORCE_OVERFLOW_BUTTON, false));
 
-        mStatusBarHide = (CheckBoxPreference) findPreference(PREF_STATUSBAR_HIDDEN);
-        mStatusBarHide.setChecked(Settings.System.getBoolean(mContentResolver,
-                Settings.System.STATUSBAR_HIDDEN, false));
+        // mStatusBarHide = (CheckBoxPreference) findPreference(PREF_STATUSBAR_HIDDEN);
+        // mStatusBarHide.setChecked(Settings.System.getBoolean(mContentResolver,
+        //        Settings.System.STATUSBAR_HIDDEN, false));
+
+        mStatusBarBeh = (ListPreference) findPreference(STATUS_BAR_BEHAVIOR);
+        int mBarBehavior = Settings.System.getInt(mContentResolver,
+                Settings.System.HIDE_STATUSBAR, 0);
+        mStatusBarBeh.setValue(Integer.toString(Settings.System.getInt(mContentResolver,
+                Settings.System.HIDE_STATUSBAR, mBarBehavior)));
+        updateStatusBarBehaviorSummary(mBarBehavior);
+        mStatusBarBeh.setOnPreferenceChangeListener(this);
+
+        mStatusBarQuickPeek = (CheckBoxPreference) findPreference(STATUS_BAR_QUICK_PEEK);
+        mStatusBarQuickPeek.setChecked((Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
+                Settings.System.STATUSBAR_PEEK, 0) == 1));
 
         mUserModeUI = (ListPreference) findPreference(PREF_USER_MODE_UI);
         int uiMode = Settings.System.getInt(mContentResolver,
@@ -323,10 +341,12 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
 
         if (mUiMode == 1) {
             mStatusbarSliderPreference.setEnabled(false);
-            mStatusBarHide.setEnabled(false);
+            // mStatusBarHide.setEnabled(false);
+            mStatusBarQuickPeek.setEnabled(false);
             mNotificationWallpaper.setEnabled(false);
             mStatusbarSliderPreference.setSummary(R.string.enable_phone_or_phablet);
-            mStatusBarHide.setSummary(R.string.enable_phone_or_phablet);
+            // mStatusBarHide.setSummary(R.string.enable_phone_or_phablet);
+            mStatusBarQuickPeek.setSummary(R.string.enable_phone_or_phablet);
             mNotificationWallpaper.setSummary(R.string.enable_phone_or_phablet);
         } else {
             mHideExtras.setEnabled(false);
@@ -335,6 +355,23 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
 
         findWallpaperStatus();
         resetBootAnimation();
+    }
+
+    private void updateStatusBarBehaviorSummary(int value) {
+        switch (value) {
+            case 0:
+                mStatusBarBeh.setSummary(getResources().getString(R.string.statusbar_show_summary));
+                break;
+            case 1:
+                mStatusBarBeh.setSummary(getResources().getString(R.string.statusbar_hide_summary));
+                break;
+            case 2:
+                mStatusBarBeh.setSummary(getResources().getString(R.string.statusbar_auto_rem_summary));
+                break;
+            case 3:
+                mStatusBarBeh.setSummary(getResources().getString(R.string.statusbar_auto_all_summary));
+                break;
+        }
     }
 
     @Override
@@ -576,11 +613,16 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
                         Settings.System.SYSTEM_POWER_CRT_MODE, 0);
                 mCrtMode.setSummary(mCrtMode.getEntries()[crtMode]);
             }
-        } else if (preference == mStatusBarHide) {
-            boolean checked = ((CheckBoxPreference) preference).isChecked();
-            Settings.System.putBoolean(getActivity().getContentResolver(),
-                    Settings.System.STATUSBAR_HIDDEN, checked ? true : false);
+        } else if (preference == mStatusBarQuickPeek) {
+            boolean checked = mStatusBarQuickPeek.isChecked();
+            Settings.System.putInt(mContentResolver,
+                    Settings.System.STATUSBAR_PEEK, checked ? 1 : 0);
             return true;
+        //} else if (preference == mStatusBarHide) {
+        //    boolean checked = ((CheckBoxPreference) preference).isChecked();
+        //    Settings.System.putBoolean(getActivity().getContentResolver(),
+        //            Settings.System.STATUSBAR_HIDDEN, checked ? true : false);
+        //    return true;
         } else if (preference == mStatusBarCarrierLabel) {
             boolean checked = mStatusBarCarrierLabel.isChecked();
             Settings.System.putBoolean(getActivity().getContentResolver(),
@@ -1087,12 +1129,15 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
             Settings.System.putInt(mContentResolver,
                     Settings.System.USER_UI_MODE, mUiMode);
             mStatusbarSliderPreference.setEnabled(mUiMode == 1 ? false : true);
-            mStatusBarHide.setEnabled(mUiMode == 1 ? false : true);
+            // mStatusBarHide.setEnabled(mUiMode == 1 ? false : true);
+            mStatusBarQuickPeek.setEnabled(mUiMode == 1 ? false : true);
             mNotificationWallpaper.setEnabled(mUiMode == 1 ? false : true);
             mStatusbarSliderPreference.setSummary(mUiMode == 1 ? R.string.enable_phone_or_phablet
                     : R.string.brightness_slider_summary);
-            mStatusBarHide.setSummary(mUiMode == 1 ? R.string.enable_phone_or_phablet
-                    : R.string.statusbar_hide_summary);
+            // mStatusBarHide.setSummary(mUiMode == 1 ? R.string.enable_phone_or_phablet
+            //        : R.string.statusbar_hide_summary);
+            mStatusBarQuickPeek.setSummary(mUiMode == 1 ? R.string.enable_phone_or_phablet
+                    : R.string.statusbar_quick_peek_summary);
             if (mUiMode == 1) {
                 mNotificationWallpaper.setSummary(R.string.enable_phone_or_phablet);
             } else {
@@ -1138,6 +1183,15 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
             float valNav = Float.parseFloat((String) newValue);
             Settings.System.putFloat(getActivity().getContentResolver(),
                     Settings.System.NOTIF_ALPHA, valNav / 100);
+            return true;
+        } else if (preference == mStatusBarBeh) {
+            int mBarBehavior = Integer.valueOf((String) newValue);
+            int index = mStatusBarBeh.findIndexOfValue((String) newValue);
+            Settings.System.putInt(getActivity().getContentResolver(),
+                    Settings.System.HIDE_STATUSBAR, mBarBehavior);
+            mStatusBarBeh.setSummary(mStatusBarBeh.getEntries()[index]);
+            updateStatusBarBehaviorSummary(mBarBehavior);
+            Helpers.restartSystemUI();
             return true;
         }
         return false;
