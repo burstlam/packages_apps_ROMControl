@@ -55,7 +55,6 @@ import com.aokp.romcontrol.util.AbstractAsyncSuCMDProcessor;
 import com.aokp.romcontrol.util.CMDProcessor;
 import com.aokp.romcontrol.util.Helpers;
 import com.aokp.romcontrol.widgets.AlphaSeekBar;
-import com.aokp.romcontrol.widgets.SeekBarPreference;
 
 import net.margaritov.preference.colorpicker.ColorPickerPreference;
 
@@ -80,18 +79,11 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
     public final String TAG = getClass().getSimpleName();
     private static final boolean DEBUG = false;
 
-    private static final CharSequence PREF_STATUS_BAR_NOTIF_COUNT = "status_bar_notif_count";
-    private static final CharSequence PREF_NOTIFICATION_WALLPAPER = "notification_wallpaper";
-    private static final CharSequence PREF_NOTIFICATION_WALLPAPER_ALPHA =
-            "notification_wallpaper_alpha";
-    private static final CharSequence PREF_CUSTOM_CARRIER_LABEL = "custom_carrier_label";
     private static final CharSequence PREF_SHOW_OVERFLOW = "show_overflow";
-    private static final CharSequence PREF_VIBRATE_NOTIF_EXPAND = "vibrate_notif_expand";
     private static final String PREF_RECENTS_STYLE = "pref_recents_style";
     private static final String PREF_RECENTS_CLEAR = "pref_recents_clear";
     private static final CharSequence PREF_RECENT_GOOGLE_ASSIST = "recent_google_assist";
     private static final CharSequence PREF_RAM_USAGE_BAR = "ram_usage_bar";
-    private static final CharSequence PREF_STATUSBAR_BRIGHTNESS = "statusbar_brightness_slider";
     private static final CharSequence PREF_USER_MODE_UI = "user_mode_ui";
     private static final CharSequence PREF_HIDE_EXTRAS = "hide_extras";
     private static final CharSequence PREF_WAKEUP_WHEN_PLUGGED_UNPLUGGED =
@@ -99,46 +91,30 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
     private static final CharSequence PREF_FORCE_DUAL_PANEL = "force_dualpanel";
     private static final CharSequence PREF_DISABLE_BOOTANIM = "disable_bootanimation";
     private static final CharSequence PREF_CUSTOM_BOOTANIM = "custom_bootanimation";
-    private static final CharSequence PREF_NOTIFICATION_VIBRATE = "notification";
     private static final CharSequence PREF_NAVBAR = "navbar";
     private static final CharSequence PREF_MISC = "misc";
     private static final CharSequence PREF_DISPLAY = "display";
     private static final CharSequence PREF_POWER_CRT_MODE = "system_power_crt_mode";
     private static final CharSequence PREF_POWER_CRT_SCREEN_OFF = "system_power_crt_screen_off";
-    //private static final CharSequence PREF_STATUSBAR_HIDDEN = "statusbar_hidden";
     private static final CharSequence PREF_DARK_UI = "ui_inverted_mode";
 
-    private static final int REQUEST_PICK_WALLPAPER = 201;
+    private static final CharSequence PREF_LOW_BATTERY_WARNING_POLICY = "pref_low_battery_warning_policy";
+
     //private static final int REQUEST_PICK_CUSTOM_ICON = 202; //unused
     private static final int REQUEST_PICK_BOOT_ANIMATION = 203;
 
-    private static final String WALLPAPER_NAME = "notification_wallpaper.jpg";
     private static final String BOOTANIMATION_USER_PATH = "/data/local/bootanimation.zip";
     private static final String BOOTANIMATION_SYSTEM_PATH = "/system/media/bootanimation.zip";
-    private static final String STATUS_BAR_CARRIER_LABEL = "status_bar_carrier_label";
-    private static final String STATUS_BAR_CARRIER_COLOR = "status_bar_carrier_color";
-    private static final CharSequence  PREF_NOTIFICATION_BEHAVIOUR = "notifications_behaviour";
-    private static final CharSequence KEY_STATUS_BAR_ICON_OPACITY = "status_bar_icon_opacity";
-    private static final CharSequence PREF_LOW_BATTERY_WARNING_POLICY = "pref_low_battery_warning_policy";
-    private static final String PREF_NOTIFICATION_ALPHA = "notification_alpha";
-    private static final CharSequence STATUS_BAR_BEHAVIOR = "status_bar_behavior";
-    private static final String STATUS_BAR_QUICK_PEEK = "status_bar_quick_peek";
 
     CheckBoxPreference mDisableBootAnimation;
-    CheckBoxPreference mStatusBarNotifCount;
-    Preference mNotificationWallpaper;
-    Preference mWallpaperAlpha;
-    Preference mCustomLabel;
     Preference mCustomBootAnimation;
     ImageView mView;
     TextView mError;
     CheckBoxPreference mShowActionOverflow;
-    CheckBoxPreference mVibrateOnExpand;
     ListPreference mRecentStyle;
     ListPreference mRecentClear;
     CheckBoxPreference mRecentGoog;
     CheckBoxPreference mRamBar;
-    CheckBoxPreference mStatusbarSliderPreference;
     AlertDialog mCustomBootAnimationDialog;
     ListPreference mUserModeUI;
     CheckBoxPreference mHideExtras;
@@ -146,19 +122,9 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
     CheckBoxPreference mDualpane;
     ListPreference mCrtMode;
     CheckBoxPreference mCrtOff;
-    //CheckBoxPreference mStatusBarHide;
     CheckBoxPreference mDarkUI;
 
-    CheckBoxPreference mStatusBarCarrierLabel;
-    ColorPickerPreference mCarrierColorPicker;
-    ListPreference mNotificationsBehavior;
     ListPreference mLowBatteryWarning;
-    SeekBarPreference mNotifAlpha;
-    ListPreference mStatusBarBeh;
-    CheckBoxPreference mStatusBarQuickPeek;
-    ListPreference mStatusBarIconOpacity;
-
-    private static int mBarBehavior;
 
     private AnimationDrawable mAnimationPart1;
     private AnimationDrawable mAnimationPart2;
@@ -173,7 +139,6 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
 
     private int mUiMode;
     private int mSeekbarProgress;
-    String mCustomLabelText = null;
     int mUserRotationAngles = -1;
 
     @Override
@@ -183,38 +148,14 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
         // Load the preferences from an XML resource
         addPreferencesFromResource(R.xml.prefs_ui);
 
-        int defaultColor;
-        int intColor;
-        String hexColor;
-
         mContentResolver = getContentResolver();
         PreferenceScreen prefs = getPreferenceScreen();
         mInsults = mContext.getResources().getStringArray(
                 R.array.disable_bootanimation_insults);
 
-        mStatusBarNotifCount = (CheckBoxPreference) findPreference(PREF_STATUS_BAR_NOTIF_COUNT);
-        mStatusBarNotifCount.setChecked(Settings.System.getBoolean(mContentResolver,
-                Settings.System.STATUSBAR_NOTIF_COUNT, false));
-
         mDisableBootAnimation = (CheckBoxPreference) findPreference(PREF_DISABLE_BOOTANIM);
 
         mCustomBootAnimation = findPreference(PREF_CUSTOM_BOOTANIM);
-
-        mCustomLabel = findPreference(PREF_CUSTOM_CARRIER_LABEL);
-        updateCustomLabelTextSummary();
-
-        mNotificationsBehavior = (ListPreference) findPreference(PREF_NOTIFICATION_BEHAVIOUR);
-        int CurrentBehavior = Settings.System.getInt(getContentResolver(),
-                Settings.System.NOTIFICATIONS_BEHAVIOUR, 0);
-        mNotificationsBehavior.setValue(String.valueOf(CurrentBehavior));
-        mNotificationsBehavior.setSummary(mNotificationsBehavior.getEntry());
-        mNotificationsBehavior.setOnPreferenceChangeListener(this);
-
-        mStatusBarIconOpacity = (ListPreference) findPreference(KEY_STATUS_BAR_ICON_OPACITY);
-        int iconOpacity = Settings.System.getInt(mContentResolver,
-                Settings.System.STATUS_BAR_NOTIF_ICON_OPACITY, 140);
-        mStatusBarIconOpacity.setValue(String.valueOf(iconOpacity));
-        mStatusBarIconOpacity.setOnPreferenceChangeListener(this);
 
         mLowBatteryWarning = (ListPreference) findPreference(PREF_LOW_BATTERY_WARNING_POLICY);
         int lowBatteryWarning = Settings.System.getInt(mContentResolver,
@@ -222,22 +163,6 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
         mLowBatteryWarning.setValue(String.valueOf(lowBatteryWarning));
         mLowBatteryWarning.setSummary(mLowBatteryWarning.getEntry());
         mLowBatteryWarning.setOnPreferenceChangeListener(this);
-
-        mStatusbarSliderPreference = (CheckBoxPreference) findPreference(PREF_STATUSBAR_BRIGHTNESS);
-        mStatusbarSliderPreference.setChecked(Settings.System.getBoolean(mContentResolver,
-                Settings.System.STATUSBAR_BRIGHTNESS_SLIDER, true));
-
-        mNotificationWallpaper = findPreference(PREF_NOTIFICATION_WALLPAPER);
-
-        mWallpaperAlpha = (Preference) findPreference(PREF_NOTIFICATION_WALLPAPER_ALPHA);
-
-        mVibrateOnExpand = (CheckBoxPreference) findPreference(PREF_VIBRATE_NOTIF_EXPAND);
-        mVibrateOnExpand.setChecked(Settings.System.getBoolean(mContentResolver,
-                Settings.System.VIBRATE_NOTIF_EXPAND, true));
-        if (!hasVibration) {
-            ((PreferenceGroup) findPreference(PREF_NOTIFICATION_VIBRATE))
-                    .removePreference(mVibrateOnExpand);
-        }
 
         mRecentClear = (ListPreference) findPreference(PREF_RECENTS_CLEAR);
         int RecentClear = Settings.System.getInt(getActivity().getContentResolver(),
@@ -268,22 +193,6 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
         mShowActionOverflow = (CheckBoxPreference) findPreference(PREF_SHOW_OVERFLOW);
         mShowActionOverflow.setChecked(Settings.System.getBoolean(mContentResolver,
                 Settings.System.UI_FORCE_OVERFLOW_BUTTON, false));
-
-        // mStatusBarHide = (CheckBoxPreference) findPreference(PREF_STATUSBAR_HIDDEN);
-        // mStatusBarHide.setChecked(Settings.System.getBoolean(mContentResolver,
-        //        Settings.System.STATUSBAR_HIDDEN, false));
-
-        mStatusBarBeh = (ListPreference) findPreference(STATUS_BAR_BEHAVIOR);
-        int mBarBehavior = Settings.System.getInt(mContentResolver,
-                Settings.System.HIDE_STATUSBAR, 0);
-        mStatusBarBeh.setValue(Integer.toString(Settings.System.getInt(mContentResolver,
-                Settings.System.HIDE_STATUSBAR, mBarBehavior)));
-        updateStatusBarBehaviorSummary(mBarBehavior);
-        mStatusBarBeh.setOnPreferenceChangeListener(this);
-
-        mStatusBarQuickPeek = (CheckBoxPreference) findPreference(STATUS_BAR_QUICK_PEEK);
-        mStatusBarQuickPeek.setChecked((Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
-                Settings.System.STATUSBAR_PEEK, 0) == 1));
 
         mUserModeUI = (ListPreference) findPreference(PREF_USER_MODE_UI);
         int uiMode = Settings.System.getInt(mContentResolver,
@@ -330,68 +239,15 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
                     .removePreference(mWakeUpWhenPluggedOrUnplugged);
         }
 
-        mStatusBarCarrierLabel = (CheckBoxPreference) findPreference(STATUS_BAR_CARRIER_LABEL);
-        mStatusBarCarrierLabel.setChecked(Settings.System.getBoolean(mContentResolver,
-                Settings.System.STATUS_BAR_CARRIER, true));
-
-        mCarrierColorPicker = (ColorPickerPreference) findPreference(STATUS_BAR_CARRIER_COLOR);
-        mCarrierColorPicker.setOnPreferenceChangeListener(this);
-        defaultColor = getResources().getColor(
-                com.android.internal.R.color.holo_blue_light);
-        intColor = Settings.System.getInt(getActivity().getContentResolver(),
-                    Settings.System.STATUS_BAR_CARRIER_COLOR, defaultColor);
-        hexColor = String.format("#%08x", (0xffffffff & intColor));
-        mCarrierColorPicker.setSummary(hexColor);
-        mCarrierColorPicker.setNewPreviewColor(intColor);
-
-        float notifTransparency;
-        try{
-            notifTransparency = Settings.System.getFloat(getActivity().getContentResolver(), Settings.System.NOTIF_ALPHA);
-        }catch (Exception e) {
-            notifTransparency = 0;
-            Settings.System.putFloat(getActivity().getContentResolver(), Settings.System.NOTIF_ALPHA, 0);
-        }
-        mNotifAlpha = (SeekBarPreference) findPreference(PREF_NOTIFICATION_ALPHA);
-        mNotifAlpha.setInitValue((int) (notifTransparency * 100));
-        mNotifAlpha.setProperty(Settings.System.NOTIF_ALPHA);
-        mNotifAlpha.setOnPreferenceChangeListener(this);
-
         mUiMode = Settings.System.getInt(mContext.getContentResolver(),
                 Settings.System.CURRENT_UI_MODE, 0);
 
-        if (mUiMode == 1) {
-            mStatusbarSliderPreference.setEnabled(false);
-            // mStatusBarHide.setEnabled(false);
-            mStatusBarQuickPeek.setEnabled(false);
-            mNotificationWallpaper.setEnabled(false);
-            mStatusbarSliderPreference.setSummary(R.string.enable_phone_or_phablet);
-            // mStatusBarHide.setSummary(R.string.enable_phone_or_phablet);
-            mStatusBarQuickPeek.setSummary(R.string.enable_phone_or_phablet);
-            mNotificationWallpaper.setSummary(R.string.enable_phone_or_phablet);
-        } else {
+        if (mUiMode != 1) {
             mHideExtras.setEnabled(false);
             mHideExtras.setSummary(R.string.enable_tablet_ui);
         }
 
-        findWallpaperStatus();
         resetBootAnimation();
-    }
-
-    private void updateStatusBarBehaviorSummary(int value) {
-        switch (value) {
-            case 0:
-                mStatusBarBeh.setSummary(getResources().getString(R.string.statusbar_show_summary));
-                break;
-            case 1:
-                mStatusBarBeh.setSummary(getResources().getString(R.string.statusbar_hide_summary));
-                break;
-            case 2:
-                mStatusBarBeh.setSummary(getResources().getString(R.string.statusbar_auto_rem_summary));
-                break;
-            case 3:
-                mStatusBarBeh.setSummary(getResources().getString(R.string.statusbar_auto_all_summary));
-                break;
-        }
     }
 
     @Override
@@ -452,25 +308,10 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
                 .commit();
     }
 
-    private void updateCustomLabelTextSummary() {
-        mCustomLabelText = Settings.System.getString(mContentResolver,
-                Settings.System.CUSTOM_CARRIER_LABEL);
-        if (mCustomLabelText == null || mCustomLabelText.isEmpty()) {
-            mCustomLabel.setSummary(R.string.custom_carrier_label_notset);
-        } else {
-            mCustomLabel.setSummary(mCustomLabelText);
-        }
-    }
-
     @Override
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen,
                                          Preference preference) {
-        if (preference == mStatusBarNotifCount) {
-            Settings.System.putBoolean(mContentResolver,
-                    Settings.System.STATUSBAR_NOTIF_COUNT,
-                    ((TwoStatePreference) preference).isChecked());
-            return true;
-        } else if (preference == mDisableBootAnimation) {
+        if (preference == mDisableBootAnimation) {
             DisableBootAnimation();
             return true;
         } else if (preference == mHideExtras) {
@@ -498,107 +339,6 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
                 Toast.makeText(getActivity(), R.string.show_overflow_toast_disable,
                         Toast.LENGTH_LONG).show();
             }
-            return true;
-        } else if (preference == mNotificationWallpaper) {
-            File wallpaper = new File(mContext.getFilesDir(), WALLPAPER_NAME);
-            if (wallpaper.exists()) {
-                buildWallpaperAlert();
-            } else {
-                prepareAndSetWallpaper();
-            }
-            return true;
-        } else if (preference == mWallpaperAlpha) {
-            Resources res = getActivity().getResources();
-            String cancel = res.getString(R.string.cancel);
-            String ok = res.getString(R.string.ok);
-            String title = res.getString(R.string.alpha_dialog_title);
-            float savedProgress = Settings.System.getFloat(mContentResolver,
-                    Settings.System.NOTIF_WALLPAPER_ALPHA, 1.0f);
-
-            LayoutInflater factory = LayoutInflater.from(getActivity());
-            View alphaDialog = factory.inflate(R.layout.seekbar_dialog, null);
-            SeekBar seekbar = (SeekBar) alphaDialog.findViewById(R.id.seek_bar);
-            OnSeekBarChangeListener seekBarChangeListener = new OnSeekBarChangeListener() {
-                @Override
-                public void onProgressChanged(SeekBar seekbar,
-                                              int progress, boolean fromUser) {
-                    mSeekbarProgress = seekbar.getProgress();
-                }
-
-                @Override
-                public void onStopTrackingTouch(SeekBar seekbar) {
-                }
-
-                @Override
-                public void onStartTrackingTouch(SeekBar seekbar) {
-                }
-            };
-            seekbar.setProgress((int) (savedProgress * 100));
-            seekbar.setMax(100);
-            seekbar.setOnSeekBarChangeListener(seekBarChangeListener);
-            new AlertDialog.Builder(getActivity())
-                    .setTitle(title)
-                    .setView(alphaDialog)
-                    .setNegativeButton(cancel, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            // nothing
-                        }
-                    })
-                    .setPositiveButton(ok, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            float val = (float) mSeekbarProgress / 100;
-                            Settings.System.putFloat(mContentResolver,
-                                    Settings.System.NOTIF_WALLPAPER_ALPHA, val);
-                            Helpers.restartSystemUI();
-                        }
-                    })
-                    .create()
-                    .show();
-            return true;
-        } else if (preference == mStatusbarSliderPreference) {
-            Settings.System.putBoolean(mContentResolver,
-                    Settings.System.STATUSBAR_BRIGHTNESS_SLIDER,
-                    isCheckBoxPrefernceChecked(preference));
-            return true;
-        } else if (preference == mCustomLabel) {
-            AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
-            alert.setTitle(R.string.custom_carrier_label_title);
-            alert.setMessage(R.string.custom_carrier_label_explain);
-
-            // Set an EditText mView to get user input
-            final EditText input = new EditText(getActivity());
-            final InputFilter[] filter = new InputFilter[1];
-            filter[0] = new InputFilter.LengthFilter(40);
-
-            input.setFilters(filter);
-            input.setText(mCustomLabelText != null ? mCustomLabelText : "");
-            alert.setView(input);
-            alert.setPositiveButton(getResources().getString(R.string.ok),
-                    new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int whichButton) {
-                            String value = input.getText().toString();
-                            Settings.System.putString(mContentResolver,
-                                    Settings.System.CUSTOM_CARRIER_LABEL, value);
-                            updateCustomLabelTextSummary();
-                            Intent i = new Intent();
-                            i.setAction("com.aokp.romcontrol.LABEL_CHANGED");
-                            mContext.sendBroadcast(i);
-                        }
-                    });
-            alert.setNegativeButton(getResources().getString(R.string.cancel),
-                    new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int whichButton) {
-                            // Canceled.
-                        }
-                    });
-            alert.show();
-        } else if (preference == mVibrateOnExpand) {
-            Settings.System.putBoolean(mContentResolver,
-                    Settings.System.VIBRATE_NOTIF_EXPAND,
-                    ((TwoStatePreference) preference).isChecked());
-            Helpers.restartSystemUI();
             return true;
         } else if (preference == mRecentGoog) {
             boolean checked = ((TwoStatePreference) preference).isChecked();
@@ -628,21 +368,6 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
                         Settings.System.SYSTEM_POWER_CRT_MODE, 0);
                 mCrtMode.setSummary(mCrtMode.getEntries()[crtMode]);
             }
-        } else if (preference == mStatusBarQuickPeek) {
-            boolean checked = mStatusBarQuickPeek.isChecked();
-            Settings.System.putInt(mContentResolver,
-                    Settings.System.STATUSBAR_PEEK, checked ? 1 : 0);
-            return true;
-        //} else if (preference == mStatusBarHide) {
-        //    boolean checked = ((CheckBoxPreference) preference).isChecked();
-        //    Settings.System.putBoolean(getActivity().getContentResolver(),
-        //            Settings.System.STATUSBAR_HIDDEN, checked ? true : false);
-        //    return true;
-        } else if (preference == mStatusBarCarrierLabel) {
-            boolean checked = mStatusBarCarrierLabel.isChecked();
-            Settings.System.putBoolean(getActivity().getContentResolver(),
-                    Settings.System.STATUS_BAR_CARRIER, checked ? true : false);
-            return true;
         } else if (preference == mDarkUI) {
             boolean checked = ((CheckBoxPreference) preference).isChecked();
             Settings.Secure.putInt(mContentResolver,
@@ -680,51 +405,9 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
         return super.onPreferenceTreeClick(preferenceScreen, preference);
     }
 
-    private Uri getNotificationExternalUri() {
-        File dir = mContext.getExternalCacheDir();
-        File wallpaper = new File(dir, WALLPAPER_NAME);
-        return Uri.fromFile(wallpaper);
-    }
-
-    public void findWallpaperStatus() {
-        File wallpaper = new File(mContext.getFilesDir(), WALLPAPER_NAME);
-        if (mUiMode != 1 && wallpaper.exists()) {
-            mWallpaperAlpha.setEnabled(true);
-            mWallpaperAlpha.setSummary(null);
-        } else {
-            mWallpaperAlpha.setEnabled(false);
-            mWallpaperAlpha.setSummary(R.string.enable_noti_wallpaper);
-        }
-    }
-
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == Activity.RESULT_OK) {
-            if (requestCode == REQUEST_PICK_WALLPAPER) {
-                FileOutputStream wallpaperStream = null;
-                try {
-                    wallpaperStream = mContext.openFileOutput(WALLPAPER_NAME,
-                            Context.MODE_WORLD_READABLE);
-                    Uri selectedImageUri = getNotificationExternalUri();
-                    Bitmap bitmap = BitmapFactory.decodeFile(
-                            selectedImageUri.getPath());
-                    bitmap.compress(Bitmap.CompressFormat.PNG,
-                            100,
-                            wallpaperStream);
-                } catch (FileNotFoundException e) {
-                    return; // NOOOOO
-                } finally {
-                    try {
-                        if (wallpaperStream != null) {
-                            wallpaperStream.close();
-                        }
-                    } catch (IOException e) {
-                        // let it go
-                    }
-                }
-                findWallpaperStatus();
-                buildWallpaperAlert();
-                Helpers.restartSystemUI();
-            } else if (requestCode == REQUEST_PICK_BOOT_ANIMATION) {
+            if (requestCode == REQUEST_PICK_BOOT_ANIMATION) {
                 if (data == null) {
                     //Nothing returned by user, probably pressed back button in file manager
                     return;
@@ -733,69 +416,6 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
                 openBootAnimationDialog();
             }
         }
-    }
-
-    private void buildWallpaperAlert() {
-        Drawable myWall = null;
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle(R.string.notification_wallpaper_dialog);
-        builder.setPositiveButton(R.string.notification_wallpaper_pick,
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        prepareAndSetWallpaper();
-                    }
-                });
-        builder.setNegativeButton(R.string.notification_wallpaper_reset,
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        resetWallpaper();
-                        dialog.dismiss();
-                    }
-                });
-        LayoutInflater inflater = LayoutInflater.from(getActivity());
-        View layout = inflater.inflate(R.layout.dialog_shade_wallpaper, null);
-        ImageView wallView = (ImageView) layout.findViewById(R.id.shade_wallpaper_preview);
-        Display display = getActivity().getWindowManager().getDefaultDisplay();
-        Point size = new Point();
-        display.getSize(size);
-        wallView.setLayoutParams(new LinearLayout.LayoutParams(size.x / 2, size.y / 2));
-        File wallpaper = new File(mContext.getFilesDir(), WALLPAPER_NAME);
-        myWall = new BitmapDrawable(mContext.getResources(), wallpaper.getAbsolutePath());
-        wallView.setImageDrawable(myWall);
-        builder.setView(layout);
-        builder.show();
-    }
-
-    private void prepareAndSetWallpaper() {
-        Display display = getActivity().getWindowManager().getDefaultDisplay();
-        int width = getActivity().getWallpaperDesiredMinimumWidth();
-        int height = getActivity().getWallpaperDesiredMinimumHeight();
-        float spotlightX = (float)display.getWidth() / width;
-        float spotlightY = (float)display.getHeight() / height;
-
-        Intent intent = new Intent(Intent.ACTION_GET_CONTENT, null);
-        intent.setType("image/*");
-        intent.putExtra("crop", "true");
-        intent.putExtra("scale", true);
-        intent.putExtra("scaleUpIfNeeded", true);
-        intent.putExtra("aspectX", width);
-        intent.putExtra("aspectY", height);
-        intent.putExtra("outputX", width);
-        intent.putExtra("outputY", height);
-        intent.putExtra("spotlightX", spotlightX);
-        intent.putExtra("spotlightY", spotlightY);
-        intent.putExtra(MediaStore.EXTRA_OUTPUT,
-                getNotificationExternalUri());
-        intent.putExtra("outputFormat",
-                Bitmap.CompressFormat.PNG.toString());
-        startActivityForResult(intent, REQUEST_PICK_WALLPAPER);
-    }
-
-    private void resetWallpaper() {
-        mContext.deleteFile(WALLPAPER_NAME);
-        findWallpaperStatus();
-        Helpers.restartSystemUI();
     }
 
     private void openBootAnimationDialog() {
@@ -1143,25 +763,9 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
             mUiMode = Integer.valueOf((String) newValue);
             Settings.System.putInt(mContentResolver,
                     Settings.System.USER_UI_MODE, mUiMode);
-            mStatusbarSliderPreference.setEnabled(mUiMode == 1 ? false : true);
-            // mStatusBarHide.setEnabled(mUiMode == 1 ? false : true);
-            mStatusBarQuickPeek.setEnabled(mUiMode == 1 ? false : true);
-            mNotificationWallpaper.setEnabled(mUiMode == 1 ? false : true);
-            mStatusbarSliderPreference.setSummary(mUiMode == 1 ? R.string.enable_phone_or_phablet
-                    : R.string.brightness_slider_summary);
-            // mStatusBarHide.setSummary(mUiMode == 1 ? R.string.enable_phone_or_phablet
-            //        : R.string.statusbar_hide_summary);
-            mStatusBarQuickPeek.setSummary(mUiMode == 1 ? R.string.enable_phone_or_phablet
-                    : R.string.statusbar_quick_peek_summary);
-            if (mUiMode == 1) {
-                mNotificationWallpaper.setSummary(R.string.enable_phone_or_phablet);
-            } else {
-                mNotificationWallpaper.setSummary(null);
-            }
             mHideExtras.setEnabled(mUiMode == 1 ? true : false);
             mHideExtras.setSummary(mUiMode == 1 ? R.string.hide_extras_summary
                     : R.string.enable_tablet_ui);
-            findWallpaperStatus();
             Helpers.restartSystemUI();
             return true;
         } else if (preference == mCrtMode) {
@@ -1171,47 +775,12 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
                     Settings.System.SYSTEM_POWER_CRT_MODE, crtMode);
             mCrtMode.setSummary(mCrtMode.getEntries()[index]);
             return true;
-        } else if (preference == mCarrierColorPicker) {
-            String hex = ColorPickerPreference.convertToARGB(Integer.valueOf(String.valueOf(newValue)));
-            preference.setSummary(hex);
-            int intHex = ColorPickerPreference.convertToColorInt(hex);
-            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
-                    Settings.System.STATUS_BAR_CARRIER_COLOR, intHex);
-            return true;
-        } else if (preference == mNotificationsBehavior) {
-            String val = (String) newValue;
-            Settings.System.putInt(getContentResolver(),
-                Settings.System.NOTIFICATIONS_BEHAVIOUR,
-            Integer.valueOf(val));
-            int index = mNotificationsBehavior.findIndexOfValue(val);
-            mNotificationsBehavior.setSummary(mNotificationsBehavior.getEntries()[index]);
-            Helpers.restartSystemUI();
-            return true;
         } else if (preference == mLowBatteryWarning) {
             int lowBatteryWarning = Integer.valueOf((String) newValue);
             int index = mLowBatteryWarning.findIndexOfValue((String) newValue);
             Settings.System.putInt(getActivity().getContentResolver(),
                     Settings.System.POWER_UI_LOW_BATTERY_WARNING_POLICY, lowBatteryWarning);
             mLowBatteryWarning.setSummary(mLowBatteryWarning.getEntries()[index]);
-            return true;
-        } else if (preference == mNotifAlpha) {
-            float valNav = Float.parseFloat((String) newValue);
-            Settings.System.putFloat(getActivity().getContentResolver(),
-                    Settings.System.NOTIF_ALPHA, valNav / 100);
-            return true;
-        } else if (preference == mStatusBarBeh) {
-            int mBarBehavior = Integer.valueOf((String) newValue);
-            int index = mStatusBarBeh.findIndexOfValue((String) newValue);
-            Settings.System.putInt(getActivity().getContentResolver(),
-                    Settings.System.HIDE_STATUSBAR, mBarBehavior);
-            mStatusBarBeh.setSummary(mStatusBarBeh.getEntries()[index]);
-            updateStatusBarBehaviorSummary(mBarBehavior);
-            Helpers.restartSystemUI();
-            return true;
-        } else if (preference == mStatusBarIconOpacity) {
-            int iconOpacity = Integer.valueOf((String) newValue);
-            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
-                    Settings.System.STATUS_BAR_NOTIF_ICON_OPACITY, iconOpacity);
             return true;
         } else if (preference == mRecentClear) {
             int recentclear = Integer.valueOf((String) newValue);
