@@ -87,7 +87,8 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
     private static final CharSequence PREF_CUSTOM_CARRIER_LABEL = "custom_carrier_label";
     private static final CharSequence PREF_SHOW_OVERFLOW = "show_overflow";
     private static final CharSequence PREF_VIBRATE_NOTIF_EXPAND = "vibrate_notif_expand";
-    private static final CharSequence PREF_RECENT_KILL_ALL = "recent_kill_all";
+    private static final String PREF_RECENTS_STYLE = "pref_recents_style";
+    private static final String PREF_RECENTS_CLEAR = "pref_recents_clear";
     private static final CharSequence PREF_RECENT_GOOGLE_ASSIST = "recent_google_assist";
     private static final CharSequence PREF_RAM_USAGE_BAR = "ram_usage_bar";
     private static final CharSequence PREF_STATUSBAR_BRIGHTNESS = "statusbar_brightness_slider";
@@ -133,7 +134,8 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
     TextView mError;
     CheckBoxPreference mShowActionOverflow;
     CheckBoxPreference mVibrateOnExpand;
-    CheckBoxPreference mRecentKillAll;
+    ListPreference mRecentStyle;
+    ListPreference mRecentClear;
     CheckBoxPreference mRecentGoog;
     CheckBoxPreference mRamBar;
     CheckBoxPreference mStatusbarSliderPreference;
@@ -237,9 +239,19 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
                     .removePreference(mVibrateOnExpand);
         }
 
-        mRecentKillAll = (CheckBoxPreference) findPreference(PREF_RECENT_KILL_ALL);
-        mRecentKillAll.setChecked(Settings.System.getBoolean(mContentResolver,
-                Settings.System.RECENT_KILL_ALL_BUTTON, false));
+        mRecentClear = (ListPreference) findPreference(PREF_RECENTS_CLEAR);
+        int RecentClear = Settings.System.getInt(getActivity().getContentResolver(),
+                Settings.System.RECENTS_CLEAR, 0);
+        mRecentClear.setValue(String.valueOf(RecentClear));
+        mRecentClear.setSummary(mRecentClear.getEntry());
+        mRecentClear.setOnPreferenceChangeListener(this);
+
+        mRecentStyle = (ListPreference) findPreference(PREF_RECENTS_STYLE);
+        int RecentStyle = Settings.System.getInt(getActivity().getContentResolver(),
+                Settings.System.RECENTS_STYLE, 0);
+        mRecentStyle.setValue(String.valueOf(RecentStyle));
+        mRecentStyle.setSummary(mRecentStyle.getEntry());
+        mRecentStyle.setOnPreferenceChangeListener(this);
 
         mRecentGoog = (CheckBoxPreference) findPreference(PREF_RECENT_GOOGLE_ASSIST);
         mRecentGoog.setChecked(Settings.System.getBoolean(mContentResolver,
@@ -587,11 +599,6 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
                     Settings.System.VIBRATE_NOTIF_EXPAND,
                     ((TwoStatePreference) preference).isChecked());
             Helpers.restartSystemUI();
-            return true;
-       } else if (preference == mRecentKillAll) {
-            boolean checked = ((TwoStatePreference) preference).isChecked();
-            Settings.System.putBoolean(mContentResolver,
-                    Settings.System.RECENT_KILL_ALL_BUTTON, checked);
             return true;
         } else if (preference == mRecentGoog) {
             boolean checked = ((TwoStatePreference) preference).isChecked();
@@ -1205,6 +1212,20 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
             int iconOpacity = Integer.valueOf((String) newValue);
             Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
                     Settings.System.STATUS_BAR_NOTIF_ICON_OPACITY, iconOpacity);
+            return true;
+        } else if (preference == mRecentClear) {
+            int recentclear = Integer.valueOf((String) newValue);
+            int index = mRecentClear.findIndexOfValue((String) newValue);
+            Settings.System.putInt(getActivity().getContentResolver(),
+                    Settings.System.RECENTS_CLEAR, recentclear);
+            mRecentClear.setSummary(mRecentClear.getEntries()[index]);
+            return true;
+        } else if (preference == mRecentStyle) {
+            int recentstyle = Integer.valueOf((String) newValue);
+            int index = mRecentStyle.findIndexOfValue((String) newValue);
+            Settings.System.putInt(getActivity().getContentResolver(),
+                    Settings.System.RECENTS_STYLE, recentstyle);
+            mRecentStyle.setSummary(mRecentStyle.getEntries()[index]);
             return true;
         }
         return false;

@@ -431,4 +431,17 @@
     <string name="status_bar_icon_opacity">Notification icon opacity</string>
     <string name="status_bar_icon_opacity_summary">Sets opacity of status bar notification icons</string> 
     <string name="sb_icon_opacity_default">55%(Default)</string>
+
+    <!-- Recents -->
+    <string name="recents_kill_all">Kill-All</string>
+    <string name="recent_kill_all_summary">Enable kill-all button in Recent Apps window and select position</string>
+    <string name="recents_disable">Disable</string>
+    <string name="recents_bottom_right">Bottom Right</string>
+    <string name="recents_bottom_left">Bottom Left</string>
+    <string name="recents_top_right">Top Right</string>
+    <string name="recents_top_left">Top Left</string>
+    <!-- Recents Style -->
+    <string name="recents_style">Recents Style</string>
+    <string name="recents_stock">Stock</string>
+    <string name="recents_rootbox">RootBox</string>
 </resources>
