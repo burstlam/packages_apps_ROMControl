@@ -532,6 +532,7 @@
         <item>@string/pie_action_ime</item>
         <item>@string/pie_action_recents</item>
         <item>@string/pie_action_power</item>
+        <item>@string/pie_action_expanded_desktop</item>
         <item>@string/pie_action_quicksettings</item>
         <item>@string/pie_action_screenshot</item>
         <item>@string/pie_action_search</item>
@@ -550,6 +551,7 @@
         <item>**ime**</item>
         <item>**recents**</item>
         <item>**power**</item>
+        <item>**expanded_desktop**</item>
         <item>**quicksettings**</item>
         <item>**screenshot**</item>
         <item>**search**</item>
