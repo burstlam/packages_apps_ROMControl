@@ -266,6 +266,16 @@
         </activity>
 
         <activity
+            android:name=".fragments.PiePreference"
+            android:label="@string/pie_controls_title" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="com.aokp.romcontrol.SHORTCUT" />
+              </intent-filter>
+        </activity>
+
+        <activity
             android:name=".pa.PieControl"
             android:label="@string/pie_controls_title">
             <intent-filter>
@@ -281,6 +291,16 @@
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="com.aokp.romcontrol.SHORTCUT" />
+            </intent-filter>
+        </activity>
+
+         <activity
+            android:name=".slim.PieControl"
+            android:label="@string/title_navbar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="com.aokp.romcontrol.SHORTCUT"/>
             </intent-filter>
         </activity>
 
