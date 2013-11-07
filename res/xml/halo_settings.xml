@@ -22,6 +22,27 @@
          android:dependency="halo_enabled"
             android:defaultValue="false" />
 
+        <CheckBoxPreference
+            android:key="halo_reversed"
+            android:title="@string/halo_reversed_title"
+            android:summary="@string/halo_reversed_summary"
+            android:dependency="halo_enabled"
+            android:defaultValue="true" />
+
+        <ListPreference
+            android:key="halo_size"
+            android:dialogTitle="@string/halo_size_title"
+            android:title="@string/halo_size_title"
+            android:summary="@string/halo_size_summary"
+            android:entries="@array/entries_halo_size"
+            android:entryValues="@array/values_halo_size" />
+            
+        <CheckBoxPreference
+            android:key="halo_unlock_ping"
+            android:title="@string/halo_unlock_ping_title"
+            android:summary="@string/halo_unlock_ping_summary"
+            android:defaultValue="false" />
+
          <CheckBoxPreference
             android:key="halo_ninja"
             android:title="@string/halo_ninja_title"
@@ -50,13 +71,6 @@
          android:entries="@array/entries_halo_msgbox_animation"
          android:entryValues="@array/values_halo_msgbox_animation" />
 
-        <CheckBoxPreference
-            android:key="halo_reversed"
-            android:title="@string/halo_reversed_title"
-            android:summary="@string/halo_reversed_summary"
-            android:dependency="halo_enabled"
-            android:defaultValue="true" />
-            
         <CheckBoxPreference
             android:key="halo_pause"
             android:title="@string/halo_pause_title"
@@ -97,11 +111,5 @@
             android:title="@string/halo_bubble_text_color_title"
             android:dependency="halo_colors"
             android:defaultValue="0xFFFFFFFF" />
-
-        <CheckBoxPreference
-            android:key="halo_unlock_ping"
-            android:title="@string/halo_unlock_ping_title"
-            android:summary="@string/halo_unlock_ping_summary"
-            android:defaultValue="false" />
 
 </PreferenceScreen>
