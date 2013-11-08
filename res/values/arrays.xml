@@ -280,6 +280,7 @@
         <item>@string/icon_only</item>
         <item>@string/text_only</item>
         <item>@string/icon_with_text</item>
+        <item>@string/icon_with_big_text</item>
         <item>@string/icon_with_centered_text</item>
         <item>@string/circle_battery</item>
         <item>@string/circle_battery_w_percent</item>
@@ -295,6 +296,7 @@
         <item>0</item>
         <item>1</item>
         <item>2</item>
+        <item>6</item>
         <item>3</item>
         <item>4</item>
         <item>5</item>
