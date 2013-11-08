@@ -542,7 +542,7 @@ Paranoid PIE control is wavely based on simple navigation to expanded desktop. S
     <string name="pie_action_menu">Menu</string>
     <string name="pie_action_ime">Open IME Switcher</string>
     <string name="pie_action_kill">Kill app</string>
-<!-- <string name="pie_action_widgets">Widgets viewpager</string> -->
+    <string name="pie_action_widgets">Widgets viewpager</string>
     <string name="pie_action_power">Screen Off</string>
     <string name="pie_action_notifications">Notifications</string>
     <string name="pie_action_quicksettings">Quicksettings panel</string>
