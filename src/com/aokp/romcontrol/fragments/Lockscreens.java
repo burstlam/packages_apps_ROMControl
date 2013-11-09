@@ -102,34 +102,14 @@ public class Lockscreens extends AOKPPreferenceFragment implements
     private ImageView mWallpaperButton;
     private Spinner mGlowTorchSwitch;
     private Switch mLongPressStatus;
-    private Switch mLockBatterySwitch;
-    private Switch mLockRotateSwitch;
-    private Switch mLockVolControlSwitch;
-    private Switch mLockVolWakeSwitch;
-    private Switch mLockPageHintSwitch;
-    private Switch mLockMinimizeChallangeSwitch;
-    private Switch mLockCarouselSwitch;
-    private Switch mLockAllWidgetsSwitch;
-    private Switch mLockUnlimitedWidgetsSwitch;
     private Button mLockTextColorButton;
     private Button mLockColorButton;
-    private Switch mCameraWidgetSwitch;
 
     private TextView mWallpaperText;
     private TextView mGlowTorchText;
     private TextView mLongPressText;
     private TextView mLockTextColorText;
     private TextView mLockColorText;
-    private TextView mLockBatteryText;
-    private TextView mLockRotateText;
-    private TextView mLockVolControlText;
-    private TextView mLockVolWakeText;
-    private TextView mLockPageHintText;
-    private TextView mLockMinimizeChallangeText;
-    private TextView mLockCarouselText;
-    private TextView mLockAllWidgetsText;
-    private TextView mLockUnlimitedWidgetsText;
-    private TextView mCameraWidgetText;
 
     private ShortcutPickerHelper mPicker;
     private String[] targetActivities = new String[8];
@@ -269,151 +249,6 @@ public class Lockscreens extends AOKPPreferenceFragment implements
                 .findViewById(R.id.lockscreen_wallpaper_button));
         mWallpaperButton.setOnClickListener(mWallpaperButtonListener);
 
-        mGlowTorchText = ((TextView) getActivity()
-                .findViewById(R.id.lockscreen_glow_torch_id));
-        mGlowTorchText.setOnClickListener(mGlowTorchTextListener);
-        mGlowTorchSwitch = (Spinner) getActivity().findViewById(R.id.glow_torch_switch);
-        ArrayAdapter<CharSequence> spinnerAdapter = new ArrayAdapter<CharSequence>(
-                getActivity(), android.R.layout.simple_spinner_item);
-        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        final String[] entries = getResources().getStringArray(
-                R.array.pref_lockscreen_glowtorch_entries);
-        for (int i = 0; i < entries.length ; i++) {
-            spinnerAdapter.add(entries[i]);
-        }
-        mGlowTorchSwitch.setAdapter(spinnerAdapter);
-        mGlowTorchSwitch.post(new Runnable() {
-            public void run() {
-                mGlowTorchSwitch.setOnItemSelectedListener(new TorchListener());
-            }
-        });
-
-        if (!hasTorch) {
-            mGlowTorchText.setVisibility(View.GONE);
-            mGlowTorchSwitch.setVisibility(View.GONE);
-        }
-
-        mLockBatteryText = ((TextView) getActivity().findViewById(R.id.lockscreen_battery_id));
-        mLockBatteryText.setOnClickListener(mLockBatteryTextListener);
-        mLockBatterySwitch = (Switch) getActivity().findViewById(R.id.lockscreen_battery_switch);
-        mLockBatterySwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton v, boolean checked) {
-                Settings.System.putBoolean(cr, Settings.System.LOCKSCREEN_BATTERY, checked);
-                updateSwitches();
-            }
-        });
-
-        mLockRotateText = ((TextView) getActivity().findViewById(R.id.lockscreen_rotate_id));
-        mLockRotateText.setOnClickListener(mLockRotateTextListener);
-        mLockRotateSwitch = (Switch) getActivity().findViewById(R.id.lockscreen_rotate_switch);
-        mLockRotateSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton v, boolean checked) {
-                Settings.System.putBoolean(cr, Settings.System.LOCKSCREEN_AUTO_ROTATE, checked);
-                updateSwitches();
-            }
-        });
-
-        mLockVolControlText = ((TextView) getActivity().findViewById(
-                R.id.lockscreen_vol_controls_id));
-        mLockVolControlText.setOnClickListener(mLockVolControlTextListener);
-        mLockVolControlSwitch = (Switch) getActivity().findViewById(
-                R.id.lockscreen_vol_controls_switch);
-        mLockVolControlSwitch
-                .setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                    @Override
-                    public void onCheckedChanged(CompoundButton v, boolean checked) {
-                        Settings.System.putBoolean(cr, Settings.System.VOLUME_MUSIC_CONTROLS,
-                                checked);
-                        updateSwitches();
-                    }
-                });
-
-        mLockVolWakeText = ((TextView) getActivity().findViewById(R.id.lockscreen_vol_wake_id));
-        mLockVolWakeText.setOnClickListener(mLockVolWakeTextListener);
-        mLockVolWakeSwitch = (Switch) getActivity().findViewById(R.id.lockscreen_vol_wake_switch);
-        mLockVolWakeSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton v, boolean checked) {
-                Settings.System.putBoolean(cr, Settings.System.VOLUME_WAKE_SCREEN, checked);
-                updateSwitches();
-            }
-        });
-
-        mLockAllWidgetsText = ((TextView) getActivity()
-                .findViewById(R.id.lockscreen_all_widgets_id));
-        mLockAllWidgetsText.setOnClickListener(mLockAllWidgetsTextListener);
-        mLockAllWidgetsSwitch = (Switch) getActivity().findViewById(
-                R.id.lockscreen_all_widgets_switch);
-        mLockAllWidgetsSwitch
-                .setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                    @Override
-                    public void onCheckedChanged(CompoundButton v, boolean checked) {
-                        Settings.System.putBoolean(cr, Settings.System.LOCKSCREEN_ALL_WIDGETS,
-                                checked);
-                        updateSwitches();
-                    }
-                });
-
-        mLockUnlimitedWidgetsText = ((TextView) getActivity().findViewById(
-                R.id.lockscreen_unlimited_widgets_id));
-        mLockUnlimitedWidgetsText.setOnClickListener(mLockUnlimitedWidgetsTextListener);
-        mLockUnlimitedWidgetsSwitch = (Switch) getActivity().findViewById(
-                R.id.lockscreen_unlimited_widgets_switch);
-        mLockUnlimitedWidgetsSwitch
-                .setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                    @Override
-                    public void onCheckedChanged(CompoundButton v, boolean checked) {
-                        Settings.System.putBoolean(cr,
-                                Settings.System.LOCKSCREEN_UNLIMITED_WIDGETS, checked);
-                        updateSwitches();
-                    }
-                });
-
-        mLockPageHintText = ((TextView) getActivity().findViewById(
-                R.id.lockscreen_hide_page_hints_id));
-        mLockPageHintText.setOnClickListener(mLockPageHintTextListener);
-        mLockPageHintSwitch = (Switch) getActivity().findViewById(
-                R.id.lockscreen_hide_page_hints_switch);
-        mLockPageHintSwitch
-                .setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                    @Override
-                    public void onCheckedChanged(CompoundButton v, boolean checked) {
-                        Settings.System.putBoolean(cr,
-                                Settings.System.LOCKSCREEN_HIDE_INITIAL_PAGE_HINTS, checked);
-                        updateSwitches();
-                    }
-                });
-
-        mLockMinimizeChallangeText = ((TextView) getActivity().findViewById(
-                R.id.lockscreen_minimize_challange_id));
-        mLockMinimizeChallangeText.setOnClickListener(mLockMinimizeChallangeTextListener);
-        mLockMinimizeChallangeSwitch = (Switch) getActivity().findViewById(
-                R.id.lockscreen_minimize_challange_switch);
-        mLockMinimizeChallangeSwitch
-                .setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                    @Override
-                    public void onCheckedChanged(CompoundButton v, boolean checked) {
-                        Settings.System.putBoolean(cr,
-                                Settings.System.LOCKSCREEN_MINIMIZE_LOCKSCREEN_CHALLENGE, checked);
-                        updateSwitches();
-                    }
-                });
-
-        mLockCarouselText = ((TextView) getActivity().findViewById(R.id.lockscreen_carousel_id));
-        mLockCarouselText.setOnClickListener(mLockCarouselTextListener);
-        mLockCarouselSwitch = (Switch) getActivity().findViewById(R.id.lockscreen_carousel_switch);
-        mLockCarouselSwitch
-                .setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                    @Override
-                    public void onCheckedChanged(CompoundButton v, boolean checked) {
-                        Settings.System.putBoolean(cr,
-                                Settings.System.LOCKSCREEN_USE_WIDGET_CONTAINER_CAROUSEL, checked);
-                        updateSwitches();
-                    }
-                });
-
         mLongPressText = ((TextView) getActivity()
                 .findViewById(R.id.lockscreen_target_longpress_id));
         mLongPressText.setOnClickListener(mLongPressTextListener);
@@ -427,46 +262,8 @@ public class Lockscreens extends AOKPPreferenceFragment implements
             }
         });
 
-        mCameraWidgetText = ((TextView) getActivity().findViewById(R.id.lockscreen_camera_widget_id));
-        mCameraWidgetText.setOnClickListener(mCameraWidgetTextListener);
-        mCameraWidgetSwitch = (Switch) getActivity().findViewById(R.id.lockscreen_camera_widget_switch);
-        mCameraWidgetSwitch
-                .setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                    @Override
-                    public void onCheckedChanged(CompoundButton v, boolean checked) {
-                        Settings.System.putBoolean(cr,
-                                Settings.System.LOCKSCREEN_CAMERA_WIDGET_SHOW, checked);
-                        updateSwitches();
-                    }
-                });
-
-        if (isSW600DPScreen(mContext)) {
-            // Lockscreen Camera Widget doesn't appear at SW600DP
-            Settings.System.putBoolean(cr,
-                    Settings.System.LOCKSCREEN_CAMERA_WIDGET_SHOW, false);
-            Settings.System.putBoolean(cr,
-                    Settings.System.LOCKSCREEN_MINIMIZE_LOCKSCREEN_CHALLENGE, false);
-            mLockMinimizeChallangeText.setVisibility(View.GONE);
-            mLockMinimizeChallangeSwitch.setVisibility(View.GONE);
-            mCameraWidgetText.setVisibility(View.GONE);
-            mCameraWidgetSwitch.setVisibility(View.GONE);
-        }
-
         updateSwitches();
         updateDrawables();
-    }
-
-    public class TorchListener implements OnItemSelectedListener {
-        public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-            final String[] values = getResources().getStringArray(
-                    R.array.pref_lockscreen_glowtorch_values);
-            int val = Integer.parseInt((String) values[pos]);
-            Settings.System.putInt(cr, Settings.System.LOCKSCREEN_GLOW_TORCH, val);
-            updateDrawables();
-        }
-        public void onNothingSelected(AdapterView<?> parent) {
-            // Do nothing.
-        }
     }
 
     private TextView.OnClickListener mLockTextColorTextListener = new TextView.OnClickListener() {
@@ -503,107 +300,11 @@ public class Lockscreens extends AOKPPreferenceFragment implements
         }
     };
 
-    private TextView.OnClickListener mGlowTorchTextListener = new TextView.OnClickListener() {
-        public void onClick(View v) {
-            createMessage(
-                    getResources().getString(R.string.lockscreen_glow_torch_text),
-                    getResources().getString(R.string.lockscreen_glow_torch_summary));
-        }
-    };
-
     private TextView.OnClickListener mLongPressTextListener = new TextView.OnClickListener() {
         public void onClick(View v) {
             createMessage(
                     getResources().getString(R.string.lockscreen_target_longpress_text),
                     getResources().getString(R.string.lockscreen_target_longpress_summary));
-        }
-    };
-
-    private TextView.OnClickListener mLockBatteryTextListener = new TextView.OnClickListener() {
-        public void onClick(View v) {
-            createMessage(
-                    getResources().getString(R.string.lockscreen_battery_title),
-                    getResources().getString(R.string.lockscreen_battery_summary));
-        }
-    };
-
-    private TextView.OnClickListener mLockRotateTextListener = new TextView.OnClickListener() {
-        public void onClick(View v) {
-            createMessage(
-                    getResources().getString(R.string.lockscreen_auto_rotate_title),
-                    getResources().getString(R.string.lockscreen_auto_rotate_summary));
-        }
-    };
-
-    private TextView.OnClickListener mLockVolControlTextListener = new TextView.OnClickListener() {
-        public void onClick(View v) {
-            createMessage(
-                    getResources().getString(R.string.volume_music_controls_title),
-                    getResources().getString(R.string.volume_music_controls_summary));
-        }
-    };
-
-    private TextView.OnClickListener mLockVolWakeTextListener = new TextView.OnClickListener() {
-        public void onClick(View v) {
-            createMessage(
-                    getResources().getString(R.string.volume_rocker_wake_title),
-                    getResources().getString(R.string.volume_rocker_wake_summary));
-        }
-    };
-
-    private TextView.OnClickListener mLockUnlimitedWidgetsTextListener =
-            new TextView.OnClickListener() {
-                public void onClick(View v) {
-                    createMessage(
-                            getResources().getString(R.string.lockscreen_unlimited_widgets_title),
-                            getResources()
-                                    .getString(R.string.lockscreen_unlimited_widgets_summary));
-                }
-            };
-
-    private TextView.OnClickListener mLockAllWidgetsTextListener = new TextView.OnClickListener() {
-        public void onClick(View v) {
-            createMessage(
-                    getResources().getString(R.string.lockscreen_all_widgets_title),
-                    getResources().getString(R.string.lockscreen_all_widgets_summary));
-        }
-    };
-
-    private TextView.OnClickListener mLockPageHintTextListener = new TextView.OnClickListener() {
-        public void onClick(View v) {
-            createMessage(
-                    getResources().getString(R.string.lockscreen_hide_initial_page_hints_title),
-                    getResources().getString(R.string.lockscreen_hide_initial_page_hints_summary));
-        }
-    };
-
-    private TextView.OnClickListener mLockMinimizeChallangeTextListener =
-            new TextView.OnClickListener() {
-                public void onClick(View v) {
-                    createMessage(
-                            getResources().getString(R.string.lockscreen_minimize_challenge_title),
-                            getResources()
-                                    .getString(R.string.lockscreen_minimize_challenge_summary));
-                }
-            };
-
-    private TextView.OnClickListener mLockCarouselTextListener = new TextView.OnClickListener() {
-        public void onClick(View v) {
-            createMessage(
-                    getResources().getString(
-                            R.string.lockscreen_use_widget_container_carousel_title),
-                    getResources().getString(
-                            R.string.lockscreen_use_widget_container_carousel_summary));
-        }
-    };
-
-    private TextView.OnClickListener mCameraWidgetTextListener = new TextView.OnClickListener() {
-        public void onClick(View v) {
-            createMessage(
-                    getResources().getString(
-                            R.string.lockscreen_camera_widget_title),
-                    getResources().getString(
-                            R.string.lockscreen_camera_widget_summary));
         }
     };
 
@@ -613,28 +314,6 @@ public class Lockscreens extends AOKPPreferenceFragment implements
         } else {
             mWallpaperButton.setImageDrawable(getResources().getDrawable(R.drawable.ic_wallpaper_none));
         }
-        mGlowTorchSwitch.setSelection(Settings.System.getInt(cr,
-                Settings.System.LOCKSCREEN_GLOW_TORCH, 0));
-        mLockBatterySwitch.setChecked(Settings.System.getBoolean(cr,
-                Settings.System.LOCKSCREEN_BATTERY, false));
-        mLockRotateSwitch.setChecked(Settings.System.getBoolean(cr,
-                Settings.System.LOCKSCREEN_AUTO_ROTATE, false));
-        mLockVolControlSwitch.setChecked(Settings.System.getBoolean(cr,
-                Settings.System.VOLUME_MUSIC_CONTROLS, false));
-        mLockVolWakeSwitch.setChecked(Settings.System.getBoolean(cr,
-                Settings.System.VOLUME_WAKE_SCREEN, false));
-        mLockAllWidgetsSwitch.setChecked(Settings.System.getBoolean(cr,
-                Settings.System.LOCKSCREEN_ALL_WIDGETS, false));
-        mLockUnlimitedWidgetsSwitch.setChecked(Settings.System.getBoolean(cr,
-                Settings.System.LOCKSCREEN_UNLIMITED_WIDGETS, false));
-        mLockPageHintSwitch.setChecked(Settings.System.getBoolean(cr,
-                Settings.System.LOCKSCREEN_HIDE_INITIAL_PAGE_HINTS, false));
-        mLockMinimizeChallangeSwitch.setChecked(Settings.System.getBoolean(cr,
-                Settings.System.LOCKSCREEN_MINIMIZE_LOCKSCREEN_CHALLENGE, false));
-        mLockCarouselSwitch.setChecked(Settings.System.getBoolean(cr,
-                Settings.System.LOCKSCREEN_USE_WIDGET_CONTAINER_CAROUSEL, false));
-        mCameraWidgetSwitch.setChecked(Settings.System.getBoolean(cr,
-                Settings.System.LOCKSCREEN_CAMERA_WIDGET_SHOW, true));
     }
 
 
