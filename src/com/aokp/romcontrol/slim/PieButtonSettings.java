@@ -442,8 +442,8 @@ public class PieButtonSettings extends AOKPPreferenceFragment implements
                 resId = mSystemUiResources.getIdentifier("com.android.systemui:drawable/ic_sysbar_ime_switcher", null, null);
             } else if (uri.equals("**kill**")) {
                 resId = mSystemUiResources.getIdentifier("com.android.systemui:drawable/ic_sysbar_killtask", null, null);
-            /*} else if (uri.equals("**widgets**")) {
-                resId = mSystemUiResources.getIdentifier("com.android.systemui:drawable/ic_sysbar_widget", null, null);*/
+            } else if (uri.equals("**widgets**")) {
+                resId = mSystemUiResources.getIdentifier("com.android.systemui:drawable/ic_sysbar_widget", null, null);
             } else if (uri.equals("**power**")) {
                 resId = mSystemUiResources.getIdentifier("com.android.systemui:drawable/ic_sysbar_power", null, null);
             } else if (uri.equals("**notifications**")) {
@@ -452,6 +452,8 @@ public class PieButtonSettings extends AOKPPreferenceFragment implements
                 resId = mSystemUiResources.getIdentifier("com.android.systemui:drawable/ic_sysbar_lastapp", null, null);
             } else if (uri.equals("**quicksettings**")) {
                 resId = mSystemUiResources.getIdentifier("com.android.systemui:drawable/ic_sysbar_qs", null, null);
+            } else if (uri.equals("**expanded_desktop**")) {
+                resId = mSystemUiResources.getIdentifier("com.android.systemui:drawable/ic_sysbar_expanded_desktop", null, null);
             }
         } else {
             try {
@@ -501,8 +503,8 @@ public class PieButtonSettings extends AOKPPreferenceFragment implements
                 return getResources().getString(R.string.pie_action_ime);
             else if (uri.equals("**kill**"))
                 return getResources().getString(R.string.pie_action_kill);
-            /*else if (uri.equals("**widgets**"))
-                return getResources().getString(R.string.pie_action_widgets);*/
+            else if (uri.equals("**widgets**"))
+                return getResources().getString(R.string.pie_action_widgets);
             else if (uri.equals("**power**"))
                 return getResources().getString(R.string.pie_action_power);
             else if (uri.equals("**notifications**"))
@@ -513,6 +515,8 @@ public class PieButtonSettings extends AOKPPreferenceFragment implements
                 return getResources().getString(R.string.pie_action_quicksettings);
             else if (uri.equals("**null**"))
                 return getResources().getString(R.string.pie_action_none);
+            else if (uri.equals("**expanded_desktop**"))
+                return getResources().getString(R.string.pie_action_expanded);
         } else {
             return mPicker.getFriendlyNameForUri(uri);
         }

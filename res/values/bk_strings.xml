@@ -546,6 +546,7 @@ Paranoid PIE control is wavely based on simple navigation to expanded desktop. S
     <string name="pie_action_power">Screen Off</string>
     <string name="pie_action_notifications">Notifications</string>
     <string name="pie_action_quicksettings">Quicksettings panel</string>
+    <string name="pie_action_expanded">Expanded Desktop</string>
     <string name="pie_action_none">None</string>
     <string name="color_default">Default</string>
 </resources>
