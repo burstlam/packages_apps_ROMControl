@@ -25,11 +25,17 @@ xmlns:android="http://schemas.android.com/apk/res/android">
         android:summary="@string/header_summary_notifications" />
 
     <header
+        android:id="@+id/lockscreenUI"
+        android:fragment="com.aokp.romcontrol.fragments.LockscreensUI"
+        android:title="@string/lockscreen_options"
+        android:icon="@drawable/ic_rom_control_lockscreens" />
+
+    <!--<header
         android:id="@+id/lockscreen"
         android:fragment="com.aokp.romcontrol.fragments.Lockscreens"
         android:title="@string/lockscreen_options"
         android:icon="@drawable/ic_rom_control_lockscreens"
-        android:summary="@string/header_summary_lockscreens" />
+        android:summary="@string/header_summary_lockscreens" />-->
 
     <header
         android:id="@+id/power_menu"
