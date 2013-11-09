@@ -11,13 +11,13 @@
     </Preference>
 
     <!-- Lock clock -->
-    <Preference
+    <PreferenceScreen
         android:key="lock_clock"
         android:title="@string/lock_clock_title">
         <intent android:action="android.intent.action.MAIN"
                 android:targetPackage="com.cyanogenmod.lockclock"
                 android:targetClass="com.cyanogenmod.lockclock.preference.Preferences" />
-    </Preference>
+    </PreferenceScreen>
 
     <PreferenceCategory
          android:key="shortcuts"
@@ -26,5 +26,78 @@
     <Preference
         android:fragment="com.aokp.romcontrol.fragments.Lockscreens"
         android:title="@string/ls_shortcuts_title" />
+
+    <PreferenceCategory
+        android:key="layout"
+        android:title="@string/lockscreen_layout_cat"/>
+
+            <CheckBoxPreference
+                android:key="lockscreen_battery"
+                android:title="@string/lockscreen_battery_title"
+                android:summary="@string/lockscreen_battery_summary" />
+
+            <CheckBoxPreference
+                android:key="lockscreen_all_widgets"
+                android:title="@string/lockscreen_all_widgets_title"
+                android:summary="@string/lockscreen_all_widgets_summary" />
+
+            <CheckBoxPreference
+                android:key="lockscreen_unlimited_widgets"
+                android:title="@string/lockscreen_unlimited_widgets_title"
+                android:summary="@string/lockscreen_unlimited_widgets_summary" />
+
+            <CheckBoxPreference
+                android:key="lockscreen_camera_widget"
+                android:title="@string/lockscreen_camera_widget_title"
+                android:summary="@string/lockscreen_camera_widget_summary" />
+
+        <CheckBoxPreference
+            android:key="lockscreen_hide_initial_page_hints"
+            android:title="@string/lockscreen_hide_initial_page_hints_title"
+            android:summary="@string/lockscreen_hide_initial_page_hints_summary" />
+
+        <CheckBoxPreference
+            android:key="lockscreen_minimize_challenge"
+            android:persistent="false"
+            android:title="@string/lockscreen_minimize_challenge_title"
+            android:summary="@string/lockscreen_minimize_challenge_summary" />
+
+    <PreferenceCategory
+        android:key="music"
+        android:title="@string/lockscreen_music_cat"/>
+
+        <CheckBoxPreference
+            android:key="lockscreen_music_controls"
+            android:persistent="false"
+            android:title="@string/volume_music_controls_title"
+            android:summary="@string/volume_music_controls_summary" />
+
+        <CheckBoxPreference
+            android:key="volume_rocker_wake"
+            android:title="@string/volume_rocker_wake_title"
+            android:summary="@string/volume_rocker_wake_summary"
+            android:defaultValue="false" />
+
+    <PreferenceCategory
+            android:key="misc"
+            android:title="@string/misc_short"/>
+
+            <ListPreference
+                android:key="lockscreen_glow_torch"
+                android:dialogTitle="@string/lockscreen_glow_torch_text"
+                android:title="@string/lockscreen_glow_torch_text"
+                android:summary="@string/lockscreen_glow_torch_summary"
+                android:entries="@array/pref_lockscreen_glowtorch_entries"
+                android:entryValues="@array/pref_lockscreen_glowtorch_values"/>
+
+            <CheckBoxPreference
+                android:key="lockscreen_auto_rotate"
+                android:title="@string/lockscreen_auto_rotate_title"
+                android:summary="@string/lockscreen_auto_rotate_summary" />
+
+            <CheckBoxPreference
+                android:key="lockscreen_use_widget_container_carousel"
+                android:title="@string/lockscreen_use_widget_container_carousel_title"
+                android:summary="@string/lockscreen_use_widget_container_carousel_summary" />
 
 </PreferenceScreen>

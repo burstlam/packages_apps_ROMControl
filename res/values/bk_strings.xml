@@ -19,7 +19,7 @@
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
-    <string name="ls_shortcuts_title">Lockscreen Settings</string>
+    <string name="ls_shortcuts_title">Lockscreen shortCuts</string>
     <string name="lock_clock_title">LockClock Settings</string>
 
     <!--Expanded Desktop Enhancement: Status Bar Switch -->
