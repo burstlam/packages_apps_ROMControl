@@ -917,8 +917,8 @@
         Fahrenheit and windspeed in km/h rather than mph.
     </string>
     <string name="weather_statusbar_style">Statusbar weather style</string>
-    <string name="title_weather_longclick">Weather panel long click actions</string>
-    <string name="title_weather_shortclick">Weather panel short click actions</string>
+    <string name="title_weather_longclick">Weather panel long click action</string>
+    <string name="title_weather_shortclick">Weather panel short click action</string>
     <string name="update">Update weather panel</string>
     <string name="weather_refreshing">Requesting weather update!</string>
     <string name="weather_loc_warning_title">Cannot retrieve location!</string>

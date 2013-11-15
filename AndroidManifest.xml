@@ -351,6 +351,15 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".fragments.Weather"
+            android:label="@string/title_weather" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="com.aokp.romcontrol.SHORTCUT" />
+            </intent-filter>
+        </activity>
+
         <provider
             android:name=".vibrations.VibrationsProvider"
             android:authorities="com.aokp.romcontrol.Vibrations"
@@ -365,6 +374,14 @@
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
+
+        <receiver
+            android:name=".weather.WeatherReceiver"
+            android:enabled="true" >
+            <intent-filter>
+                <action android:name="com.aokp.romcontrol.INTENT_WEATHER_REQUEST" />
+            </intent-filter>
+        </receiver>
 
         <receiver
             android:name=".service.BootReceiver">
@@ -393,6 +410,8 @@
         <service
             android:name=".service.ExternalCommandService"
             android:exported="false"/>
+        <service android:name=".weather.WeatherRefreshService" />
+        <service android:name=".weather.WeatherService" />
     </application>
 
 </manifest>
