@@ -289,6 +289,7 @@
         <item>@string/gear_battery</item>
         <item>@string/cm_battery</item>
         <item>@string/rb_battery9</item>
+        <item>@string/axiom_battery</item>
         <item>@string/dont_show</item>
     </string-array>
     <string-array name="battery_icon_values" translatable="false">

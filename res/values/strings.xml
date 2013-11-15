@@ -1093,6 +1093,7 @@
     <string name="square_battery">SquareMod</string>
     <string name="gear_battery">Gear</string>
     <string name="rb_battery9">Rush</string>
+    <string name="axiom_battery">Axiom</string>
 
     <!-- NavBar -->
     <string name="right">Right</string>
