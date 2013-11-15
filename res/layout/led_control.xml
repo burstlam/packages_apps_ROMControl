@@ -145,10 +145,25 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/linearLayout2"
+            android:id="@+id/bln"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/screen_on"
+            android:layout_marginTop="5dp">
+
+            <Switch
+                android:id="@+id/led_bln"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/title_bln" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/bln"
             android:layout_marginTop="5dp">
 
             <Switch

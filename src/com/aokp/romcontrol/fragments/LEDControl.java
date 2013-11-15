@@ -61,6 +61,7 @@ public class LEDControl extends Fragment implements ColorPickerDialog.OnColorCha
     private Button mEditApp;
     private Button mLedTest;
     private Switch mLedScreenOn;
+    private Switch mBln;
     private Switch mChargingLedOn;
     private ImageView mLEDButton;
     private Spinner mListApps;
@@ -87,6 +88,7 @@ public class LEDControl extends Fragment implements ColorPickerDialog.OnColorCha
     private int currentSelectedApp;
     private boolean hasBrightnessFeature;
     private boolean hasChargingFeature;
+    private boolean hasButtonLED;
 
     private HashMap<String, CustomApps> customAppList;
     private ArrayList<String> unicornApps;
@@ -111,6 +113,7 @@ public class LEDControl extends Fragment implements ColorPickerDialog.OnColorCha
         mLedTest = (Button) mActivity.findViewById(R.id.led_test);
         mLEDButton = (ImageView) mActivity.findViewById(R.id.ledbutton);
         mLedScreenOn = (Switch) mActivity.findViewById(R.id.led_screen_on);
+        mBln = (Switch) mActivity.findViewById(R.id.led_bln);
         mChargingLedOn = (Switch) mActivity.findViewById(R.id.charging_led_on);
         mListApps = (Spinner) mActivity.findViewById(R.id.custom_apps);
         mLedBrightness = (Button) mActivity.findViewById(R.id.button_led_brightness);
@@ -182,6 +185,22 @@ public class LEDControl extends Fragment implements ColorPickerDialog.OnColorCha
                 }
             }
         });
+
+        hasButtonLED = getResources().getBoolean(R.bool.has_button_led);
+
+        if (hasButtonLED) {
+            mBln.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                public void onCheckedChanged(CompoundButton v, boolean checked) {
+                    Settings.System.putInt(mActivity.getContentResolver(),
+                            Settings.System.NOTIFICATION_USE_BUTTON_BACKLIGHT, checked ? 1 : 0);
+                    if (DEBUG) {
+                        Log.i(TAG, "Button Light Notification is set to: " + checked);
+                    }
+                }
+            });
+        } else {
+            mBln.setVisibility(View.GONE);
+        }
 
         hasChargingFeature = getResources().getBoolean(R.bool.has_led_charging_feature);
 
@@ -402,6 +421,8 @@ public class LEDControl extends Fragment implements ColorPickerDialog.OnColorCha
         mLEDButton.setColorFilter(userColor, PorterDuff.Mode.MULTIPLY);
         mLedScreenOn.setChecked(Settings.Secure.getInt(mActivity.getContentResolver(),
                 Settings.Secure.LED_SCREEN_ON, 0) == 1);
+        mBln.setChecked(Settings.System.getInt(mActivity.getContentResolver(),
+                Settings.System.NOTIFICATION_USE_BUTTON_BACKLIGHT, 0) == 1);
 
         String charging_led_enabled = Helpers.getSystemProp(PROP_CHARGING_LED, "0");
         if (charging_led_enabled.length() == 0) {

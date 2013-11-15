@@ -725,6 +725,7 @@
     <string name="title_charging_led_on">Enable LED while charging (requires reboot)</string>
     <string name="led_change_brightness">Change brightness</string>
     <string name="led_brightness_default">Default brightness: 31</string>
+    <string name="title_bln"><b>B</b>utton<b>L</b>ight<b>N</b>otification</string>
 
     <!-- Sound -->
     <string name="increasing_ring_title">Ascending ringtone</string>

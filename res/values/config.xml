@@ -24,4 +24,6 @@
     <!-- Whether device has led charging feature -->
     <bool name="has_led_charging_feature">false</bool>
 
+    <!-- Whether device has button leds -->
+    <bool name="has_button_led">false</bool>
 </resources>
