@@ -18,6 +18,13 @@ xmlns:android="http://schemas.android.com/apk/res/android">
         android:summary="@string/header_summary_general_ui" />
 
     <header
+        android:id="@+id/hybrid"
+        android:fragment="com.aokp.romcontrol.beerbong.HybridSettings"
+        android:title="@string/title_hybridsettings"
+        android:icon="@drawable/ic_rom_control_hybrid"
+        android:summary="@string/header_summary_hybridsettings" />
+
+    <header
         android:id="@+id/statusbar_notifications"
         android:title="@string/statusbar_notifications"
         android:fragment="com.aokp.romcontrol.fragments.StatusBarNotifications"
