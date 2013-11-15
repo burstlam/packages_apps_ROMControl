@@ -84,11 +84,8 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
     private static final String PREF_RECENTS_CLEAR = "pref_recents_clear";
     private static final CharSequence PREF_RECENT_GOOGLE_ASSIST = "recent_google_assist";
     private static final CharSequence PREF_RAM_USAGE_BAR = "ram_usage_bar";
-    private static final CharSequence PREF_USER_MODE_UI = "user_mode_ui";
-    private static final CharSequence PREF_HIDE_EXTRAS = "hide_extras";
     private static final CharSequence PREF_WAKEUP_WHEN_PLUGGED_UNPLUGGED =
             "wakeup_when_plugged_unplugged";
-    private static final CharSequence PREF_FORCE_DUAL_PANEL = "force_dualpanel";
     private static final CharSequence PREF_DISABLE_BOOTANIM = "disable_bootanimation";
     private static final CharSequence PREF_CUSTOM_BOOTANIM = "custom_bootanimation";
     private static final CharSequence PREF_NAVBAR = "navbar";
@@ -116,10 +113,7 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
     CheckBoxPreference mRecentGoog;
     CheckBoxPreference mRamBar;
     AlertDialog mCustomBootAnimationDialog;
-    ListPreference mUserModeUI;
-    CheckBoxPreference mHideExtras;
     CheckBoxPreference mWakeUpWhenPluggedOrUnplugged;
-    CheckBoxPreference mDualpane;
     ListPreference mCrtMode;
     CheckBoxPreference mCrtOff;
     CheckBoxPreference mDarkUI;
@@ -137,7 +131,6 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
     private static int mLastRandomInsultIndex = -1;
     private String[] mInsults;
 
-    private int mUiMode;
     private int mSeekbarProgress;
     int mUserRotationAngles = -1;
 
@@ -186,25 +179,9 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
         mRamBar.setChecked(Settings.System.getBoolean(mContentResolver,
                 Settings.System.RAM_USAGE_BAR, false));
 
-        mHideExtras = (CheckBoxPreference) findPreference(PREF_HIDE_EXTRAS);
-        mHideExtras.setChecked(Settings.System.getBoolean(mContentResolver,
-                Settings.System.HIDE_EXTRAS_SYSTEM_BAR, false));
-
         mShowActionOverflow = (CheckBoxPreference) findPreference(PREF_SHOW_OVERFLOW);
         mShowActionOverflow.setChecked(Settings.System.getBoolean(mContentResolver,
                 Settings.System.UI_FORCE_OVERFLOW_BUTTON, false));
-
-        mUserModeUI = (ListPreference) findPreference(PREF_USER_MODE_UI);
-        int uiMode = Settings.System.getInt(mContentResolver,
-                Settings.System.CURRENT_UI_MODE, 0);
-        mUserModeUI.setValue(Integer.toString(Settings.System.getInt(mContentResolver,
-                Settings.System.USER_UI_MODE, uiMode)));
-        mUserModeUI.setOnPreferenceChangeListener(this);
-
-        mDualpane = (CheckBoxPreference) findPreference(PREF_FORCE_DUAL_PANEL);
-        mDualpane.setChecked(Settings.System.getBoolean(mContentResolver,
-                Settings.System.FORCE_DUAL_PANEL, getResources().getBoolean(
-                com.android.internal.R.bool.preferences_prefer_dual_pane)));
 
         boolean isCrtOffChecked = (Settings.System.getBoolean(mContentResolver,
                 Settings.System.SYSTEM_POWER_ENABLE_CRT_OFF, true));
@@ -237,14 +214,6 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
                 com.android.internal.R.bool.config_unplugTurnsOnScreen)) {
             ((PreferenceGroup) findPreference(PREF_DISPLAY))
                     .removePreference(mWakeUpWhenPluggedOrUnplugged);
-        }
-
-        mUiMode = Settings.System.getInt(mContext.getContentResolver(),
-                Settings.System.CURRENT_UI_MODE, 0);
-
-        if (mUiMode != 1) {
-            mHideExtras.setEnabled(false);
-            mHideExtras.setSummary(R.string.enable_tablet_ui);
         }
 
         resetBootAnimation();
@@ -313,16 +282,6 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
                                          Preference preference) {
         if (preference == mDisableBootAnimation) {
             DisableBootAnimation();
-            return true;
-        } else if (preference == mHideExtras) {
-            Settings.System.putBoolean(mContentResolver,
-                    Settings.System.HIDE_EXTRAS_SYSTEM_BAR,
-                    ((TwoStatePreference) preference).isChecked());
-            return true;
-        } else if (preference == mDualpane) {
-            Settings.System.putBoolean(mContentResolver,
-                    Settings.System.FORCE_DUAL_PANEL,
-                    ((TwoStatePreference) preference).isChecked());
             return true;
         } else if (preference == mCustomBootAnimation) {
             openBootAnimationDialog();
@@ -759,16 +718,7 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
 
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
-        if (preference == mUserModeUI) {
-            mUiMode = Integer.valueOf((String) newValue);
-            Settings.System.putInt(mContentResolver,
-                    Settings.System.USER_UI_MODE, mUiMode);
-            mHideExtras.setEnabled(mUiMode == 1 ? true : false);
-            mHideExtras.setSummary(mUiMode == 1 ? R.string.hide_extras_summary
-                    : R.string.enable_tablet_ui);
-            Helpers.restartSystemUI();
-            return true;
-        } else if (preference == mCrtMode) {
+        if (preference == mCrtMode) {
             int crtMode = Integer.valueOf((String) newValue);
             int index = mCrtMode.findIndexOfValue((String) newValue);
             Settings.System.putInt(getActivity().getContentResolver(),

@@ -559,6 +559,8 @@ Paranoid PIE control is wavely based on simple navigation to expanded desktop. S
     <string name="header_summary_hybridsettings">@null</string>
 
     <string name="hybrid_settings_title">Hybrid settings</string>
+    <string name="perapp_settings_title">Per App settings</string>
+    <string name="navbarUI_cat">Nav Bar UI and layout settings</string>
     <string name="uimode_title">UI Mode</string>
     <string name="uimode_phone">Phone (360dp)</string>
     <string name="uimode_phablet">Phablet (600dp)</string>

@@ -1,15 +1,19 @@
 package com.aokp.romcontrol.beerbong;
 
 import android.app.AlertDialog;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.os.Handler;
+import android.provider.Settings;
 import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceScreen;
+import android.preference.TwoStatePreference;
 import android.util.ExtendedPropertiesUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,9 +23,13 @@ import android.widget.TextView;
 
 import com.aokp.romcontrol.R;
 import com.aokp.romcontrol.AOKPPreferenceFragment;
+import com.aokp.romcontrol.util.Helpers;
 
+@SuppressWarnings("InstanceVariableMayNotBeInitialized")
 public class HybridSettings extends AOKPPreferenceFragment implements
         Preference.OnPreferenceChangeListener {
+    public final String TAG = getClass().getSimpleName();
+    private static final boolean DEBUG = false;
 
     private PreferenceScreen mDpiScreen;
     private Preference mAppsDpi;
@@ -29,6 +37,15 @@ public class HybridSettings extends AOKPPreferenceFragment implements
     private ListPreference mAppsUimode;
     private Preference mNavbarHeight;
     private CheckBoxPreference mAutoBackup;
+
+    private static final CharSequence PREF_USER_MODE_UI = "user_mode_ui";
+    private static final CharSequence PREF_HIDE_EXTRAS = "hide_extras";
+    private static final CharSequence PREF_FORCE_DUAL_PANEL = "force_dualpanel";
+
+    ListPreference mUserModeUI;
+    CheckBoxPreference mDualpane;
+    CheckBoxPreference mHideExtras;
+
     private Preference mBackup;
     private Preference mRestore;
 
@@ -38,16 +55,36 @@ public class HybridSettings extends AOKPPreferenceFragment implements
 
     private int mAppDpiProgress;
 
+    private int mCurrentuiMode;
+    private static ContentResolver mContentResolver;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mContext = getActivity();
+        mContentResolver = getContentResolver();
 
         addPreferencesFromResource(R.xml.hybrid_settings);
 
         mDpiScreen = (PreferenceScreen) findPreference("system_dpi");
 
         mAppsDpi = findPreference("apps_dpi");
+
+        mUserModeUI = (ListPreference) findPreference(PREF_USER_MODE_UI);
+        int uiMode = Settings.System.getInt(mContentResolver,
+                Settings.System.CURRENT_UI_MODE, 0);
+        mUserModeUI.setValue(Integer.toString(Settings.System.getInt(mContentResolver,
+                Settings.System.USER_UI_MODE, uiMode)));
+        mUserModeUI.setOnPreferenceChangeListener(this);
+
+        mDualpane = (CheckBoxPreference) findPreference(PREF_FORCE_DUAL_PANEL);
+        mDualpane.setChecked(Settings.System.getBoolean(mContentResolver,
+                Settings.System.FORCE_DUAL_PANEL, getResources().getBoolean(
+                com.android.internal.R.bool.preferences_prefer_dual_pane)));
+
+        mHideExtras = (CheckBoxPreference) findPreference(PREF_HIDE_EXTRAS);
+        mHideExtras.setChecked(Settings.System.getBoolean(mContentResolver,
+                Settings.System.HIDE_EXTRAS_SYSTEM_BAR, false));
 
         mUimode = (ListPreference) findPreference("ui_mode");
 
@@ -81,6 +118,14 @@ public class HybridSettings extends AOKPPreferenceFragment implements
 
         mRestore.setEnabled(Applications.backupExists());
 
+        mCurrentuiMode = Settings.System.getInt(mContext.getContentResolver(),
+                Settings.System.CURRENT_UI_MODE, 0);
+
+        if (mCurrentuiMode != 1) {
+            mHideExtras.setEnabled(false);
+            mHideExtras.setSummary(R.string.enable_tablet_ui);
+        }
+
         updateSummaries();
     }
 
@@ -103,6 +148,14 @@ public class HybridSettings extends AOKPPreferenceFragment implements
             editor.commit();
         } else if (preference == mAppsDpi) {
             showAppsDpiDialog();
+        } else if (preference == mHideExtras) {
+            Settings.System.putBoolean(mContentResolver,
+                    Settings.System.HIDE_EXTRAS_SYSTEM_BAR,
+                    ((TwoStatePreference) preference).isChecked());
+        } else if (preference == mDualpane) {
+            Settings.System.putBoolean(mContentResolver,
+                    Settings.System.FORCE_DUAL_PANEL,
+                    ((TwoStatePreference) preference).isChecked());
         }
         updateSummaries();
         return super.onPreferenceTreeClick(preferenceScreen, preference);
@@ -116,8 +169,16 @@ public class HybridSettings extends AOKPPreferenceFragment implements
         } else if ("apps_ui_mode".equals(key)) {
             String layout = (String) objValue;
             Applications.addAppsLayout(mContext, layout);
+        } else if (preference == mUserModeUI) {
+            mCurrentuiMode = Integer.valueOf((String) objValue);
+            Settings.System.putInt(mContentResolver,
+                    Settings.System.USER_UI_MODE, mCurrentuiMode);
+            mHideExtras.setEnabled(mCurrentuiMode == 1 ? true : false);
+            mHideExtras.setSummary(mCurrentuiMode == 1 ? R.string.hide_extras_summary
+                    : R.string.enable_tablet_ui);
+            Helpers.restartSystemUI();
+            return true;
         }
-
         updateSummaries();
         return true;
     }

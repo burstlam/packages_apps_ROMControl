@@ -27,6 +27,35 @@
             android:key="apps_dpi"
             android:title="@string/apps_dpi_title"
             android:summary="@string/apps_dpi_summary" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="navbar"
+        android:title="@string/navbarUI_cat">
+
+        <ListPreference
+            android:key="user_mode_ui"
+            android:title="@string/user_mode_ui"
+            android:summary="@string/user_mode_ui_summary"
+            android:entries="@array/user_mode_ui_entries"
+            android:entryValues="@array/user_mode_ui_values" />
+
+        <CheckBoxPreference
+            android:key="hide_extras"
+            android:title="@string/hide_extras"
+            android:summary="@string/hide_extras_summary"
+            android:defaultValue="false" />
+
+        <CheckBoxPreference
+            android:key="force_dualpanel"
+            android:title="@string/multipane_ui"
+            android:summary="@string/multipane_ui_summary"
+            android:defaultValue="false" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/perapp_settings_title">
 
         <PreferenceScreen
             android:key="dpi_groups"
