@@ -52,6 +52,10 @@
             android:summary="@string/multipane_ui_summary"
             android:defaultValue="false" />
 
+        <!--<Preference
+            android:key="navbar_height"
+            android:title="@string/navbar_height_title" />-->
+
     </PreferenceCategory>
 
     <PreferenceCategory
@@ -74,10 +78,6 @@
             android:fragment="com.aokp.romcontrol.beerbong.Widgets"
             android:title="@string/widgets_title"
             android:summary="@string/widgets_summary" />
-
-        <Preference
-            android:key="navbar_height"
-            android:title="@string/navbar_height_title" />
 
     </PreferenceCategory>
 
