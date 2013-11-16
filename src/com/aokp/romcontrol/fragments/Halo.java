@@ -91,7 +91,7 @@ public class Halo extends AOKPPreferenceFragment
 
         mHaloEnabled = (SwitchPreference) findPreference(KEY_HALO_ENABLED);
         mHaloEnabled.setChecked(Settings.System.getInt(mContext.getContentResolver(),
-                Settings.System.HALO_ENABLED, 0) == 1);
+                Settings.System.HALO_ENABLED, 1) == 1);
         mHaloEnabled.setOnPreferenceChangeListener(this);
 
         mHaloState = (ListPreference) prefSet.findPreference(KEY_HALO_STATE);

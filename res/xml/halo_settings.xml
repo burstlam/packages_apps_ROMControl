@@ -11,7 +11,7 @@
             android:dialogTitle="@string/halo_state_title"
             android:title="@string/halo_state_title"
             android:summary="@string/halo_state_summary"
-         android:dependency="halo_enabled"
+            android:dependency="halo_enabled"
             android:entries="@array/entries_halo_state"
             android:entryValues="@array/values_halo_state" />
 
@@ -19,7 +19,7 @@
             android:key="halo_hide"
             android:title="@string/halo_hide_title"
             android:summary="@string/halo_hide_summary"
-         android:dependency="halo_enabled"
+            android:dependency="halo_enabled"
             android:defaultValue="false" />
 
         <CheckBoxPreference
