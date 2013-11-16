@@ -106,7 +106,7 @@ public class DpiGroups extends AOKPPreferenceFragment {
         try {
             properties = new Properties();
             properties.load(new FileInputStream(
-                    "/system/etc/beerbong/properties.conf"));
+                    "/system/etc/burstlam/properties.conf"));
         } catch (Throwable t) {
             throw new RuntimeException(t);
         }
