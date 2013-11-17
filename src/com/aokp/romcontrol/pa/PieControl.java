@@ -242,6 +242,9 @@ public class PieControl extends AOKPPreferenceFragment
                     (Boolean) newValue ? 1 : 0);
             Settings.System.putInt(getActivity().getContentResolver(),
                     Settings.System.NAV_HIDE_ENABLE, pievalue);
+            Settings.System.putInt(getActivity().getContentResolver(),
+                    Settings.System.USER_UI_MODE, 0);
+            Helpers.restartSystemUI();
             return true;
         } else if (preference == mPieMode) {
             int pieMode = Integer.valueOf((String) newValue);
