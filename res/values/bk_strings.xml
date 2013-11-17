@@ -620,6 +620,15 @@ Paranoid PIE control is wavely based on simple navigation to expanded desktop. S
     <string name="widget_remove_widget">Remove %s widget from list?</string>
     <string name="widget_add_title">Choose an application</string>
 
+    <!-- Per Apps UI Mode-->
+    <string name="expanded_title">Expand</string>
+    <string name="expanded_summary">Define which to expand desktop for each app</string>
+    <string name="add_expand">Add application</string>
+    <string name="expand_list">Expand enabled</string>
+    <string name="expand_add_title">Choose an application</string>
+    <string name="expand_alert_remove_application">Remove Application</string>
+    <string name="expand_remove_application">Remove %s application from auto expand?</string>
+
     <!-- Tile background style and text color -->
     <string name="custom_toggle_colors">Custom colors</string>
     <string name="tile_background_style_title">Tile background style</string>

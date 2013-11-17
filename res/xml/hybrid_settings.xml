@@ -74,6 +74,12 @@
             android:summary="@string/per_app_layout_summary" />
 
         <PreferenceScreen
+            android:key="expand"
+            android:fragment="com.aokp.romcontrol.beerbong.Expand"
+            android:title="@string/expanded_title"
+            android:summary="@string/expanded_summary" />
+
+        <PreferenceScreen
             android:key="widgets"
             android:fragment="com.aokp.romcontrol.beerbong.Widgets"
             android:title="@string/widgets_title"
