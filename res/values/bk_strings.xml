@@ -318,6 +318,8 @@
     <string name="pie_menu_summary">Whether or not the menu button will appear when unneeded</string>
     <string name="pie_search_title">Show search button</string>
     <string name="pie_search_summary">Access to GoogleNow</string>
+    <string name="pie_power_title">Power button</string>
+    <string name="pie_power_summary">Enable power button on pie controls</string>
     <string name="pie_lastapp_title">Last app</string>
     <string name="pie_lastapp_summary">Enable last app button</string>
     <string name="pie_killtask_title">Kill task</string>

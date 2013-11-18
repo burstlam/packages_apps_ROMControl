@@ -55,13 +55,14 @@ public class PieControl extends AOKPPreferenceFragment
     private static final String PIE_ANGLE = "pie_angle";
     private static final String PIE_GAP = "pie_gap";
     private static final String PIE_CENTER = "pie_center";
-    private static final String PIE_STICK = "pie_stick";
+    //private static final String PIE_STICK = "pie_stick";
     private static final String PIE_NOTIFICATIONS = "pie_notifications";
     private static final String PIE_LASTAPP = "pie_lastapp";
     private static final String PIE_KILLTASK = "pie_killtask";
     private static final String PIE_APPWINDOW = "pie_appwindow";
     private static final String PIE_ACTNOTIF = "pie_actnotif";
-    //private static final String PIE_ACTQS = "pie_actqs";
+    private static final String PIE_POWER = "pie_power";
+    private static final String PIE_ACTQS = "pie_actqs";
     private static final String PIE_MENU = "pie_menu";
     private static final String PIE_SEARCH = "pie_search";
     private static final String PIE_RESTART = "pie_restart_launcher";
@@ -75,13 +76,14 @@ public class PieControl extends AOKPPreferenceFragment
     private CheckBoxPreference mPieCenter;
     private CheckBoxPreference mPieNotifi;
     private CheckBoxPreference mPieLastApp;
+    private CheckBoxPreference mPiePower;
     private CheckBoxPreference mPieKillTask;
     private CheckBoxPreference mPieAppWindow;
     private CheckBoxPreference mPieActNotif;
-    //private CheckBoxPreference mPieActQs;
+    private CheckBoxPreference mPieActQs;
     private CheckBoxPreference mPieMenu;
     private CheckBoxPreference mPieSearch;
-    private CheckBoxPreference mPieStick;
+    //private CheckBoxPreference mPieStick;
     private CheckBoxPreference mPieRestart;
     private SwitchPreference mPieControls;
 
@@ -140,9 +142,9 @@ public class PieControl extends AOKPPreferenceFragment
         mPieCenter.setChecked(Settings.System.getInt(mContext.getContentResolver(),
                 Settings.System.PIE_CENTER, 1) == 1);
 
-        mPieStick = (CheckBoxPreference) prefSet.findPreference(PIE_STICK);
-        mPieStick.setChecked(Settings.System.getInt(mContext.getContentResolver(),
-                Settings.System.PIE_STICK, 1) == 1);
+        //mPieStick = (CheckBoxPreference) prefSet.findPreference(PIE_STICK);
+        //mPieStick.setChecked(Settings.System.getInt(mContext.getContentResolver(),
+        //        Settings.System.PIE_STICK, 1) == 1);
 
         mPieRestart = (CheckBoxPreference) prefSet.findPreference(PIE_RESTART);
         mPieRestart.setChecked(Settings.System.getInt(mContext.getContentResolver(),
@@ -176,13 +178,17 @@ public class PieControl extends AOKPPreferenceFragment
         mPieAppWindow.setChecked(Settings.System.getInt(mContext.getContentResolver(),
                 Settings.System.PIE_APP_WINDOW, 0) == 1);
 
+        mPiePower = (CheckBoxPreference) prefSet.findPreference(PIE_POWER);
+        mPiePower.setChecked(Settings.System.getInt(getActivity().getContentResolver(),
+                Settings.System.PIE_POWER, 0) == 1);
+
         mPieActNotif = (CheckBoxPreference) prefSet.findPreference(PIE_ACTNOTIF);
         mPieActNotif.setChecked(Settings.System.getInt(mContext.getContentResolver(),
                 Settings.System.PIE_ACT_NOTIF, 0) == 1);
 
-        //mPieActQs = (CheckBoxPreference) prefSet.findPreference(PIE_ACTQS);
-        //mPieActQs.setChecked(Settings.System.getInt(mContext.getContentResolver(),
-        //        Settings.System.PIE_ACT_QS, 0) == 1);
+        mPieActQs = (CheckBoxPreference) prefSet.findPreference(PIE_ACTQS);
+        mPieActQs.setChecked(Settings.System.getInt(mContext.getContentResolver(),
+                Settings.System.PIE_ACT_QS, 0) == 1);
 
         mPieMenu = (CheckBoxPreference) prefSet.findPreference(PIE_MENU);
         mPieMenu.setChecked(Settings.System.getInt(mContext.getContentResolver(),
@@ -211,9 +217,12 @@ public class PieControl extends AOKPPreferenceFragment
         } else if (preference == mPieActNotif) {
             Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
                     Settings.System.PIE_ACT_NOTIF, mPieActNotif.isChecked() ? 1 : 0);
-        //} else if (preference == mPieActQs) {
-        //    Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
-        //            Settings.System.PIE_ACT_QS, mPieActQs.isChecked() ? 1 : 0);
+        } else if (preference == mPiePower) {
+            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
+                    Settings.System.PIE_POWER, mPiePower.isChecked() ? 1 : 0);
+        } else if (preference == mPieActQs) {
+            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
+                    Settings.System.PIE_ACT_QS, mPieActQs.isChecked() ? 1 : 0);
         } else if (preference == mPieMenu) {
             Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
                     Settings.System.PIE_MENU, mPieMenu.isChecked() ? 1 : 0);
@@ -223,9 +232,9 @@ public class PieControl extends AOKPPreferenceFragment
         } else if (preference == mPieCenter) {
             Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
                     Settings.System.PIE_CENTER, mPieCenter.isChecked() ? 1 : 0);
-        } else if (preference == mPieStick) {
-            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
-                    Settings.System.PIE_STICK, mPieStick.isChecked() ? 1 : 0);
+        //} else if (preference == mPieStick) {
+        //    Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
+        //            Settings.System.PIE_STICK, mPieStick.isChecked() ? 1 : 0);
         } else if (preference == mPieRestart) {
             Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
                     Settings.System.EXPANDED_DESKTOP_RESTART_LAUNCHER, mPieRestart.isChecked() ? 1 : 0);
